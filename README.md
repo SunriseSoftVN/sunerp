@@ -22,6 +22,7 @@ Who behind?
 ![SunriseSoft](https://raw.github.com/dungvn3000/sunerp/master/logo.png "SunriseSoft")
 
 Công ty TNHH SunriseSoft (SUNRISESOFT COMPANY LIMITED)
+
     Địa chỉ: 354/41/5 Phan Văn Trị, P11, Q. Bình Thạnh, Tp. Hồ Chí Minh
     Giấy phép kinh doanh: 0312616690
     Điện thoại: 08.62896162
@@ -30,11 +31,13 @@ Công ty TNHH SunriseSoft (SUNRISESOFT COMPANY LIMITED)
     Email: lienhe@sunrisesoft.vn
 
 Project leader:
+
     Nguyen Duc Dung
     Email: dungvn3000@gmail.com
     Facebook:
 
 Team member:
+
     Pham Cong Bang
     Email: Pham Cong Bang
 
