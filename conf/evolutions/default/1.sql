@@ -16,6 +16,7 @@ create table `phong_bang` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`donV
 create table `quy_luong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`soTien` BIGINT NOT NULL);
 create table `role` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL);
 create table `so_luong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVienId` BIGINT NOT NULL,`chucVu` VARCHAR(254) NOT NULL,`heSoLuong` DOUBLE NOT NULL,`luongNd` BIGINT NOT NULL,`k2` DOUBLE NOT NULL,`luongSP` BIGINT NOT NULL,`luongTgCong` DOUBLE NOT NULL,`luongTgTien` BIGINT NOT NULL,`cacKhoangCongId` BIGINT NOT NULL,`cacKhoangTruId` BIGINT NOT NULL,`createdDate` TIMESTAMP NOT NULL);
+create table `so_phan_cong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVienId` BIGINT NOT NULL,`taskId` BIGINT NOT NULL,`khoiLuong` DOUBLE NOT NULL,`gio` DOUBLE NOT NULL);
 create table `user` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`username` VARCHAR(254) NOT NULL,`fullname` VARCHAR(254) NOT NULL,`password` VARCHAR(254) NOT NULL,`role_id` BIGINT NOT NULL,`nhanVienId` BIGINT);
 alter table `authority` add constraint `role_authority_fk` foreign key(`roleId`) references `role`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `company_setting` add constraint `company_company_setting_fk` foreign key(`companyId`) references `company`(`id`) on update NO ACTION on delete NO ACTION;
@@ -57,5 +58,6 @@ drop table `phong_bang`;
 drop table `quy_luong`;
 drop table `role`;
 drop table `so_luong`;
+drop table `so_phan_cong`;
 drop table `user`;
 
