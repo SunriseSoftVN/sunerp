@@ -1,0 +1,31 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET           /                      controllers.HomeCtr.index
+GET           /menuItems             controllers.HomeCtr.menuItems
+
+GET           /user                  controllers.UserCtr.index
+POST          /user                  controllers.UserCtr.save
+PUT           /user/:id              controllers.UserCtr.update(id: Long)
+DELETE        /user/:id              controllers.UserCtr.delete(id: Long)
+
+GET           /role                  controllers.RoleCtr.index
+POST          /role                  controllers.RoleCtr.save
+PUT           /role/:id              controllers.RoleCtr.update(id: Long)
+DELETE        /role/:id              controllers.RoleCtr.delete(id: Long)
+GET           /role/all              controllers.RoleCtr.all
+
+GET           /authority             controllers.AuthorityCtr.index
+POST          /authority             controllers.AuthorityCtr.save
+PUT           /authority/:id         controllers.AuthorityCtr.update(id: Long)
+DELETE        /authority/:id         controllers.AuthorityCtr.delete(id: Long)
+
+GET           /user/login            controllers.AuthCtr.login
+POST          /user/auth             controllers.AuthCtr.auth
+GET           /user/logout           controllers.AuthCtr.logout
+
+# Map static resources from the /public folder to the /assets URL path
+GET           /assets/*file          controllers.Assets.at(path="/public", file)
+GET           /partials/*file        controllers.Assets.at(path="/public/html", file)

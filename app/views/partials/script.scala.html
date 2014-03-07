@@ -1,0 +1,8 @@
+@(scriptName : String)
+@import play.Play
+
+@if(Play.isDev) {
+<script type="text/javascript" src="/assets/js/@{scriptName}.js"></script>
+} else {
+<script type="text/javascript" src="/assets/js/@{scriptName}.min.js"></script>
+}

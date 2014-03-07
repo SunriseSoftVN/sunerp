@@ -1,0 +1,12 @@
+application.name=SunERP
+application.url=SunERP.vn
+application.title=SunERP
+application.description=SunERP
+login.failed=Tên đăng nhập hoặc mật khẩu không đúng
+password.error.match=Mật khẩu không giống nhau
+email.exist=Email này đã đuợc đăng ký xin vui lòng sử dụng email khác
+user.page.title=Users
+btn.addNew=Add new
+btn.submit=Submit
+btn.cancel=Cancel
+user.profile=User Profile

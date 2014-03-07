@@ -1,0 +1,19 @@
+@()(implicit user: Option[User])
+
+@import views.html.partials._
+
+<!DOCTYPE html>
+<html>
+<head>
+    @header(user)
+</head>
+
+<body>
+<div id="loading-container">
+    <div id="loading">
+        <div class="title">SunERP is loading...</div>
+        <img src="/assets/img/loading.gif" alt="SunERP"/>
+    </div>
+</div>
+</body>
+</html>

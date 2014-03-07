@@ -1,0 +1,25 @@
+@(user: Option[User])
+@import play.Play
+<title>@Messages("application.title")</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0">
+<meta name="description" content='@Messages("application.title")'/>
+<meta name="keywords" content="ERP"/>
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.ico">
+
+<link rel="stylesheet" type="text/css" href="/assets/extjs/resources/css/ext-all-neptune.css">
+<link rel="stylesheet" type="text/css" href="/assets/extjs/src/ux/grid/css/GridFilters.css" />
+<link rel="stylesheet" type="text/css" href="/assets/extjs/src/ux/grid/css/RangeMenu.css" />
+<link rel="stylesheet" media="screen" href="/assets/css/main.min.css">
+
+@if(Play.isDev) {
+<script type="text/javascript" src="/assets/extjs/ext-debug.js"></script>
+} else {
+<script type="text/javascript" src="/assets/extjs/ext-all.js"></script>
+}
+
+@if(user.isDefined) {
+@script("app")
+} else {
+@script("login")
+}
