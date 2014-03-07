@@ -39,7 +39,7 @@ Project leader:
 Team member:
 
     Pham Cong Bang
-    Email: Pham Cong Bang
+    Email: congbangmm83@gmail.com
 
     Phan Hong Phuc
     Email: phanhongphucit@gmail.com
