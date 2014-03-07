@@ -47,5 +47,5 @@ Team member:
 
 Some screenshot
 
-(https://raw.github.com/dungvn3000/sunerp/master/screen1.png)
-(https://raw.github.com/dungvn3000/sunerp/master/screen2.png)
+![Screenshot 1](https://raw.github.com/dungvn3000/sunerp/master/screen1.png)
+![Screenshot 2](https://raw.github.com/dungvn3000/sunerp/master/screen2.png)
