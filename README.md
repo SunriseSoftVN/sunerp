@@ -34,7 +34,7 @@ Project leader:
 
     Nguyen Duc Dung
     Email: dungvn3000@gmail.com
-    Facebook:
+    Facebook: https://www.facebook.com/dungvn3000
 
 Team member:
 
