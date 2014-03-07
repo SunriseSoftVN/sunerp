@@ -22,6 +22,8 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "so_phan_cong
 
   def nhanVienId = column[Long]("nhanVienId", O.NotNull)
 
+  def nhanVien = foreignKey("nhan_vien_so_phan_cong_fk", nhanVienId, NhanViens)(_.id)
+
   def taskId = column[Long]("taskId", O.NotNull)
 
   def khoiLuong = column[Double]("khoiLuong", O.NotNull)

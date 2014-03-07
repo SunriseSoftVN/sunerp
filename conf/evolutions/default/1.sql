@@ -29,6 +29,7 @@ alter table `phong_bang` add constraint `doi_vi_phong_bang_fk` foreign key(`donV
 alter table `so_luong` add constraint `nhanvien_so_luong_fk` foreign key(`nhanVienId`) references `nhan_vien`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `so_luong` add constraint `cac_khoang_cong_so_luong_fk` foreign key(`cacKhoangCongId`) references `cac_khoan_cong`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `so_luong` add constraint `cac_khoang_tru_so_luong_fk` foreign key(`cacKhoangTruId`) references `cac_khoang_tru`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `so_phan_cong` add constraint `nhan_vien_so_phan_cong_fk` foreign key(`nhanVienId`) references `nhan_vien`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `user` add constraint `role_fk` foreign key(`role_id`) references `role`(`id`) on update NO ACTION on delete NO ACTION;
 
 # --- !Downs
@@ -44,6 +45,7 @@ ALTER TABLE phong_bang DROP FOREIGN KEY doi_vi_phong_bang_fk;
 ALTER TABLE so_luong DROP FOREIGN KEY nhanvien_so_luong_fk;
 ALTER TABLE so_luong DROP FOREIGN KEY cac_khoang_cong_so_luong_fk;
 ALTER TABLE so_luong DROP FOREIGN KEY cac_khoang_tru_so_luong_fk;
+ALTER TABLE so_phan_cong DROP FOREIGN KEY nhan_vien_so_phan_cong_fk;
 ALTER TABLE user DROP FOREIGN KEY role_fk;
 drop table `authority`;
 drop table `cac_khoan_cong`;
