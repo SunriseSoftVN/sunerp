@@ -11,7 +11,7 @@ Ext.define('sunerp.view.Header', {
         {
             xtype: 'component',
             id: 'app-header-title',
-            html: 'SunERP v1.0.1',
+            html: 'SunERP v0.0.1',
             flex: 1
         },
         {

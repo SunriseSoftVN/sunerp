@@ -44,3 +44,8 @@ Team member:
     Phan Hong Phuc
     Email: phanhongphucit@gmail.com
     Facebook: https://www.facebook.com/phanhongphucit
+
+Some screenshot
+
+(https://raw.github.com/dungvn3000/sunerp/master/screen1.png)
+(https://raw.github.com/dungvn3000/sunerp/master/screen2.png)
