@@ -15,7 +15,21 @@ case class SoPhanCong(
                        nhanVienId: Long,
                        taskId: Long,
                        khoiLuong: Double,
-                       gio: Double
+                       gio: Double,
+                       lamDem: Boolean,
+                       baoHoLaoDong: Boolean,
+                       docHai: Boolean,
+                       le: Boolean,
+                       tet: Boolean,
+                       thaiSan: Boolean,
+                       dauOm: Boolean,
+                       conOm: Boolean,
+                       taiNanLd: Boolean,
+                       hop: Boolean,
+                       hocDaiHan: Boolean,
+                       hocDotXuat: Boolean,
+                       viecRieng: Boolean,
+                       chuNhat: Boolean
                        ) extends WithId[Long]
 
 class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "so_phan_cong") {
@@ -30,7 +44,36 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "so_phan_cong
 
   def gio = column[Double]("gio", O.NotNull)
 
-  def * = (id.?, nhanVienId, taskId, khoiLuong, gio) <>(SoPhanCong.tupled, SoPhanCong.unapply)
+  def lamDem = column[Boolean]("lamDem", O.NotNull, O.Default(false))
+
+  def baoHoLaoDong = column[Boolean]("baoHoLaoDong", O.NotNull, O.Default(false))
+
+  def docHai = column[Boolean]("docHai", O.NotNull, O.Default(false))
+
+  def le = column[Boolean]("le", O.NotNull, O.Default(false))
+
+  def tet = column[Boolean]("tet", O.NotNull, O.Default(false))
+
+  def thaiSan = column[Boolean]("thaiSan", O.NotNull, O.Default(false))
+
+  def dauOm = column[Boolean]("dauOm", O.NotNull, O.Default(false))
+
+  def conOm = column[Boolean]("conOm", O.NotNull, O.Default(false))
+
+  def taiNanLd = column[Boolean]("taiNanLd", O.NotNull, O.Default(false))
+
+  def hop = column[Boolean]("hop", O.NotNull, O.Default(false))
+
+  def hocDaiHan = column[Boolean]("hocDaiHan", O.NotNull, O.Default(false))
+
+  def hocDotXuat = column[Boolean]("hocDotXuat", O.NotNull, O.Default(false))
+
+  def viecRieng = column[Boolean]("viecRieng", O.NotNull, O.Default(false))
+
+  def chuNhat = column[Boolean]("chuNhat", O.NotNull, O.Default(false))
+
+  def * = (id.?, nhanVienId, taskId, khoiLuong, gio, lamDem, baoHoLaoDong, docHai, le, tet,
+    thaiSan, dauOm, conOm, taiNanLd, hop, hocDaiHan, hocDotXuat, viecRieng, chuNhat) <>(SoPhanCong.tupled, SoPhanCong.unapply)
 }
 
 object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCongs(_)) {
