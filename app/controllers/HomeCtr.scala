@@ -14,29 +14,25 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     children = List(
       MenuItemDto(
         id = "user",
-        controller = "UserCtr",
-        view = "userList",
+        view = "sunerp.view.user.UserList",
         text = "Tài khoản",
         leaf = true
       ),
       MenuItemDto(
         id = "role",
-        controller = "RoleCtr",
-        view = "roleList",
+        view = "sunerp.view.role.RoleList",
         text = "Quyền hành",
         leaf = true
       ),
       MenuItemDto(
         id = "authority",
-        controller = "AuthorityCtr",
-        view = "authorityList",
+        view = "sunerp.view.authority.AuthorityList",
         text = "Phân quyền",
         leaf = true
       ),
       MenuItemDto(
         id = "soPhanCong",
-        controller = "SoPhanCongCtr",
-        view = "soPhanCongList",
+        view = "sunerp.view.sophancong.SoPhanCongList",
         text = "Sổ phân công",
         leaf = true
       )

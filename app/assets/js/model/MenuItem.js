@@ -5,7 +5,6 @@ Ext.define('sunerp.model.MenuItem', {
         'children',
         'text',
         'id',
-        'controller',
         'view',
         'leaf'
     ]

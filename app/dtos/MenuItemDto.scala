@@ -14,7 +14,6 @@ case class MenuItemDto(
                         text: String = "",
                         expanded: Boolean = false,
                         leaf: Boolean = false,
-                        controller: String = "",
                         view: String = "",
                         children: List[MenuItemDto] = Nil
                         )

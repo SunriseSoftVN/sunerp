@@ -1,7 +1,7 @@
 Ext.define('sunerp.view.user.UserList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.userList',
-    store: 'Users',
+//    store: 'Users',
     initComponent: function () {
         var me = this;
 

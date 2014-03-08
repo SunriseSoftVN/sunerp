@@ -1,4 +1,4 @@
-Ext.define('sunerp.view.Navigation', {
+Ext.define('sunerp.view.LeftPanel', {
     extend: 'Ext.tree.Panel',
     xtype: 'navigation',
     title: 'Menu',

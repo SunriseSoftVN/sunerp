@@ -4,9 +4,12 @@ Ext.define('sunerp.view.Viewport', {
         'Ext.tab.Panel',
         'Ext.layout.container.Border',
         'sunerp.view.Header',
-        'sunerp.view.Navigation',
-        'sunerp.view.ContentPanel'
+        'sunerp.view.LeftPanel',
+        'sunerp.view.ContentPanel',
+        'sunerp.controller.NavigationCtr'
     ],
+
+    controller: "sunerp.controller.NavigationCtr",
 
     layout: 'border',
 
