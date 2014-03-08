@@ -4,6 +4,7 @@ import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.json.Json
 
 /**
  * The Class CompanySetting.
@@ -38,5 +39,7 @@ object CompanySettings extends AbstractQuery[CompanySetting, CompanySettings](ne
       "luongToiThieu" -> longNumber
     )(CompanySetting.apply)(CompanySetting.unapply)
   )
+
+  implicit val companySettingJsonFormat = Json.format[CompanySetting]
 
 }

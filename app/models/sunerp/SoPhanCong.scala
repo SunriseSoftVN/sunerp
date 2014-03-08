@@ -7,6 +7,7 @@ import com.github.tototoshi.slick.MySQLJodaSupport._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.format.Formats._
+import play.api.libs.json.Json
 
 /**
  * The Class SoPhanCong.
@@ -69,5 +70,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       "ngayPhanCong" -> jodaDate
     )(SoPhanCong.apply)(SoPhanCong.unapply)
   )
+
+  implicit val soPhanCongJsonFormat = Json.format[SoPhanCong]
 
 }

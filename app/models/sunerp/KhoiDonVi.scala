@@ -4,6 +4,7 @@ import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.json.Json
 
 /**
  * The Class KhoiDonVi.
@@ -38,5 +39,7 @@ object KhoiDonVis extends AbstractQuery[KhoiDonVi, KhoiDonVis](new KhoiDonVis(_)
       "companyId" -> longNumber
     )(KhoiDonVi.apply)(KhoiDonVi.unapply)
   )
+
+  implicit val khoiDonViJsonFormat = Json.format[KhoiDonVi]
 
 }

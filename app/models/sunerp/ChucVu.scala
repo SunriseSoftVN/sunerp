@@ -4,6 +4,7 @@ import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.json.Json
 
 /**
  * The Class ChucVu.
@@ -35,4 +36,7 @@ object ChucVus extends AbstractQuery[ChucVu, ChucVus](new ChucVus(_)) {
       "phuCapTrachNhiem" -> longNumber
     )(ChucVu.apply)(ChucVu.unapply)
   )
+
+  implicit val chucVuJsonFormat = Json.format[ChucVu]
+
 }

@@ -2,6 +2,9 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.libs.json.Json
 
 /**
  * The Class PhongBang.
@@ -28,5 +31,15 @@ class PhongBangs(tag: Tag) extends AbstractTable[PhongBang](tag, "phong_bang") {
 }
 
 object PhongBangs extends AbstractQuery[PhongBang, PhongBangs](new PhongBangs(_)) {
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "donViId" -> longNumber,
+      "name" -> text
+    )(PhongBang.apply)(PhongBang.unapply)
+  )
+
+  implicit val phongBangJsonFormat = Json.format[PhongBang]
 
 }
