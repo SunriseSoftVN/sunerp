@@ -3,18 +3,18 @@ SunERP (Made in VietNam)
 
 Vietnamese ERP Open Source (Development Mode)
 
-Scala + Playframework 2 + Slick + ExtJS
+Scala + Playframework 2 + Slick + ExtJS + DefJs
 
-Why Scala?
+Why Scala? (http://www.scala-lang.org/)
 - TODO
 
-Why Playframework?
+Why Playframework? (http://www.playframework.com/)
 - TODO
 
-Why Slick?
+Why Slick? (http://slick.typesafe.com/)
 - TODO
 
-Why ExtJs?
+Why ExtJs and DefJs? (http://www.sencha.com/products/extjs - http://deftjs.org/)
 - TODO
 
 Why open sources?
@@ -50,8 +50,3 @@ Team member:
     Phan Hong Phuc
     Email: phanhongphucit@gmail.com
     Facebook: https://www.facebook.com/phanhongphucit
-
-Some screenshot
-
-![Screenshot 1](https://raw.github.com/dungvn3000/sunerp/master/screen1.png)
-![Screenshot 2](https://raw.github.com/dungvn3000/sunerp/master/screen2.png)
