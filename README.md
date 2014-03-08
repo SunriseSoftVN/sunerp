@@ -3,7 +3,7 @@ SunERP (Made in VietNam)
 
 Vietnamese ERP Open Source (Development Mode)
 
-Scala + Playframework 2 + Slick + ExtJS + DefJs
+Scala + Playframework 2 + Slick + ExtJS + DeftJs
 
 Why Scala? (http://www.scala-lang.org/)
 - TODO
@@ -14,7 +14,7 @@ Why Playframework? (http://www.playframework.com/)
 Why Slick? (http://slick.typesafe.com/)
 - TODO
 
-Why ExtJs and DefJs? (http://www.sencha.com/products/extjs - http://deftjs.org/)
+Why ExtJs and DeftJs? (http://www.sencha.com/products/extjs - http://deftjs.org/)
 - TODO
 
 Why open sources?
