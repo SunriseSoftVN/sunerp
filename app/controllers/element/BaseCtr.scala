@@ -1,6 +1,6 @@
 package controllers.element
 
-import play.api.mvc.{Controller, AnyContent, Action}
+import play.api.mvc.Controller
 import models.core.{WithId, AbstractTable, AbstractQuery}
 import jp.t2v.lab.play2.auth.AuthElement
 import jp.t2v.lab.play2.stackc.StackableController
@@ -20,8 +20,8 @@ abstract class BaseCtr[E <: WithId[Long], T <: AbstractTable[E]] extends Control
 
   val domainName: String
   val dao: AbstractQuery[E, T]
-  val editForm: Form[E]
   implicit val jsonWrite: Writes[E]
+  def editForm: Form[E]
 
   def index = StackAction(AuthorityKey -> domainName)(implicit request => {
     val paging = PagingDto(request)

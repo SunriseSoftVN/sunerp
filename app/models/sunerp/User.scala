@@ -5,6 +5,9 @@ import scala.slick.lifted.Tag
 import models.core.{WithId, AbstractTable, AbstractQuery, Hash}
 import dtos.{ExtGirdDto, PagingDto, UserDto}
 import play.api.libs.json.Json
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.data.format.Formats._
 
 /**
  * The Class User.
@@ -112,4 +115,15 @@ object Users extends AbstractQuery[User, Users](new Users(_)) {
   }
 
   implicit val userJsonFomart = Json.format[User]
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(of[Long]),
+      "username" -> text(minLength = 4),
+      "fullname" -> text(minLength = 4),
+      "password" -> text(minLength = 4),
+      "roleId" -> longNumber,
+      "userDataId" -> optional(longNumber)
+    )(User.apply)(User.unapply)
+  )
 }

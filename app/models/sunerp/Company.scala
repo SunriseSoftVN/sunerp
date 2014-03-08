@@ -4,6 +4,9 @@ import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import scala.slick.lifted.Tag
 import play.api.libs.json.Json
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.data.format.Formats._
 
 /**
  * The Class Company.
@@ -38,4 +41,15 @@ class Companies(tag: Tag) extends AbstractTable[Company](tag, "company") {
 
 object Companies extends AbstractQuery[Company, Companies](new Companies(_)) {
   implicit val companyJsonFormat = Json.format[Company]
+
+  def editFrom = Form(
+    mapping(
+      "id" -> optional(of[Long]),
+      "name" -> text(minLength = 4),
+      "address" -> text(minLength = 4),
+      "phone" -> text(minLength = 4),
+      "email" -> email,
+      "mst" -> text(minLength = 4)
+    )(Company.apply)(Company.unapply)
+  )
 }

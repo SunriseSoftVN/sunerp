@@ -3,6 +3,9 @@ package models.sunerp
 import play.api.db.slick.Config.driver.simple._
 import models.core.{WithId, AbstractQuery, AbstractTable}
 import play.api.libs.json.Json
+import play.api.data.format.Formats._
+import play.api.data.Form
+import play.api.data.Forms._
 
 /**
  * The Class Role.
@@ -26,6 +29,12 @@ object Roles extends AbstractQuery[Role, Roles](new Roles(_)) {
 
   def findByName(name: String)(implicit session: Session) = where(_.name === name).firstOption
 
+  def editForm = Form(
+    mapping(
+      "id" -> optional(of[Long]),
+      "name" -> text(minLength = 4)
+    )(Role.apply)(Role.unapply)
+  )
 
   implicit val roleJsonFormat = Json.format[Role]
 }

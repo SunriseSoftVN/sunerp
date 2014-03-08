@@ -5,6 +5,8 @@ import scala.slick.lifted.Tag
 import models.core.{WithId, AbstractTable, AbstractQuery}
 import play.api.libs.json.Json
 import dtos.{AuthorityDto, ExtGirdDto, PagingDto}
+import play.api.data.Form
+import play.api.data.Forms._
 
 /**
  * The Class Authority.
@@ -73,6 +75,14 @@ object Authorities extends AbstractQuery[Authority, Authorities](new Authorities
       data = rows
     )
   }
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "domain" -> nonEmptyText,
+      "roleId" -> longNumber
+    )(Authority.apply)(Authority.unapply)
+  )
 
   implicit val jsonFormat = Json.format[Authority]
 }
