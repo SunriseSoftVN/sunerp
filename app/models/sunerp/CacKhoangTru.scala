@@ -2,6 +2,9 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
+import play.api.data.format.Formats._
+import play.api.data.Form
+import play.api.data.Forms._
 
 /**
  * The Class CacKhoangTru.
@@ -36,4 +39,14 @@ class CacKhoangTrus(tag: Tag) extends AbstractTable[CacKhoangTru](tag, "cac_khoa
 
 object CacKhoangTrus extends AbstractQuery[CacKhoangTru, CacKhoangTrus](new CacKhoangTrus(_)) {
 
+  def editForm = Form(
+    mapping(
+      "id" -> optional(of[Long]),
+      "doanPhi" -> longNumber,
+      "ungKy1" -> longNumber,
+      "bhyt" -> longNumber,
+      "bhxh" -> longNumber,
+      "thuNo" -> longNumber
+    )(CacKhoangTru.apply)(CacKhoangTru.unapply)
+  )
 }

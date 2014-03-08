@@ -32,7 +32,6 @@ object DBinit {
 
         Users += User(
           username = "admin",
-          fullname = "admin",
           password = Hash.createPassword("admin"),
           roleId = role.id.get
         )

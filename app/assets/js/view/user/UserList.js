@@ -8,7 +8,6 @@ Ext.define('sunerp.view.user.UserList', {
         me.columns = [
             {xtype: 'rownumberer'},
             {header: 'Username', dataIndex: 'username', flex: 1},
-            {header: 'Fullname', dataIndex: 'fullname', flex: 1},
             {
                 header: 'Role',
                 dataIndex: 'role.name',

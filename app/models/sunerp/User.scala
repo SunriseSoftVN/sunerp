@@ -19,7 +19,6 @@ import play.api.data.format.Formats._
 case class User(
                  id: Option[Long] = None,
                  username: String,
-                 fullname: String,
                  password: String,
                  roleId: Long,
                  nhanVienId: Option[Long] = None
@@ -32,8 +31,6 @@ class Users(tag: Tag) extends AbstractTable[User](tag, "user") {
 
   def username = column[String]("username", O.NotNull)
 
-  def fullname = column[String]("fullname", O.NotNull)
-
   def password = column[String]("password", O.NotNull)
 
   def roleId = column[Long]("role_id", O.NotNull)
@@ -42,7 +39,7 @@ class Users(tag: Tag) extends AbstractTable[User](tag, "user") {
 
   def role = foreignKey("role_fk", roleId, Roles)(_.id)
 
-  def * = (id.?, username, fullname, password, roleId, nhanVienId.?) <>(User.tupled, User.unapply)
+  def * = (id.?, username, password, roleId, nhanVienId.?) <>(User.tupled, User.unapply)
 }
 
 object Users extends AbstractQuery[User, Users](new Users(_)) {
@@ -120,7 +117,6 @@ object Users extends AbstractQuery[User, Users](new Users(_)) {
     mapping(
       "id" -> optional(of[Long]),
       "username" -> text(minLength = 4),
-      "fullname" -> text(minLength = 4),
       "password" -> text(minLength = 4),
       "roleId" -> longNumber,
       "userDataId" -> optional(longNumber)

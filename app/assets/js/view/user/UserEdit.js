@@ -18,13 +18,6 @@ Ext.define('sunerp.view.user.UserEdit', {
                     },
                     {
                         xtype: 'textfield',
-                        name : 'fullname',
-                        fieldLabel: 'Fullname',
-                        allowBlank: false,
-                        minLength: 4
-                    },
-                    {
-                        xtype: 'textfield',
                         inputType: 'password',
                         name : 'password',
                         fieldLabel: 'Password',

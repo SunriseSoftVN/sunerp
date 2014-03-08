@@ -2,6 +2,8 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
+import play.api.data.Form
+import play.api.data.Forms._
 
 /**
  * The Class ChucVu.
@@ -26,4 +28,11 @@ class ChucVus(tag: Tag) extends AbstractTable[ChucVu](tag, "chuc_vu") {
 
 object ChucVus extends AbstractQuery[ChucVu, ChucVus](new ChucVus(_)) {
 
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "name" -> text(minLength = 4),
+      "phuCapTrachNhiem" -> longNumber
+    )(ChucVu.apply)(ChucVu.unapply)
+  )
 }

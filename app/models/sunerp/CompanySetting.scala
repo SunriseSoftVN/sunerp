@@ -2,6 +2,8 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
+import play.api.data.Form
+import play.api.data.Forms._
 
 /**
  * The Class CompanySetting.
@@ -28,5 +30,13 @@ class CompanySettings(tag: Tag) extends AbstractTable[CompanySetting](tag, "comp
 }
 
 object CompanySettings extends AbstractQuery[CompanySetting, CompanySettings](new CompanySettings(_)) {
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "companyId" -> longNumber,
+      "luongToiThieu" -> longNumber
+    )(CompanySetting.apply)(CompanySetting.unapply)
+  )
 
 }

@@ -3,6 +3,8 @@ package models.sunerp
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.libs.json.Json
+import play.api.data.Form
+import play.api.data.Forms._
 
 /**
  * The Class DonVi.
@@ -34,4 +36,13 @@ class DonVis(tag: Tag) extends AbstractTable[DonVi](tag, "don_vi") {
 
 object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
   implicit val donViJsonFormat = Json.format[DonVi]
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "name" -> text(minLength = 4),
+      "companyId" -> longNumber,
+      "khoiDonViId" -> optional(longNumber)
+    )(DonVi.apply)(DonVi.unapply)
+  )
 }

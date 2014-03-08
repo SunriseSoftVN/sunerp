@@ -13,7 +13,6 @@ import models.sunerp.{User, Role, Roles}
 case class UserDto(
                     id: Long,
                     username: String,
-                    fullname: String,
                     password: String,
                     roleId: Long,
                     role: Role
@@ -25,7 +24,6 @@ object UserDto {
     new UserDto(
       id = user.id.get,
       username = user.username,
-      fullname = user.fullname,
       password = user.password,
       roleId = user.roleId,
       role = role
@@ -38,7 +36,6 @@ object UserDto {
     override def writes(dto: UserDto) = Json.obj(
       "id" -> dto.id,
       "username" -> dto.username,
-      "fullname" -> dto.fullname,
       "password" -> dto.password,
       "roleId" -> dto.roleId,
       "role" -> roleJsonFormat.writes(dto.role)

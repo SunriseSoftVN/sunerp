@@ -2,6 +2,8 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
+import play.api.data.Form
+import play.api.data.Forms._
 
 /**
  * The Class LuongPhuCap.
@@ -50,5 +52,21 @@ class CacKhoanCongs(tag: Tag) extends AbstractTable[CacKhoanCong](tag, "cac_khoa
 }
 
 object CacKhoanCongs extends AbstractQuery[CacKhoanCong, CacKhoanCongs](new CacKhoanCongs(_)) {
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "phuCapTn" -> longNumber,
+      "phuCapLd" -> longNumber,
+      "trucBHLD" -> longNumber,
+      "phuCapKV" -> longNumber,
+      "congPhanLuong" -> longNumber,
+      "chiKhac" -> longNumber,
+      "luongDocHai" -> longNumber,
+      "nuocUong" -> longNumber,
+      "anGiuaCa" -> longNumber,
+      "omDauSinhDe" -> longNumber
+    )(CacKhoanCong.apply)(CacKhoanCong.unapply)
+  )
 
 }

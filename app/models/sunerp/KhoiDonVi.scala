@@ -2,6 +2,8 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
+import play.api.data.Form
+import play.api.data.Forms._
 
 /**
  * The Class KhoiDonVi.
@@ -28,5 +30,13 @@ class KhoiDonVis(tag: Tag) extends AbstractTable[KhoiDonVi](tag, "khoi_don_vi") 
 }
 
 object KhoiDonVis extends AbstractQuery[KhoiDonVi, KhoiDonVis](new KhoiDonVis(_)) {
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "name" -> text(minLength = 4),
+      "companyId" -> longNumber
+    )(KhoiDonVi.apply)(KhoiDonVi.unapply)
+  )
 
 }

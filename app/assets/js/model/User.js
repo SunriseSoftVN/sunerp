@@ -3,7 +3,6 @@ Ext.define('sunerp.model.User', {
     fields: [
         'username',
         'password',
-        'fullname',
         'roleId',
         'role',
         {name: 'role.name', mapping: 'role.name'}
