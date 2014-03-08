@@ -4,6 +4,7 @@ import models.core.{AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.db.slick.DB
 import play.api.Play.current
+import play.api.libs.json.Json
 
 /**
  * The Class task.
@@ -36,4 +37,5 @@ object Tasks extends TableQuery[Tasks](new Tasks(_)) {
     where(_.id === id).firstOption
   })
 
+  implicit val taskJsonFormat = Json.format[Task]
 }

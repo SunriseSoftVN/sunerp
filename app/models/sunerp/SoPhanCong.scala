@@ -8,6 +8,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.libs.json.Json
+import exception.ForeignKeyNotFound
 
 /**
  * The Class SoPhanCong.
@@ -26,7 +27,16 @@ case class SoPhanCong(
                        ghiChu: String,
                        soPhanCongExtId: Long,
                        ngayPhanCong: DateTime
-                       ) extends WithId[Long]
+                       ) extends WithId[Long] {
+
+  var _soPhanCongExt: Option[SoPhanCongExt] = None
+
+  def soPhanCongExt(implicit session: Session) = _soPhanCongExt.getOrElse {
+    val result = SoPhanCongExts.findById(soPhanCongExtId).getOrElse(throw ForeignKeyNotFound())
+    _soPhanCongExt = Some(result)
+    result
+  }
+}
 
 class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "so_phan_cong") {
 

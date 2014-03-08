@@ -4,6 +4,7 @@ import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.json.Json
 
 /**
  * The Class SoPhanCongExt.
@@ -85,5 +86,7 @@ object SoPhanCongExts extends AbstractQuery[SoPhanCongExt, SoPhanCongExts](new S
       "chuNhat" -> boolean
     )(SoPhanCongExt.apply)(SoPhanCongExt.unapply)
   )
+
+  implicit val soPhanCongExtJsonFormat = Json.format[SoPhanCongExt]
 
 }
