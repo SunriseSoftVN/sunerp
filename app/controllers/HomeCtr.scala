@@ -32,6 +32,13 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
         view = "authorityList",
         text = "Phân quyền",
         leaf = true
+      ),
+      MenuItemDto(
+        id = "soPhanCong",
+        controller = "SoPhanCongCtr",
+        view = "soPhanCongList",
+        text = "Sổ phân công",
+        leaf = true
       )
     )
   )
