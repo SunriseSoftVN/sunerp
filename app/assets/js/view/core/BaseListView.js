@@ -26,12 +26,12 @@ Ext.define('sunerp.view.core.BaseListView', {
     ],
     initComponent: function () {
         var me = this;
-//        me.bbar = Ext.create('Ext.PagingToolbar', {
-//            store: me.store,
-//            displayInfo: true,
-//            displayMsg: 'Displaying topics {0} - {1} of {2}',
-//            emptyMsg: "No topics to display"
-//        });
+        me.bbar = Ext.create('Ext.PagingToolbar', {
+            store: me.store,
+            displayInfo: true,
+            displayMsg: 'Displaying topics {0} - {1} of {2}',
+            emptyMsg: "No topics to display"
+        });
         me.callParent(arguments);
     },
     deleteBtn: function () {

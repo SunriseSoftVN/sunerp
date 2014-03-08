@@ -1,10 +1,15 @@
 Ext.define('sunerp.view.user.UserList', {
     extend: 'sunerp.view.core.BaseListView',
+    requires: ['sunerp.controller.UserCtr'],
+    controller: 'sunerp.controller.UserCtr',
     alias: 'widget.userList',
-//    store: 'Users',
+    inject: ['users'],
+    config: {
+        users: null
+    },
     initComponent: function () {
         var me = this;
-
+        me.store = me.getUsers();
         me.columns = [
             {xtype: 'rownumberer'},
             {header: 'Username', dataIndex: 'username', flex: 1},
