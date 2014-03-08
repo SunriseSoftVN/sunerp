@@ -2,6 +2,8 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
+import org.joda.time.DateTime
+import com.github.tototoshi.slick.MySQLJodaSupport._
 
 /**
  * The Class SoPhanCong.
@@ -14,6 +16,7 @@ case class SoPhanCong(
                        id: Option[Long] = None,
                        nhanVienId: Long,
                        taskId: Long,
+                       phongBangId: Long,
                        khoiLuong: Double,
                        gio: Double,
                        lamDem: Boolean,
@@ -29,7 +32,9 @@ case class SoPhanCong(
                        hocDaiHan: Boolean,
                        hocDotXuat: Boolean,
                        viecRieng: Boolean,
-                       chuNhat: Boolean
+                       chuNhat: Boolean,
+                       ghiChu: String,
+                       ngayPhanCong: DateTime
                        ) extends WithId[Long]
 
 class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "so_phan_cong") {
@@ -39,6 +44,10 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "so_phan_cong
   def nhanVien = foreignKey("nhan_vien_so_phan_cong_fk", nhanVienId, NhanViens)(_.id)
 
   def taskId = column[Long]("taskId", O.NotNull)
+
+  def phongBangId = column[Long]("phongBangId", O.NotNull)
+
+  def phongBang = foreignKey("phong_bang_so_phan_cong_fk", phongBangId, PhongBangs)(_.id)
 
   def khoiLuong = column[Double]("khoiLuong", O.NotNull)
 
@@ -72,8 +81,12 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "so_phan_cong
 
   def chuNhat = column[Boolean]("chuNhat", O.NotNull, O.Default(false))
 
-  def * = (id.?, nhanVienId, taskId, khoiLuong, gio, lamDem, baoHoLaoDong, docHai, le, tet,
-    thaiSan, dauOm, conOm, taiNanLd, hop, hocDaiHan, hocDotXuat, viecRieng, chuNhat) <>(SoPhanCong.tupled, SoPhanCong.unapply)
+  def ghiChu = column[String]("ghiChu")
+
+  def ngayPhanCong = column[DateTime]("ngayPhanCong", O.NotNull)
+
+  def * = (id.?, nhanVienId, taskId, phongBangId, khoiLuong, gio, lamDem, baoHoLaoDong, docHai, le, tet,
+    thaiSan, dauOm, conOm, taiNanLd, hop, hocDaiHan, hocDotXuat, viecRieng, chuNhat, ghiChu, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
 }
 
 object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCongs(_)) {
