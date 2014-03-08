@@ -17,6 +17,12 @@ Why Slick?
 Why ExtJs?
 - TODO
 
+Why open sources?
+- TODO
+
+Why need to join us?
+- TODO
+
 Who behind?
 
 ![SunriseSoft](https://raw.github.com/dungvn3000/sunerp/master/logo.png "SunriseSoft")
