@@ -4,6 +4,9 @@ import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import org.joda.time.DateTime
 import com.github.tototoshi.slick.MySQLJodaSupport._
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.data.format.Formats._
 
 /**
  * The Class SoLuong.
@@ -61,5 +64,22 @@ class SoLuongs(tag: Tag) extends AbstractTable[SoLuong](tag, "so_luong") {
 }
 
 object SoLuongs extends AbstractQuery[SoLuong, SoLuongs](new SoLuongs(_)) {
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "nhanVienId" -> longNumber,
+      "chucVu" -> text(minLength = 4),
+      "heSoLuong" -> of[Double],
+      "luongNd" -> longNumber,
+      "k2" -> of[Double],
+      "luongSP" -> longNumber,
+      "luongTgCong" -> of[Double],
+      "luongTgTien" -> longNumber,
+      "cacKhoangCongId" -> longNumber,
+      "cacKhoangTruId" -> longNumber,
+      "createdDate" -> jodaDate
+    )(SoLuong.apply)(SoLuong.unapply)
+  )
 
 }

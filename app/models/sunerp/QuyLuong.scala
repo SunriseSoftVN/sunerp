@@ -2,7 +2,8 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
-
+import play.api.data.Form
+import play.api.data.Forms._
 
 /**
  * The Class QuyLuong.
@@ -24,5 +25,12 @@ class QuyLuongs(tag: Tag) extends AbstractTable[QuyLuong](tag, "quy_luong") {
 }
 
 object QuyLuongs extends AbstractQuery[QuyLuong, QuyLuongs](new QuyLuongs(_)) {
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "soTien" -> longNumber
+    )(QuyLuong.apply)(QuyLuong.unapply)
+  )
 
 }
