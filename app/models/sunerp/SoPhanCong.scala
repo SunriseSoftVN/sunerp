@@ -29,7 +29,7 @@ case class SoPhanCong(
                        ngayPhanCong: DateTime
                        ) extends WithId[Long] {
 
-  var _soPhanCongExt: Option[SoPhanCongExt] = None
+  private var _soPhanCongExt: Option[SoPhanCongExt] = None
 
   def soPhanCongExt(implicit session: Session) = _soPhanCongExt.getOrElse {
     val result = SoPhanCongExts.findById(soPhanCongExtId).getOrElse(throw ForeignKeyNotFound())
