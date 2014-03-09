@@ -4,7 +4,6 @@
 
 Ext.define('sunerp.controller.NavigationCtr', {
     extend: 'Deft.mvc.ViewController',
-
     control: {
         navigation: {
             selector: 'navigation',

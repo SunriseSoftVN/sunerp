@@ -3,13 +3,13 @@ Ext.define('sunerp.view.user.UserList', {
     requires: ['sunerp.controller.UserCtr'],
     controller: 'sunerp.controller.UserCtr',
     alias: 'widget.userList',
-    inject: ['users'],
+    inject: ['userStore'],
     config: {
-        users: null
+        userStore: null
     },
     initComponent: function () {
         var me = this;
-        me.store = me.getUsers();
+        me.store = me.getUserStore();
         me.columns = [
             {xtype: 'rownumberer'},
             {header: 'Username', dataIndex: 'username', flex: 1},

@@ -5,5 +5,13 @@ Ext.define('sunerp.view.LeftPanel', {
     rootVisible: false,
     lines: false,
     useArrows: true,
-    store: Ext.create('sunerp.store.Navigations')
+    inject: ['navigationStore'],
+    config: {
+        navigationStore: null
+    },
+
+    initComponent: function() {
+        this.store = this.getNavigationStore();
+        this.callParent(arguments);
+    }
 });

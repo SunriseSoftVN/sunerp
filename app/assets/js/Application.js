@@ -8,9 +8,10 @@ Ext.define('sunerp.Application', {
     requires: [
         'Ext.tip.QuickTipManager',
         'Ext.window.MessageBox',
-        'sunerp.store.Users',
-        'sunerp.store.Roles',
-        'sunerp.store.Authorities'
+        'sunerp.store.UserStore',
+        'sunerp.store.NavigationStore',
+        'sunerp.store.RoleStore',
+        'sunerp.store.AuthorityStore'
     ],
 
     /**
@@ -28,9 +29,10 @@ Ext.define('sunerp.Application', {
     buildInjectorConfiguration: function() {
         var config;
         config = {
-            users: 'sunerp.store.Users',
-            roles: 'sunerp.store.Roles',
-            authorities: 'sunerp.store.Authorities'
+            userStore: 'sunerp.store.UserStore',
+            roleStore: 'sunerp.store.RoleStore',
+            navigationStore: 'sunerp.store.NavigationStore',
+            authorityStore: 'sunerp.store.AuthorityStore'
         };
         return config;
     }

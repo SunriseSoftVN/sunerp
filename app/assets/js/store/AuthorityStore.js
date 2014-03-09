@@ -1,4 +1,4 @@
-Ext.define('sunerp.store.Authorities', {
+Ext.define('sunerp.store.AuthorityStore', {
     extend: 'sunerp.store.BaseStore',
     model: 'sunerp.model.Authority',
     proxy: {
