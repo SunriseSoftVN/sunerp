@@ -5,7 +5,8 @@ Ext.define('sunerp.controller.user.UserListCtr', {
         userStore: null
     },
     editView: 'sunerp.view.user.UserEdit',
-    init: function() {
+    searchField: 'username',
+    init: function () {
         this.mainStore = this.getUserStore();
         this.callParent(arguments);
     }
