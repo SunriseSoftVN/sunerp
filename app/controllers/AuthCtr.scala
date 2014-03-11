@@ -33,7 +33,7 @@ object AuthCtr extends Controller with StackableController with AuthConfigImpl w
 
   def auth = AsyncStack(implicit request => {
     loginForm.bindFromRequest.fold(
-      error => Future.successful(BadRequest),
+      error => Future.successful(InternalServerError),
       tuple => gotoLoginSucceeded(tuple._1)
     )
   })

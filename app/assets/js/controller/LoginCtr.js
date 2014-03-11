@@ -26,6 +26,7 @@ Ext.define('sunerp.controller.LoginCtr', {
     },
 
     doLogin: function (button) {
+        var root = location.protocol + '//' + location.host;
         var form = button.up('form');
         if (form.isValid()) {
             form.submit({
@@ -33,11 +34,10 @@ Ext.define('sunerp.controller.LoginCtr', {
                 waitTitle: 'Connecting',
                 waitMsg: 'Checking you username and password...',
                 success: function () {
-                    window.location = "/";
+                    window.location.href = root;
                 },
                 failure: function (form, action) {
-                    var error = Ext.decode(action.response.responseText);
-                    Ext.Msg.alert('Login Failed!', error[0].msg);
+                    Ext.Msg.alert('Login Failed!', "Username or password is not match");
                 }
             });
         }

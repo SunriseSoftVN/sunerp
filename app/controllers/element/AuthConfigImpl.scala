@@ -13,6 +13,7 @@ import org.apache.commons.digester.SimpleRegexMatcher
 import org.apache.commons.lang3.StringUtils
 import models.sunerp
 import models.sunerp.Users
+import play.api.libs.json.Json
 
 /**
  * The Class AuthConfigImpl.
@@ -39,7 +40,7 @@ trait AuthConfigImpl extends AuthConfig with Rendering with AcceptExtractors {
 
   implicit val idTag: ClassTag[Id] = classTag[Id]
 
-  def loginSucceeded(request: RequestHeader)(implicit context: ExecutionContext) = Future.successful(Ok)
+  def loginSucceeded(request: RequestHeader)(implicit context: ExecutionContext) = Future.successful(Ok(Json.obj("success" -> true)))
 
   def logoutSucceeded(request: RequestHeader)(implicit context: ExecutionContext) = Future.successful(Redirect("/user/login"))
 
