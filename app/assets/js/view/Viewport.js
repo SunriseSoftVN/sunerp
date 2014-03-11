@@ -35,7 +35,8 @@ Ext.define('sunerp.view.Viewport', {
         },
         {
             region: 'center',
-            xtype: 'contentPanel'
+            xtype: 'contentPanel',
+            id: 'content-panel'
         }
     ]
 });

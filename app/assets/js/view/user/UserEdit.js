@@ -2,8 +2,15 @@ Ext.define('sunerp.view.user.UserEdit', {
     extend: 'sunerp.view.core.BaseEditView',
     alias: 'widget.userEdit',
     title: 'Edit User',
-
-    initComponent: function() {
+    requires: ['sunerp.controller.user.UserEditCtr'],
+    controller: 'sunerp.controller.user.UserEditCtr',
+    inject: ['userStore', 'roleStore'],
+    config: {
+        user: null,
+        userStore: null,
+        roleStore: null
+    },
+    initComponent: function () {
         this.items = [
             {
                 xtype: 'form',
@@ -11,7 +18,7 @@ Ext.define('sunerp.view.user.UserEdit', {
                 items: [
                     {
                         xtype: 'textfield',
-                        name : 'username',
+                        name: 'username',
                         allowBlank: false,
                         minLength: 4,
                         fieldLabel: 'Username'
@@ -19,7 +26,7 @@ Ext.define('sunerp.view.user.UserEdit', {
                     {
                         xtype: 'textfield',
                         inputType: 'password',
-                        name : 'password',
+                        name: 'password',
                         fieldLabel: 'Password',
                         allowBlank: false,
                         minLength: 4
@@ -28,13 +35,7 @@ Ext.define('sunerp.view.user.UserEdit', {
                         xtype: 'comboboxx',
                         fieldLabel: 'Role',
                         name: 'roleId',
-                        store: Ext.create('sunerp.store.Roles', {
-                            proxy: {
-                                type: 'ajax',
-                                url: '/role/all',
-                                reader: 'json'
-                            }
-                        }),
+                        store: this.getRoleStore(),
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,

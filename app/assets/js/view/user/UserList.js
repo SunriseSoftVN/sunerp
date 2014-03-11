@@ -1,7 +1,7 @@
 Ext.define('sunerp.view.user.UserList', {
     extend: 'sunerp.view.core.BaseListView',
-    requires: ['sunerp.controller.UserCtr'],
-    controller: 'sunerp.controller.UserCtr',
+    requires: ['sunerp.controller.user.UserListCtr'],
+    controller: 'sunerp.controller.user.UserListCtr',
     alias: 'widget.userList',
     inject: ['userStore'],
     config: {

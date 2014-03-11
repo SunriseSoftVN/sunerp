@@ -28,8 +28,8 @@ Ext.define('sunerp.controller.NavigationCtr', {
         if (id) {// only leaf nodes have ids
             contentPanel.removeAll(true);
             //create new view
-            var cmp = Ext.create(viewClassName);
-            contentPanel.add(cmp);
+            var view = Ext.create(viewClassName);
+            contentPanel.add(view);
             contentPanel.setTitle(text);
         }
     }
