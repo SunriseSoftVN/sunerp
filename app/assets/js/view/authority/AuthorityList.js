@@ -1,10 +1,15 @@
 Ext.define('sunerp.view.authority.AuthorityList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.authorityList',
-    store: 'Authorities',
+    requires: ['sunerp.controller.authority.AuthorityListCtr'],
+    controller: 'sunerp.controller.authority.AuthorityListCtr',
+    inject: ['authorityStore'],
+    config: {
+        authorityStore: null
+    },
     initComponent: function () {
         var me = this;
-
+        me.store = this.getAuthorityStore();
         me.columns = [
             {xtype: 'rownumberer'},
             {header: 'Domain', dataIndex: 'domain', flex: 1},
