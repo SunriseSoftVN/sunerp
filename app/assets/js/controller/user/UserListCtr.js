@@ -1,29 +1,12 @@
 Ext.define('sunerp.controller.user.UserListCtr', {
-    extend: 'Deft.mvc.ViewController',
+    extend: 'sunerp.controller.core.BaseListController',
     inject: ['userStore'],
     config: {
         userStore: null
     },
-    control: {
-        view: {
-            itemdblclick: "showEditView"
-        },
-        addBtn: {
-            selector: 'button[action=addNew]',
-            listeners: {
-                click: 'showAddPanel'
-            }
-        }
-    },
-    init: function () {
+    editView: 'sunerp.view.user.UserEdit',
+    init: function() {
+        this.mainStore = this.getUserStore();
         this.callParent(arguments);
-    },
-    showEditView: function (grid, record) {
-        var view = Ext.create('sunerp.view.user.UserEdit', {
-            user: record
-        });
-    },
-    showAddPanel: function() {
-        var view = Ext.create('sunerp.view.user.UserEdit');
     }
 });

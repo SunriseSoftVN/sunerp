@@ -6,7 +6,7 @@ Ext.define('sunerp.view.user.UserEdit', {
     controller: 'sunerp.controller.user.UserEditCtr',
     inject: ['userStore', 'roleStore'],
     config: {
-        user: null,
+        model: null,
         userStore: null,
         roleStore: null
     },
