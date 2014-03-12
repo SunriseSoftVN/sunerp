@@ -4,8 +4,12 @@ import com.scalext.direct.dispatcher.ParallelDispatcher
 import com.scalext.direct.remoting.api._
 import play.api.Play.current
 import play.api.libs.json._
-import play.api.mvc.{Controller, Action}
-
+import play.api.mvc.{AnyContent, Request, Controller, Action}
+import scala.concurrent.{ExecutionContext, Future}
+import ExecutionContext.Implicits.global
+import com.scalext.direct.RPCFactory._
+import play.api.libs.json.JsArray
+import play.api.libs.json.JsObject
 
 /** Api Controller
   */
@@ -14,6 +18,7 @@ object Api extends Controller {
   import com.scalext.direct.RPCFactory._
 
   def isDebugMode = play.api.Play.mode == play.api.Mode.Dev
+
   val dispatcher = new ParallelDispatcher(ApiFactory.classes)
 
   /** Build the javascript API
@@ -25,54 +30,59 @@ object Api extends Controller {
 
   /** Execute a JSON request
     */
-  def executeApi = Action { request =>
-      try {
-        val rpcResults = request.contentType.get match {
-          // Default JSON
-          case "application/json" =>
-            request.body.asJson.get match {
-              case JsArray(elements) =>
-                elements.map(buildRpc)
-              case obj: JsObject =>
-                List(buildRpc(obj))
-              case _ =>
-                throw new Exception("Invalid Json Input")
-            }
-          // Form Submit
-          case "application/x-www-form-urlencoded" =>
-            List(buildRpc(request.body.asFormUrlEncoded.get))
-          // Form Upload
-          case "multipart/form-data" =>
-            val postBody = request.body.asMultipartFormData.get
-            val post = postBody.asFormUrlEncoded
-            val rpc = buildRpc(post)
-            rpc.data = List[Any](
-              filterExtKeys(post.map(row => row._1 -> row._2.mkString)),
-              postBody.files.map(_.ref))
-            List(rpc)
+  def executeApi = Action.async(request => {
+    Future {
+      doExecute(request)
+    }
+  })
+
+  private def doExecute(request: Request[AnyContent]) = try {
+    val rpcResults = request.contentType.get match {
+      // Default JSON
+      case "application/json" =>
+        request.body.asJson.get match {
+          case JsArray(elements) =>
+            elements.map(buildRpc)
+          case obj: JsObject =>
+            List(buildRpc(obj))
           case _ =>
-            throw new Exception("Invalid Request")
+            throw new Exception("Invalid Json Input")
         }
+      // Form Submit
+      case "application/x-www-form-urlencoded" =>
+        List(buildRpc(request.body.asFormUrlEncoded.get))
+      // Form Upload
+      case "multipart/form-data" =>
+        val postBody = request.body.asMultipartFormData.get
+        val post = postBody.asFormUrlEncoded
+        val rpc = buildRpc(post)
+        rpc.data = List[Any](
+          filterExtKeys(post.map(row => row._1 -> row._2.mkString)),
+          postBody.files.map(_.ref))
+        List(rpc)
+      case _ =>
+        throw new Exception("Invalid Request")
+    }
 
-        val results = dispatcher.dispatch(rpcResults)
+    val results = dispatcher.dispatch(rpcResults)
 
-        if (results.size > 1)
-          Ok(Json.toJson(results.map(resultToJson(_))))
-        else
-          Ok(resultToJson(results.head))
-      } catch {
-        // Debug Mode
-        case e: Exception if isDebugMode =>
-          Ok(Json.obj(
-            "type" -> "exception",
-            "message" -> e.getMessage,
-            "where" -> e.getStackTraceString))
-        // Production Mode
-        case e: Exception =>
-          Ok(Json.obj(
-            "type" -> "exception",
-            "message" -> "An unhandled exception occurred",
-            "where" -> ""))
-      }
+    if (results.size > 1)
+      Ok(Json.toJson(results.map(resultToJson(_))))
+    else
+      Ok(resultToJson(results.head))
+  } catch {
+    // Debug Mode
+    case e: Exception if isDebugMode =>
+      Ok(Json.obj(
+        "type" -> "exception",
+        "message" -> e.getMessage,
+        "where" -> e.getStackTraceString))
+    // Production Mode
+    case e: Exception =>
+      Ok(Json.obj(
+        "type" -> "exception",
+        "message" -> "An unhandled exception occurred",
+        "where" -> ""))
   }
+
 }
