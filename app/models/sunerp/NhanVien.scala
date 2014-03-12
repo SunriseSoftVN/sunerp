@@ -22,7 +22,7 @@ case class NhanVien(
                      phongBangId: Long
                      ) extends WithId[Long]
 
-class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhan_vien") {
+class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
   def firstName = column[String]("firstName", O.NotNull)
 

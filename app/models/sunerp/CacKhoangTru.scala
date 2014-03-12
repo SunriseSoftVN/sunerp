@@ -22,7 +22,7 @@ case class CacKhoangTru(
                          thuNo: Long
                          ) extends WithId[Long]
 
-class CacKhoangTrus(tag: Tag) extends AbstractTable[CacKhoangTru](tag, "cac_khoang_tru") {
+class CacKhoangTrus(tag: Tag) extends AbstractTable[CacKhoangTru](tag, "cacKhoangTru") {
 
   def doanPhi = column[Long]("doanPhi", O.NotNull)
 

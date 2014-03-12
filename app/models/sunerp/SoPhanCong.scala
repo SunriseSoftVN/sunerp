@@ -9,6 +9,8 @@ import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.libs.json.Json
 import exception.ForeignKeyNotFound
+import models.qlkh.{Task, Tasks}
+import dtos.{SoPhanCongDto, ExtGirdDto, PagingDto}
 
 /**
  * The Class SoPhanCong.
@@ -34,6 +36,14 @@ case class SoPhanCong(
   def soPhanCongExt(implicit session: Session) = _soPhanCongExt.getOrElse {
     val result = SoPhanCongExts.findById(soPhanCongExtId).getOrElse(throw ForeignKeyNotFound())
     _soPhanCongExt = Some(result)
+    result
+  }
+
+  private var _task: Option[Task] = None
+
+  def task = _task.getOrElse {
+    val result = Tasks.findById(taskId).getOrElse(throw ForeignKeyNotFound())
+    _task = Some(result)
     result
   }
 }
@@ -67,6 +77,13 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "so_phan_cong
 
 object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCongs(_)) {
 
+  val soPhanCongQuery = for (
+    soPhanCong <- SoPhanCongs;
+    nhanVien <- soPhanCong.nhanVien;
+    phongBang <- soPhanCong.phongBang;
+    soPhanCongExt <- soPhanCong.soPhanCongExt
+  ) yield (soPhanCong, soPhanCongExt, nhanVien, phongBang)
+
   def editForm = Form(
     mapping(
       "id" -> optional(longNumber),
@@ -83,4 +100,41 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
 
   implicit val soPhanCongJsonFormat = Json.format[SoPhanCong]
 
+  def loadWithAllRelation(pagingDto: PagingDto)(implicit session: Session) = {
+    var query = soPhanCongQuery
+
+    pagingDto.filters.foreach(filter => {
+      query = query.where(tuple => {
+        val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
+        val column = findColumn(filter.property, List(soPhanCong, soPhanCongExt, nhanVien, phongBang))
+        column like "%" + filter.value + "%"
+      })
+    })
+
+    pagingDto.sorts.foreach(sort => {
+      query = query.sortBy(tuple => {
+        val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
+        val column = findColumn(sort.property, List(soPhanCong, soPhanCongExt, nhanVien, phongBang))
+        sort.direction.toLowerCase match {
+          case "asc" => column.asc
+          case "desc" => column.desc
+          case o => throw new Exception("Invalid sorting key: " + o)
+        }
+      })
+    })
+
+
+    val totalRow = Query(query.length).first()
+
+    val data = query
+      .drop(pagingDto.start)
+      .take(pagingDto.limit)
+      .list
+      .map(SoPhanCongDto(_))
+
+    ExtGirdDto[SoPhanCongDto](
+      total = totalRow,
+      data = data
+    )
+  }
 }

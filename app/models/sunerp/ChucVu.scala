@@ -19,7 +19,7 @@ case class ChucVu(
                    phuCapTrachNhiem: Long
                    ) extends WithId[Long]
 
-class ChucVus(tag: Tag) extends AbstractTable[ChucVu](tag, "chuc_vu") {
+class ChucVus(tag: Tag) extends AbstractTable[ChucVu](tag, "chucVu") {
   def name = column[String]("name", O.NotNull)
 
   def phuCapTrachNhiem = column[Long]("phuCapTrachNhiem", O.NotNull)

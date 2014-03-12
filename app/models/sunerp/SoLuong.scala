@@ -31,7 +31,7 @@ case class SoLuong(
                     createdDate: DateTime
                     ) extends WithId[Long]
 
-class SoLuongs(tag: Tag) extends AbstractTable[SoLuong](tag, "so_luong") {
+class SoLuongs(tag: Tag) extends AbstractTable[SoLuong](tag, "soLuong") {
 
   def nhanVienId = column[Long]("nhanVienId", O.NotNull)
 

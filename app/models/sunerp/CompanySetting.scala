@@ -19,7 +19,7 @@ case class CompanySetting(
                            luongToiThieu: Long
                            ) extends WithId[Long]
 
-class CompanySettings(tag: Tag) extends AbstractTable[CompanySetting](tag, "company_setting") {
+class CompanySettings(tag: Tag) extends AbstractTable[CompanySetting](tag, "companySetting") {
 
   def companyId = column[Long]("companyId", O.NotNull)
 

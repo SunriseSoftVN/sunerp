@@ -20,7 +20,7 @@ case class DonVi(
                   khoiDonViId: Option[Long]
                   ) extends WithId[Long]
 
-class DonVis(tag: Tag) extends AbstractTable[DonVi](tag, "don_vi") {
+class DonVis(tag: Tag) extends AbstractTable[DonVi](tag, "donVi") {
   def name = column[String]("name", O.NotNull)
 
   def companyId = column[Long]("companyId", O.NotNull)

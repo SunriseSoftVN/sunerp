@@ -26,7 +26,7 @@ case class CacKhoanCong(
                          omDauSinhDe: Long
                          ) extends WithId[Long]
 
-class CacKhoanCongs(tag: Tag) extends AbstractTable[CacKhoanCong](tag, "cac_khoan_cong") {
+class CacKhoanCongs(tag: Tag) extends AbstractTable[CacKhoanCong](tag, "cacKhoanCong") {
 
   def phuCapTn = column[Long]("phuCapTn", O.NotNull)
 

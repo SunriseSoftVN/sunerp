@@ -19,7 +19,7 @@ case class PhongBang(
                       name: String
                       ) extends WithId[Long]
 
-class PhongBangs(tag: Tag) extends AbstractTable[PhongBang](tag, "phong_bang") {
+class PhongBangs(tag: Tag) extends AbstractTable[PhongBang](tag, "phongBang") {
 
   def donViId = column[Long]("donViId", O.NotNull)
 

@@ -19,7 +19,7 @@ case class KhoiDonVi(
                       companyId: Long
                       ) extends WithId[Long]
 
-class KhoiDonVis(tag: Tag) extends AbstractTable[KhoiDonVi](tag, "khoi_don_vi") {
+class KhoiDonVis(tag: Tag) extends AbstractTable[KhoiDonVi](tag, "khoiDonVi") {
 
   def name = column[String]("name", O.NotNull)
 
