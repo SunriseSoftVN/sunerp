@@ -7,7 +7,9 @@ Ext.define('sunerp.model.SoPhanCong', {
     fields: [
         'id',
         'nhanVienId',
+        {name: 'nhanVien.firstName', mapping: 'nhanVien.firstName'},
         'taskId',
+        {name: 'task.name', mapping: 'task.name'},
         'phongBangId',
         'khoiLuong',
         'gio',

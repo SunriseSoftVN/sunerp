@@ -29,7 +29,14 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
         view = "sunerp.view.authority.AuthorityList",
         text = "Phân quyền",
         leaf = true
-      ),
+      )
+    )
+  )
+
+  val quanLyPhongBang = MenuItemDto(
+    text = "Quản lý phòng bang",
+    expanded = true,
+    children = List(
       MenuItemDto(
         id = "soPhanCong",
         view = "sunerp.view.sophancong.SoPhanCongList",
@@ -42,7 +49,8 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
   val rootMenu = MenuItemDto(
     expanded = true,
     children = List(
-      userManagerMenu
+      userManagerMenu,
+      quanLyPhongBang
     )
   )
 
@@ -60,7 +68,10 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
         .map(travel)
     )
 
-    Ok(Json.toJson(travel(rootMenu)))
+    val authMenu = travel(rootMenu)
+
+    //remove empty menu
+    Ok(Json.toJson(authMenu.copy(children = authMenu.children.filterNot(_.children.isEmpty))))
   })
 
 }

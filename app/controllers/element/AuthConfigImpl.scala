@@ -64,7 +64,7 @@ trait AuthConfigImpl extends AuthConfig with Rendering with AcceptExtractors {
 
   def checkAuth(authorities: List[sunerp.Authority], authority: String) = {
     val matcher = new SimpleRegexMatcher
-    authorities.exists(auth => StringUtils.isBlank(authority) || matcher.`match`(authority, auth.domain))
+    authorities.exists(auth => StringUtils.isBlank(authority) || matcher.`match`(authority.toLowerCase, auth.domain.toLowerCase))
   }
 
   override lazy val idContainer: IdContainer[Id] = if (Play.isDev) {
