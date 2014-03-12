@@ -7,9 +7,10 @@ Ext.define('sunerp.view.sophancong.SoPhanCongEdit', {
         'Ext.grid.Panel'
     ],
     controller: 'sunerp.controller.sophancong.SoPhanCongEditCtr',
-    inject: ['soPhanCongStore'],
+    inject: ['soPhanCongStore', 'taskStore'],
     config: {
         model: null,
+        taskStore: null,
         soPhanCongStore: null
     },
     initComponent: function () {
@@ -28,11 +29,11 @@ Ext.define('sunerp.view.sophancong.SoPhanCongEdit', {
             },
             {
                 xtype: 'grid',
-                store: this.getSoPhanCongStore(),
+                store: this.getTaskStore(),
                 columns: [
-                    { text: 'Name', dataIndex: 'name' },
-                    { text: 'Email', dataIndex: 'email', flex: 1 },
-                    { text: 'Phone', dataIndex: 'phone' }
+                    { xtype: 'rownumberer' },
+                    { text: 'Code', dataIndex: 'code' },
+                    { text: 'Name', dataIndex: 'name', flex: 1 }
                 ],
                 height: 200,
                 width: 400

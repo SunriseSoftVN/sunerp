@@ -17,6 +17,8 @@ PUT           /role/:id              controllers.RoleCtr.update(id: Long)
 DELETE        /role/:id              controllers.RoleCtr.delete(id: Long)
 GET           /role/all              controllers.RoleCtr.all
 
+GET           /task                  controllers.TaskCtr.index
+
 GET           /authority             controllers.AuthorityCtr.index
 POST          /authority             controllers.AuthorityCtr.save
 PUT           /authority/:id         controllers.AuthorityCtr.update(id: Long)
