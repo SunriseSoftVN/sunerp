@@ -3,5 +3,16 @@
  */
 
 Ext.define('sunerp.model.SoPhanCong', {
-    extend: 'Ext.data.Model'
+    extend: 'Ext.data.Model',
+    fields: [
+        'id',
+        'nhanVienId',
+        'taskId',
+        'phongBangId',
+        'khoiLuong',
+        'gio',
+        'ghiChu',
+        'soPhanCongExtId',
+        'ngayPhanCong'
+    ]
 });

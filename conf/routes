@@ -26,6 +26,11 @@ GET           /user/login            controllers.AuthCtr.login
 POST          /user/auth             controllers.AuthCtr.auth
 GET           /user/logout           controllers.AuthCtr.logout
 
+GET           /sophancong            controllers.SoPhanCongCtr.index
+POST          /sophancong            controllers.SoPhanCongCtr.save
+PUT           /sophancong/:id        controllers.SoPhanCongCtr.update(id: Long)
+DELETE        /sophancong/:id        controllers.SoPhanCongCtr.delete(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file          controllers.Assets.at(path="/public", file)
 GET           /partials/*file        controllers.Assets.at(path="/public/html", file)
