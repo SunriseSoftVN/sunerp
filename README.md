@@ -10,8 +10,13 @@ Feature:
 - Quản lý tài liệu
 - Quản lý lịch hẹn
 - Quản lý công việc
+- Quản lý email
+- Quản lý khách hàng
+- Quản lý bán hàng
+- Quản lý nhà cung cấp
+- Quản lý báo giá
 - Quản lý vật tư
-- Quản lý tài liệu, công văn
+- Quản lý tài liệu, công văn, thông báo
 - Quản lý kho
 - Quản lý giá bình quân gia quyền
 - Tính lương
