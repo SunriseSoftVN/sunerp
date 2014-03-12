@@ -16,10 +16,7 @@ Ext.define('sunerp.view.user.UserList', {
             {
                 header: 'Role',
                 dataIndex: 'role.name',
-                flex: 1,
-                renderer: function(value, metaData, record) {
-                    return record.get('role').name;
-                }
+                flex: 1
             },
             {
                 xtype: 'actioncolumn',
