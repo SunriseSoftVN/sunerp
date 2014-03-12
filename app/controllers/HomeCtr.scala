@@ -33,8 +33,8 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     )
   )
 
-  val quanLyPhongBang = MenuItemDto(
-    text = "Quản lý phòng bang",
+  val quanLyCongViec = MenuItemDto(
+    text = "Quản lý công việc",
     expanded = true,
     children = List(
       MenuItemDto(
@@ -46,11 +46,71 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     )
   )
 
+  val quanLyCongty = MenuItemDto(
+    text = "Quản lý công ty",
+    expanded = true,
+    children = List(
+      MenuItemDto(
+        id = "khoiDonVi",
+        view = "sunerp.view.khoidonvi.KhoiDonViList",
+        text = "Khối đơn vị",
+        leaf = true
+      ),
+      MenuItemDto(
+        id = "donVi",
+        view = "sunerp.view.donvi.DonViList",
+        text = "Đơn vị",
+        leaf = true
+      ),
+      MenuItemDto(
+        id = "phongBang",
+        view = "sunerp.view.phongbang.PhongBangList",
+        text = "Phòng bang",
+        leaf = true
+      )
+    )
+  )
+
+  val quanLyNhanVien = MenuItemDto(
+    text = "Quản lý nhân viên",
+    expanded = true,
+    children = List(
+      MenuItemDto(
+        id = "nhanVien",
+        view = "sunerp.view.nhanvien.NhanVienList",
+        text = "Nhân viên",
+        leaf = true
+      ),
+      MenuItemDto(
+        id = "chucVu",
+        view = "sunerp.view.chucvu.ChucVuList",
+        text = "Chức vụ",
+        leaf = true
+      )
+    )
+  )
+
+  val quanLyLuong = MenuItemDto(
+    text = "Quản lý luơng",
+    expanded = true,
+    children = List(
+      MenuItemDto(
+        id = "soLuong",
+        view = "sunerp.view.soluong.SoLuongList",
+        text = "Sổ lương",
+        leaf = true
+      )
+    )
+  )
+
   val rootMenu = MenuItemDto(
     expanded = true,
     children = List(
+      quanLyCongty,
       userManagerMenu,
-      quanLyPhongBang
+      quanLyNhanVien,
+      quanLyLuong,
+      quanLyCongViec
     )
   )
 
