@@ -3,6 +3,21 @@ SunERP (Made in VietNam)
 
 Vietnamese ERP Open Source (Development Mode)
 
+Feature:
+- Quản lý chi nhánh
+- Quản lý phòng bang
+- Quản lý nhân sự
+- Quản lý tài liệu
+- Quản lý lịch hẹn
+- Quản lý công việc
+- Quản lý vật tư
+- Quản lý tài liệu, công văn
+- Quản lý kho
+- Quản lý giá bình quân gia quyền
+- Tính lương
+- Chấm công
+- Lập kế hoạch
+
 Scala + Playframework 2 + Slick + ExtJS + DeftJs
 
 Why Scala? (http://www.scala-lang.org/)
