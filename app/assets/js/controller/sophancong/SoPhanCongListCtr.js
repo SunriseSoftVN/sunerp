@@ -9,7 +9,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         soPhanCongStore: null
     },
     editView: 'sunerp.view.sophancong.SoPhanCongEdit',
-    searchField: 'name',
+    searchField: 'nhanVien.firstName',
     init: function () {
         this.mainStore = this.getSoPhanCongStore();
         this.callParent(arguments);

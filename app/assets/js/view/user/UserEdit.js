@@ -35,7 +35,13 @@ Ext.define('sunerp.view.user.UserEdit', {
                         xtype: 'comboboxx',
                         fieldLabel: 'Role',
                         name: 'roleId',
-                        store: this.getRoleStore(),
+                        store: Ext.create('sunerp.store.RoleStore', {
+                            proxy: {
+                                type: 'ajax',
+                                url: '/role/all',
+                                reader: 'json'
+                            }
+                        }),
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,

@@ -9,7 +9,7 @@ Ext.define('sunerp.view.authority.AuthorityEdit', {
         model: null,
         roleStore: null
     },
-    initComponent: function() {
+    initComponent: function () {
         this.items = [
             {
                 xtype: 'form',
@@ -17,7 +17,7 @@ Ext.define('sunerp.view.authority.AuthorityEdit', {
                 items: [
                     {
                         xtype: 'textfield',
-                        name : 'domain',
+                        name: 'domain',
                         allowBlank: false,
                         fieldLabel: 'Domain'
                     },
@@ -25,7 +25,13 @@ Ext.define('sunerp.view.authority.AuthorityEdit', {
                         xtype: 'comboboxx',
                         fieldLabel: 'Role',
                         name: 'roleId',
-                        store: this.getRoleStore(),
+                        store: Ext.create('sunerp.store.RoleStore', {
+                            proxy: {
+                                type: 'ajax',
+                                url: '/role/all',
+                                reader: 'json'
+                            }
+                        }),
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,
