@@ -3,15 +3,24 @@
  */
 
 Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
-    extend: 'sunerp.controller.core.BaseListController',
+    extend: 'Deft.mvc.ViewController',
     inject: ['soPhanCongStore'],
     config: {
         soPhanCongStore: null
     },
-    editView: 'sunerp.view.sophancong.SoPhanCongEdit',
-    searchField: 'nhanVien.firstName',
+    control: {
+        addBtn: {
+            selector: 'button[action=addNew]',
+            listeners: {
+                click: 'addNewRow'
+            }
+        }
+    },
     init: function () {
-        this.mainStore = this.getSoPhanCongStore();
         this.callParent(arguments);
+    },
+    addNewRow: function () {
+        var rec = new sunerp.model.SoPhanCong();
+        this.getSoPhanCongStore().insert(0, rec);
     }
 });
