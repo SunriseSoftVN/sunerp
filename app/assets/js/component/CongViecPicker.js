@@ -3,6 +3,7 @@ Ext.define('sunerp.component.CongViecPicker', {
     alias: 'widget.congviecpicker',
     triggerBaseCls: 'search-picker-icon',
     gird: null,
+    dataIndex: null,
     onTriggerClick: function () {
         var me = this;
         if (me.gird.getSelectionModel().hasSelection()) {
@@ -32,7 +33,12 @@ Ext.define('sunerp.component.CongViecPicker', {
                         text: 'Save',
                         action: 'save',
                         handler: function () {
-                            model.set("task.name", "dung ne");
+                            model.set("task", {
+                                name: "hehehe"
+                            });
+
+                            //for display only
+                            model.set(me.column.dataIndex, "ssss");
                             windown.close();
                         }
                     },

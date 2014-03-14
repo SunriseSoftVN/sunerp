@@ -15,6 +15,7 @@ Ext.define('sunerp.model.SoPhanCong', {
         'gio',
         'ghiChu',
         'soPhanCongExtId',
-        'ngayPhanCong'
+        'ngayPhanCong',
+        'task'
     ]
 });
