@@ -6,7 +6,6 @@ import controllers.element.AuthConfigImpl
 import dtos.PagingDto
 import play.api.libs.json.{Writes, Json}
 import models.qlkh.{Task, Tasks}
-import models.sunerp.Users
 
 /**
  * The Class TaskCtr.
@@ -17,9 +16,11 @@ import models.sunerp.Users
  */
 object TaskCtr extends Controller with AuthElement with AuthConfigImpl {
 
+  val domainName = "task"
+
   implicit val jsonWrite: Writes[Task] = Tasks.taskJsonFormat
 
-  def index = StackAction(AuthorityKey -> "task")(implicit request => {
+  def index = StackAction(AuthorityKey -> domainName)(implicit request => {
     val paging = PagingDto(request)
     Ok(Json.toJson(Tasks.load(paging)))
   })
