@@ -3,7 +3,7 @@
  */
 
 Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
-    extend: 'Deft.mvc.ViewController',
+    extend: 'sunerp.controller.core.BaseListEditController',
     inject: ['soPhanCongStore'],
     config: {
         soPhanCongStore: null

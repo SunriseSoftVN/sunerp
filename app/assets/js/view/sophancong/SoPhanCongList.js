@@ -1,13 +1,6 @@
 Ext.define('sunerp.view.sophancong.SoPhanCongList', {
-    extend: 'Ext.grid.Panel',
+    extend: 'sunerp.view.core.BaseListEditView',
     requires: [
-        'Ext.grid.plugin.CellEditing',
-        'Ext.selection.CellModel',
-        'Ext.toolbar.TextItem',
-        'Ext.form.field.Checkbox',
-        'Ext.form.field.Text',
-        'Ext.toolbar.Paging',
-        'Ext.form.field.ComboBox',
         'sunerp.component.CongViecPicker',
         'sunerp.controller.sophancong.SoPhanCongListCtr'
     ],
