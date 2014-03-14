@@ -1,5 +1,5 @@
 Ext.define('sunerp.model.Authority', {
-    extend: 'Ext.data.Model',
+    extend: 'sunerp.model.BaseModel',
     fields: [
         'id',
         'domain',

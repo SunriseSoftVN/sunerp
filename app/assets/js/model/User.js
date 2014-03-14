@@ -1,5 +1,5 @@
 Ext.define('sunerp.model.User', {
-    extend: 'Ext.data.Model',
+    extend: 'sunerp.model.BaseModel',
     fields: [
         'username',
         'password',

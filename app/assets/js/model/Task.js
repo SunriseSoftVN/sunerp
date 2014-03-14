@@ -3,7 +3,7 @@
  */
 
 Ext.define('sunerp.model.Task', {
-    extend: 'Ext.data.Model',
+    extend: 'sunerp.model.BaseModel',
     fields: [
         'id',
         'code',
