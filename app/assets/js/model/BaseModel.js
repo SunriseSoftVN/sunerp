@@ -1,5 +1,6 @@
 /**
  * Created by dungvn3000 on 3/14/14.
+ * The model automatic update mapping field when set associations table.
  */
 
 Ext.define('sunerp.model.BaseModel', {
