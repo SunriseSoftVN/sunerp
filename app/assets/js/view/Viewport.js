@@ -21,7 +21,7 @@ Ext.define('sunerp.view.Viewport', {
         {
             region: 'west',
             xtype: 'navigation',
-            width: 250,
+            width: 220,
             minWidth: 100,
             height: 200,
             split: true,

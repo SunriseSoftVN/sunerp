@@ -36,7 +36,7 @@ Ext.define('sunerp.view.core.BaseListView', {
     },
     deleteBtn: function () {
         return {
-            icon: '/assets/img/icons/fam/delete.gif',
+            icon: '/assets/img/icons/fam/delete.png',
             tooltip: 'Delete',
             handler: function (view, rowIndex, colIndex, item, e, record) {
                 this.fireEvent('deleteRecord', this, view, rowIndex, colIndex, item, e, record);

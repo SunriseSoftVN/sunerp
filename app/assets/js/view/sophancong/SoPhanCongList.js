@@ -8,6 +8,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         'Ext.form.field.Text',
         'Ext.toolbar.Paging',
         'Ext.form.field.ComboBox',
+        'sunerp.component.CongViecPicker',
         'sunerp.controller.sophancong.SoPhanCongListCtr'
     ],
     tbar: [
@@ -62,18 +63,46 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 dataIndex: 'task.name',
                 flex: 1,
                 sortable: false,
-                editor: new Ext.form.field.ComboBox({
-                    typeAhead: true,
-                    triggerAction: 'all',
-                    store: this.getTaskStore(),
-                    displayField: 'name',
-                    valueField: 'id'
-                })
+                editor: {
+                    xtype: 'congviecpicker',
+                    gird: me
+                }
             },
-            {header: 'Khối lượng', dataIndex: 'khoiLuong', flex: 1},
-            {header: 'Giờ', dataIndex: 'gio', flex: 1},
-            {header: 'Ghi chú', dataIndex: 'ghiChu', flex: 1},
-            {header: 'Ngày phân công', dataIndex: 'ngayPhanCong', flex: 1},
+            {
+                header: 'Khối lượng',
+                dataIndex: 'khoiLuong',
+                flex: 1,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {
+                header: 'Giờ',
+                dataIndex: 'gio',
+                flex: 1,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {
+                header: 'Ghi chú',
+                dataIndex: 'ghiChu',
+                flex: 1,
+                editor: {
+                    xtype: 'textfield'
+                }
+            },
+            {
+                header: 'Ngày phân công',
+                dataIndex: 'ngayPhanCong',
+                xtype: 'datecolumn',
+                flex: 1,
+                editor: {
+                    xtype: 'datefield'
+                }
+            },
             {
                 xtype: 'actioncolumn',
                 header: 'Option',
@@ -101,7 +130,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
     },
     deleteBtn: function () {
         return {
-            icon: '/assets/img/icons/fam/delete.gif',
+            icon: '/assets/img/icons/fam/delete.png',
             tooltip: 'Delete',
             handler: function (view, rowIndex, colIndex, item, e, record) {
                 this.fireEvent('deleteRecord', this, view, rowIndex, colIndex, item, e, record);
