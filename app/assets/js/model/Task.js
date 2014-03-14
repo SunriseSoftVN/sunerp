@@ -7,6 +7,7 @@ Ext.define('sunerp.model.Task', {
     fields: [
         'id',
         'code',
-        'name'
+        'name',
+        'defaultValue'
     ]
 });

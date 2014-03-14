@@ -42,6 +42,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         var me = this;
         me.store = me.getSoPhanCongStore();
         me.columns = [
+            {xtype: 'rownumberer'},
             {
                 header: 'Họ tên',
                 dataIndex: 'nhanVien.firstName',
@@ -61,7 +62,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
             {
                 header: 'Công việc',
                 dataIndex: 'task.name',
-                flex: 1,
+                width: 300,
                 sortable: false,
                 editor: {
                     xtype: 'congviecpicker',

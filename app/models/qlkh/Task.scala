@@ -17,7 +17,8 @@ import dtos.PagingDto
 case class Task(
                  id: Option[Long] = None,
                  code: String,
-                 name: String
+                 name: String,
+                 defaultValue: Double
                  ) extends WithId[Long]
 
 
@@ -27,7 +28,9 @@ class Tasks(tag: Tag) extends AbstractTable[Task](tag, "task") {
 
   def name = column[String]("name", O.NotNull)
 
-  def * = (id.?, code, name) <>(Task.tupled, Task.unapply)
+  def defaultValue = column[Double]("defaultValue", O.NotNull)
+
+  def * = (id.?, code, name, defaultValue) <>(Task.tupled, Task.unapply)
 }
 
 object Tasks extends AbstractQuery[Task, Tasks](new Tasks(_)) {
