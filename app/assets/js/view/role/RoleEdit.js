@@ -4,9 +4,6 @@ Ext.define('sunerp.view.role.RoleEdit', {
     title: 'Edit Role',
     requires: ['sunerp.controller.role.RoleEditCtr'],
     controller: 'sunerp.controller.role.RoleEditCtr',
-    config: {
-        model: null
-    },
     initComponent: function() {
         this.items = [
             {

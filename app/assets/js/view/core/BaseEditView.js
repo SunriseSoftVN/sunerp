@@ -11,6 +11,9 @@ Ext.define('sunerp.view.core.BaseEditView', {
     autoShow: true,
     bodyPadding: 10,
     modal: true,
+    config: {
+        model: null
+    },
     initComponent: function() {
         this.buttons = [
             {

@@ -6,7 +6,6 @@ Ext.define('sunerp.view.authority.AuthorityEdit', {
     controller: 'sunerp.controller.authority.AuthorityEditCtr',
     inject: ['roleStore'],
     config: {
-        model: null,
         roleStore: null
     },
     initComponent: function () {
