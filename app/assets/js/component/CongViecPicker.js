@@ -10,7 +10,6 @@ Ext.define('sunerp.component.CongViecPicker', {
         task: null,
         window: null
     },
-    dataIndex: null,
     onTriggerClick: function () {
         var me = this;
         if (me.gird.getSelectionModel().hasSelection()) {
@@ -77,7 +76,6 @@ Ext.define('sunerp.component.CongViecPicker', {
     },
     onOk: function() {
         this.getModel().set('task', this.getTask());
-        this.getModel().set(this.column.dataIndex, this.getTask().get('name'));
         this.getWindow().close();
     },
     onTaskSelected: function(model, selected, eOpts) {

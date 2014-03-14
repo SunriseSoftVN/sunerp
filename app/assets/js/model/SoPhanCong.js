@@ -17,5 +17,12 @@ Ext.define('sunerp.model.SoPhanCong', {
         'soPhanCongExtId',
         'ngayPhanCong',
         'task'
-    ]
+    ],
+    set: function (fieldName, newValue) {
+        if (fieldName == "task") {
+            this.set('task.name', newValue.get('name'));
+            this.set('taskId', newValue.get('id'));
+        }
+        this.callParent(arguments);
+    }
 });
