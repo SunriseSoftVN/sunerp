@@ -3,7 +3,7 @@
  */
 
 Ext.define('sunerp.model.SoPhanCong', {
-    extend: 'Ext.data.Model',
+    extend: 'sunerp.model.BaseModel',
     fields: [
         'id',
         'nhanVienId',
@@ -18,11 +18,7 @@ Ext.define('sunerp.model.SoPhanCong', {
         'ngayPhanCong',
         'task'
     ],
-    set: function (fieldName, newValue) {
-        if (fieldName == "task") {
-            this.set('task.name', newValue.get('name'));
-            this.set('taskId', newValue.get('id'));
-        }
-        this.callParent(arguments);
-    }
+    associations: [
+        {type: 'belongsTo', model: 'sunerp.model.Task', name: 'task'}
+    ]
 });

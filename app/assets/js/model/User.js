@@ -7,5 +7,5 @@ Ext.define('sunerp.model.User', {
         'role',
         {name: 'role.name', mapping: 'role.name'}
     ],
-    belongsTo: 'Role'
+    belongsTo: 'sunerp.model.Role'
 });
