@@ -17,7 +17,7 @@ create table `quyLuong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`soTien
 create table `role` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL);
 create table `soLuong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVienId` BIGINT NOT NULL,`chucVu` VARCHAR(254) NOT NULL,`heSoLuong` DOUBLE NOT NULL,`luongNd` BIGINT NOT NULL,`k2` DOUBLE NOT NULL,`luongSP` BIGINT NOT NULL,`luongTgCong` DOUBLE NOT NULL,`luongTgTien` BIGINT NOT NULL,`cacKhoangCongId` BIGINT NOT NULL,`cacKhoangTruId` BIGINT NOT NULL,`createdDate` TIMESTAMP NOT NULL);
 create table `soPhanCongExt` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`lamDem` BOOLEAN DEFAULT false NOT NULL,`baoHoLaoDong` BOOLEAN DEFAULT false NOT NULL,`docHai` BOOLEAN DEFAULT false NOT NULL,`le` BOOLEAN DEFAULT false NOT NULL,`tet` BOOLEAN DEFAULT false NOT NULL,`thaiSan` BOOLEAN DEFAULT false NOT NULL,`dauOm` BOOLEAN DEFAULT false NOT NULL,`conOm` BOOLEAN DEFAULT false NOT NULL,`taiNanLd` BOOLEAN DEFAULT false NOT NULL,`hop` BOOLEAN DEFAULT false NOT NULL,`hocDaiHan` BOOLEAN DEFAULT false NOT NULL,`hocDotXuat` BOOLEAN DEFAULT false NOT NULL,`viecRieng` BOOLEAN DEFAULT false NOT NULL,`chuNhat` BOOLEAN DEFAULT false NOT NULL);
-create table `so_phan_cong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVienId` BIGINT NOT NULL,`taskId` BIGINT NOT NULL,`phongBangId` BIGINT NOT NULL,`khoiLuong` DOUBLE NOT NULL,`gio` DOUBLE NOT NULL,`ghiChu` VARCHAR(254) NOT NULL,`soPhanCongExtId` BIGINT NOT NULL,`ngayPhanCong` TIMESTAMP NOT NULL);
+create table `soPhanCong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVienId` BIGINT NOT NULL,`taskId` BIGINT NOT NULL,`phongBangId` BIGINT NOT NULL,`khoiLuong` DOUBLE NOT NULL,`gio` DOUBLE NOT NULL,`ghiChu` VARCHAR(254) NOT NULL,`soPhanCongExtId` BIGINT NOT NULL,`ngayPhanCong` TIMESTAMP NOT NULL);
 create table `user` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`username` VARCHAR(254) NOT NULL,`password` VARCHAR(254) NOT NULL,`role_id` BIGINT NOT NULL,`nhanVienId` BIGINT);
 alter table `authority` add constraint `role_authority_fk` foreign key(`roleId`) references `role`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `companySetting` add constraint `company_company_setting_fk` foreign key(`companyId`) references `company`(`id`) on update NO ACTION on delete NO ACTION;
@@ -30,9 +30,9 @@ alter table `phongBang` add constraint `doi_vi_phong_bang_fk` foreign key(`donVi
 alter table `soLuong` add constraint `nhanvien_so_luong_fk` foreign key(`nhanVienId`) references `nhanVien`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `soLuong` add constraint `cac_khoang_cong_so_luong_fk` foreign key(`cacKhoangCongId`) references `cacKhoanCong`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `soLuong` add constraint `cac_khoang_tru_so_luong_fk` foreign key(`cacKhoangTruId`) references `cacKhoangTru`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `so_phan_cong` add constraint `phong_bang_so_phan_cong_fk` foreign key(`phongBangId`) references `phongBang`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `so_phan_cong` add constraint `nhan_vien_so_phan_cong_fk` foreign key(`nhanVienId`) references `nhanVien`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `so_phan_cong` add constraint `so_phan_cong_ext_so_phan_cong_fk` foreign key(`soPhanCongExtId`) references `soPhanCongExt`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `soPhanCong` add constraint `phong_bang_so_phan_cong_fk` foreign key(`phongBangId`) references `phongBang`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `soPhanCong` add constraint `nhan_vien_so_phan_cong_fk` foreign key(`nhanVienId`) references `nhanVien`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `soPhanCong` add constraint `so_phan_cong_ext_so_phan_cong_fk` foreign key(`soPhanCongExtId`) references `soPhanCongExt`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `user` add constraint `role_fk` foreign key(`role_id`) references `role`(`id`) on update NO ACTION on delete NO ACTION;
 
 # --- !Downs
@@ -48,9 +48,9 @@ ALTER TABLE phongBang DROP FOREIGN KEY doi_vi_phong_bang_fk;
 ALTER TABLE soLuong DROP FOREIGN KEY nhanvien_so_luong_fk;
 ALTER TABLE soLuong DROP FOREIGN KEY cac_khoang_cong_so_luong_fk;
 ALTER TABLE soLuong DROP FOREIGN KEY cac_khoang_tru_so_luong_fk;
-ALTER TABLE so_phan_cong DROP FOREIGN KEY phong_bang_so_phan_cong_fk;
-ALTER TABLE so_phan_cong DROP FOREIGN KEY nhan_vien_so_phan_cong_fk;
-ALTER TABLE so_phan_cong DROP FOREIGN KEY so_phan_cong_ext_so_phan_cong_fk;
+ALTER TABLE soPhanCong DROP FOREIGN KEY phong_bang_so_phan_cong_fk;
+ALTER TABLE soPhanCong DROP FOREIGN KEY nhan_vien_so_phan_cong_fk;
+ALTER TABLE soPhanCong DROP FOREIGN KEY so_phan_cong_ext_so_phan_cong_fk;
 ALTER TABLE user DROP FOREIGN KEY role_fk;
 drop table `authority`;
 drop table `cacKhoanCong`;
@@ -66,6 +66,6 @@ drop table `quyLuong`;
 drop table `role`;
 drop table `soLuong`;
 drop table `soPhanCongExt`;
-drop table `so_phan_cong`;
+drop table `soPhanCong`;
 drop table `user`;
 
