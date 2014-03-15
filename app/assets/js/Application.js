@@ -13,7 +13,8 @@ Ext.define('sunerp.Application', {
         'sunerp.store.RoleStore',
         'sunerp.store.AuthorityStore',
         'sunerp.store.SoPhanCongStore',
-        'sunerp.store.TaskStore'
+        'sunerp.store.TaskStore',
+        'sunerp.store.ChucVuStore'
     ],
 
     /**
@@ -36,7 +37,8 @@ Ext.define('sunerp.Application', {
             navigationStore: 'sunerp.store.NavigationStore',
             authorityStore: 'sunerp.store.AuthorityStore',
             soPhanCongStore: 'sunerp.store.SoPhanCongStore',
-            taskStore: 'sunerp.store.TaskStore'
+            taskStore: 'sunerp.store.TaskStore',
+            chucVuStore: 'sunerp.store.ChucVuStore'
         };
         return config;
     }
