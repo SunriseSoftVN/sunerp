@@ -16,3 +16,4 @@ dist
 .directory
 scala-2.10
 specs2-reports
+native_libraries
