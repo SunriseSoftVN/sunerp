@@ -17,6 +17,11 @@ PUT           /role/:id              controllers.RoleCtr.update(id: Long)
 DELETE        /role/:id              controllers.RoleCtr.delete(id: Long)
 GET           /role/all              controllers.RoleCtr.all
 
+GET           /chucvu                controllers.ChucVuCtr.index
+POST          /chucvu                controllers.ChucVuCtr.save
+PUT           /chucvu/:id            controllers.ChucVuCtr.update(id: Long)
+DELETE        /chucvu/:id            controllers.ChucVuCtr.delete(id: Long)
+
 GET           /task                  controllers.TaskCtr.index
 
 GET           /authority             controllers.AuthorityCtr.index
