@@ -80,7 +80,7 @@ Ext.define('sunerp.component.CongViecPicker', {
     },
     onTaskSelected: function(model, selected, eOpts) {
         var task = selected[0];
-        this.setTask(task);
+        this.setTask(task.getData());
     },
     onSearchFieldChange: function (f, e) {
         var me = this;
