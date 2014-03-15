@@ -4,6 +4,7 @@
 
 Ext.define('sunerp.controller.core.BaseEditController', {
     extend: 'Deft.mvc.ViewController',
+    //this property has to be set in subclass
     mainStore: null,
     control: {
         form: {
@@ -30,7 +31,7 @@ Ext.define('sunerp.controller.core.BaseEditController', {
             me = this;
         if (form.isValid()) {
             if (record == null) {
-                record = new Ext.data.Ext.data.Model();
+                record = Ext.create(me.mainStore.model);
                 //add new record
                 me.mainStore.add(record);
             }

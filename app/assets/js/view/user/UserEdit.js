@@ -4,11 +4,6 @@ Ext.define('sunerp.view.user.UserEdit', {
     title: 'Edit User',
     requires: ['sunerp.controller.user.UserEditCtr'],
     controller: 'sunerp.controller.user.UserEditCtr',
-    inject: ['userStore', 'roleStore'],
-    config: {
-        userStore: null,
-        roleStore: null
-    },
     initComponent: function () {
         this.items = [
             {
