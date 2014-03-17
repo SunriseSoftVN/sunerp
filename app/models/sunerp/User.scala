@@ -37,7 +37,9 @@ class Users(tag: Tag) extends AbstractTable[User](tag, "user") {
 
   def nhanVienId = defColumn[Long]("nhanVienId", O.Nullable)
 
-  def role = foreignKey("role_fk", roleId, Roles)(_.id)
+  def role = foreignKey("role_user_fk", roleId, Roles)(_.id)
+
+  def nhanVien = foreignKey("nhan_vien_user_fk", nhanVienId, NhanViens)(_.id)
 
   def * = (id.?, username, password, roleId, nhanVienId.?) <>(User.tupled, User.unapply)
 }
@@ -119,7 +121,7 @@ object Users extends AbstractQuery[User, Users](new Users(_)) {
       "username" -> text(minLength = 4),
       "password" -> text(minLength = 4),
       "roleId" -> longNumber,
-      "userDataId" -> optional(longNumber)
+      "nhanVienId" -> optional(longNumber)
     )(User.apply)(User.unapply)
   )
 }
