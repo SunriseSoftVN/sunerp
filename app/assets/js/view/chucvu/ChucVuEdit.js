@@ -8,11 +8,6 @@ Ext.define('sunerp.view.chucvu.ChucVuEdit', {
     title: 'Edit Chức vụ',
     requires: ['sunerp.controller.chucvu.ChucVuEditCtr'],
     controller: 'sunerp.controller.chucvu.ChucVuEditCtr',
-    inject: ['chucVuStore'],
-    config: {
-        model: null,
-        roleStore: null
-    },
     initComponent: function () {
         this.items = [
             {
