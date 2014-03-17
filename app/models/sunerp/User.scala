@@ -33,7 +33,7 @@ class Users(tag: Tag) extends AbstractTable[User](tag, "user") {
 
   def password = column[String]("password", O.NotNull)
 
-  def roleId = column[Long]("role_id", O.NotNull)
+  def roleId = column[Long]("roleId", O.NotNull)
 
   def nhanVienId = column[Long]("nhanVienId", O.Nullable)
 

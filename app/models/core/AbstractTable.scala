@@ -11,10 +11,5 @@ import scala.slick.ast.{TypedType, ColumnOption}
  *
  */
 abstract class AbstractTable[E](tag: Tag, tableName: String) extends Table[E](tag, tableName) {
-  private var _columns: List[ColumnInfo] = Nil
-  def id = defColumn[Long]("id", O.PrimaryKey, O.AutoInc)
-  def defColumn[C](name: String, options: ColumnOption[C]*)(implicit tm: TypedType[C]) = {
-    _columns = ColumnInfo(name) :: _columns
-    column[C](name, options: _*)
-  }
+  def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 }

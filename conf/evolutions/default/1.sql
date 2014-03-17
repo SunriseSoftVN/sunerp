@@ -18,7 +18,7 @@ create table `role` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARC
 create table `soLuong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVienId` BIGINT NOT NULL,`chucVu` VARCHAR(254) NOT NULL,`heSoLuong` DOUBLE NOT NULL,`luongNd` BIGINT NOT NULL,`k2` DOUBLE NOT NULL,`luongSP` BIGINT NOT NULL,`luongTgCong` DOUBLE NOT NULL,`luongTgTien` BIGINT NOT NULL,`cacKhoangCongId` BIGINT NOT NULL,`cacKhoangTruId` BIGINT NOT NULL,`createdDate` TIMESTAMP NOT NULL);
 create table `soPhanCongExt` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`lamDem` BOOLEAN DEFAULT false NOT NULL,`baoHoLaoDong` BOOLEAN DEFAULT false NOT NULL,`docHai` BOOLEAN DEFAULT false NOT NULL,`le` BOOLEAN DEFAULT false NOT NULL,`tet` BOOLEAN DEFAULT false NOT NULL,`thaiSan` BOOLEAN DEFAULT false NOT NULL,`dauOm` BOOLEAN DEFAULT false NOT NULL,`conOm` BOOLEAN DEFAULT false NOT NULL,`taiNanLd` BOOLEAN DEFAULT false NOT NULL,`hop` BOOLEAN DEFAULT false NOT NULL,`hocDaiHan` BOOLEAN DEFAULT false NOT NULL,`hocDotXuat` BOOLEAN DEFAULT false NOT NULL,`viecRieng` BOOLEAN DEFAULT false NOT NULL,`chuNhat` BOOLEAN DEFAULT false NOT NULL);
 create table `soPhanCong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVienId` BIGINT NOT NULL,`taskId` BIGINT NOT NULL,`phongBangId` BIGINT NOT NULL,`khoiLuong` DOUBLE NOT NULL,`gio` DOUBLE NOT NULL,`ghiChu` VARCHAR(254) NOT NULL,`soPhanCongExtId` BIGINT NOT NULL,`ngayPhanCong` TIMESTAMP NOT NULL);
-create table `user` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`username` VARCHAR(254) NOT NULL,`password` VARCHAR(254) NOT NULL,`role_id` BIGINT NOT NULL,`nhanVienId` BIGINT);
+create table `user` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`username` VARCHAR(254) NOT NULL,`password` VARCHAR(254) NOT NULL,`roleId` BIGINT NOT NULL,`nhanVienId` BIGINT);
 alter table `authority` add constraint `role_authority_fk` foreign key(`roleId`) references `role`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `companySetting` add constraint `company_company_setting_fk` foreign key(`companyId`) references `company`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `donVi` add constraint `company_don_vi_fk` foreign key(`companyId`) references `company`(`id`) on update NO ACTION on delete NO ACTION;
@@ -34,7 +34,7 @@ alter table `soPhanCong` add constraint `so_phan_cong_ext_so_phan_cong_fk` forei
 alter table `soPhanCong` add constraint `phong_bang_so_phan_cong_fk` foreign key(`phongBangId`) references `phongBang`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `soPhanCong` add constraint `nhan_vien_so_phan_cong_fk` foreign key(`nhanVienId`) references `nhanVien`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `user` add constraint `nhan_vien_user_fk` foreign key(`nhanVienId`) references `nhanVien`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `user` add constraint `role_user_fk` foreign key(`role_id`) references `role`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `user` add constraint `role_user_fk` foreign key(`roleId`) references `role`(`id`) on update NO ACTION on delete NO ACTION;
 
 # --- !Downs
 
