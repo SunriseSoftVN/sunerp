@@ -6,10 +6,10 @@ Ext.define('sunerp.model.CompanySetting', {
     fields: [
         'id',
         'companyId',
-        'name',
+        'company',
         'luongToiThieu'
     ],
     associations: [
-        {type: 'belongsTo', model: 'sunerp.model.Company', name: 'name'}
+        {type: 'belongsTo', model: 'sunerp.model.Company', name: 'company'}
     ]
 });
