@@ -7,6 +7,7 @@ import play.api.libs.json.{Json, Writes}
 import dtos.PagingDto
 import models.sunerp
 import models.sunerp.{Authorities, Authority}
+import play.api.db.slick.Session
 
 /**
  * The Class AuthorityCtr.
@@ -20,8 +21,7 @@ object AuthorityCtr extends BaseCtr[Authority, Authorities] with MainTemplate {
   override implicit val jsonWrite: Writes[sunerp.Authority] = Authorities.jsonFormat
   override val dao: AbstractQuery[sunerp.Authority, Authorities] = Authorities
   override val editForm: Form[sunerp.Authority] = Authorities.editForm
-
-  override protected def doIndex(paging: PagingDto)(implicit session: _root_.play.api.db.slick.Session) = {
+  override protected def doIndex(paging: PagingDto)(implicit session: Session) = {
     val auths = Authorities.loadWithRole(paging)
     Json.toJson(auths)
   }

@@ -38,7 +38,7 @@ object ChucVus extends AbstractQuery[ChucVu, ChucVus](new ChucVus(_)) {
     )(ChucVu.apply)(ChucVu.unapply)
   )
 
-  override def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[ChucVu] = {
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[ChucVu] = {
     var query = for (row <- this) yield row
 
     pagingDto.filters.foreach(filter => {

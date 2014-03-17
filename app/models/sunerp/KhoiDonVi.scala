@@ -43,7 +43,7 @@ object KhoiDonVis extends AbstractQuery[KhoiDonVi, KhoiDonVis](new KhoiDonVis(_)
 
   implicit val khoiDonViJsonFormat = Json.format[KhoiDonVi]
 
-  override def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[KhoiDonVi] = {
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[KhoiDonVi] = {
     var query = for (row <- this) yield row
 
     pagingDto.filters.foreach(filter => {

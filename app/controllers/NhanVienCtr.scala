@@ -1,9 +1,11 @@
 package controllers
 
 import controllers.element.{MainTemplate, BaseCtr}
-import models.sunerp.{NhanViens, NhanVien}
+import models.sunerp.{PhongBangs, NhanViens, NhanVien}
 import models.core.AbstractQuery
-import play.api.libs.json.Writes
+import play.api.libs.json.{Json, JsValue, Writes}
+import dtos.PagingDto
+import play.api.db.slick.Session
 
 /**
  * The Class NhanVienCtr.
@@ -17,4 +19,8 @@ object NhanVienCtr extends BaseCtr[NhanVien,NhanViens] with MainTemplate {
   override implicit val jsonWrite: Writes[NhanVien] = NhanViens.nhanVienJsonFormat
   override val dao: AbstractQuery[NhanVien, NhanViens] = NhanViens
   override val domainName: String = "nhanVien"
+  override protected def doIndex(paging: PagingDto)(implicit session: Session): JsValue = {
+    val result = NhanViens.load(paging)
+    Json.toJson(result)
+  }
 }

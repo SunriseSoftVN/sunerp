@@ -106,19 +106,19 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
     pagingDto.filters.foreach(filter => {
       query = query.where(tuple => {
         val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
-        val column = findColumn(filter.property, List(soPhanCong, soPhanCongExt, nhanVien, phongBang))
-        column like "%" + filter.value + "%"
+        filter.property match {
+          case "ghiChu" => soPhanCong.ghiChu.toLowerCase like filter.valueForLike
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
       })
     })
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(tuple => {
         val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
-        val column = findColumn(sort.property, List(soPhanCong, soPhanCongExt, nhanVien, phongBang))
-        sort.direction.toLowerCase match {
-          case "asc" => column.asc
-          case "desc" => column.desc
-          case o => throw new Exception("Invalid sorting key: " + o)
+        sort.property match {
+          case "ghiChu" => orderColumn(sort.direction, soPhanCong.ghiChu)
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
     })

@@ -86,7 +86,7 @@ object SoLuongs extends AbstractQuery[SoLuong, SoLuongs](new SoLuongs(_)) {
 
   implicit val soLuongJsonFormat = Json.format[SoLuong]
 
-  override def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[SoLuong] = {
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[SoLuong] = {
     var query = for (row <- this) yield row
 
     pagingDto.filters.foreach(filter => {

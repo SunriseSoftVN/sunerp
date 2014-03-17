@@ -47,7 +47,7 @@ object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
     )(DonVi.apply)(DonVi.unapply)
   )
 
-  override def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[DonVi] = {
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[DonVi] = {
     var query = for (row <- this) yield row
 
     pagingDto.filters.foreach(filter => {

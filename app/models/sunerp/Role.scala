@@ -39,7 +39,7 @@ object Roles extends AbstractQuery[Role, Roles](new Roles(_)) {
 
   implicit val roleJsonFormat = Json.format[Role]
 
-  override def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[Role] = {
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[Role] = {
     var query = for (row <- this) yield row
 
     pagingDto.filters.foreach(filter => {

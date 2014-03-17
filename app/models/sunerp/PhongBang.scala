@@ -43,7 +43,7 @@ object PhongBangs extends AbstractQuery[PhongBang, PhongBangs](new PhongBangs(_)
 
   implicit val phongBangJsonFormat = Json.format[PhongBang]
 
-  override def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[PhongBang] = {
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[PhongBang] = {
     var query = for (row <- this) yield row
 
     pagingDto.filters.foreach(filter => {

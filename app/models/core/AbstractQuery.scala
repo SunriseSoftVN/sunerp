@@ -33,58 +33,5 @@ abstract class AbstractQuery[E, T <: AbstractTable[E]](cons: Tag => T) extends T
 
   def update(entity: E, id: Long)(implicit session: Session) = where(_.id === id).update(entity)
 
-  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[E] = {
-    var query = for (row <- this) yield row
-
-    pagingDto.filters.foreach(filter => {
-      query = query.where(table => {
-        val column = findColumn(filter.property, List(table))
-        column like "%" + filter.value + "%"
-      })
-    })
-
-    pagingDto.sorts.foreach(sort => {
-      query = query.sortBy(table => {
-        val column = findColumn(sort.property, List(table))
-        sort.direction.toLowerCase match {
-          case "asc" => column.asc
-          case "desc" => column.desc
-          case o => throw new Exception("Invalid sorting key: " + o)
-        }
-      })
-    })
-
-
-    val totalRow = Query(query.length).first()
-
-    val rows = query
-      .drop(pagingDto.start)
-      .take(pagingDto.limit)
-      .list
-
-    ExtGirdDto[E](
-      total = totalRow,
-      data = rows
-    )
-  }
-
-  def findColumn[T1 <: AbstractTable[_]](path: String, tables: List[T1]): Column[String] = {
-    val column = getTableName(path).flatMap(data => {
-      val (table, column) = data
-      tables.find(_.tableName == table).map(_.column[String](column))
-    }).getOrElse {
-      tables.head.column[String](path)
-    }
-    column
-  }
-
-  private def getTableName(path: String): Option[(String, String)] = {
-    if (path.indexOf(".") > 0) {
-      val table = path.split('.').head
-      val col = path.split('.').last
-      Some((table, col))
-    } else None
-  }
-
   protected def orderColumn(direction: String, column: Column[_]) = if (direction.toLowerCase == "asc") column.asc else column.desc
 }

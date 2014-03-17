@@ -57,7 +57,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
 
   implicit val nhanVienJsonFormat = Json.format[NhanVien]
 
-  override def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[NhanVien] = {
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[NhanVien] = {
     var query = for (row <- this) yield row
 
     pagingDto.filters.foreach(filter => {

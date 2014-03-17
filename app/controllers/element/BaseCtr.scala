@@ -28,10 +28,7 @@ abstract class BaseCtr[E <: WithId[Long], T <: AbstractTable[E]] extends Control
     Ok(doIndex(paging))
   })
 
-  protected def doIndex(paging: PagingDto)(implicit session: Session): JsValue = {
-    val result = dao.load(paging)
-    Json.toJson(result)
-  }
+  protected def doIndex(paging: PagingDto)(implicit session: Session): JsValue
 
   def update(id: Long) = StackAction(AuthorityKey -> domainName)(implicit request => {
     editForm.bindFromRequest.fold(
