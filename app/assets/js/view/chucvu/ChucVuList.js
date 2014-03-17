@@ -16,7 +16,7 @@ Ext.define('sunerp.view.chucvu.ChucVuList', {
         me.store = this.getChucVuStore();
         me.columns = [
             {xtype: 'rownumberer'},
-            {header: 'Tên', dataIndex: 'name', flex: 1},
+            {header: 'Tên chức vụ', dataIndex: 'name', flex: 1},
             {header: 'Phụ cấp trách nhiệm', dataIndex: 'phuCapTrachNhiem', flex: 1},
             {
                 xtype: 'actioncolumn',
