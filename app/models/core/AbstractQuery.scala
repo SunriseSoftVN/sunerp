@@ -86,5 +86,5 @@ abstract class AbstractQuery[E, T <: AbstractTable[E]](cons: Tag => T) extends T
     } else None
   }
 
-  protected def orderColumn(direction: String, column: Column[_]) = if (direction == "asc") column.asc else column.desc
+  protected def orderColumn(direction: String, column: Column[_]) = if (direction.toLowerCase == "asc") column.asc else column.desc
 }
