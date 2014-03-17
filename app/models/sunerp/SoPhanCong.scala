@@ -50,27 +50,27 @@ case class SoPhanCong(
 
 class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong") {
 
-  def nhanVienId = defColumn[Long]("nhanVienId", O.NotNull)
+  def nhanVienId = column[Long]("nhanVienId", O.NotNull)
 
   def nhanVien = foreignKey("nhan_vien_so_phan_cong_fk", nhanVienId, NhanViens)(_.id)
 
-  def taskId = defColumn[Long]("taskId", O.NotNull)
+  def taskId = column[Long]("taskId", O.NotNull)
 
-  def phongBangId = defColumn[Long]("phongBangId", O.NotNull)
+  def phongBangId = column[Long]("phongBangId", O.NotNull)
 
   def phongBang = foreignKey("phong_bang_so_phan_cong_fk", phongBangId, PhongBangs)(_.id)
 
-  def khoiLuong = defColumn[Double]("khoiLuong", O.NotNull)
+  def khoiLuong = column[Double]("khoiLuong", O.NotNull)
 
-  def gio = defColumn[Double]("gio", O.NotNull)
+  def gio = column[Double]("gio", O.NotNull)
 
-  def ghiChu = defColumn[String]("ghiChu")
+  def ghiChu = column[String]("ghiChu")
 
-  def soPhanCongExtId = defColumn[Long]("soPhanCongExtId", O.NotNull)
+  def soPhanCongExtId = column[Long]("soPhanCongExtId", O.NotNull)
 
   def soPhanCongExt = foreignKey("so_phan_cong_ext_so_phan_cong_fk", soPhanCongExtId, SoPhanCongExts)(_.id)
 
-  def ngayPhanCong = defColumn[DateTime]("ngayPhanCong", O.NotNull)
+  def ngayPhanCong = column[DateTime]("ngayPhanCong", O.NotNull)
 
   def * = (id.?, nhanVienId, taskId, phongBangId, khoiLuong, gio, ghiChu, soPhanCongExtId, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
 }
@@ -106,18 +106,18 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
     pagingDto.filters.foreach(filter => {
       query = query.where(tuple => {
         val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
-        val defColumn = findColumn(filter.property, List(soPhanCong, soPhanCongExt, nhanVien, phongBang))
-        defColumn like "%" + filter.value + "%"
+        val column = findColumn(filter.property, List(soPhanCong, soPhanCongExt, nhanVien, phongBang))
+        column like "%" + filter.value + "%"
       })
     })
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(tuple => {
         val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
-        val defColumn = findColumn(sort.property, List(soPhanCong, soPhanCongExt, nhanVien, phongBang))
+        val column = findColumn(sort.property, List(soPhanCong, soPhanCongExt, nhanVien, phongBang))
         sort.direction.toLowerCase match {
-          case "asc" => defColumn.asc
-          case "desc" => defColumn.desc
+          case "asc" => column.asc
+          case "desc" => column.desc
           case o => throw new Exception("Invalid sorting key: " + o)
         }
       })

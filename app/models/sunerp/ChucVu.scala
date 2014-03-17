@@ -20,9 +20,9 @@ case class ChucVu(
                    ) extends WithId[Long]
 
 class ChucVus(tag: Tag) extends AbstractTable[ChucVu](tag, "chucVu") {
-  def name = defColumn[String]("name", O.NotNull)
+  def name = column[String]("name", O.NotNull)
 
-  def phuCapTrachNhiem = defColumn[Long]("phuCapTrachNhiem", O.NotNull)
+  def phuCapTrachNhiem = column[Long]("phuCapTrachNhiem", O.NotNull)
 
   def * = (id.?, name, phuCapTrachNhiem) <>(ChucVu.tupled, ChucVu.unapply)
 }

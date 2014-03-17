@@ -23,9 +23,9 @@ case class Authority(
 
 class Authorities(tag: Tag) extends AbstractTable[Authority](tag, "authority") {
 
-  def domain = defColumn[String]("domain", O.NotNull)
+  def domain = column[String]("domain", O.NotNull)
 
-  def roleId = defColumn[Long]("roleId", O.NotNull)
+  def roleId = column[Long]("roleId", O.NotNull)
 
   def role = foreignKey("role_authority_fk", roleId, Roles)(_.id)
 

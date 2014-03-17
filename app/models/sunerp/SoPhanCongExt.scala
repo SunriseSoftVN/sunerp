@@ -34,33 +34,33 @@ case class SoPhanCongExt(
 
 class SoPhanCongExts(tag: Tag) extends AbstractTable[SoPhanCongExt](tag, "soPhanCongExt") {
 
-  def lamDem = defColumn[Boolean]("lamDem", O.NotNull, O.Default(false))
+  def lamDem = column[Boolean]("lamDem", O.NotNull, O.Default(false))
 
-  def baoHoLaoDong = defColumn[Boolean]("baoHoLaoDong", O.NotNull, O.Default(false))
+  def baoHoLaoDong = column[Boolean]("baoHoLaoDong", O.NotNull, O.Default(false))
 
-  def docHai = defColumn[Boolean]("docHai", O.NotNull, O.Default(false))
+  def docHai = column[Boolean]("docHai", O.NotNull, O.Default(false))
 
-  def le = defColumn[Boolean]("le", O.NotNull, O.Default(false))
+  def le = column[Boolean]("le", O.NotNull, O.Default(false))
 
-  def tet = defColumn[Boolean]("tet", O.NotNull, O.Default(false))
+  def tet = column[Boolean]("tet", O.NotNull, O.Default(false))
 
-  def thaiSan = defColumn[Boolean]("thaiSan", O.NotNull, O.Default(false))
+  def thaiSan = column[Boolean]("thaiSan", O.NotNull, O.Default(false))
 
-  def dauOm = defColumn[Boolean]("dauOm", O.NotNull, O.Default(false))
+  def dauOm = column[Boolean]("dauOm", O.NotNull, O.Default(false))
 
-  def conOm = defColumn[Boolean]("conOm", O.NotNull, O.Default(false))
+  def conOm = column[Boolean]("conOm", O.NotNull, O.Default(false))
 
-  def taiNanLd = defColumn[Boolean]("taiNanLd", O.NotNull, O.Default(false))
+  def taiNanLd = column[Boolean]("taiNanLd", O.NotNull, O.Default(false))
 
-  def hop = defColumn[Boolean]("hop", O.NotNull, O.Default(false))
+  def hop = column[Boolean]("hop", O.NotNull, O.Default(false))
 
-  def hocDaiHan = defColumn[Boolean]("hocDaiHan", O.NotNull, O.Default(false))
+  def hocDaiHan = column[Boolean]("hocDaiHan", O.NotNull, O.Default(false))
 
-  def hocDotXuat = defColumn[Boolean]("hocDotXuat", O.NotNull, O.Default(false))
+  def hocDotXuat = column[Boolean]("hocDotXuat", O.NotNull, O.Default(false))
 
-  def viecRieng = defColumn[Boolean]("viecRieng", O.NotNull, O.Default(false))
+  def viecRieng = column[Boolean]("viecRieng", O.NotNull, O.Default(false))
 
-  def chuNhat = defColumn[Boolean]("chuNhat", O.NotNull, O.Default(false))
+  def chuNhat = column[Boolean]("chuNhat", O.NotNull, O.Default(false))
 
   def * = (id.?, lamDem, baoHoLaoDong, docHai, le, tet, thaiSan, dauOm, conOm, taiNanLd, hop, hocDaiHan, hocDotXuat, viecRieng, chuNhat) <>(SoPhanCongExt.tupled, SoPhanCongExt.unapply)
 }

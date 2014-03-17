@@ -19,7 +19,7 @@ case class QuyLuong(
 
 class QuyLuongs(tag: Tag) extends AbstractTable[QuyLuong](tag, "quyLuong") {
 
-  def soTien = defColumn[Long]("soTien", O.NotNull)
+  def soTien = column[Long]("soTien", O.NotNull)
 
   def * = (id.?, soTien) <>(QuyLuong.tupled, QuyLuong.unapply)
 }

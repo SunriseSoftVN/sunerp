@@ -24,15 +24,15 @@ case class CacKhoangTru(
 
 class CacKhoangTrus(tag: Tag) extends AbstractTable[CacKhoangTru](tag, "cacKhoangTru") {
 
-  def doanPhi = defColumn[Long]("doanPhi", O.NotNull)
+  def doanPhi = column[Long]("doanPhi", O.NotNull)
 
-  def ungKy1 = defColumn[Long]("ungKy1", O.NotNull)
+  def ungKy1 = column[Long]("ungKy1", O.NotNull)
 
-  def bhyt = defColumn[Long]("bhyt", O.NotNull)
+  def bhyt = column[Long]("bhyt", O.NotNull)
 
-  def bhxh = defColumn[Long]("bhxh", O.NotNull)
+  def bhxh = column[Long]("bhxh", O.NotNull)
 
-  def thuNo = defColumn[Long]("thuNo", O.NotNull)
+  def thuNo = column[Long]("thuNo", O.NotNull)
 
   def * = (id.?, doanPhi, ungKy1, bhyt, bhxh, thuNo) <>(CacKhoangTru.tupled, CacKhoangTru.unapply)
 }

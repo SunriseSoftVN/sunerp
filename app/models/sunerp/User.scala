@@ -29,13 +29,13 @@ case class User(
 
 class Users(tag: Tag) extends AbstractTable[User](tag, "user") {
 
-  def username = defColumn[String]("username", O.NotNull)
+  def username = column[String]("username", O.NotNull)
 
-  def password = defColumn[String]("password", O.NotNull)
+  def password = column[String]("password", O.NotNull)
 
-  def roleId = defColumn[Long]("role_id", O.NotNull)
+  def roleId = column[Long]("role_id", O.NotNull)
 
-  def nhanVienId = defColumn[Long]("nhanVienId", O.Nullable)
+  def nhanVienId = column[Long]("nhanVienId", O.Nullable)
 
   def role = foreignKey("role_user_fk", roleId, Roles)(_.id)
 
@@ -61,18 +61,18 @@ object Users extends AbstractQuery[User, Users](new Users(_)) {
     pagingDto.filters.foreach(filter => {
       query = query.where(tuple => {
         val (user, role) = tuple
-        val defColumn = findColumn(filter.property, List(user, role))
-        defColumn like "%" + filter.value + "%"
+        val column = findColumn(filter.property, List(user, role))
+        column like "%" + filter.value + "%"
       })
     })
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(tuple => {
         val (user, role) = tuple
-        val defColumn = findColumn(sort.property, List(user, role))
+        val column = findColumn(sort.property, List(user, role))
         sort.direction.toLowerCase match {
-          case "asc" => defColumn.asc
-          case "desc" => defColumn.desc
+          case "asc" => column.asc
+          case "desc" => column.desc
           case o => throw new Exception("Invalid sorting key: " + o)
         }
       })
