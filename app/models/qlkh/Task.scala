@@ -18,7 +18,8 @@ case class Task(
                  id: Option[Long] = None,
                  code: String,
                  name: String,
-                 defaultValue: Double
+                 defaultValue: Double,
+                 taskTypeCode: Int
                  ) extends WithId[Long]
 
 
@@ -30,7 +31,9 @@ class Tasks(tag: Tag) extends AbstractTable[Task](tag, "task") {
 
   def defaultValue = column[Double]("defaultValue", O.NotNull)
 
-  def * = (id.?, code, name, defaultValue) <>(Task.tupled, Task.unapply)
+  def taskTypeCode = column[Int]("taskTypeCode", O.NotNull)
+
+  def * = (id.?, code, name, defaultValue, taskTypeCode) <>(Task.tupled, Task.unapply)
 }
 
 object Tasks extends AbstractQuery[Task, Tasks](new Tasks(_)) {
@@ -44,10 +47,13 @@ object Tasks extends AbstractQuery[Task, Tasks](new Tasks(_)) {
   def load(pagingDto: PagingDto): ExtGirdDto[Task] = DB(dbName).withSession(implicit session => {
     var query = for (row <- this) yield row
 
+    //only for task dk, kdk, name
+    query = query.where(tabel => tabel.taskTypeCode inSet List(3, 0, 4))
+
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
         filter.property match {
-          case "name" => table.name.toLowerCase like filter.valueForLike
+          case "name" => table.name.toLowerCase.like(filter.valueForLike) || table.code.toLowerCase.like(filter.valueForLike)
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
