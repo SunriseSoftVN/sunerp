@@ -13,7 +13,6 @@ Ext.define('sunerp.view.chucvu.ChucVuEdit', {
         model: null,
         roleStore: null
     },
-    width: 400,
     initComponent: function () {
         this.items = [
             {
@@ -22,6 +21,7 @@ Ext.define('sunerp.view.chucvu.ChucVuEdit', {
                 items: [
                     {
                         xtype: 'textfield',
+                        anchor: '100%',
                         name: 'name',
                         minLength: 4,
                         allowBlank: false,
@@ -29,9 +29,11 @@ Ext.define('sunerp.view.chucvu.ChucVuEdit', {
                     },
                     {
                         xtype: 'numberfield',
+                        anchor: '100%',
+                        minValue:0,
                         name: 'phuCapTrachNhiem',
                         allowBlank: false,
-                        fieldLabel: 'Phụ cấp trách nhiệm'
+                        fieldLabel: 'Phụ cấp'
                     }
                 ]
             }
