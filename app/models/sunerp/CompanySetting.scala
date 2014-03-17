@@ -21,11 +21,11 @@ case class CompanySetting(
 
 class CompanySettings(tag: Tag) extends AbstractTable[CompanySetting](tag, "companySetting") {
 
-  def companyId = column[Long]("companyId", O.NotNull)
+  def companyId = defColumn[Long]("companyId", O.NotNull)
 
   def company = foreignKey("company_company_setting_fk", companyId, Companies)(_.id)
 
-  def luongToiThieu = column[Long]("luongToiThieu", O.NotNull)
+  def luongToiThieu = defColumn[Long]("luongToiThieu", O.NotNull)
 
   def * = (id.?, companyId, luongToiThieu) <>(CompanySetting.tupled, CompanySetting.unapply)
 }

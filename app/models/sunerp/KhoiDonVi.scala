@@ -21,9 +21,9 @@ case class KhoiDonVi(
 
 class KhoiDonVis(tag: Tag) extends AbstractTable[KhoiDonVi](tag, "khoiDonVi") {
 
-  def name = column[String]("name", O.NotNull)
+  def name = defColumn[String]("name", O.NotNull)
 
-  def companyId = column[Long]("companyId", O.NotNull)
+  def companyId = defColumn[Long]("companyId", O.NotNull)
 
   def company = foreignKey("company_khoi_don_vi_fk", companyId, Companies)(_.id)
 

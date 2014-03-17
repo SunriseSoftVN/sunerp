@@ -20,7 +20,7 @@ case class Role(
                  ) extends WithId[Long]
 
 class Roles(tag: Tag) extends AbstractTable[Role](tag, "role") {
-  def name = column[String]("name")
+  def name = defColumn[String]("name")
 
   def * = (id.?, name) <>(Role.tupled, Role.unapply)
 }

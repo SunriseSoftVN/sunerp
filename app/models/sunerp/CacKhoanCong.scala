@@ -28,25 +28,25 @@ case class CacKhoanCong(
 
 class CacKhoanCongs(tag: Tag) extends AbstractTable[CacKhoanCong](tag, "cacKhoanCong") {
 
-  def phuCapTn = column[Long]("phuCapTn", O.NotNull)
+  def phuCapTn = defColumn[Long]("phuCapTn", O.NotNull)
 
-  def phuCapLd = column[Long]("phuCapLd", O.NotNull)
+  def phuCapLd = defColumn[Long]("phuCapLd", O.NotNull)
 
-  def trucBHLD = column[Long]("trucBHLD", O.NotNull)
+  def trucBHLD = defColumn[Long]("trucBHLD", O.NotNull)
 
-  def phuCapKV = column[Long]("phuCapKV", O.NotNull)
+  def phuCapKV = defColumn[Long]("phuCapKV", O.NotNull)
 
-  def congPhanLuong = column[Long]("congPhanLuong", O.NotNull)
+  def congPhanLuong = defColumn[Long]("congPhanLuong", O.NotNull)
 
-  def chiKhac = column[Long]("chiKhac", O.NotNull)
+  def chiKhac = defColumn[Long]("chiKhac", O.NotNull)
 
-  def luongDocHai = column[Long]("luongDocHai", O.NotNull)
+  def luongDocHai = defColumn[Long]("luongDocHai", O.NotNull)
 
-  def nuocUong = column[Long]("nuocUong", O.NotNull)
+  def nuocUong = defColumn[Long]("nuocUong", O.NotNull)
 
-  def anGiuaCa = column[Long]("anGiuaCa", O.NotNull)
+  def anGiuaCa = defColumn[Long]("anGiuaCa", O.NotNull)
 
-  def omDauSinhDe = column[Long]("omDauSinhDe", O.NotNull)
+  def omDauSinhDe = defColumn[Long]("omDauSinhDe", O.NotNull)
 
   def * = (id.?, phuCapTn, phuCapLd, trucBHLD, phuCapKV, congPhanLuong, chiKhac, luongDocHai, nuocUong, anGiuaCa, omDauSinhDe) <>(CacKhoanCong.tupled, CacKhoanCong.unapply)
 }

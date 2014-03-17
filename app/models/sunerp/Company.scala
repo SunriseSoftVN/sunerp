@@ -26,15 +26,15 @@ case class Company(
 
 class Companies(tag: Tag) extends AbstractTable[Company](tag, "company") {
 
-  def name = column[String]("name", O.NotNull)
+  def name = defColumn[String]("name", O.NotNull)
 
-  def address = column[String]("address", O.NotNull)
+  def address = defColumn[String]("address", O.NotNull)
 
-  def phone = column[String]("phone", O.NotNull)
+  def phone = defColumn[String]("phone", O.NotNull)
 
-  def email = column[String]("email", O.NotNull)
+  def email = defColumn[String]("email", O.NotNull)
 
-  def mst = column[String]("mst", O.NotNull)
+  def mst = defColumn[String]("mst", O.NotNull)
 
   override def * = (id.?, name, address, phone, email, mst) <>(Company.tupled, Company.unapply)
 }
