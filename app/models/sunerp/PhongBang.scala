@@ -21,11 +21,11 @@ case class PhongBang(
 
 class PhongBangs(tag: Tag) extends AbstractTable[PhongBang](tag, "phongBang") {
 
-  def donViId = column[Long]("donViId", O.NotNull)
+  def donViId = defColumn[Long]("donViId", O.NotNull)
 
   def donVi = foreignKey("doi_vi_phong_bang_fk", donViId, DonVis)(_.id)
 
-  def name = column[String]("name", O.NotNull)
+  def name = defColumn[String]("name", O.NotNull)
 
   def * = (id.?, donViId, name) <>(PhongBang.tupled, PhongBang.unapply)
 }

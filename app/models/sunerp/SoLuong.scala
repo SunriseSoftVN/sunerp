@@ -33,33 +33,33 @@ case class SoLuong(
 
 class SoLuongs(tag: Tag) extends AbstractTable[SoLuong](tag, "soLuong") {
 
-  def nhanVienId = column[Long]("nhanVienId", O.NotNull)
+  def nhanVienId = defColumn[Long]("nhanVienId", O.NotNull)
 
   def nhanvien = foreignKey("nhanvien_so_luong_fk", nhanVienId, NhanViens)(_.id)
 
-  def chucVu = column[String]("chucVu", O.NotNull)
+  def chucVu = defColumn[String]("chucVu", O.NotNull)
 
-  def heSoLuong = column[Double]("heSoLuong", O.NotNull)
+  def heSoLuong = defColumn[Double]("heSoLuong", O.NotNull)
 
-  def luongNd = column[Long]("luongNd", O.NotNull)
+  def luongNd = defColumn[Long]("luongNd", O.NotNull)
 
-  def k2 = column[Double]("k2", O.NotNull)
+  def k2 = defColumn[Double]("k2", O.NotNull)
 
-  def luongSP = column[Long]("luongSP", O.NotNull)
+  def luongSP = defColumn[Long]("luongSP", O.NotNull)
 
-  def luongTgCong = column[Double]("luongTgCong", O.NotNull)
+  def luongTgCong = defColumn[Double]("luongTgCong", O.NotNull)
 
-  def luongTgTien = column[Long]("luongTgTien", O.NotNull)
+  def luongTgTien = defColumn[Long]("luongTgTien", O.NotNull)
 
-  def cacKhoangCongId = column[Long]("cacKhoangCongId", O.NotNull)
+  def cacKhoangCongId = defColumn[Long]("cacKhoangCongId", O.NotNull)
 
   def cacKhoangCong = foreignKey("cac_khoang_cong_so_luong_fk", cacKhoangCongId, CacKhoanCongs)(_.id)
 
-  def cacKhoangTruId = column[Long]("cacKhoangTruId", O.NotNull)
+  def cacKhoangTruId = defColumn[Long]("cacKhoangTruId", O.NotNull)
 
   def cacKhoangTru = foreignKey("cac_khoang_tru_so_luong_fk", cacKhoangTruId, CacKhoangTrus)(_.id)
 
-  def createdDate = column[DateTime]("createdDate", O.NotNull)
+  def createdDate = defColumn[DateTime]("createdDate", O.NotNull)
 
   def * = (id.?, nhanVienId, chucVu, heSoLuong, luongNd, k2, luongSP, luongTgCong, luongTgTien, cacKhoangCongId, cacKhoangTruId, createdDate) <>(SoLuong.tupled, SoLuong.unapply)
 }

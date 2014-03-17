@@ -24,17 +24,17 @@ case class NhanVien(
 
 class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
-  def firstName = column[String]("firstName", O.NotNull)
+  def firstName = defColumn[String]("firstName", O.NotNull)
 
-  def lastName = column[String]("lastName", O.NotNull)
+  def lastName = defColumn[String]("lastName", O.NotNull)
 
-  def heSoLuong = column[Long]("heSoLuong", O.NotNull)
+  def heSoLuong = defColumn[Long]("heSoLuong", O.NotNull)
 
-  def chucVuId = column[Long]("chucVuId", O.NotNull)
+  def chucVuId = defColumn[Long]("chucVuId", O.NotNull)
 
   def chucVu = foreignKey("chuc_vu_nhan_vien_fk", chucVuId, ChucVus)(_.id)
 
-  def phongBangId = column[Long]("phongBangId", O.NotNull)
+  def phongBangId = defColumn[Long]("phongBangId", O.NotNull)
 
   def phongBang = foreignKey("phong_bang_nhan_vien_fk", phongBangId, PhongBangs)(_.id)
 

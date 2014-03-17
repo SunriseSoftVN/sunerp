@@ -21,13 +21,13 @@ case class DonVi(
                   ) extends WithId[Long]
 
 class DonVis(tag: Tag) extends AbstractTable[DonVi](tag, "donVi") {
-  def name = column[String]("name", O.NotNull)
+  def name = defColumn[String]("name", O.NotNull)
 
-  def companyId = column[Long]("companyId", O.NotNull)
+  def companyId = defColumn[Long]("companyId", O.NotNull)
 
   def company = foreignKey("company_don_vi_fk", companyId, Companies)(_.id)
 
-  def khoiDonViId = column[Long]("khoiDonViId", O.NotNull)
+  def khoiDonViId = defColumn[Long]("khoiDonViId", O.NotNull)
 
   def khoiDonVi = foreignKey("khoiDonVi_fk", khoiDonViId, KhoiDonVis)(_.id)
 
