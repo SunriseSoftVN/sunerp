@@ -61,23 +61,23 @@ object Users extends AbstractQuery[User, Users](new Users(_)) {
     pagingDto.filters.foreach(filter => {
       query = query.where(tuple => {
         val (user, role) = tuple
-        val column = findColumn(filter.property, List(user, role))
-        column like "%" + filter.value + "%"
+        filter.property match {
+          case "username" => user.username.toLowerCase like "%" + filter.value.toLowerCase + "%"
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
       })
     })
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(tuple => {
         val (user, role) = tuple
-        val column = findColumn(sort.property, List(user, role))
-        sort.direction.toLowerCase match {
-          case "asc" => column.asc
-          case "desc" => column.desc
-          case o => throw new Exception("Invalid sorting key: " + o)
+        sort.property match {
+          case "username" => if (sort.direction == "asc") user.username.asc else user.username.desc
+          case "role.name" => if (sort.direction == "asc") role.name.asc else role.name.desc
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
     })
-
 
     val totalRow = Query(query.length).first()
 
