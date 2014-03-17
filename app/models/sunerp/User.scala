@@ -62,7 +62,7 @@ object Users extends AbstractQuery[User, Users](new Users(_)) {
       query = query.where(tuple => {
         val (user, role) = tuple
         filter.property match {
-          case "username" => user.username.toLowerCase like "%" + filter.value.toLowerCase + "%"
+          case "username" => user.username.toLowerCase like filter.valueForLike
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -72,8 +72,8 @@ object Users extends AbstractQuery[User, Users](new Users(_)) {
       query = query.sortBy(tuple => {
         val (user, role) = tuple
         sort.property match {
-          case "username" => if (sort.direction == "asc") user.username.asc else user.username.desc
-          case "role.name" => if (sort.direction == "asc") role.name.asc else role.name.desc
+          case "username" => orderColumn(sort.direction, user.username)
+          case "role.name" => orderColumn(sort.direction, role.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })

@@ -45,22 +45,25 @@ object Authorities extends AbstractQuery[Authority, Authorities](new Authorities
 
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
-        val column = findColumn(filter.property, List(table._1, table._2))
-        column like "%" + filter.value + "%"
+        val (authority, role) = table
+        filter.property match {
+          case "domain" => authority.domain.toLowerCase like filter.valueForLike
+          case "role.name" => role.name.toLowerCase like filter.valueForLike
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
       })
     })
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(table => {
-        val column = findColumn(sort.property, List(table._1, table._2))
-        sort.direction.toLowerCase match {
-          case "asc" => column.asc
-          case "desc" => column.desc
-          case o => throw new Exception("Invalid sorting key: " + o)
+        val (authority, role) = table
+        sort.property match {
+          case "domain" => orderColumn(sort.direction, authority.domain)
+          case "role.name" => orderColumn(sort.direction, role.name)
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
     })
-
 
     val totalRow = Query(query.length).first()
 

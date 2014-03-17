@@ -2,8 +2,7 @@ package models.core
 
 import play.api.db.slick.Config.driver.simple._
 import scala.slick.lifted.{Tag, TableQuery}
-import dtos.{ExtGirdDto, UserDto, PagingDto}
-import play.api.libs.json.Json
+import dtos.{ExtGirdDto, PagingDto}
 
 /**
  * The Class QueryHelper.
@@ -86,4 +85,6 @@ abstract class AbstractQuery[E, T <: AbstractTable[E]](cons: Tag => T) extends T
       Some((table, col))
     } else None
   }
+
+  protected def orderColumn(direction: String, column: Column[_]) = if (direction == "asc") column.asc else column.desc
 }
