@@ -40,7 +40,7 @@ object Authorities extends AbstractQuery[Authority, Authorities](new Authorities
 
   def findByRoleId(roleId: Long)(implicit session: Session) = where(_.roleId === roleId).list()
 
-  def loadWithRole(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[AuthorityDto] = {
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[AuthorityDto] = {
     var query = for (auth <- this; role <- auth.role) yield (auth, role)
 
     pagingDto.filters.foreach(filter => {

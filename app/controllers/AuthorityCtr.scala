@@ -22,7 +22,7 @@ object AuthorityCtr extends BaseCtr[Authority, Authorities] with MainTemplate {
   override val dao: AbstractQuery[sunerp.Authority, Authorities] = Authorities
   override val editForm: Form[sunerp.Authority] = Authorities.editForm
   override protected def doIndex(paging: PagingDto)(implicit session: Session) = {
-    val auths = Authorities.loadWithRole(paging)
+    val auths = Authorities.load(paging)
     Json.toJson(auths)
   }
 }

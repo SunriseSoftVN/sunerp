@@ -55,7 +55,7 @@ object Users extends AbstractQuery[User, Users](new Users(_)) {
 
   def findByUsername(username: String)(implicit session: Session) = where(_.username === username).firstOption()
 
-  def loadWithRole(pagingDto: PagingDto)(implicit session: Session) = {
+  def load(pagingDto: PagingDto)(implicit session: Session) = {
     var query = userRoleQuery
 
     pagingDto.filters.foreach(filter => {

@@ -100,7 +100,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
 
   implicit val soPhanCongJsonFormat = Json.format[SoPhanCong]
 
-  def loadWithAllRelation(pagingDto: PagingDto)(implicit session: Session) = {
+  def load(pagingDto: PagingDto)(implicit session: Session) = {
     var query = soPhanCongQuery
 
     pagingDto.filters.foreach(filter => {

@@ -21,7 +21,7 @@ object UserCtr extends BaseCtr[User, Users] with MainTemplate {
   override def editForm = Users.editForm
 
   override protected def doIndex(paging: PagingDto)(implicit session: Session) = {
-    val users = Users.loadWithRole(paging)
+    val users = Users.load(paging)
     Json.toJson(users)
   }
 }

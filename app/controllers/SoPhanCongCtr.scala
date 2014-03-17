@@ -21,7 +21,7 @@ object SoPhanCongCtr extends BaseCtr[SoPhanCong, SoPhanCongs] with MainTemplate 
   override val domainName: String = "soPhanCong"
 
   override protected def doIndex(paging: PagingDto)(implicit session: Session) = {
-    val result = SoPhanCongs.loadWithAllRelation(paging)
+    val result = SoPhanCongs.load(paging)
     Json.toJson(result)
   }
 }
