@@ -4,10 +4,6 @@ Ext.define('sunerp.view.authority.AuthorityEdit', {
     title: 'Edit Authority',
     requires: ['sunerp.controller.authority.AuthorityEditCtr'],
     controller: 'sunerp.controller.authority.AuthorityEditCtr',
-    inject: ['roleStore'],
-    config: {
-        roleStore: null
-    },
     initComponent: function () {
         this.items = [
             {
@@ -24,6 +20,7 @@ Ext.define('sunerp.view.authority.AuthorityEdit', {
                         xtype: 'comboboxx',
                         fieldLabel: 'Role',
                         name: 'roleId',
+                        modelName: 'role',
                         store: Ext.create('sunerp.store.RoleStore', {
                             proxy: {
                                 type: 'ajax',

@@ -8,12 +8,15 @@ Ext.define('sunerp.component.Combobox', {
     triggerAction: 'all',
     forceSelection: true,
     queryMode: 'local',
+    config: {
+        modelName: null
+    },
     listeners: {
         afterRender: function() {
             this.store.reload();
         }
     },
-    getSelected: function() {
+    getSelectedData: function() {
         var value = this.getValue();
         var record = this.findRecordByValue(value);
         return record.getData();

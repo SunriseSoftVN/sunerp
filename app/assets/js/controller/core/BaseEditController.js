@@ -4,6 +4,7 @@
 
 Ext.define('sunerp.controller.core.BaseEditController', {
     extend: 'Deft.mvc.ViewController',
+    //this property has to be set in subclass
     mainStore: null,
     control: {
         form: {
@@ -29,20 +30,25 @@ Ext.define('sunerp.controller.core.BaseEditController', {
             values = form.getValues(),
             me = this;
         if (form.isValid()) {
-            if (record != null) {
-                //update record
-                record.set(values);
-            } else {
+            if (record == null) {
+                record = Ext.create(me.mainStore.model);
                 //add new record
-                me.mainStore.add(values);
+                me.mainStore.add(record);
             }
+
+            record.set(values);
+
+            form.getForm().getFields().each(function (field) {
+                if (field.getXType() == "comboboxx") {
+                    record.set(field.getModelName(), field.getSelectedData());
+                }
+            });
 
             if (record == null || record.dirty) {
                 // synchronize the store after editing the record
                 me.mainStore.sync({
                     success: function () {
                         view.close();
-                        me.mainStore.reload();
                     }
                 });
             } else {

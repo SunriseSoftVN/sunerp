@@ -7,14 +7,16 @@ Ext.define('sunerp.model.BaseModel', {
     extend: 'Ext.data.Model',
     set: function (fieldName, newValue) {
         var me = this;
-        Ext.each(me.associations.keys, function (key) {
-            if (fieldName == key) {
-                Ext.each(newValue.fields.keys, function (field) {
-                    me.set(key + "." + field, newValue.get(field))
-                });
-                me.set(key + 'Id', newValue.get('id'));
-            }
-        });
         me.callParent(arguments);
+        if (newValue != null && Ext.isObject(newValue)) {
+            Ext.each(me.associations.keys, function (table) {
+                if (fieldName == table) {
+                    for (var key in newValue) {
+                        me.set(table + "." + key, newValue[key]);
+                    }
+                    me.set(key + 'Id', newValue.id);
+                }
+            });
+        }
     }
 });
