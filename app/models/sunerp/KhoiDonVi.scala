@@ -5,6 +5,7 @@ import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
+import dtos.{ExtGirdDto, PagingDto}
 
 /**
  * The Class KhoiDonVi.
@@ -42,4 +43,37 @@ object KhoiDonVis extends AbstractQuery[KhoiDonVi, KhoiDonVis](new KhoiDonVis(_)
 
   implicit val khoiDonViJsonFormat = Json.format[KhoiDonVi]
 
+  override def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[KhoiDonVi] = {
+    var query = for (row <- this) yield row
+
+    pagingDto.filters.foreach(filter => {
+      query = query.where(table => {
+        filter.property match {
+          case "name" => table.name.toLowerCase like filter.valueForLike
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
+      })
+    })
+
+    pagingDto.sorts.foreach(sort => {
+      query = query.sortBy(table => {
+        sort.property match {
+          case "name" => orderColumn(sort.direction, table.name)
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
+        }
+      })
+    })
+
+    val totalRow = Query(query.length).first()
+
+    val rows = query
+      .drop(pagingDto.start)
+      .take(pagingDto.limit)
+      .list
+
+    ExtGirdDto[KhoiDonVi](
+      total = totalRow,
+      data = rows
+    )
+  }
 }

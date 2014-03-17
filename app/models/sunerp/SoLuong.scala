@@ -8,6 +8,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.libs.json.Json
+import dtos.{ExtGirdDto, PagingDto}
 
 /**
  * The Class SoLuong.
@@ -85,4 +86,37 @@ object SoLuongs extends AbstractQuery[SoLuong, SoLuongs](new SoLuongs(_)) {
 
   implicit val soLuongJsonFormat = Json.format[SoLuong]
 
+  override def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[SoLuong] = {
+    var query = for (row <- this) yield row
+
+    pagingDto.filters.foreach(filter => {
+      query = query.where(table => {
+        filter.property match {
+          case "chucVu" => table.chucVu.toLowerCase like filter.valueForLike
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
+      })
+    })
+
+    pagingDto.sorts.foreach(sort => {
+      query = query.sortBy(table => {
+        sort.property match {
+          case "chucVu" => orderColumn(sort.direction, table.chucVu)
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
+        }
+      })
+    })
+
+    val totalRow = Query(query.length).first()
+
+    val rows = query
+      .drop(pagingDto.start)
+      .take(pagingDto.limit)
+      .list
+
+    ExtGirdDto[SoLuong](
+      total = totalRow,
+      data = rows
+    )
+  }
 }

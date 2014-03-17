@@ -6,6 +6,7 @@ import play.api.libs.json.Json
 import play.api.data.format.Formats._
 import play.api.data.Form
 import play.api.data.Forms._
+import dtos.{ExtGirdDto, PagingDto}
 
 /**
  * The Class Role.
@@ -37,5 +38,39 @@ object Roles extends AbstractQuery[Role, Roles](new Roles(_)) {
   )
 
   implicit val roleJsonFormat = Json.format[Role]
+
+  override def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[Role] = {
+    var query = for (row <- this) yield row
+
+    pagingDto.filters.foreach(filter => {
+      query = query.where(table => {
+        filter.property match {
+          case "name" => table.name.toLowerCase like filter.valueForLike
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
+      })
+    })
+
+    pagingDto.sorts.foreach(sort => {
+      query = query.sortBy(table => {
+        sort.property match {
+          case "name" => orderColumn(sort.direction, table.name)
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
+        }
+      })
+    })
+
+    val totalRow = Query(query.length).first()
+
+    val rows = query
+      .drop(pagingDto.start)
+      .take(pagingDto.limit)
+      .list
+
+    ExtGirdDto[Role](
+      total = totalRow,
+      data = rows
+    )
+  }
 }
 
