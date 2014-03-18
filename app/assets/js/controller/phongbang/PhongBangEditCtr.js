@@ -2,7 +2,7 @@
  * Created by dungvn3000 on 3/18/14.
  */
 
-Ext.define('sunerp.controller.authority.PhongBangEditCtr', {
+Ext.define('sunerp.controller.phongbang.PhongBangEditCtr', {
     extend: 'sunerp.controller.core.BaseEditController',
     inject: ['phongBangStore'],
     config: {
