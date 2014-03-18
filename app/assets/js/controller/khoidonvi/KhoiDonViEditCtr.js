@@ -2,7 +2,7 @@
  * Created by dungvn3000 on 3/18/14.
  */
 
-Ext.define('sunerp.controller.authority.KhoiDonViEditCtr', {
+Ext.define('sunerp.controller.khoidonvi.KhoiDonViEditCtr', {
     extend: 'sunerp.controller.core.BaseEditController',
     inject: ['khoiDonViStore'],
     config: {
