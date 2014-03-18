@@ -89,7 +89,7 @@ Ext.define('sunerp.component.CongViecPicker', {
         var searchValue = f.getValue();
         if (e.getKey() == e.ENTER) {
             me.getStore().clearFilter(true);
-            me.getStore().filter("name", searchValue);
+            me.getStore().filter("nameOrCode", searchValue);
             me.getStore().loadPage(1);
         }
     }

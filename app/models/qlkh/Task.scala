@@ -53,7 +53,7 @@ object Tasks extends AbstractQuery[Task, Tasks](new Tasks(_)) {
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
         filter.property match {
-          case "name" => table.name.toLowerCase.like(filter.valueForLike) || table.code.toLowerCase.like(filter.valueForLike)
+          case "nameOrCode" => table.name.toLowerCase.like(filter.valueForLike) || table.code.toLowerCase.like(filter.valueForLike)
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
