@@ -45,22 +45,22 @@ Ext.define('sunerp.Application', {
         config = {
             authorityStore:         'sunerp.store.AuthorityStore',
             cacKhoanCongStore:      'sunerp.store.CacKhoanCongStore',
-            cacKhoangTruStore:       'sunerp.store.CacKhoangTruStore',
+            cacKhoangTruStore:      'sunerp.store.CacKhoangTruStore',
             chucVuStore:            'sunerp.store.ChucVuStore',
-            companySettingStore:     'sunerp.store.CompanySettingStore',
-            companyStore:            'sunerp.store.CompanyStore',
-            donViStore:              'sunerp.store.DonViStore',
-            khoiDonViStore:          'sunerp.store.KhoiDonViStore',
-            navigationStoreStore:    'sunerp.store.NavigationStore',
-            nhanVienStore:           'sunerp.store.NhanVienStore',
-            phongBangStore:          'sunerp.store.PhongBangStore',
-            quyLuongStore:           'sunerp.store.QuyLuongStore',
+            companySettingStore:    'sunerp.store.CompanySettingStore',
+            companyStore:           'sunerp.store.CompanyStore',
+            donViStore:             'sunerp.store.DonViStore',
+            khoiDonViStore:         'sunerp.store.KhoiDonViStore',
+            navigationStore:        'sunerp.store.NavigationStore',
+            nhanVienStore:          'sunerp.store.NhanVienStore',
+            phongBangStore:         'sunerp.store.PhongBangStore',
+            quyLuongStore:          'sunerp.store.QuyLuongStore',
             roleStore:              'sunerp.store.RoleStore',
-            SoLuongStore:            'sunerp.store.SoLuongStore',
-            soPhanCongExtStore:      'sunerp.store.SoPhanCongExtStore',
+            SoLuongStore:           'sunerp.store.SoLuongStore',
+            soPhanCongExtStore:     'sunerp.store.SoPhanCongExtStore',
             soPhanCongStore:        'sunerp.store.SoPhanCongStore',
             taskStore:              'sunerp.store.TaskStore',
-            userStore:           'sunerp.store.UserStore'
+            userStore:              'sunerp.store.UserStore'
         };
         return config;
     }
