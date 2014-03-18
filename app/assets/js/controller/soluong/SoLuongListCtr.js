@@ -2,13 +2,13 @@
  * Created by dungvn3000 on 3/18/14.
  */
 
-Ext.define('sunerp.controller.authority.SoLuongListCtr', {
+Ext.define('sunerp.controller.soluong.SoLuongListCtr', {
     extend: 'sunerp.controller.core.BaseListController',
-    inject: ['SoLuongStore'],
+    inject: ['soLuongStore'],
     config: {
-        SoLuongStore: null
+        soLuongStore: null
     },
-    editView: 'sunerp.view.authority.SoLuongEdit',
+    editView: 'sunerp.view.soluong.SoLuongEdit',
     searchField: 'name',
     init: function () {
         this.mainStore = this.getSoLuongStore();

@@ -2,11 +2,11 @@
  * Created by dungvn3000 on 3/18/14.
  */
 
-Ext.define('sunerp.controller.authority.SoLuongEditCtr', {
+Ext.define('sunerp.controller.soluong.SoLuongEditCtr', {
     extend: 'sunerp.controller.core.BaseEditController',
-    inject: ['SoLuongStore'],
+    inject: ['soLuongStore'],
     config: {
-        SoLuongStore: null
+        soLuongStore: null
     },
     init: function() {
         this.mainStore = this.getSoLuongStore();
