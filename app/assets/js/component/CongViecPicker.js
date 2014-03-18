@@ -12,6 +12,8 @@ Ext.define('sunerp.component.CongViecPicker', {
     },
     onTriggerClick: function () {
         var me = this;
+        me.getStore().clearFilter(true);
+        me.getStore().loadPage(1);
         if (me.gird.getSelectionModel().hasSelection()) {
             var model = me.gird.getSelectionModel().getSelection()[0];
             me.setModel(model);
@@ -86,7 +88,7 @@ Ext.define('sunerp.component.CongViecPicker', {
         var me = this;
         var searchValue = f.getValue();
         if (e.getKey() == e.ENTER) {
-            me.getStore().clearFilter();
+            me.getStore().clearFilter(true);
             me.getStore().filter("name", searchValue);
             me.getStore().loadPage(1);
         }

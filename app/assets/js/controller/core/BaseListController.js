@@ -54,7 +54,7 @@ Ext.define('sunerp.controller.core.BaseListController', {
         var me = this;
         var searchValue = me.getSearchTxt().getValue();
         if (e.getKey() == e.ENTER) {
-            me.mainStore.clearFilter();
+            me.mainStore.clearFilter(true);
             me.mainStore.filter(me.searchField, searchValue);
             me.mainStore.loadPage(1);
         }
