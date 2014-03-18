@@ -5,13 +5,14 @@ Ext.define('sunerp.component.CongViecPicker', {
     gird: null,
     editable: false,
     config: {
-        store: Ext.create('sunerp.store.TaskStore'),
+        store: null,
         model: null,
         task: null,
         window: null
     },
     onTriggerClick: function () {
         var me = this;
+        me.setStore(Ext.create('sunerp.store.TaskStore'));
         me.getStore().clearFilter(true);
         me.getStore().loadPage(1);
         if (me.gird.getSelectionModel().hasSelection()) {

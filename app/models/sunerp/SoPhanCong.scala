@@ -107,7 +107,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       query = query.where(tuple => {
         val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
         filter.property match {
-          case "ghiChu" => soPhanCong.ghiChu.toLowerCase like filter.valueForLike
+          case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.valueForLike
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -118,6 +118,11 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
         val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
         sort.property match {
           case "ghiChu" => orderColumn(sort.direction, soPhanCong.ghiChu)
+          case "khoiLuong" => orderColumn(sort.direction, soPhanCong.khoiLuong)
+          case "gio" => orderColumn(sort.direction, soPhanCong.gio)
+          case "ghiChu" => orderColumn(sort.direction, soPhanCong.ghiChu)
+          case "ngayPhanCong" => orderColumn(sort.direction, soPhanCong.ngayPhanCong)
+          case "nhanVien.firstName" => orderColumn(sort.direction, nhanVien.firstName)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
