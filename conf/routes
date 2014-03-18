@@ -22,6 +22,11 @@ POST          /chucvu                controllers.ChucVuCtr.save
 PUT           /chucvu/:id            controllers.ChucVuCtr.update(id: Long)
 DELETE        /chucvu/:id            controllers.ChucVuCtr.delete(id: Long)
 
+GET           /khoidonvi             controllers.KhoiDonViCtr.index
+POST          /khoidonvi             controllers.KhoiDonViCtr.save
+PUT           /khoidonvi/:id         controllers.KhoiDonViCtr.update(id: Long)
+DELETE        /khoidonvi/:id         controllers.KhoiDonViCtr.delete(id: Long)
+
 GET           /task                  controllers.TaskCtr.index
 
 GET           /authority             controllers.AuthorityCtr.index
