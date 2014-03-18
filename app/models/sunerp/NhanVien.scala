@@ -73,6 +73,8 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       query = query.sortBy(table => {
         sort.property match {
           case "firstName" => orderColumn(sort.direction, table.firstName)
+          case "lastName" => orderColumn(sort.direction, table.lastName)
+          case "heSoLuong" => orderColumn(sort.direction, table.heSoLuong)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })

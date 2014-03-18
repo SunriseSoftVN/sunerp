@@ -37,6 +37,11 @@ POST          /phongbang             controllers.PhongBangCtr.save
 PUT           /phongbang/:id         controllers.PhongBangCtr.update(id: Long)
 DELETE        /phongbang/:id         controllers.PhongBangCtr.delete(id: Long)
 
+GET           /donvi                 controllers.DonViCtr.index
+POST          /donvi                 controllers.DonViCtr.save
+PUT           /donvi/:id             controllers.DonViCtr.update(id: Long)
+DELETE        /donvi/:id             controllers.DonViCtr.delete(id: Long)
+
 GET           /task                  controllers.TaskCtr.index
 
 GET           /authority             controllers.AuthorityCtr.index
