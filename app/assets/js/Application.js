@@ -56,7 +56,7 @@ Ext.define('sunerp.Application', {
             phongBangStore:         'sunerp.store.PhongBangStore',
             quyLuongStore:          'sunerp.store.QuyLuongStore',
             roleStore:              'sunerp.store.RoleStore',
-            SoLuongStore:           'sunerp.store.SoLuongStore',
+            soLuongStore:           'sunerp.store.SoLuongStore',
             soPhanCongExtStore:     'sunerp.store.SoPhanCongExtStore',
             soPhanCongStore:        'sunerp.store.SoPhanCongStore',
             taskStore:              'sunerp.store.TaskStore',
