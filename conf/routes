@@ -27,6 +27,11 @@ POST          /khoidonvi             controllers.KhoiDonViCtr.save
 PUT           /khoidonvi/:id         controllers.KhoiDonViCtr.update(id: Long)
 DELETE        /khoidonvi/:id         controllers.KhoiDonViCtr.delete(id: Long)
 
+GET           /nhanvien              controllers.NhanVienCtr.index
+POST          /nhanvien              controllers.NhanVienCtr.save
+PUT           /nhanvien/:id          controllers.NhanVienCtr.update(id: Long)
+DELETE        /nhanvien/:id          controllers.NhanVienCtr.delete(id: Long)
+
 GET           /task                  controllers.TaskCtr.index
 
 GET           /authority             controllers.AuthorityCtr.index
