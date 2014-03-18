@@ -51,6 +51,12 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     expanded = true,
     children = List(
       MenuItemDto(
+        id = "company",
+        view = "sunerp.view.company.companyList",
+        text = "Công ty",
+        leaf = true
+      ),
+      MenuItemDto(
         id = "khoiDonVi",
         view = "sunerp.view.khoidonvi.KhoiDonViList",
         text = "Khối đơn vị",
