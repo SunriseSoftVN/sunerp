@@ -2,7 +2,7 @@
  * Created by dungvn3000 on 3/18/14.
  */
 
-Ext.define('sunerp.controller.authority.NhanVienEditCtr', {
+Ext.define('sunerp.controller.nhanvien.NhanVienEditCtr', {
     extend: 'sunerp.controller.core.BaseEditController',
     inject: ['nhanVienStore'],
     config: {
