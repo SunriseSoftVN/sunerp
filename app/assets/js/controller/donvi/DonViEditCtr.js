@@ -2,7 +2,7 @@
  * Created by dungvn3000 on 3/18/14.
  */
 
-Ext.define('sunerp.controller.authority.DonViEditCtr', {
+Ext.define('sunerp.controller.donvi.DonViEditCtr', {
     extend: 'sunerp.controller.core.BaseEditController',
     inject: ['donViStore'],
     config: {
