@@ -32,6 +32,11 @@ POST          /nhanvien              controllers.NhanVienCtr.save
 PUT           /nhanvien/:id          controllers.NhanVienCtr.update(id: Long)
 DELETE        /nhanvien/:id          controllers.NhanVienCtr.delete(id: Long)
 
+GET           /phongbang             controllers.PhongBangCtr.index
+POST          /phongbang             controllers.PhongBangCtr.save
+PUT           /phongbang/:id         controllers.PhongBangCtr.update(id: Long)
+DELETE        /phongbang/:id         controllers.PhongBangCtr.delete(id: Long)
+
 GET           /task                  controllers.TaskCtr.index
 
 GET           /authority             controllers.AuthorityCtr.index
