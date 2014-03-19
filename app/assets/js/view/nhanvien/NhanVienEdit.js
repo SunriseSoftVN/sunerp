@@ -28,6 +28,40 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                         fieldLabel: 'Họ'
                     },
                     {
+                        xtype: 'comboboxx',
+                        fieldLabel: 'Chức vụ',
+                        name: 'chucVuId',
+                        modelName: 'chucVu',
+                        store: Ext.create('sunerp.store.ChucVuStore', {
+                            proxy: {
+                                type: 'ajax',
+                                url: '/chucvu/all',
+                                reader: 'json'
+                            }
+                        }),
+                        valueField: 'id',
+                        displayField: 'name',
+                        allowBlank: false,
+                        emptyText: 'Chọn một chức vụ...'
+                    },
+                    {
+                        xtype: 'comboboxx',
+                        fieldLabel: 'Phòng bang',
+                        name: 'phongBangId',
+                        modelName: 'phongBang',
+                        store: Ext.create('sunerp.store.PhongBangStore', {
+                            proxy: {
+                                type: 'ajax',
+                                url: '/phongbang/all',
+                                reader: 'json'
+                            }
+                        }),
+                        valueField: 'id',
+                        displayField: 'name',
+                        allowBlank: false,
+                        emptyText: 'Chọn một phòng bang...'
+                    },
+                    {
                         xtype: 'numberfield',
                         name: 'heSoLuong',
                         minValue:0,

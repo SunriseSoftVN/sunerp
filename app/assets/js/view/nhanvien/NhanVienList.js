@@ -17,6 +17,16 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
             {xtype: 'rownumberer'},
             {header: 'Tên', dataIndex: 'firstName', flex: 1},
             {header: 'Họ', dataIndex: 'lastName', flex: 1},
+            {
+                header: 'Chức vụ',
+                dataIndex: 'chucVu.name',
+                flex: 1
+            },
+            {
+                header: 'Phòng bang',
+                dataIndex: 'phongBang.name',
+                flex: 1
+            },
             {header: 'Hệ số lương', dataIndex: 'heSoLuong', flex: 1},
             {
                 xtype: 'actioncolumn',
