@@ -19,6 +19,23 @@ Ext.define('sunerp.view.khoidonvi.KhoiDonViEdit', {
                         minLength: 4,
                         allowBlank: false,
                         fieldLabel: 'Tên'
+                    },
+                    {
+                        xtype: 'comboboxx',
+                        fieldLabel: 'Công ty',
+                        name: 'companyId',
+                        modelName: 'company',
+                        store: Ext.create('sunerp.store.CompanyStore', {
+                            proxy: {
+                                type: 'ajax',
+                                url: '/company/all',
+                                reader: 'json'
+                            }
+                        }),
+                        valueField: 'id',
+                        displayField: 'name',
+                        allowBlank: false,
+                        emptyText: 'Chọn một công ty...'
                     }
                 ]
             }

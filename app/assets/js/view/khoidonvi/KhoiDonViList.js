@@ -17,6 +17,11 @@ Ext.define('sunerp.view.khoidonvi.KhoiDonViList', {
             {xtype: 'rownumberer'},
             {header: 'Tên', dataIndex: 'name', flex: 1},
             {
+                header: 'Công ty',
+                dataIndex: 'company.name',
+                flex: 1
+            },
+            {
                 xtype: 'actioncolumn',
                 header: 'Option',
                 sortable: false,
