@@ -2,6 +2,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
     extend: 'sunerp.view.core.BaseListEditView',
     requires: [
         'sunerp.component.CongViecPicker',
+        'sunerp.component.NhanVienPicker',
         'sunerp.controller.sophancong.SoPhanCongListCtr'
     ],
     tbar: [
@@ -40,17 +41,10 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 header: 'Họ tên',
                 dataIndex: 'nhanVien.firstName',
                 flex: 1,
-                editor: new Ext.form.field.ComboBox({
-                    typeAhead: true,
-                    triggerAction: 'all',
-                    store: [
-                        ['Shade', 'Shade'],
-                        ['Mostly Shady', 'Mostly Shady'],
-                        ['Sun or Shade', 'Sun or Shade'],
-                        ['Mostly Sunny', 'Mostly Sunny'],
-                        ['Sunny', 'Sunny']
-                    ]
-                })
+                editor: {
+                    xtype: 'nhanvienpicker',
+                    gird: me
+                }
             },
             {
                 header: 'Công việc',
