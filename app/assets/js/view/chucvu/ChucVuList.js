@@ -4,7 +4,7 @@
 
 Ext.define('sunerp.view.chucvu.ChucVuList', {
     extend: 'sunerp.view.core.BaseListView',
-    alias: 'widget.chucvuList',
+    alias: 'widget.chucVuList',
     requires: ['sunerp.controller.chucvu.ChucVuListCtr'],
     controller: 'sunerp.controller.chucvu.ChucVuListCtr',
     inject: ['chucVuStore'],

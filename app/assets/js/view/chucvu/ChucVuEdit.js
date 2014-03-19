@@ -4,7 +4,7 @@
 
 Ext.define('sunerp.view.chucvu.ChucVuEdit', {
     extend: 'sunerp.view.core.BaseEditView',
-    alias: 'widget.chucvuEdit',
+    alias: 'widget.chucVuEdit',
     title: 'Edit Chức vụ',
     requires: ['sunerp.controller.chucvu.ChucVuEditCtr'],
     controller: 'sunerp.controller.chucvu.ChucVuEditCtr',
