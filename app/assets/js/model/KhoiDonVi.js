@@ -7,7 +7,8 @@ Ext.define('sunerp.model.KhoiDonVi', {
         'id',
         'name',
         'companyId',
-        'company'
+        'company',
+        {name: 'company.name', mapping: 'company.name'}
     ],
     associations: [
         {type: 'belongsTo', model: 'sunerp.model.Company', name: 'company'}
