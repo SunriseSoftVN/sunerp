@@ -8,7 +8,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.libs.json.Json
-import dtos.{ExtGirdDto, PagingDto}
+import dtos.{SoLuongDto, ExtGirdDto, PagingDto}
 
 /**
  * The Class SoLuong.
@@ -86,13 +86,19 @@ object SoLuongs extends AbstractQuery[SoLuong, SoLuongs](new SoLuongs(_)) {
 
   implicit val soLuongJsonFormat = Json.format[SoLuong]
 
-  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[SoLuong] = {
-    var query = for (row <- this) yield row
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[SoLuongDto] = {
+    var query = for (
+      soluong <- this;
+      nhanVien <- soluong.nhanvien;
+      cacKhoangCong <- soluong.cacKhoangCong;
+      cacKhoangTru <- soluong.cacKhoangTru
+    ) yield (soluong, nhanVien, cacKhoangCong, cacKhoangTru)
 
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
+        val (soluong, nhanVien, cacKhoangCong, cacKhoangTru) = table
         filter.property match {
-          case "chucVu" => table.chucVu.toLowerCase like filter.valueForLike
+          case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.valueForLike
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -100,8 +106,9 @@ object SoLuongs extends AbstractQuery[SoLuong, SoLuongs](new SoLuongs(_)) {
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(table => {
+        val (soluong, nhanVien, cacKhoangCong, cacKhoangTru) = table
         sort.property match {
-          case "chucVu" => orderColumn(sort.direction, table.chucVu)
+          case "chucVu" => orderColumn(sort.direction, soluong.chucVu)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
@@ -113,8 +120,9 @@ object SoLuongs extends AbstractQuery[SoLuong, SoLuongs](new SoLuongs(_)) {
       .drop(pagingDto.start)
       .take(pagingDto.limit)
       .list
+      .map(SoLuongDto.apply)
 
-    ExtGirdDto[SoLuong](
+    ExtGirdDto[SoLuongDto](
       total = totalRow,
       data = rows
     )

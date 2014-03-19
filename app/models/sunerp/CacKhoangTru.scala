@@ -5,6 +5,7 @@ import play.api.db.slick.Config.driver.simple._
 import play.api.data.format.Formats._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.json.Json
 
 /**
  * The Class CacKhoangTru.
@@ -49,4 +50,7 @@ object CacKhoangTrus extends AbstractQuery[CacKhoangTru, CacKhoangTrus](new CacK
       "thuNo" -> longNumber
     )(CacKhoangTru.apply)(CacKhoangTru.unapply)
   )
+
+  implicit val cacKhoanTruJsonFormat = Json.format[CacKhoangTru]
+
 }

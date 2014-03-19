@@ -4,6 +4,7 @@ import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.json.Json
 
 /**
  * The Class LuongPhuCap.
@@ -12,7 +13,7 @@ import play.api.data.Forms._
  * @since 3/5/14 11:34 AM
  *
  */
-case class CacKhoanCong(
+case class CacKhoangCong(
                          id: Option[Long] = None,
                          phuCapTn: Long,
                          phuCapLd: Long,
@@ -26,7 +27,7 @@ case class CacKhoanCong(
                          omDauSinhDe: Long
                          ) extends WithId[Long]
 
-class CacKhoanCongs(tag: Tag) extends AbstractTable[CacKhoanCong](tag, "cacKhoanCong") {
+class CacKhoanCongs(tag: Tag) extends AbstractTable[CacKhoangCong](tag, "cacKhoangCong") {
 
   def phuCapTn = column[Long]("phuCapTn", O.NotNull)
 
@@ -48,10 +49,10 @@ class CacKhoanCongs(tag: Tag) extends AbstractTable[CacKhoanCong](tag, "cacKhoan
 
   def omDauSinhDe = column[Long]("omDauSinhDe", O.NotNull)
 
-  def * = (id.?, phuCapTn, phuCapLd, trucBHLD, phuCapKV, congPhanLuong, chiKhac, luongDocHai, nuocUong, anGiuaCa, omDauSinhDe) <>(CacKhoanCong.tupled, CacKhoanCong.unapply)
+  def * = (id.?, phuCapTn, phuCapLd, trucBHLD, phuCapKV, congPhanLuong, chiKhac, luongDocHai, nuocUong, anGiuaCa, omDauSinhDe) <>(CacKhoangCong.tupled, CacKhoangCong.unapply)
 }
 
-object CacKhoanCongs extends AbstractQuery[CacKhoanCong, CacKhoanCongs](new CacKhoanCongs(_)) {
+object CacKhoanCongs extends AbstractQuery[CacKhoangCong, CacKhoanCongs](new CacKhoanCongs(_)) {
 
   def editForm = Form(
     mapping(
@@ -66,7 +67,9 @@ object CacKhoanCongs extends AbstractQuery[CacKhoanCong, CacKhoanCongs](new CacK
       "nuocUong" -> longNumber,
       "anGiuaCa" -> longNumber,
       "omDauSinhDe" -> longNumber
-    )(CacKhoanCong.apply)(CacKhoanCong.unapply)
+    )(CacKhoangCong.apply)(CacKhoangCong.unapply)
   )
+
+  implicit val cacKhoanCongJsonFormat = Json.format[CacKhoangCong]
 
 }
