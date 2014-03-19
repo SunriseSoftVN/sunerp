@@ -4,7 +4,7 @@ import controllers.element.{MainTemplate, BaseCtr}
 import models.sunerp.{DonVis, DonVi}
 import models.core.AbstractQuery
 import play.api.libs.json.{Json, JsValue, Writes}
-import dtos.PagingDto
+import dtos.{DonViDto, PagingDto}
 import play.api.db.slick.Session
 
 /**
@@ -20,9 +20,11 @@ object DonViCtr extends BaseCtr[DonVi, DonVis] with MainTemplate {
   override val dao: AbstractQuery[DonVi, DonVis] = DonVis
   override val domainName: String = "donVi"
   override protected def doIndex(paging: PagingDto)(implicit session: Session): JsValue = {
+    implicit val jsonWrite = DonViDto.jsonWrite
     val result = DonVis.load(paging)
     Json.toJson(result)
   }
+
   def all = StackAction(AuthorityKey -> domainName)(implicit request => {
     Ok(Json.toJson(DonVis.all))
   })
