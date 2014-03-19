@@ -18,6 +18,7 @@ DELETE        /role/:id              controllers.RoleCtr.delete(id: Long)
 GET           /role/all              controllers.RoleCtr.all
 
 GET           /chucvu                controllers.ChucVuCtr.index
+GET           /chucvu/all            controllers.ChucVuCtr.all
 POST          /chucvu                controllers.ChucVuCtr.save
 PUT           /chucvu/:id            controllers.ChucVuCtr.update(id: Long)
 DELETE        /chucvu/:id            controllers.ChucVuCtr.delete(id: Long)
@@ -39,6 +40,7 @@ POST          /nhanvien              controllers.NhanVienCtr.save
 PUT           /nhanvien/:id          controllers.NhanVienCtr.update(id: Long)
 DELETE        /nhanvien/:id          controllers.NhanVienCtr.delete(id: Long)
 
+GET           /phongbang/all         controllers.PhongBangCtr.all
 GET           /phongbang             controllers.PhongBangCtr.index
 POST          /phongbang             controllers.PhongBangCtr.save
 PUT           /phongbang/:id         controllers.PhongBangCtr.update(id: Long)

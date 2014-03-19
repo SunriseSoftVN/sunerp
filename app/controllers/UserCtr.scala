@@ -14,12 +14,10 @@ import models.sunerp.{Users, User}
  *
  */
 object UserCtr extends BaseCtr[User, Users] with MainTemplate {
-
   override val domainName = "user"
   override val dao = Users
   override implicit val jsonWrite: Writes[User] = Users.userJsonFomart
   override def editForm = Users.editForm
-
   override protected def doIndex(paging: PagingDto)(implicit session: Session) = {
     val users = Users.load(paging)
     Json.toJson(users)
