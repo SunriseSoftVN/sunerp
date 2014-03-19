@@ -4,7 +4,7 @@ import controllers.element.{MainTemplate, BaseCtr}
 import models.sunerp.{PhongBangs, PhongBang}
 import models.core.AbstractQuery
 import play.api.libs.json.{Json, JsValue, Writes}
-import dtos.PagingDto
+import dtos.{PhongBangDto, PagingDto}
 import play.api.db.slick.Session
 
 /**
@@ -22,6 +22,7 @@ object PhongBangCtr extends BaseCtr[PhongBang, PhongBangs] with MainTemplate {
   override val domainName: String = "phongBang"
 
   override protected def doIndex(paging: PagingDto)(implicit session: Session): JsValue = {
+    implicit val jsonWrite = PhongBangDto.jsonWrite
     val result = PhongBangs.load(paging)
     Json.toJson(result)
   }
