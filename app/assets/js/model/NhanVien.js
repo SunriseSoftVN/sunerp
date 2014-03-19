@@ -10,8 +10,10 @@ Ext.define('sunerp.model.NhanVien', {
         'heSoLuong',
         'chucVuId',
         'chucVu',
+        {name: 'chucVu.name', mapping: 'chucVu.name'},
         'phongBangId',
-        'phongBang'
+        'phongBang',
+        {name: 'phongBang.name', mapping: 'phongBang.name'}
     ],
     associations: [
         {type: 'belongsTo', model: 'sunerp.model.ChucVu', name: 'chucVu'},
