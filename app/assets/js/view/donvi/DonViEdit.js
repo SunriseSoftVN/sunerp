@@ -19,6 +19,23 @@ Ext.define('sunerp.view.donvi.DonViEdit', {
                         minLength: 4,
                         allowBlank: false,
                         fieldLabel: 'Tên'
+                    },
+                    {
+                        xtype: 'comboboxx',
+                        fieldLabel: 'Khối đơn vị',
+                        name: 'khoiDonViId',
+                        modelName: 'khoiDonVi',
+                        store: Ext.create('sunerp.store.KhoiDonViStore', {
+                            proxy: {
+                                type: 'ajax',
+                                url: '/khoidonvi/all',
+                                reader: 'json'
+                            }
+                        }),
+                        valueField: 'id',
+                        displayField: 'name',
+                        allowBlank: false,
+                        emptyText: 'Chọn một khối đơn vị...'
                     }
                 ]
             }

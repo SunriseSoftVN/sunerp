@@ -17,6 +17,11 @@ Ext.define('sunerp.view.phongbang.PhongBangList', {
             {xtype: 'rownumberer'},
             {header: 'Tên', dataIndex: 'name', flex: 1},
             {
+                header: 'Đơn vị',
+                dataIndex: 'donVi.name',
+                flex: 1
+            },
+            {
                 xtype: 'actioncolumn',
                 header: 'Option',
                 sortable: false,
