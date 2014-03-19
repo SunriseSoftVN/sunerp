@@ -5,7 +5,7 @@ import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
-import dtos.{ExtGirdDto, PagingDto}
+import dtos.{KhoiDonViDto, ExtGirdDto, PagingDto}
 
 /**
  * The Class KhoiDonVi.
@@ -43,13 +43,15 @@ object KhoiDonVis extends AbstractQuery[KhoiDonVi, KhoiDonVis](new KhoiDonVis(_)
 
   implicit val khoiDonViJsonFormat = Json.format[KhoiDonVi]
 
-  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[KhoiDonVi] = {
-    var query = for (row <- this) yield row
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[KhoiDonViDto] = {
+    var query = for (khoiDonVi <- this; company <- khoiDonVi.company) yield (khoiDonVi, company)
 
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
+        val (khoiDonVi, company) = table
         filter.property match {
-          case "name" => table.name.toLowerCase like filter.valueForLike
+          case "name" => khoiDonVi.name.toLowerCase like filter.valueForLike
+          case "company.name" => company.name.toLowerCase like filter.valueForLike
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -57,8 +59,10 @@ object KhoiDonVis extends AbstractQuery[KhoiDonVi, KhoiDonVis](new KhoiDonVis(_)
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(table => {
+        val (khoiDonVi, company) = table
         sort.property match {
-          case "name" => orderColumn(sort.direction, table.name)
+          case "name" => orderColumn(sort.direction, khoiDonVi.name)
+          case "company.name" => orderColumn(sort.direction, company.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
@@ -70,8 +74,9 @@ object KhoiDonVis extends AbstractQuery[KhoiDonVi, KhoiDonVis](new KhoiDonVis(_)
       .drop(pagingDto.start)
       .take(pagingDto.limit)
       .list
+      .map(KhoiDonViDto.apply)
 
-    ExtGirdDto[KhoiDonVi](
+    ExtGirdDto[KhoiDonViDto](
       total = totalRow,
       data = rows
     )

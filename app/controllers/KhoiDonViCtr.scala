@@ -4,7 +4,7 @@ import controllers.element.{MainTemplate, BaseCtr}
 import models.sunerp.{KhoiDonVis, KhoiDonVi}
 import models.core.AbstractQuery
 import play.api.libs.json.{Json, JsValue, Writes}
-import dtos.PagingDto
+import dtos.{KhoiDonViDto, PagingDto}
 import play.api.db.slick.Session
 
 /**
@@ -20,6 +20,7 @@ object KhoiDonViCtr extends BaseCtr[KhoiDonVi, KhoiDonVis] with MainTemplate {
   override val dao: AbstractQuery[KhoiDonVi, KhoiDonVis] = KhoiDonVis
   override val domainName: String = "khoiDonVi"
   override protected def doIndex(paging: PagingDto)(implicit session: Session): JsValue = {
+    implicit val jsonWrite = KhoiDonViDto.jsonWrite
     val result = KhoiDonVis.load(paging)
     Json.toJson(result)
   }
