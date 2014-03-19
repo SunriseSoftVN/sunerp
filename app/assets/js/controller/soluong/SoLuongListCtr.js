@@ -8,10 +8,19 @@ Ext.define('sunerp.controller.soluong.SoLuongListCtr', {
     config: {
         soLuongStore: null
     },
-    editView: 'sunerp.view.soluong.SoLuongEdit',
-    searchField: 'name',
+    control: {
+        addBtn: {
+            selector: 'button[action=addNew]',
+            listeners: {
+                click: 'addNewRow'
+            }
+        }
+    },
     init: function () {
-        this.mainStore = this.getSoLuongStore();
         this.callParent(arguments);
+    },
+    addNewRow: function () {
+        var rec = new sunerp.model.SoLuong();
+        this.getSoLuongStore().insert(0, rec);
     }
 });
