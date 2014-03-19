@@ -1,7 +1,7 @@
 package controllers
 
 import controllers.element.{MainTemplate, BaseCtr}
-import models.sunerp.{ChucVus, DonVis, DonVi}
+import models.sunerp.{DonVis, DonVi}
 import models.core.AbstractQuery
 import play.api.libs.json.{Json, JsValue, Writes}
 import dtos.PagingDto
@@ -23,4 +23,7 @@ object DonViCtr extends BaseCtr[DonVi, DonVis] with MainTemplate {
     val result = DonVis.load(paging)
     Json.toJson(result)
   }
+  def all = StackAction(AuthorityKey -> domainName)(implicit request => {
+    Ok(Json.toJson(DonVis.all))
+  })
 }

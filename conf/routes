@@ -26,6 +26,7 @@ GET           /khoidonvi             controllers.KhoiDonViCtr.index
 POST          /khoidonvi             controllers.KhoiDonViCtr.save
 PUT           /khoidonvi/:id         controllers.KhoiDonViCtr.update(id: Long)
 DELETE        /khoidonvi/:id         controllers.KhoiDonViCtr.delete(id: Long)
+GET           /khoidonvi/all         controllers.KhoiDonViCtr.all
 
 GET           /company               controllers.CompanyCtr.index
 POST          /company               controllers.CompanyCtr.save
@@ -46,6 +47,7 @@ GET           /donvi                 controllers.DonViCtr.index
 POST          /donvi                 controllers.DonViCtr.save
 PUT           /donvi/:id             controllers.DonViCtr.update(id: Long)
 DELETE        /donvi/:id             controllers.DonViCtr.delete(id: Long)
+GET           /donvi/all             controllers.DonViCtr.all
 
 GET           /task                  controllers.TaskCtr.index
 

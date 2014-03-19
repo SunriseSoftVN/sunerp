@@ -23,4 +23,7 @@ object KhoiDonViCtr extends BaseCtr[KhoiDonVi, KhoiDonVis] with MainTemplate {
     val result = KhoiDonVis.load(paging)
     Json.toJson(result)
   }
+  def all = StackAction(AuthorityKey -> domainName)(implicit request => {
+    Ok(Json.toJson(KhoiDonVis.all))
+  })
 }
