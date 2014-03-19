@@ -47,51 +47,155 @@ Ext.define('sunerp.view.soluong.SoLuongList', {
                     gird: me
                 }
             },
-            {header: 'Chức vụ', dataIndex: 'chucVu', width: 100},
-            {header: 'Hệ số lương', dataIndex: 'heSoLuong', width: 100},
-            {header: 'Luong ND', dataIndex: 'luongNd', width: 100},
-            {header: 'K2', dataIndex: 'k2', width: 50},
-            {header: 'Lương SP', dataIndex: 'luongSP', width: 100},
+            {header: 'Hệ số lương', dataIndex: 'heSoLuong', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Luong ND', dataIndex: 'luongNd', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'K2', dataIndex: 'k2', width: 50,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Lương SP', dataIndex: 'luongSP', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
             {
                 text: 'Lương thời gian',
                 columns: [
                     {
                         text     : 'Cộng',
-                        dataIndex: 'luongTgCong'
+                        dataIndex: 'luongTgCong',
+                        xtype: 'numbercolumn',
+                        editor: {
+                            xtype: 'numberfield'
+                        }
                     },
                     {
                         text     : 'Tiền',
-                        dataIndex: 'luongTgTien'
+                        dataIndex: 'luongTgTien',
+                        xtype: 'numbercolumn',
+                        editor: {
+                            xtype: 'numberfield'
+                        }
                     }
                 ]
             },
-            {header: 'Phụ cấp TN', dataIndex: 'cacKhoangCong.phuCapTn', width: 100},
-            {header: 'Phụ cấp LD', dataIndex: 'cacKhoangCong.phuCapLd', width: 100},
-            {header: 'Trực BHLD', dataIndex: 'cacKhoangCong.trucBHLD', width: 100},
-            {header: 'Phụ cấp KV', dataIndex: 'cacKhoangCong.phuCapKV', width: 100},
-            {header: 'Cộng phần lương', dataIndex: 'cacKhoangCong.congPhanLuong', width: 130},
-            {header: 'Chi khác', dataIndex: 'cacKhoangCong.chiKhac', width: 90},
-            {header: 'Lương độc hại', dataIndex: 'cacKhoangCong.luongDocHai', width: 125},
-            {header: 'Nước uống', dataIndex: 'cacKhoangCong.nuocUong', width: 100},
-            {header: 'Ăn giữa ca', dataIndex: 'cacKhoangCong.anGiuaCa', width: 100},
-            {header: 'Ốm đau sinh đẻ', dataIndex: 'cacKhoangCong.omDauSinhDe', width: 130},
+            {header: 'Phụ cấp TN', dataIndex: 'cacKhoangCong.phuCapTn', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Phụ cấp LD', dataIndex: 'cacKhoangCong.phuCapLd', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Trực BHLD', dataIndex: 'cacKhoangCong.trucBHLD', width: 100,xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Phụ cấp KV', dataIndex: 'cacKhoangCong.phuCapKV', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Cộng phần lương', dataIndex: 'cacKhoangCong.congPhanLuong', width: 130,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Chi khác', dataIndex: 'cacKhoangCong.chiKhac', width: 90,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Lương độc hại', dataIndex: 'cacKhoangCong.luongDocHai', width: 125,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Nước uống', dataIndex: 'cacKhoangCong.nuocUong', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Ăn giữa ca', dataIndex: 'cacKhoangCong.anGiuaCa', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Ốm đau sinh đẻ', dataIndex: 'cacKhoangCong.omDauSinhDe', width: 130,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
             {
                 text: 'Các khoản trừ',
                 columns: [
                     {
                         text     : 'BHYT',
-                        dataIndex: 'cacKhoangTru.bhyt'
+                        dataIndex: 'cacKhoangTru.bhyt',
+                        xtype: 'numbercolumn',
+                        editor: {
+                            xtype: 'numberfield'
+                        }
                     },
                     {
                         text     : 'BHXH',
-                        dataIndex: 'cacKhoangTru.bhxh'
+                        dataIndex: 'cacKhoangTru.bhxh',
+                        xtype: 'numbercolumn',
+                        editor: {
+                            xtype: 'numberfield'
+                        }
                     }
                 ]
             },
-            {header: 'Đoàn phỉ', dataIndex: 'cacKhoangTru.doanPhi', width: 100},
-            {header: 'Ứng kỳ 1', dataIndex: 'cacKhoangTru.ungKy1', width: 100},
-            {header: 'Thu nợ', dataIndex: 'cacKhoangTru.thuNo', width: 100},
-            {header: 'Ngày tạo', dataIndex: 'createdDate', width: 100},
+            {header: 'Đoàn phỉ', dataIndex: 'cacKhoangTru.doanPhi', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Ứng kỳ 1', dataIndex: 'cacKhoangTru.ungKy1', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Thu nợ', dataIndex: 'cacKhoangTru.thuNo', width: 100,
+                xtype: 'numbercolumn',
+                editor: {
+                    xtype: 'numberfield'
+                }
+            },
+            {header: 'Ngày tạo', dataIndex: 'createdDate', width: 100,
+                xtype: 'datecolumn',
+                editor: {
+                    xtype: 'datefield'
+                }
+            },
             {
                 xtype: 'actioncolumn',
                 header: 'Option',
