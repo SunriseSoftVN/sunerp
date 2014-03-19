@@ -24,4 +24,7 @@ object CompanyCtr extends BaseCtr[Company, Companies] with MainTemplate {
     val result = Companies.load(paging)
     Json.toJson(result)
   }
+  def all = StackAction(AuthorityKey -> domainName)(implicit request => {
+    Ok(Json.toJson(Companies.all))
+  })
 }

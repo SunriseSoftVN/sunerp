@@ -32,6 +32,7 @@ GET           /company               controllers.CompanyCtr.index
 POST          /company               controllers.CompanyCtr.save
 PUT           /company/:id           controllers.CompanyCtr.update(id: Long)
 DELETE        /company/:id           controllers.CompanyCtr.delete(id: Long)
+GET           /company/all           controllers.CompanyCtr.all
 
 GET           /nhanvien              controllers.NhanVienCtr.index
 POST          /nhanvien              controllers.NhanVienCtr.save
