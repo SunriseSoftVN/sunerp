@@ -7,6 +7,7 @@ Ext.define('sunerp.model.PhongBang', {
         'id',
         'donViId',
         'donVi',
+        {name: 'donVi.name', mapping: 'donVi.name'},
         'name'
     ],
     associations: [

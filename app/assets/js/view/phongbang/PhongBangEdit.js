@@ -19,6 +19,23 @@ Ext.define('sunerp.view.phongbang.PhongBangEdit', {
                         minLength: 4,
                         allowBlank: false,
                         fieldLabel: 'Tên'
+                    },
+                    {
+                        xtype: 'comboboxx',
+                        fieldLabel: 'Đơn vị',
+                        name: 'donViId',
+                        modelName: 'donVi',
+                        store: Ext.create('sunerp.store.DonViStore', {
+                            proxy: {
+                                type: 'ajax',
+                                url: '/donvi/all',
+                                reader: 'json'
+                            }
+                        }),
+                        valueField: 'id',
+                        displayField: 'name',
+                        allowBlank: false,
+                        emptyText: 'Chọn một đơn vị...'
                     }
                 ]
             }
