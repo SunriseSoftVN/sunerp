@@ -19,7 +19,25 @@ Ext.define('sunerp.model.SoLuong', {
         'cacKhoangCong',
         'cacKhoangTruId',
         'cacKhoangTru',
-        'createdDate'
+        'createdDate',
+
+        {name: 'cacKhoangCong.phuCapTn', mapping: 'cacKhoangCong.phuCapTn'},
+        {name: 'cacKhoangCong.phuCapLd', mapping: 'cacKhoangCong.phuCapLd'},
+        {name: 'cacKhoangCong.trucBHLD', mapping: 'cacKhoangCong.trucBHLD'},
+        {name: 'cacKhoangCong.phuCapKV', mapping: 'cacKhoangCong.phuCapKV'},
+        {name: 'cacKhoangCong.congPhanLuong', mapping: 'cacKhoangCong.congPhanLuong'},
+        {name: 'cacKhoangCong.chiKhac', mapping: 'cacKhoangCong.chiKhac'},
+        {name: 'cacKhoangCong.luongDocHai', mapping: 'cacKhoangCong.luongDocHai'},
+        {name: 'cacKhoangCong.nuocUong', mapping: 'cacKhoangCong.nuocUong'},
+        {name: 'cacKhoangCong.anGiuaCa', mapping: 'cacKhoangCong.anGiuaCa'},
+        {name: 'cacKhoangCong.omDauSinhDe', mapping: 'cacKhoangCong.omDauSinhDe'},
+        {name: 'cacKhoangTru.doanPhi', mapping: 'cacKhoangTru.doanPhi'},
+        {name: 'cacKhoangTru.ungKy1', mapping: 'cacKhoangTru.ungKy1'},
+        {name: 'cacKhoangTru.bhyt', mapping: 'cacKhoangTru.bhyt'},
+        {name: 'cacKhoangTru.bhxh', mapping: 'cacKhoangTru.bhxh'},
+        {name: 'cacKhoangTru.thuNo', mapping: 'cacKhoangTru.thuNo'},
+        {name: 'nhanVien.firstName', mapping: 'nhanVien.firstName'},
+        {name: 'nhanVien.lastName', mapping: 'nhanVien.lastName'}
 
     ],
     associations: [
