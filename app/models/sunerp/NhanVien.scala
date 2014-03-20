@@ -5,7 +5,7 @@ import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
-import dtos.{ExtGirdDto, PagingDto}
+import dtos.{NhanVienDto, ExtGirdDto, PagingDto}
 
 /**
  * The Class NhanVien.
@@ -57,13 +57,18 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
 
   implicit val nhanVienJsonFormat = Json.format[NhanVien]
 
-  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[NhanVien] = {
-    var query = for (row <- this) yield row
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[NhanVienDto] = {
+    var query = for (
+      nhanVien <- this;
+      chucVu <- nhanVien.chucVu;
+      phongBang <- nhanVien.phongBang
+    ) yield (nhanVien, chucVu, phongBang)
 
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
+        val (nhanVien, chucVu, phongBang) = table
         filter.property match {
-          case "firstName" => table.firstName.toLowerCase like filter.valueForLike
+          case "firstName" => nhanVien.firstName.toLowerCase like filter.valueForLike
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -71,10 +76,13 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(table => {
+        val (nhanVien, chucVu, phongBang) = table
         sort.property match {
-          case "firstName" => orderColumn(sort.direction, table.firstName)
-          case "lastName" => orderColumn(sort.direction, table.lastName)
-          case "heSoLuong" => orderColumn(sort.direction, table.heSoLuong)
+          case "firstName" => orderColumn(sort.direction, nhanVien.firstName)
+          case "lastName" => orderColumn(sort.direction, nhanVien.lastName)
+          case "heSoLuong" => orderColumn(sort.direction, nhanVien.heSoLuong)
+          case "chucVu.name" => orderColumn(sort.direction, chucVu.name)
+          case "phongBang.name" => orderColumn(sort.direction, phongBang.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
@@ -86,8 +94,9 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       .drop(pagingDto.start)
       .take(pagingDto.limit)
       .list
+      .map(NhanVienDto.apply)
 
-    ExtGirdDto[NhanVien](
+    ExtGirdDto[NhanVienDto](
       total = totalRow,
       data = rows
     )

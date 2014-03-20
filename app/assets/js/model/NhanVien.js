@@ -10,6 +10,7 @@ Ext.define('sunerp.model.NhanVien', {
         'heSoLuong',
         'chucVuId',
         'chucVu',
+        'nhanVien',
         {name: 'chucVu.name', mapping: 'chucVu.name'},
         'phongBangId',
         'phongBang',

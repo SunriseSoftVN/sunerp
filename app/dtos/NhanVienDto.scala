@@ -1,0 +1,56 @@
+package dtos
+
+import models.sunerp._
+import play.api.libs.json.{Json, JsValue, Writes}
+import models.sunerp.NhanVien
+import models.sunerp.ChucVu
+import models.sunerp.PhongBang
+
+/**
+ * The Class NhanVienDto.
+ *
+ * @author Nguyen Duc Dung
+ * @since 3/20/14 8:39 AM
+ *
+ */
+case class NhanVienDto(
+                        id: Long,
+                        firstName: String,
+                        lastName: String,
+                        heSoLuong: Long,
+                        chucVuId: Long,
+                        chucVu: ChucVu,
+                        phongBangId: Long,
+                        phongBang: PhongBang
+                        )
+
+object NhanVienDto {
+
+  def apply(tuple: (NhanVien, ChucVu, PhongBang)) = {
+    val (nhanVien, chucVu, phongBang) = tuple
+    new NhanVienDto(
+      id = nhanVien.id.get,
+      firstName = nhanVien.firstName,
+      lastName = nhanVien.lastName,
+      heSoLuong = nhanVien.heSoLuong,
+      chucVuId = nhanVien.chucVuId,
+      phongBangId = nhanVien.phongBangId,
+      chucVu = chucVu,
+      phongBang = phongBang
+    )
+  }
+
+  implicit val jsonWrite = new Writes[NhanVienDto] {
+    override def writes(o: NhanVienDto): JsValue = Json.obj(
+      "id" -> o.id,
+      "firstName" -> o.firstName,
+      "lastName" -> o.lastName,
+      "heSoLuong" -> o.heSoLuong,
+      "chucVuId" -> o.chucVuId,
+      "phongBangId" -> o.phongBangId,
+      "chucVu" -> ChucVus.chucVuJsonFormat.writes(o.chucVu),
+      "phongBang" -> PhongBangs.phongBangJsonFormat.writes(o.phongBang)
+    )
+  }
+
+}

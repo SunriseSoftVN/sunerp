@@ -8,11 +8,15 @@ Ext.define('sunerp.component.NhanVienPicker', {
     searchEmptyText: 'Tìm theo tên',
     storeClass: 'sunerp.store.NhanVienStore',
     modelName: 'nhanVien',
-    searchField: 'name',
+    searchField: 'firstName',
     title: 'Chọn nhân viên',
     getColumns: function () {
         return [
-            {header: 'Tên', dataIndex: 'name', flex: 1}
+            {header: 'Tên', dataIndex: 'firstName', flex: 1},
+            {header: 'Họ', dataIndex: 'lastName', flex: 1},
+            {header: 'Hệ số luơng', dataIndex: 'heSoLuong', flex: 1},
+            {header: 'Chức vụ', dataIndex: 'chucVu.name', flex: 1},
+            {header: 'Phòng ban', dataIndex: 'phongBang.name', flex: 1}
         ];
     }
 });
