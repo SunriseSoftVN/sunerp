@@ -16,6 +16,7 @@ import dtos.{NhanVienDto, ExtGirdDto, PagingDto}
  */
 case class NhanVien(
                      id: Option[Long] = None,
+                     maNv: String,
                      firstName: String,
                      lastName: String,
                      heSoLuong: Long,
@@ -24,6 +25,8 @@ case class NhanVien(
                      ) extends WithId[Long]
 
 class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
+
+  def maNv = column[String]("maNv", O.NotNull)
 
   def firstName = column[String]("firstName", O.NotNull)
 
@@ -39,7 +42,9 @@ class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
   def phongBang = foreignKey("phong_bang_nhan_vien_fk", phongBangId, PhongBangs)(_.id)
 
-  def * = (id.?, firstName, lastName, heSoLuong, chucVuId, phongBangId) <>(NhanVien.tupled, NhanVien.unapply)
+  def idx = index("nhanvien_index", maNv, unique = true)
+
+  def * = (id.?, maNv, firstName, lastName, heSoLuong, chucVuId, phongBangId) <>(NhanVien.tupled, NhanVien.unapply)
 }
 
 object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
@@ -47,6 +52,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
   def editForm = Form(
     mapping(
       "id" -> optional(longNumber),
+      "maNv" -> text(minLength = 4),
       "firstName" -> text(minLength = 4),
       "lastName" -> text(minLength = 4),
       "heSoLuong" -> longNumber,
@@ -78,6 +84,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       query = query.sortBy(table => {
         val (nhanVien, chucVu, phongBang) = table
         sort.property match {
+          case "maNv" => orderColumn(sort.direction, nhanVien.maNv)
           case "firstName" => orderColumn(sort.direction, nhanVien.firstName)
           case "lastName" => orderColumn(sort.direction, nhanVien.lastName)
           case "heSoLuong" => orderColumn(sort.direction, nhanVien.heSoLuong)

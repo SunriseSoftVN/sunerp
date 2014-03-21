@@ -20,8 +20,7 @@ case class User(
                  id: Option[Long] = None,
                  username: String,
                  password: String,
-                 roleId: Long,
-                 nhanVienId: Option[Long] = None
+                 roleId: Long
                  ) extends WithId[Long] {
 
   def authorities(implicit session: Session): List[Authority] = Authorities.findByRoleId(roleId)
@@ -35,13 +34,11 @@ class Users(tag: Tag) extends AbstractTable[User](tag, "user") {
 
   def roleId = column[Long]("roleId", O.NotNull)
 
-  def nhanVienId = column[Long]("nhanVienId", O.Nullable)
-
   def role = foreignKey("role_user_fk", roleId, Roles)(_.id)
 
-  def nhanVien = foreignKey("nhan_vien_user_fk", nhanVienId, NhanViens)(_.id)
+  def idx = index("user_index", username, unique = true)
 
-  def * = (id.?, username, password, roleId, nhanVienId.?) <>(User.tupled, User.unapply)
+  def * = (id.?, username, password, roleId) <>(User.tupled, User.unapply)
 }
 
 object Users extends AbstractQuery[User, Users](new Users(_)) {
@@ -120,8 +117,7 @@ object Users extends AbstractQuery[User, Users](new Users(_)) {
       "id" -> optional(of[Long]),
       "username" -> text(minLength = 4),
       "password" -> text(minLength = 4),
-      "roleId" -> longNumber,
-      "nhanVienId" -> optional(longNumber)
+      "roleId" -> longNumber
     )(User.apply)(User.unapply)
   )
 }
