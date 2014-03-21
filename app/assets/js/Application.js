@@ -8,7 +8,6 @@ Ext.define('sunerp.Application', {
     requires: [
         'Ext.tip.QuickTipManager',
         'Ext.window.MessageBox',
-        'sunerp.store.AuthorityStore',
         'sunerp.store.CacKhoanCongStore',
         'sunerp.store.CacKhoangTruStore',
         'sunerp.store.ChucVuStore',
@@ -21,12 +20,10 @@ Ext.define('sunerp.Application', {
         'sunerp.store.PhongBangStore',
         'sunerp.store.QuyenHanhStore',
         'sunerp.store.QuyLuongStore',
-        'sunerp.store.RoleStore',
         'sunerp.store.SoLuongStore',
         'sunerp.store.SoPhanCongExtStore',
         'sunerp.store.SoPhanCongStore',
-        'sunerp.store.TaskStore',
-        'sunerp.store.UserStore'
+        'sunerp.store.TaskStore'
     ],
 
     /**
@@ -44,7 +41,6 @@ Ext.define('sunerp.Application', {
     buildInjectorConfiguration: function() {
         var config;
         config = {
-            authorityStore:         'sunerp.store.AuthorityStore',
             cacKhoanCongStore:      'sunerp.store.CacKhoanCongStore',
             cacKhoangTruStore:      'sunerp.store.CacKhoangTruStore',
             chucVuStore:            'sunerp.store.ChucVuStore',
@@ -57,12 +53,10 @@ Ext.define('sunerp.Application', {
             phongBangStore:         'sunerp.store.PhongBangStore',
             quyenHanhStore:         'sunerp.store.QuyenHanhStore',
             quyLuongStore:          'sunerp.store.QuyLuongStore',
-            roleStore:              'sunerp.store.RoleStore',
             soLuongStore:           'sunerp.store.SoLuongStore',
             soPhanCongExtStore:     'sunerp.store.SoPhanCongExtStore',
             soPhanCongStore:        'sunerp.store.SoPhanCongStore',
-            taskStore:              'sunerp.store.TaskStore',
-            userStore:              'sunerp.store.UserStore'
+            taskStore:              'sunerp.store.TaskStore'
         };
         return config;
     }
