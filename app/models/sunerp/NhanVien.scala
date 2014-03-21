@@ -23,7 +23,11 @@ case class NhanVien(
                      heSoLuong: Long,
                      chucVuId: Long,
                      phongBangId: Long
-                     ) extends WithId[Long]
+                     ) extends WithId[Long] {
+
+  def quyenHanhs(implicit session: Session): List[QuyenHanh] = QuyenHanhs.findByChucVuId(chucVuId)
+
+}
 
 class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
@@ -66,6 +70,8 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
   )
 
   implicit val nhanVienJsonFormat = Json.format[NhanVien]
+
+  def findByMaNv(maNv: String)(implicit session: Session) = where(_.maNv === maNv).firstOption()
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[NhanVienDto] = {
     var query = for (

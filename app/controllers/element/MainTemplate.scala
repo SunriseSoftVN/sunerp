@@ -1,7 +1,7 @@
 package controllers.element
 
 import play.api.mvc._
-import models.sunerp.User
+import models.sunerp.NhanVien
 
 /**
  * The Class MainTemplate.
@@ -12,11 +12,11 @@ import models.sunerp.User
  */
 trait MainTemplate extends Controller {
 
-  def renderOk(implicit user: Option[User]) = Ok(views.html.tml.main())
+  def renderOk(implicit user: Option[NhanVien]) = Ok(views.html.tml.main())
 
-  def renderBadRequest(implicit user: Option[User]) = BadRequest(views.html.tml.main())
+  def renderBadRequest(implicit user: Option[NhanVien]) = BadRequest(views.html.tml.main())
 
-  implicit def currentUser(implicit user: User): Option[User] = Some(user)
+  implicit def currentUser(implicit nhanVien: NhanVien): Option[NhanVien] = Some(nhanVien)
 
   implicit class RichOption[E](op: Option[E]) {
     def mapRender(f: E => SimpleResult) = op.map(f).getOrElse(NotFound)

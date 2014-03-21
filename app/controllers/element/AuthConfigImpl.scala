@@ -6,14 +6,14 @@ import scala.reflect._
 import jp.t2v.lab.play2.auth.{CacheIdContainer, CookieIdContainer, IdContainer, AuthConfig}
 import play.api.mvc.AcceptExtractors
 import scala.concurrent.{Future, ExecutionContext}
-import play.api.Play
 import play.api.Play.current
 import play.api.db.slick._
+import models.sunerp
+import models.sunerp.{NhanViens, QuyenHanh}
+import play.api.libs.json.Json
 import org.apache.commons.digester.SimpleRegexMatcher
 import org.apache.commons.lang3.StringUtils
-import models.sunerp
-import models.sunerp.Users
-import play.api.libs.json.Json
+import play.api.Play
 
 /**
  * The Class AuthConfigImpl.
@@ -26,7 +26,7 @@ trait AuthConfigImpl extends AuthConfig with Rendering with AcceptExtractors {
 
   type Id = String
 
-  type User = sunerp.User
+  type User = sunerp.NhanVien
 
   type Authority = String
 
@@ -34,7 +34,7 @@ trait AuthConfigImpl extends AuthConfig with Rendering with AcceptExtractors {
 
   def resolveUser(username: Id)(implicit context: ExecutionContext): Future[Option[User]] = Future {
     DB.withSession(implicit session => {
-      Users.findByUsername(username)
+      NhanViens.findByMaNv(username)
     })
   }
 
@@ -58,13 +58,13 @@ trait AuthConfigImpl extends AuthConfig with Rendering with AcceptExtractors {
   def authorize(user: User, authority: Authority)(implicit context: ExecutionContext) = Future.successful {
     //do check on db
     DB.withSession(implicit session => {
-      checkAuth(user.authorities, authority)
+      checkAuth(user.quyenHanhs, authority)
     })
   }
 
-  def checkAuth(authorities: List[sunerp.Authority], authority: String) = {
+  def checkAuth(quyenHanhs: List[QuyenHanh], authority: String) = {
     val matcher = new SimpleRegexMatcher
-    authorities.exists(auth => StringUtils.isBlank(authority) || matcher.`match`(authority.toLowerCase, auth.domain.toLowerCase))
+    quyenHanhs.exists(quyenHanh => StringUtils.isBlank(authority) || matcher.`match`(authority.toLowerCase, quyenHanh.domain.toLowerCase))
   }
 
   override lazy val idContainer: IdContainer[Id] = if (Play.isDev) {
