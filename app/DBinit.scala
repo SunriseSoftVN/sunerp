@@ -62,7 +62,7 @@ object DBinit {
 
         val nhanVien = NhanVien(
           maNv = "quantri",
-          password = Hash.createPassword("quantri"),
+          password = Hash.createPassword("123456"),
           firstName = "quantri",
           lastName = "quantri",
           heSoLuong = 0,
