@@ -8,7 +8,7 @@ import scala.concurrent.{Future, ExecutionContext}
 import ExecutionContext.Implicits.global
 import jp.t2v.lab.play2.stackc.{StackableController, RequestWithAttributes}
 import controllers.element.{AuthConfigImpl, MainTemplate, TransactionElement}
-import models.sunerp.Users
+import models.sunerp.NhanViens
 
 /**
  * The Class AuthCtr.
@@ -21,13 +21,12 @@ object AuthCtr extends Controller with StackableController with AuthConfigImpl w
 
   private def loginForm(implicit request: RequestWithAttributes[_]) = Form {
     tuple(
-      "username" -> nonEmptyText,
+      "maNv" -> nonEmptyText,
       "password" -> nonEmptyText
     ) verifying("login.failed", fields => fields match {
-      case (username, password) => Users.login(username, password)
+      case (maNv, password) => NhanViens.login(maNv, password)
     })
   }
-
 
   def login = StackAction(implicit request => renderOk(None))
 

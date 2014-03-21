@@ -19,15 +19,15 @@ Ext.define('sunerp.view.Login', {
     items: [
         {
             allowBlank: false,
-            fieldLabel: 'Username',
-            name: 'username',
-            emptyText: 'Username'
+            fieldLabel: 'Mã nhân viên',
+            name: 'maNv',
+            emptyText: 'Mã nhân viên'
         },
         {
             allowBlank: false,
-            fieldLabel: 'Password',
+            fieldLabel: 'Mật khẩu',
             name: 'password',
-            emptyText: 'Password',
+            emptyText: 'Mật khẩu',
             inputType: 'password'
         },
         {

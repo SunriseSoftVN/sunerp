@@ -1,6 +1,6 @@
 package models.sunerp
 
-import models.core.{AbstractQuery, AbstractTable, WithId}
+import models.core.{Hash, AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -72,6 +72,11 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
   implicit val nhanVienJsonFormat = Json.format[NhanVien]
 
   def findByMaNv(maNv: String)(implicit session: Session) = where(_.maNv === maNv).firstOption()
+
+  def login(maNv: String, password: String)(implicit session: Session) = {
+    val nhanVien = findByMaNv(maNv)
+    nhanVien.isDefined && Hash.checkPassword(password, nhanVien.get.password)
+  }
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[NhanVienDto] = {
     var query = for (
