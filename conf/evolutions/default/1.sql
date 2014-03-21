@@ -7,8 +7,8 @@ create table `authority` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`domai
 create table `cacKhoangCong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`phuCapTn` BIGINT NOT NULL,`phuCapLd` BIGINT NOT NULL,`trucBHLD` BIGINT NOT NULL,`phuCapKV` BIGINT NOT NULL,`congPhanLuong` BIGINT NOT NULL,`chiKhac` BIGINT NOT NULL,`luongDocHai` BIGINT NOT NULL,`nuocUong` BIGINT NOT NULL,`anGiuaCa` BIGINT NOT NULL,`omDauSinhDe` BIGINT NOT NULL);
 create table `cacKhoangTru` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`doanPhi` BIGINT NOT NULL,`ungKy1` BIGINT NOT NULL,`bhyt` BIGINT NOT NULL,`bhxh` BIGINT NOT NULL,`thuNo` BIGINT NOT NULL);
 create table `chucVu` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`phuCapTrachNhiem` BIGINT NOT NULL);
-create table `companySetting` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`companyId` BIGINT NOT NULL,`luongToiThieu` BIGINT NOT NULL);
-create table `company` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`address` VARCHAR(254) NOT NULL,`phone` VARCHAR(254) NOT NULL,`email` VARCHAR(254) NOT NULL,`mst` VARCHAR(254) NOT NULL);
+create table `companySetting` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`luongToiThieu` BIGINT NOT NULL);
+create table `company` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`address` VARCHAR(254) NOT NULL,`phone` VARCHAR(254) NOT NULL,`email` VARCHAR(254) NOT NULL,`mst` VARCHAR(254) NOT NULL,`companySettingId` BIGINT NOT NULL);
 create table `donVi` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`khoiDonViId` BIGINT NOT NULL);
 create table `khoiDonVi` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`companyId` BIGINT NOT NULL);
 create table `nhanVien` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`maNv` VARCHAR(254) NOT NULL,`password` VARCHAR(254) NOT NULL,`firstName` VARCHAR(254) NOT NULL,`lastName` VARCHAR(254) NOT NULL,`heSoLuong` BIGINT NOT NULL,`chucVuId` BIGINT NOT NULL,`phongBangId` BIGINT NOT NULL);
@@ -23,7 +23,7 @@ create table `soPhanCong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhan
 create table `user` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`username` VARCHAR(254) NOT NULL,`password` VARCHAR(254) NOT NULL,`roleId` BIGINT NOT NULL,`nhanVienId` BIGINT);
 create unique index `user_index` on `user` (`username`);
 alter table `authority` add constraint `role_authority_fk` foreign key(`roleId`) references `role`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `companySetting` add constraint `company_company_setting_fk` foreign key(`companyId`) references `company`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `company` add constraint `company_company_setting_fk` foreign key(`companySettingId`) references `companySetting`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `donVi` add constraint `khoiDonVi_fk` foreign key(`khoiDonViId`) references `khoiDonVi`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `khoiDonVi` add constraint `company_khoi_don_vi_fk` foreign key(`companyId`) references `company`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `nhanVien` add constraint `phong_bang_nhan_vien_fk` foreign key(`phongBangId`) references `phongBang`(`id`) on update NO ACTION on delete NO ACTION;
@@ -42,7 +42,7 @@ alter table `user` add constraint `role_user_fk` foreign key(`roleId`) reference
 # --- !Downs
 
 ALTER TABLE authority DROP FOREIGN KEY role_authority_fk;
-ALTER TABLE companySetting DROP FOREIGN KEY company_company_setting_fk;
+ALTER TABLE company DROP FOREIGN KEY company_company_setting_fk;
 ALTER TABLE donVi DROP FOREIGN KEY khoiDonVi_fk;
 ALTER TABLE khoiDonVi DROP FOREIGN KEY company_khoi_don_vi_fk;
 ALTER TABLE nhanVien DROP FOREIGN KEY phong_bang_nhan_vien_fk;

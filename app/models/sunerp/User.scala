@@ -95,10 +95,7 @@ object Users extends AbstractQuery[User, Users](new Users(_)) {
     )
   }
 
-  def countAll(implicit session: Session) = Query(length).first()
-
   def allWithRole(implicit session: Session) = userRoleQuery.list.map(UserDto.apply)
-
 
   override def beforeSave(entity: User)(implicit session: Session) = {
     entity.copy(password = Hash.createPassword(entity.password))

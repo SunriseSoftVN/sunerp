@@ -1,11 +1,7 @@
 import models.core.Hash
 import models.sunerp._
-import models.sunerp.Authority
-import models.sunerp.Role
 import play.api.db.slick._
 import play.api.Play.current
-import play.api.db.slick.Config.driver.simple._
-import scala.Some
 
 /**
  * The Class DBinit.
@@ -18,23 +14,71 @@ object DBinit {
 
   def init() {
     DB.withTransaction(implicit session => {
-      if (Users.countAll == 0) {
-        val role = Roles.findByName("admin").getOrElse {
-          val role: Role = Role(name = "admin")
-          val id = Roles.save(role)
-          role.copy(id = Some(id))
-        }
+      if (Companies.countAll == 0) {
+        val companySetting = new CompanySetting(
+          luongToiThieu = 1005000
+        )
 
-        Authorities += Authority(
+        val companySettingId = CompanySettings.save(companySetting)
+
+        val company = new Company(
+          name = "Mặc định",
+          address = "Mặc định",
+          phone = "Mặc định",
+          email = "demo@demo.vn",
+          mst = "0123456789",
+          companySettingId = companySettingId
+        )
+
+        val companyId = Companies.save(company)
+
+        val khoiDonVi = new KhoiDonVi(
+          name = "Mặc định",
+          companyId = companyId
+        )
+
+        val khoiDonViId = KhoiDonVis.save(khoiDonVi)
+
+        val donVi = new DonVi(
+          name = "Mặc định",
+          khoiDonViId = khoiDonViId
+        )
+
+        val donViId = DonVis.save(donVi)
+
+        val phongBang = new PhongBang(
+          name = "Phòng kỹ thuật",
+          donViId = donViId
+        )
+
+        val phongBangId = PhongBangs.save(phongBang)
+
+        val chucVu = new ChucVu(
+          name = "Quản trị hệ thống",
+          phuCapTrachNhiem = 0
+        )
+
+        val chucVuId = ChucVus.save(chucVu)
+
+        val nhanVien = NhanVien(
+          maNv = "quantri",
+          password = Hash.createPassword("quantri"),
+          firstName = "quantri",
+          lastName = "quantri",
+          heSoLuong = 0,
+          chucVuId = chucVuId,
+          phongBangId = phongBangId
+        )
+
+        NhanViens.save(nhanVien)
+
+        val quyenHanh = new QuyenHanh(
           domain = "*",
-          roleId = role.id.get
+          chucVuId = chucVuId
         )
 
-        Users += User(
-          username = "admin",
-          password = Hash.createPassword("admin"),
-          roleId = role.id.get
-        )
+        QuyenHanhs.save(quyenHanh)
+
       }
     })
   }

@@ -2,7 +2,7 @@ package models.core
 
 import play.api.db.slick.Config.driver.simple._
 import scala.slick.lifted.{Tag, TableQuery}
-import dtos.{ExtGirdDto, PagingDto}
+import dtos.PagingDto
 
 /**
  * The Class QueryHelper.
@@ -30,6 +30,8 @@ abstract class AbstractQuery[E, T <: AbstractTable[E]](cons: Tag => T) extends T
   })
 
   def all(implicit session: Session) = (for (row <- this) yield row).list()
+
+  def countAll(implicit session: Session) = Query(length).first()
 
   def update(entity: E, id: Long)(implicit session: Session) = where(_.id === id).update(entity)
 
