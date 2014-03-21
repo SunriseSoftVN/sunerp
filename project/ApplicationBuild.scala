@@ -17,8 +17,8 @@ object ApplicationBuild extends Build {
     jdbc,
     "joda-time" % "joda-time" % "2.3",
     "org.joda" % "joda-convert" % "1.5",
+    "com.typesafe.slick" %% "slick" % "2.0.1",
     "com.github.tototoshi" %% "slick-joda-mapper" % "1.0.1" exclude("com.typesafe.slick", "slick"),
-    "com.typesafe.slick" %% "slick" % "2.0.1-RC1",
     "com.typesafe.play" %% "play-slick" % "0.6.0.1" exclude("com.typesafe.slick", "slick"),
     "mysql" % "mysql-connector-java" % "5.1.25",
     "com.github.nscala-time" %% "nscala-time" % "0.8.0"
