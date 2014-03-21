@@ -15,6 +15,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
         me.store = this.getNhanVienStore();
         me.columns = [
             {xtype: 'rownumberer'},
+            {header: 'Mã NV', dataIndex: 'maNv', flex: 1},
             {header: 'Tên', dataIndex: 'firstName', flex: 1},
             {header: 'Họ', dataIndex: 'lastName', flex: 1},
             {

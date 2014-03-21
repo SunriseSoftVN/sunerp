@@ -49,6 +49,11 @@ Ext.define('sunerp.controller.core.BaseEditController', {
                 me.mainStore.sync({
                     success: function () {
                         view.close();
+                    },
+                    failure: function () {
+                        if (record.get('id') == null) {
+                            me.mainStore.remove(record);
+                        }
                     }
                 });
             } else {

@@ -15,6 +15,7 @@ import models.sunerp.PhongBang
  */
 case class NhanVienDto(
                         id: Long,
+                        maNv: String,
                         firstName: String,
                         lastName: String,
                         heSoLuong: Long,
@@ -30,6 +31,7 @@ object NhanVienDto {
     val (nhanVien, chucVu, phongBang) = tuple
     new NhanVienDto(
       id = nhanVien.id.get,
+      maNv = nhanVien.maNv,
       firstName = nhanVien.firstName,
       lastName = nhanVien.lastName,
       heSoLuong = nhanVien.heSoLuong,
@@ -43,6 +45,7 @@ object NhanVienDto {
   implicit val jsonWrite = new Writes[NhanVienDto] {
     override def writes(o: NhanVienDto): JsValue = Json.obj(
       "id" -> o.id,
+      "maNv" -> o.maNv,
       "firstName" -> o.firstName,
       "lastName" -> o.lastName,
       "heSoLuong" -> o.heSoLuong,

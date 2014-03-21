@@ -15,6 +15,13 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                 items: [
                     {
                         xtype: 'textfield',
+                        name: 'maNv',
+                        minLength: 4,
+                        allowBlank: false,
+                        fieldLabel: 'Mã NV'
+                    },
+                    {
+                        xtype: 'textfield',
                         name: 'firstName',
                         minLength: 4,
                         allowBlank: false,

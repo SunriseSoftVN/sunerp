@@ -12,6 +12,7 @@ Ext.define('sunerp.component.NhanVienPicker', {
     title: 'Chọn nhân viên',
     getColumns: function () {
         return [
+            {header: 'Mã NV', dataIndex: 'maNv', flex: 1},
             {header: 'Tên', dataIndex: 'firstName', flex: 1},
             {header: 'Họ', dataIndex: 'lastName', flex: 1},
             {header: 'Hệ số luơng', dataIndex: 'heSoLuong', flex: 1},
