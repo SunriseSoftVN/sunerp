@@ -95,7 +95,7 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
       ),
       MenuItemDto(
         id = "quyenHanh",
-        view = "sunerp.view.quyenhanh.QuyenHanh",
+        view = "sunerp.view.quyenhanh.QuyenHanhList",
         text = "Quyền hành",
         leaf = true
       )
