@@ -17,6 +17,7 @@ import dtos.{NhanVienDto, ExtGirdDto, PagingDto}
 case class NhanVien(
                      id: Option[Long] = None,
                      maNv: String,
+                     password: String,
                      firstName: String,
                      lastName: String,
                      heSoLuong: Long,
@@ -27,6 +28,8 @@ case class NhanVien(
 class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
   def maNv = column[String]("maNv", O.NotNull)
+
+  def password = column[String]("password", O.NotNull)
 
   def firstName = column[String]("firstName", O.NotNull)
 
@@ -44,7 +47,7 @@ class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
   def idx = index("nhanvien_index", maNv, unique = true)
 
-  def * = (id.?, maNv, firstName, lastName, heSoLuong, chucVuId, phongBangId) <>(NhanVien.tupled, NhanVien.unapply)
+  def * = (id.?, maNv, password, firstName, lastName, heSoLuong, chucVuId, phongBangId) <>(NhanVien.tupled, NhanVien.unapply)
 }
 
 object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
@@ -53,6 +56,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
     mapping(
       "id" -> optional(longNumber),
       "maNv" -> text(minLength = 4),
+      "password" -> text(minLength = 4),
       "firstName" -> text(minLength = 4),
       "lastName" -> text(minLength = 4),
       "heSoLuong" -> longNumber,
