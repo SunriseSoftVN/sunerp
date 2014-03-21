@@ -8,31 +8,6 @@ import play.api.libs.json.Json
 
 object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl with MainTemplate with TransactionElement {
 
-  val userManagerMenu = MenuItemDto(
-    text = "Quản lý nguời dùng",
-    expanded = true,
-    children = List(
-      MenuItemDto(
-        id = "user",
-        view = "sunerp.view.user.UserList",
-        text = "Tài khoản",
-        leaf = true
-      ),
-      MenuItemDto(
-        id = "role",
-        view = "sunerp.view.role.RoleList",
-        text = "Quyền hành",
-        leaf = true
-      ),
-      MenuItemDto(
-        id = "authority",
-        view = "sunerp.view.authority.AuthorityList",
-        text = "Phân quyền",
-        leaf = true
-      )
-    )
-  )
-
   val quanLyCongViec = MenuItemDto(
     text = "Quản lý công việc",
     expanded = true,
@@ -119,7 +94,6 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     expanded = true,
     children = List(
       quanLyCongty,
-      userManagerMenu,
       quanLyNhanVien,
       quanLyLuong,
       quanLyCongViec

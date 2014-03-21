@@ -6,16 +6,6 @@
 GET           /                      controllers.HomeCtr.index
 GET           /menuItems             controllers.HomeCtr.menuItems
 
-GET           /user                  controllers.UserCtr.index
-POST          /user                  controllers.UserCtr.save
-PUT           /user/:id              controllers.UserCtr.update(id: Long)
-DELETE        /user/:id              controllers.UserCtr.delete(id: Long)
-
-GET           /role                  controllers.RoleCtr.index
-POST          /role                  controllers.RoleCtr.save
-PUT           /role/:id              controllers.RoleCtr.update(id: Long)
-DELETE        /role/:id              controllers.RoleCtr.delete(id: Long)
-GET           /role/all              controllers.RoleCtr.all
 
 GET           /chucvu                controllers.ChucVuCtr.index
 GET           /chucvu/all            controllers.ChucVuCtr.all
@@ -63,11 +53,6 @@ DELETE        /donvi/:id             controllers.DonViCtr.delete(id: Long)
 GET           /donvi/all             controllers.DonViCtr.all
 
 GET           /task                  controllers.TaskCtr.index
-
-GET           /authority             controllers.AuthorityCtr.index
-POST          /authority             controllers.AuthorityCtr.save
-PUT           /authority/:id         controllers.AuthorityCtr.update(id: Long)
-DELETE        /authority/:id         controllers.AuthorityCtr.delete(id: Long)
 
 GET           /user/login            controllers.AuthCtr.login
 POST          /user/auth             controllers.AuthCtr.auth
