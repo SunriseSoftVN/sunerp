@@ -1,4 +1,3 @@
-import models.core.Hash
 import models.sunerp._
 import play.api.db.slick._
 import play.api.Play.current
@@ -62,7 +61,7 @@ object DBinit {
 
         val nhanVien = NhanVien(
           maNv = "quantri",
-          password = Hash.createPassword("123456"),
+          password = "123456",
           firstName = "quantri",
           lastName = "quantri",
           heSoLuong = 0,
