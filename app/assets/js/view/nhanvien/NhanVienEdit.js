@@ -22,6 +22,14 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                     },
                     {
                         xtype: 'textfield',
+                        inputType: 'password',
+                        name: 'password',
+                        minLength: 4,
+                        allowBlank: false,
+                        fieldLabel: 'Mật khẩu'
+                    },
+                    {
+                        xtype: 'textfield',
                         name: 'firstName',
                         minLength: 4,
                         allowBlank: false,

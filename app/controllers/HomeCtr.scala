@@ -104,6 +104,14 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     renderOk
   })
 
+  /**
+   * Return current login username
+   * @return
+   */
+  def loginUser = StackAction(implicit request => {
+    Ok(loggedIn.maNv)
+  })
+
   def menuItems = StackAction(implicit request => {
 
     val quyenHanhs = loggedIn.quyenHanhs

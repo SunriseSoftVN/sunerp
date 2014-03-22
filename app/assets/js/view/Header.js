@@ -16,11 +16,23 @@ Ext.define('sunerp.view.Header', {
         },
         {
             xtype: 'button',
-            text: 'Welcome Admin',
-            menu: [{
-                text:'Logout',
-                href: "/user/logout"
-            }]
+            menu: [
+                {
+                    text: 'Logout',
+                    href: "/user/logout"
+                }
+            ],
+            listeners: {
+                afterRender: function (btn, eOpts) {
+                    Ext.Ajax.request({
+                        url: 'loginUser',
+                        success: function (response) {
+                            var maNv = response.responseText;
+                            btn.setText('Welcome ' + maNv)
+                        }
+                    })
+                }
+            }
         }
     ]
 });

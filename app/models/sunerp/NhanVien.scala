@@ -78,6 +78,21 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
     nhanVien.isDefined && Hash.checkPassword(password, nhanVien.get.password)
   }
 
+  override def beforeSave(entity: NhanVien)(implicit session: Session) = {
+    entity.copy(password = Hash.createPassword(entity.password))
+  }
+
+  override def beforeUpdate(entity: NhanVien)(implicit session: Session) = {
+    val oldUser = findById(entity.id.get)
+    oldUser.map(user => {
+      if (user.password == entity.password) {
+        entity
+      } else {
+        entity.copy(password = Hash.createPassword(entity.password))
+      }
+    }).getOrElse(entity)
+  }
+
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[NhanVienDto] = {
     var query = for (
       nhanVien <- this;

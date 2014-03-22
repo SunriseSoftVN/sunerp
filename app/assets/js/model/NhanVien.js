@@ -6,6 +6,7 @@ Ext.define('sunerp.model.NhanVien', {
     fields: [
         'id',
         'maNv',
+        'password',
         'firstName',
         'lastName',
         'heSoLuong',

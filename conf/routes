@@ -5,6 +5,7 @@
 # Home page
 GET           /                      controllers.HomeCtr.index
 GET           /menuItems             controllers.HomeCtr.menuItems
+GET           /loginUser             controllers.HomeCtr.loginUser
 
 
 GET           /chucvu                controllers.ChucVuCtr.index
