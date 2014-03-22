@@ -52,6 +52,11 @@ PUT           /donvi/:id             controllers.DonViCtr.update(id: Long)
 DELETE        /donvi/:id             controllers.DonViCtr.delete(id: Long)
 GET           /donvi/all             controllers.DonViCtr.all
 
+GET           /quyenhanh             controllers.QuyenHanhCtr.index
+POST          /quyenhanh             controllers.QuyenHanhCtr.save
+PUT           /quyenhanh/:id         controllers.QuyenHanhCtr.update(id: Long)
+DELETE        /quyenhanh/:id         controllers.QuyenHanhCtr.delete(id: Long)
+
 GET           /task                  controllers.TaskCtr.index
 
 GET           /user/login            controllers.AuthCtr.login

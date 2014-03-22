@@ -8,7 +8,7 @@ Ext.define('sunerp.controller.quyenhanh.QuyenHanhListCtr', {
         quyenHanhStore: null
     },
     editView: 'sunerp.view.quyenhanh.QuyenHanhEdit',
-    searchField: 'name',
+    searchField: 'domain',
     init: function () {
         this.mainStore = this.getQuyenHanhStore();
         this.callParent(arguments);
