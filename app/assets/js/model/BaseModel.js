@@ -14,7 +14,7 @@ Ext.define('sunerp.model.BaseModel', {
                     for (var key in newValue) {
                         me.set(table + "." + key, newValue[key]);
                     }
-                    me.set(key + 'Id', newValue.id);
+                    me.set(table + 'Id', newValue.id);
                 }
             });
         }
