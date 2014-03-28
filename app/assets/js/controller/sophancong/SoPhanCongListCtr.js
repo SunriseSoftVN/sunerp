@@ -14,6 +14,12 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
             listeners: {
                 click: 'addNewRow'
             }
+        },
+        saveBtn: {
+            selector: 'button[action=save]',
+            listeners: {
+                click: 'doSave'
+            }
         }
     },
     init: function () {
@@ -22,5 +28,8 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     addNewRow: function () {
         var rec = new sunerp.model.SoPhanCong();
         this.getSoPhanCongStore().insert(0, rec);
+    },
+    doSave: function() {
+        this.getSoPhanCongStore().sync();
     }
 });

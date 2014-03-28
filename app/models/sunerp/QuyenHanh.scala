@@ -17,6 +17,8 @@ import play.api.libs.json.Json
 case class QuyenHanh(
                       id: Option[Long] = None,
                       domain: String,
+                      read: Boolean = true,
+                      write: Boolean = true,
                       chucVuId: Long
                       ) extends WithId[Long]
 
@@ -24,11 +26,15 @@ case class QuyenHanh(
 class QuyenHanhs(tag: Tag) extends AbstractTable[QuyenHanh](tag, "quyenHanh") {
   def domain = column[String]("domain", O.NotNull)
 
+  def read = column[Boolean]("read", O.NotNull)
+
+  def write = column[Boolean]("write", O.NotNull)
+
   def chucVuId = column[Long]("chucVuId", O.NotNull)
 
   def chucVu = foreignKey("quyen_hanh_chuc_vu_fk", chucVuId, ChucVus)(_.id)
 
-  def * = (id.?, domain, chucVuId) <>(QuyenHanh.tupled, QuyenHanh.unapply)
+  def * = (id.?, domain, read, write, chucVuId) <>(QuyenHanh.tupled, QuyenHanh.unapply)
 }
 
 object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)) {
@@ -58,6 +64,8 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
         val (quyenHanh, chucVu) = table
         sort.property match {
           case "domain" => orderColumn(sort.direction, quyenHanh.domain)
+          case "read" => orderColumn(sort.direction, quyenHanh.read)
+          case "write" => orderColumn(sort.direction, quyenHanh.write)
           case "chucVu.name" => orderColumn(sort.direction, chucVu.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
@@ -82,6 +90,8 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
     mapping(
       "id" -> optional(longNumber),
       "domain" -> nonEmptyText,
+      "read" -> boolean,
+      "write" -> boolean,
       "chucVuId" -> longNumber
     )(QuyenHanh.apply)(QuyenHanh.unapply)
   )

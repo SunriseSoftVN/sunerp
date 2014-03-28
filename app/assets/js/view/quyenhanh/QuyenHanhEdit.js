@@ -20,6 +20,20 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhEdit', {
                         fieldLabel: 'Domain'
                     },
                     {
+                        xtype: 'checkboxfield',
+                        name: 'write',
+                        fieldLabel: 'Write',
+                        inputValue: true,
+                        uncheckedValue: false
+                    },
+                    {
+                        xtype: 'checkboxfield',
+                        name: 'read',
+                        fieldLabel: 'Read',
+                        inputValue: true,
+                        uncheckedValue: false
+                    },
+                    {
                         xtype: 'comboboxx',
                         fieldLabel: 'Chức vụ',
                         name: 'chucVuId',
