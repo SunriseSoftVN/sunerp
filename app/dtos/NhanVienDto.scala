@@ -16,6 +16,7 @@ import models.sunerp.PhongBang
 case class NhanVienDto(
                         id: Long,
                         maNv: String,
+                        password: String,
                         firstName: String,
                         lastName: String,
                         heSoLuong: Long,
@@ -32,6 +33,7 @@ object NhanVienDto {
     new NhanVienDto(
       id = nhanVien.id.get,
       maNv = nhanVien.maNv,
+      password = nhanVien.password,
       firstName = nhanVien.firstName,
       lastName = nhanVien.lastName,
       heSoLuong = nhanVien.heSoLuong,
@@ -46,6 +48,7 @@ object NhanVienDto {
     override def writes(o: NhanVienDto): JsValue = Json.obj(
       "id" -> o.id,
       "maNv" -> o.maNv,
+      "password" -> o.password,
       "firstName" -> o.firstName,
       "lastName" -> o.lastName,
       "heSoLuong" -> o.heSoLuong,
