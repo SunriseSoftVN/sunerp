@@ -23,7 +23,8 @@ Ext.define('sunerp.Application', {
         'sunerp.store.SoLuongStore',
         'sunerp.store.SoPhanCongExtStore',
         'sunerp.store.SoPhanCongStore',
-        'sunerp.store.TaskStore'
+        'sunerp.store.TaskStore',
+        'sunerp.service.UserService'
     ],
 
     /**
@@ -56,7 +57,8 @@ Ext.define('sunerp.Application', {
             soLuongStore:           'sunerp.store.SoLuongStore',
             soPhanCongExtStore:     'sunerp.store.SoPhanCongExtStore',
             soPhanCongStore:        'sunerp.store.SoPhanCongStore',
-            taskStore:              'sunerp.store.TaskStore'
+            taskStore:              'sunerp.store.TaskStore',
+            userService:            'sunerp.service.UserService'
         };
         return config;
     }

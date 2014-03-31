@@ -4,9 +4,11 @@
 
 Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     extend: 'sunerp.controller.core.BaseListEditController',
-    inject: ['soPhanCongStore'],
+    inject: ['soPhanCongStore', 'userService'],
     config: {
-        soPhanCongStore: null
+        soPhanCongStore: null,
+        phongBangId: null,
+        userService: null
     },
     control: {
         addBtn: {
@@ -23,6 +25,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         }
     },
     init: function () {
+        this.setPhongBangId(this.getUserService().getCurrentUser().phongBangId);
         this.callParent(arguments);
     },
     addNewRow: function () {

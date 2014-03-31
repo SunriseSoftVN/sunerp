@@ -5,6 +5,7 @@ import controllers.element.{AuthConfigImpl, TransactionElement, MainTemplate}
 import jp.t2v.lab.play2.auth.AuthenticationElement
 import dtos.MenuItemDto
 import play.api.libs.json.Json
+import models.sunerp.NhanViens
 
 object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl with MainTemplate with TransactionElement {
 
@@ -109,7 +110,7 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
    * @return
    */
   def loginUser = StackAction(implicit request => {
-    Ok(loggedIn.maNv)
+    Ok(NhanViens.nhanVienJsonFormat.writes(loggedIn))
   })
 
   def menuItems = StackAction(implicit request => {
