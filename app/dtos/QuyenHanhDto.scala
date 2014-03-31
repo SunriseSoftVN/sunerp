@@ -15,6 +15,7 @@ case class QuyenHanhDto(
                          domain: String,
                          read: Boolean,
                          write: Boolean,
+                         showAll: Boolean,
                          chucVuId: Long,
                          chucVu: ChucVu
                          )
@@ -27,6 +28,7 @@ object QuyenHanhDto {
     domain = tuple._1.domain,
     write = tuple._1.write,
     read = tuple._1.read,
+    showAll = tuple._1.showAll,
     chucVuId = tuple._1.chucVuId,
     chucVu = tuple._2
   )
@@ -37,6 +39,7 @@ object QuyenHanhDto {
       "domain" -> o.domain,
       "read" -> o.read,
       "write" -> o.write,
+      "showAll" -> o.showAll,
       "chucVuId" -> o.chucVuId,
       "chucVu" -> ChucVus.chucVuJsonFormat.writes(o.chucVu)
     )

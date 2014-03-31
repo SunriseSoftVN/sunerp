@@ -58,13 +58,8 @@ trait AuthConfigImpl extends AuthConfig with Rendering with AcceptExtractors {
   def authorize(user: User, authority: Authority)(implicit context: ExecutionContext) = Future.successful {
     //do check on db
     DB.withSession(implicit session => {
-      checkAuth(user.quyenHanhs, authority)
+      user.checkAuth(authority)
     })
-  }
-
-  def checkAuth(quyenHanhs: List[QuyenHanh], authority: String) = {
-    val matcher = new SimpleRegexMatcher
-    quyenHanhs.exists(quyenHanh => StringUtils.isBlank(authority) || matcher.`match`(authority.toLowerCase, quyenHanh.domain.toLowerCase))
   }
 
   override lazy val idContainer: IdContainer[Id] = if (Play.isDev) {

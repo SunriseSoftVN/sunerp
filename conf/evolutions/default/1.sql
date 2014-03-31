@@ -14,7 +14,7 @@ create table `nhanVien` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`maNv` 
 create unique index `nhanvien_index` on `nhanVien` (`maNv`);
 create table `phongBang` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`donViId` BIGINT NOT NULL,`name` VARCHAR(254) NOT NULL);
 create table `quyLuong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`soTien` BIGINT NOT NULL);
-create table `quyenHanh` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`domain` VARCHAR(254) NOT NULL,`read` BOOLEAN NOT NULL,`write` BOOLEAN NOT NULL,`chucVuId` BIGINT NOT NULL);
+create table `quyenHanh` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`domain` VARCHAR(254) NOT NULL,`read` BOOLEAN NOT NULL,`write` BOOLEAN NOT NULL,`showAll` BOOLEAN NOT NULL,`chucVuId` BIGINT NOT NULL);
 create table `soLuong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVienId` BIGINT NOT NULL,`chucVu` VARCHAR(254) NOT NULL,`heSoLuong` DOUBLE NOT NULL,`luongNd` BIGINT NOT NULL,`k2` DOUBLE NOT NULL,`luongSP` BIGINT NOT NULL,`luongTgCong` DOUBLE NOT NULL,`luongTgTien` BIGINT NOT NULL,`cacKhoangCongId` BIGINT NOT NULL,`cacKhoangTruId` BIGINT NOT NULL,`createdDate` TIMESTAMP NOT NULL);
 create table `soPhanCongExt` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`lamDem` BOOLEAN DEFAULT false NOT NULL,`baoHoLaoDong` BOOLEAN DEFAULT false NOT NULL,`docHai` BOOLEAN DEFAULT false NOT NULL,`le` BOOLEAN DEFAULT false NOT NULL,`tet` BOOLEAN DEFAULT false NOT NULL,`thaiSan` BOOLEAN DEFAULT false NOT NULL,`dauOm` BOOLEAN DEFAULT false NOT NULL,`conOm` BOOLEAN DEFAULT false NOT NULL,`taiNanLd` BOOLEAN DEFAULT false NOT NULL,`hop` BOOLEAN DEFAULT false NOT NULL,`hocDaiHan` BOOLEAN DEFAULT false NOT NULL,`hocDotXuat` BOOLEAN DEFAULT false NOT NULL,`viecRieng` BOOLEAN DEFAULT false NOT NULL,`chuNhat` BOOLEAN DEFAULT false NOT NULL);
 create table `soPhanCong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVienId` BIGINT NOT NULL,`taskId` BIGINT NOT NULL,`phongBangId` BIGINT NOT NULL,`khoiLuong` DOUBLE NOT NULL,`gio` DOUBLE NOT NULL,`ghiChu` VARCHAR(254) NOT NULL,`soPhanCongExtId` BIGINT NOT NULL,`ngayPhanCong` TIMESTAMP NOT NULL);
@@ -25,12 +25,12 @@ alter table `nhanVien` add constraint `phong_bang_nhan_vien_fk` foreign key(`pho
 alter table `nhanVien` add constraint `chuc_vu_nhan_vien_fk` foreign key(`chucVuId`) references `chucVu`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `phongBang` add constraint `doi_vi_phong_bang_fk` foreign key(`donViId`) references `donVi`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `quyenHanh` add constraint `quyen_hanh_chuc_vu_fk` foreign key(`chucVuId`) references `chucVu`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `soLuong` add constraint `nhanvien_so_luong_fk` foreign key(`nhanVienId`) references `nhanVien`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `soLuong` add constraint `cac_khoang_cong_so_luong_fk` foreign key(`cacKhoangCongId`) references `cacKhoangCong`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `soLuong` add constraint `cac_khoang_tru_so_luong_fk` foreign key(`cacKhoangTruId`) references `cacKhoangTru`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `soLuong` add constraint `nhanvien_so_luong_fk` foreign key(`nhanVienId`) references `nhanVien`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `soPhanCong` add constraint `so_phan_cong_ext_so_phan_cong_fk` foreign key(`soPhanCongExtId`) references `soPhanCongExt`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `soPhanCong` add constraint `phong_bang_so_phan_cong_fk` foreign key(`phongBangId`) references `phongBang`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `soPhanCong` add constraint `nhan_vien_so_phan_cong_fk` foreign key(`nhanVienId`) references `nhanVien`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `soPhanCong` add constraint `so_phan_cong_ext_so_phan_cong_fk` foreign key(`soPhanCongExtId`) references `soPhanCongExt`(`id`) on update NO ACTION on delete NO ACTION;
 
 # --- !Downs
 
@@ -41,12 +41,12 @@ ALTER TABLE nhanVien DROP FOREIGN KEY phong_bang_nhan_vien_fk;
 ALTER TABLE nhanVien DROP FOREIGN KEY chuc_vu_nhan_vien_fk;
 ALTER TABLE phongBang DROP FOREIGN KEY doi_vi_phong_bang_fk;
 ALTER TABLE quyenHanh DROP FOREIGN KEY quyen_hanh_chuc_vu_fk;
+ALTER TABLE soLuong DROP FOREIGN KEY nhanvien_so_luong_fk;
 ALTER TABLE soLuong DROP FOREIGN KEY cac_khoang_cong_so_luong_fk;
 ALTER TABLE soLuong DROP FOREIGN KEY cac_khoang_tru_so_luong_fk;
-ALTER TABLE soLuong DROP FOREIGN KEY nhanvien_so_luong_fk;
-ALTER TABLE soPhanCong DROP FOREIGN KEY so_phan_cong_ext_so_phan_cong_fk;
 ALTER TABLE soPhanCong DROP FOREIGN KEY phong_bang_so_phan_cong_fk;
 ALTER TABLE soPhanCong DROP FOREIGN KEY nhan_vien_so_phan_cong_fk;
+ALTER TABLE soPhanCong DROP FOREIGN KEY so_phan_cong_ext_so_phan_cong_fk;
 drop table `cacKhoangCong`;
 drop table `cacKhoangTru`;
 drop table `chucVu`;

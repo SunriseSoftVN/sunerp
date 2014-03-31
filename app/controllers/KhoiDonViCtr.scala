@@ -6,6 +6,8 @@ import models.core.AbstractQuery
 import play.api.libs.json.{Json, JsValue, Writes}
 import dtos.{KhoiDonViDto, PagingDto}
 import play.api.db.slick.Session
+import jp.t2v.lab.play2.stackc.RequestWithAttributes
+import play.api.mvc.AnyContent
 
 /**
  * The Class KhoiDonViCtr.
@@ -19,7 +21,7 @@ object KhoiDonViCtr extends BaseCtr[KhoiDonVi, KhoiDonVis] with MainTemplate {
   override implicit val jsonWrite: Writes[KhoiDonVi] = KhoiDonVis.khoiDonViJsonFormat
   override val dao: AbstractQuery[KhoiDonVi, KhoiDonVis] = KhoiDonVis
   override val domainName: String = "khoiDonVi"
-  override protected def doIndex(paging: PagingDto)(implicit session: Session): JsValue = {
+  override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
     implicit val jsonWrite = KhoiDonViDto.jsonWrite
     val result = KhoiDonVis.load(paging)
     Json.toJson(result)

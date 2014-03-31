@@ -6,6 +6,8 @@ import models.core.AbstractQuery
 import play.api.libs.json.{Json, JsValue, Writes}
 import dtos.{PhongBangDto, PagingDto}
 import play.api.db.slick.Session
+import jp.t2v.lab.play2.stackc.RequestWithAttributes
+import play.api.mvc.AnyContent
 
 /**
  * The Class PhongBangCtr.
@@ -21,7 +23,7 @@ object PhongBangCtr extends BaseCtr[PhongBang, PhongBangs] with MainTemplate {
   override val dao: AbstractQuery[PhongBang, PhongBangs] = PhongBangs
   override val domainName: String = "phongBang"
 
-  override protected def doIndex(paging: PagingDto)(implicit session: Session): JsValue = {
+  override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
     implicit val jsonWrite = PhongBangDto.jsonWrite
     val result = PhongBangs.load(paging)
     Json.toJson(result)

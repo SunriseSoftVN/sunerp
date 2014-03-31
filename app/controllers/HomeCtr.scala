@@ -113,12 +113,9 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
   })
 
   def menuItems = StackAction(implicit request => {
-
-    val quyenHanhs = loggedIn.quyenHanhs
-
     def travel(menu: MenuItemDto): MenuItemDto = menu.copy(
       children = menu.children
-        .filter(child => checkAuth(quyenHanhs, child.id))
+        .filter(child => loggedIn.checkAuth(child.id))
         .map(travel)
     )
 

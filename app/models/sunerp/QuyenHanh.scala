@@ -19,6 +19,7 @@ case class QuyenHanh(
                       domain: String,
                       read: Boolean = true,
                       write: Boolean = true,
+                      showAll: Boolean = false,
                       chucVuId: Long
                       ) extends WithId[Long]
 
@@ -30,11 +31,13 @@ class QuyenHanhs(tag: Tag) extends AbstractTable[QuyenHanh](tag, "quyenHanh") {
 
   def write = column[Boolean]("write", O.NotNull)
 
+  def showAll = column[Boolean]("showAll", O.NotNull)
+
   def chucVuId = column[Long]("chucVuId", O.NotNull)
 
   def chucVu = foreignKey("quyen_hanh_chuc_vu_fk", chucVuId, ChucVus)(_.id)
 
-  def * = (id.?, domain, read, write, chucVuId) <>(QuyenHanh.tupled, QuyenHanh.unapply)
+  def * = (id.?, domain, read, write, showAll, chucVuId) <>(QuyenHanh.tupled, QuyenHanh.unapply)
 }
 
 object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)) {
@@ -66,6 +69,7 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
           case "domain" => orderColumn(sort.direction, quyenHanh.domain)
           case "read" => orderColumn(sort.direction, quyenHanh.read)
           case "write" => orderColumn(sort.direction, quyenHanh.write)
+          case "showAll" => orderColumn(sort.direction, quyenHanh.showAll)
           case "chucVu.name" => orderColumn(sort.direction, chucVu.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
@@ -92,6 +96,7 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
       "domain" -> nonEmptyText,
       "read" -> boolean,
       "write" -> boolean,
+      "showAll" -> boolean,
       "chucVuId" -> longNumber
     )(QuyenHanh.apply)(QuyenHanh.unapply)
   )

@@ -120,7 +120,6 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
           case "ghiChu" => orderColumn(sort.direction, soPhanCong.ghiChu)
           case "khoiLuong" => orderColumn(sort.direction, soPhanCong.khoiLuong)
           case "gio" => orderColumn(sort.direction, soPhanCong.gio)
-          case "ghiChu" => orderColumn(sort.direction, soPhanCong.ghiChu)
           case "ngayPhanCong" => orderColumn(sort.direction, soPhanCong.ngayPhanCong)
           case "nhanVien.firstName" => orderColumn(sort.direction, nhanVien.firstName)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)

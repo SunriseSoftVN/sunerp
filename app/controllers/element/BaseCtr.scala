@@ -1,9 +1,9 @@
 package controllers.element
 
-import play.api.mvc.Controller
+import play.api.mvc.{AnyContent, Controller}
 import models.core.{WithId, AbstractTable, AbstractQuery}
 import jp.t2v.lab.play2.auth.AuthElement
-import jp.t2v.lab.play2.stackc.StackableController
+import jp.t2v.lab.play2.stackc.{RequestWithAttributes, StackableController}
 import dtos.{FormErrorDto, PagingDto}
 import play.api.libs.json.{JsValue, Writes, Json}
 import play.api.data.Form
@@ -25,10 +25,10 @@ abstract class BaseCtr[E <: WithId[Long], T <: AbstractTable[E]] extends Control
 
   def index = StackAction(AuthorityKey -> domainName)(implicit request => {
     val paging = PagingDto(request)
-    Ok(doIndex(paging))
+    Ok(doIndex(paging, request))
   })
 
-  protected def doIndex(paging: PagingDto)(implicit session: Session): JsValue
+  protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue
 
   def update(id: Long) = StackAction(AuthorityKey -> domainName)(implicit request => {
     editForm.bindFromRequest.fold(

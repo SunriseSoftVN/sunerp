@@ -6,6 +6,8 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
 import dtos.{NhanVienDto, ExtGirdDto, PagingDto}
+import org.apache.commons.digester.SimpleRegexMatcher
+import org.apache.commons.lang3.StringUtils
 
 /**
  * The Class NhanVien.
@@ -25,7 +27,25 @@ case class NhanVien(
                      phongBangId: Long
                      ) extends WithId[Long] {
 
-  def quyenHanhs(implicit session: Session): List[QuyenHanh] = QuyenHanhs.findByChucVuId(chucVuId)
+  private var _quyenHanhs: Option[List[QuyenHanh]] = None
+
+  def quyenHanhs(implicit session: Session): List[QuyenHanh] = _quyenHanhs.getOrElse {
+    _quyenHanhs = Some(QuyenHanhs.findByChucVuId(chucVuId))
+    _quyenHanhs.get
+  }
+
+  def checkAuth(authority: String)(implicit session: Session) = {
+    val matcher = new SimpleRegexMatcher
+    quyenHanhs.exists(quyenHanh => StringUtils.isBlank(authority) || matcher.`match`(authority.toLowerCase, quyenHanh.domain.toLowerCase))
+  }
+
+  def canReadAll(authority: String)(implicit session: Session) = {
+    val matcher = new SimpleRegexMatcher
+    val quyenHanh = quyenHanhs.find(quyenHanh => StringUtils.isBlank(authority) || matcher.`match`(authority.toLowerCase, quyenHanh.domain.toLowerCase))
+    quyenHanh.isDefined && quyenHanh.get.showAll
+  }
+
+  def canNotReadAll(authority: String)(implicit session: Session) = !canReadAll(authority)
 
 }
 
@@ -93,12 +113,16 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
     }).getOrElse(entity)
   }
 
-  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[NhanVienDto] = {
+  def load(pagingDto: PagingDto, currentUser: NhanVien)(implicit session: Session): ExtGirdDto[NhanVienDto] = {
     var query = for (
       nhanVien <- this;
       chucVu <- nhanVien.chucVu;
       phongBang <- nhanVien.phongBang
     ) yield (nhanVien, chucVu, phongBang)
+
+    if(currentUser.canNotReadAll(baseTableRow.tableName)) {
+      query = query.where(tuple => tuple._3.id === currentUser.phongBangId)
+    }
 
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
