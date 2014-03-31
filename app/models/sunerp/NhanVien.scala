@@ -120,6 +120,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       phongBang <- nhanVien.phongBang
     ) yield (nhanVien, chucVu, phongBang)
 
+    //Only show nhan vien in same room with current user.
     if(currentUser.canNotReadAll(baseTableRow.tableName)) {
       query = query.where(tuple => tuple._3.id === currentUser.phongBangId)
     }
