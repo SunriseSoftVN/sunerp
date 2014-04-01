@@ -17,7 +17,7 @@ import play.api.mvc.AnyContent
  *
  */
 object DonViCtr extends BaseCtr[DonVi, DonVis] with MainTemplate {
-  override def editForm = DonVis.editForm
+  override def editForm(implicit session: Session) = DonVis.editForm
   override implicit val jsonWrite: Writes[DonVi] = DonVis.donViJsonFormat
   override val dao: AbstractQuery[DonVi, DonVis] = DonVis
   override val domainName: String = "donVi"

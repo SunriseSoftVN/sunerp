@@ -86,9 +86,11 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 header: 'Ngày phân công',
                 dataIndex: 'ngayPhanCong',
                 xtype: 'datecolumn',
+                format: 'd-m-Y',
                 flex: 1,
                 editor: {
-                    xtype: 'datefield'
+                    xtype: 'datefield',
+                    format: 'd-m-Y'
                 }
             },
             {

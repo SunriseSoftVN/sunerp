@@ -20,7 +20,7 @@ object ChucVuCtr extends BaseCtr[ChucVu, ChucVus] with MainTemplate {
   override val domainName: String = "chucVu"
   override implicit val jsonWrite: Writes[ChucVu] = ChucVus.chucVuJsonFormat
   override val dao: AbstractQuery[ChucVu, ChucVus] = ChucVus
-  override def editForm = ChucVus.editForm
+  override def editForm(implicit session: Session) = ChucVus.editForm
   override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
     val result = ChucVus.load(paging)
     Json.toJson(result)

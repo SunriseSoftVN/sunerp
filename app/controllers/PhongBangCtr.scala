@@ -17,7 +17,7 @@ import play.api.mvc.AnyContent
  *
  */
 object PhongBangCtr extends BaseCtr[PhongBang, PhongBangs] with MainTemplate {
-  override def editForm = PhongBangs.editForm
+  override def editForm(implicit session: Session) = PhongBangs.editForm
 
   override implicit val jsonWrite: Writes[PhongBang] = PhongBangs.phongBangJsonFormat
   override val dao: AbstractQuery[PhongBang, PhongBangs] = PhongBangs

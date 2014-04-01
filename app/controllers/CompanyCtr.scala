@@ -21,7 +21,7 @@ object CompanyCtr extends BaseCtr[Company, Companies] with MainTemplate {
   override implicit val jsonWrite: Writes[Company] = Companies.companyJsonFormat
   override val dao: AbstractQuery[Company, Companies] = Companies
   override val domainName: String = "company"
-  override def editForm: Form[Company] = Companies.editFrom
+  override def editForm(implicit session: Session): Form[Company] = Companies.editFrom
   override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
     val result = Companies.load(paging)
     Json.toJson(result)

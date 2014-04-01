@@ -2,9 +2,10 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
-import play.api.data.Form
+
 import play.api.data.Forms._
 import play.api.libs.json.Json
+import play.api.data.Form
 
 /**
  * The Class SoPhanCongExt.
@@ -15,20 +16,20 @@ import play.api.libs.json.Json
  */
 case class SoPhanCongExt(
                           id: Option[Long] = None,
-                          lamDem: Boolean,
-                          baoHoLaoDong: Boolean,
-                          docHai: Boolean,
-                          le: Boolean,
-                          tet: Boolean,
-                          thaiSan: Boolean,
-                          dauOm: Boolean,
-                          conOm: Boolean,
-                          taiNanLd: Boolean,
-                          hop: Boolean,
-                          hocDaiHan: Boolean,
-                          hocDotXuat: Boolean,
-                          viecRieng: Boolean,
-                          chuNhat: Boolean
+                          lamDem: Boolean = false,
+                          baoHoLaoDong: Boolean = false,
+                          docHai: Boolean = false,
+                          le: Boolean = false,
+                          tet: Boolean = false,
+                          thaiSan: Boolean = false,
+                          dauOm: Boolean = false,
+                          conOm: Boolean = false,
+                          taiNanLd: Boolean = false,
+                          hop: Boolean = false,
+                          hocDaiHan: Boolean = false,
+                          hocDotXuat: Boolean = false,
+                          viecRieng: Boolean = false,
+                          chuNhat: Boolean = false
                           ) extends WithId[Long]
 
 

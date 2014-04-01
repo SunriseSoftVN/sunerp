@@ -17,7 +17,7 @@ import play.api.mvc.AnyContent
  *
  */
 object NhanVienCtr extends BaseCtr[NhanVien,NhanViens] with MainTemplate {
-  override def editForm = NhanViens.editForm
+  override def editForm(implicit session: Session) = NhanViens.editForm
   override implicit val jsonWrite: Writes[NhanVien] = NhanViens.nhanVienJsonFormat
   override val dao: AbstractQuery[NhanVien, NhanViens] = NhanViens
   override val domainName: String = "nhanVien"

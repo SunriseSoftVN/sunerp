@@ -21,7 +21,7 @@ abstract class BaseCtr[E <: WithId[Long], T <: AbstractTable[E]] extends Control
   val domainName: String
   val dao: AbstractQuery[E, T]
   implicit val jsonWrite: Writes[E]
-  def editForm: Form[E]
+  def editForm(implicit session: Session): Form[E]
 
   def index = StackAction(AuthorityKey -> domainName)(implicit request => {
     val paging = PagingDto(request)

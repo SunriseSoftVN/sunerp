@@ -19,7 +19,7 @@ import play.api.mvc.AnyContent
  */
 object QuyenHanhCtr extends BaseCtr[QuyenHanh, QuyenHanhs] with MainTemplate {
   override val domainName: String = "quyenHanh"
-  override def editForm: Form[QuyenHanh] = QuyenHanhs.editForm
+  override def editForm(implicit session: Session): Form[QuyenHanh] = QuyenHanhs.editForm
   override implicit val jsonWrite: Writes[QuyenHanh] = QuyenHanhs.jsonFormat
   override val dao: AbstractQuery[QuyenHanh, QuyenHanhs] = QuyenHanhs
   override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {

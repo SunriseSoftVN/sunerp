@@ -17,7 +17,7 @@ import play.api.mvc.AnyContent
  *
  */
 object KhoiDonViCtr extends BaseCtr[KhoiDonVi, KhoiDonVis] with MainTemplate {
-  override def editForm = KhoiDonVis.editForm
+  override def editForm(implicit session: Session) = KhoiDonVis.editForm
   override implicit val jsonWrite: Writes[KhoiDonVi] = KhoiDonVis.khoiDonViJsonFormat
   override val dao: AbstractQuery[KhoiDonVi, KhoiDonVis] = KhoiDonVis
   override val domainName: String = "khoiDonVi"
