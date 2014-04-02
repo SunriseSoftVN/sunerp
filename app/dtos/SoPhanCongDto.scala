@@ -64,7 +64,7 @@ object SoPhanCongDto {
       "gio" -> o.gio,
       "ghiChu" -> o.ghiChu,
       "soPhanCongExtId" -> o.soPhanCongExtId,
-      "ngayPhanCong" -> o.ngayPhanCong,
+      "ngayPhanCong" -> o.ngayPhanCong.toString("MM-dd-yyyy"),
       "soPhanCongExt" -> SoPhanCongExts.soPhanCongExtJsonFormat.writes(o.soPhanCongExt),
       "nhanVien" -> NhanViens.nhanVienJsonFormat.writes(o.nhanVien),
       "task" -> Tasks.taskJsonFormat.writes(o.task),

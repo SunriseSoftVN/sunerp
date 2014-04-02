@@ -19,7 +19,7 @@ Ext.define('sunerp.model.SoPhanCong', {
         'ghiChu',
         'soPhanCongExtId',
         'soPhanCongExt',
-        'ngayPhanCong'
+        {name: 'ngayPhanCong', type: 'date'}
 
     ],
     associations: [
