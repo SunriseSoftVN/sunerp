@@ -31,7 +31,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     addNewRow: function () {
         var rec = new sunerp.model.SoPhanCong();
         rec.set('phongBangId', this.getPhongBangId());
-        this.getSoPhanCongStore().insert(0, rec);
+        this.getSoPhanCongStore().insert(this.getSoPhanCongStore().count(), rec);
     },
     doSave: function() {
         this.getSoPhanCongStore().sync();
