@@ -40,7 +40,8 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
             {
                 header: 'Họ tên',
                 dataIndex: 'nhanVien.firstName',
-                width: 160,
+                width: 100,
+                locked   : true,
                 editor: {
                     xtype: 'nhanvienpicker',
                     gird: me
@@ -49,8 +50,9 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
             {
                 header: 'Công việc',
                 dataIndex: 'task.name',
-                width: 100,
+                width: 200,
                 sortable: false,
+                locked   : true,
                 editor: {
                     xtype: 'congviecpicker',
                     gird: me
@@ -61,6 +63,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 dataIndex: 'khoiLuong',
                 width: 100,
                 xtype: 'numbercolumn',
+                locked   : true,
                 editor: {
                     xtype: 'numberfield'
                 }
@@ -70,6 +73,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 dataIndex: 'gio',
                 width: 80,
                 xtype: 'numbercolumn',
+                locked   : true,
                 editor: {
                     xtype: 'numberfield'
                 }
@@ -78,6 +82,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 header: 'Ghi chú',
                 dataIndex: 'ghiChu',
                 width: 160,
+                locked   : true,
                 editor: {
                     xtype: 'textfield'
                 }
@@ -87,61 +92,68 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 dataIndex: 'ngayPhanCong',
                 xtype: 'datecolumn',
                 format: 'd-m-Y',
-                width: 160,
+                width: 100,
+                locked   : true,
                 editor: {
                     xtype: 'datefield',
                     format: 'd-m-Y'
                 }
             },
-            {header: 'Làm đêm', dataIndex: 'soPhanCongExt.lamDem', width: 80,
-                xtype: 'checkcolumn'
-            },
-            {header: 'BHLD', dataIndex: 'soPhanCongExt.baoHoLaoDong', width: 70,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Độc hại', dataIndex: 'soPhanCongExt.docHai', width: 80,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Lễ', dataIndex: 'soPhanCongExt.le', width: 40,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Tết', dataIndex: 'soPhanCongExt.tet', width: 50,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Thai sản', dataIndex: 'soPhanCongExt.thaiSan', width: 90,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Đau ốm', dataIndex: 'soPhanCongExt.dauOm', width: 80,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Con ốm', dataIndex: 'soPhanCongExt.conOm', width: 80,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Tai nạn LD', dataIndex: 'soPhanCongExt.taiNanLd', width: 100,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Họp', dataIndex: 'soPhanCongExt.hop', width: 50,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Học DH', dataIndex: 'soPhanCongExt.hocDaiHan', width: 80,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Học ĐX', dataIndex: 'soPhanCongExt.hocDotXuat', width: 80,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Việc riêng', dataIndex: 'soPhanCongExt.viecRieng', width: 90,
-                xtype: 'checkcolumn'
-            },
-            {header: 'Chủ Nhật', dataIndex: 'soPhanCongExt.chuNhat', width: 80,
-                xtype: 'checkcolumn'
-            },
-
             {
-                xtype: 'actioncolumn',
-                header: 'Option',
-                sortable: false,
-                menuDisabled: true,
-                items: [this.deleteBtn()]
+                header: 'Chủ Nhật', dataIndex: 'soPhanCongExt.chuNhat', width: 80,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Việc riêng', dataIndex: 'soPhanCongExt.viecRieng', width: 90,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Làm đêm', dataIndex: 'soPhanCongExt.lamDem', width: 80,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'BHLD', dataIndex: 'soPhanCongExt.baoHoLaoDong', width: 70,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Độc hại', dataIndex: 'soPhanCongExt.docHai', width: 80,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Lễ', dataIndex: 'soPhanCongExt.le', width: 40,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Tết', dataIndex: 'soPhanCongExt.tet', width: 50,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Thai sản', dataIndex: 'soPhanCongExt.thaiSan', width: 90,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Đau ốm', dataIndex: 'soPhanCongExt.dauOm', width: 80,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Con ốm', dataIndex: 'soPhanCongExt.conOm', width: 80,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Tai nạn LD', dataIndex: 'soPhanCongExt.taiNanLd', width: 100,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Họp', dataIndex: 'soPhanCongExt.hop', width: 50,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Học DH', dataIndex: 'soPhanCongExt.hocDaiHan', width: 80,
+                xtype: 'checkcolumn'
+            },
+            {
+                header: 'Học ĐX', dataIndex: 'soPhanCongExt.hocDotXuat', width: 80,
+                xtype: 'checkcolumn'
             }
         ];
 

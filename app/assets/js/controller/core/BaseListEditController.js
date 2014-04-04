@@ -35,10 +35,6 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
         };
         this.callParent(config);
     },
-    onMainStoreLoad: function () {
-        //fix can't get selected model bug.
-        this.getView().getSelectionModel().deselectAll();
-    },
     doDelete: function (column, view, rowIndex, colIndex, item, e, record) {
         var me = this;
         Ext.MessageBox.confirm('Confirm', 'Are you sure you want to delete that?', function (btn) {

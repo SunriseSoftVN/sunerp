@@ -6,11 +6,6 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     extend: 'sunerp.controller.core.BaseListEditController',
     modelClass: 'sunerp.model.SoPhanCong',
     inject: ['soPhanCongStore', 'userService'],
-    observe: {
-        soPhanCongStore: {
-            load: "onMainStoreLoad"
-        }
-    },
     config: {
         soPhanCongStore: null,
         phongBangId: null,
