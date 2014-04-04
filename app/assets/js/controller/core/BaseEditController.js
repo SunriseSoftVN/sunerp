@@ -6,16 +6,18 @@ Ext.define('sunerp.controller.core.BaseEditController', {
     extend: 'Deft.mvc.ViewController',
     //this property has to be set in subclass
     mainStore: null,
-    control: {
-        form: {
+    control: {},
+    constructor: function(config) {
+        this.control['form'] = {
             selector: 'form'
-        },
-        saveBtn: {
+        };
+        this.control['saveBtn'] = {
             selector: 'button[action=save]',
             listeners: {
                 click: 'doUpdate'
             }
-        }
+        };
+        this.callParent(config);
     },
     init: function () {
         if (this.getView().getModel() != null) {

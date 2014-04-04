@@ -7,28 +7,30 @@ Ext.define('sunerp.controller.core.BaseListController', {
     editView: null,
     mainStore: null,
     searchField: null,
-    control: {
-        view: {
+    control: {},
+    constructor: function(config) {
+        this.control['view'] = {
             itemdblclick: "showEditView"
-        },
-        addBtn: {
+        };
+        this.control['addBtn'] = {
             selector: 'button[action=addNew]',
             listeners: {
                 click: 'showAddPanel'
             }
-        },
-        deleteBtn: {
+        };
+        this.control['deleteBtn'] = {
             selector: 'actioncolumn',
             listeners: {
                 deleteRecord: 'doDelete'
             }
-        },
-        searchTxt: {
+        };
+        this.control['searchTxt'] = {
             selector: 'textfield[name=searchField]',
             listeners: {
                 specialkey: 'onSearchFieldChange'
             }
-        }
+        };
+        this.callParent(config);
     },
     init: function () {
         this.callParent(arguments);
