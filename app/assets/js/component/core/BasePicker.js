@@ -24,7 +24,7 @@ Ext.define('sunerp.component.core.BasePicker', {
         me.getStore().clearFilter(true);
         me.getStore().loadPage(1);
         if (me.gird.getSelectionModel().hasSelection()) {
-            var model = me.gird.getSelectionModel().getSelection()[0];
+            var model = me.gird.getSelectionModel().getLastSelected();
             me.setModel(model);
             var window = Ext.create('Ext.window.Window', {
                 title: me.title,

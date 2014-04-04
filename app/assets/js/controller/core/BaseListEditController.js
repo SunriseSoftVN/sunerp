@@ -3,5 +3,8 @@
  */
 
 Ext.define('sunerp.controller.core.BaseListEditController', {
-    extend: 'Deft.mvc.ViewController'
+    extend: 'Deft.mvc.ViewController',
+    onMainStoreLoad: function() {
+        this.getView().getSelectionModel().deselectAll();
+    }
 });
