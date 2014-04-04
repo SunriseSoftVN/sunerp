@@ -9,12 +9,6 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
     modelClass: null,
     control: {},
     constructor: function(config) {
-        this.control['deleteBtn'] = {
-            selector: 'actioncolumn',
-            listeners: {
-                deleteRecord: 'doDelete'
-            }
-        };
         this.control['addBtn'] = {
             selector: 'button[action=addNew]',
             listeners: {

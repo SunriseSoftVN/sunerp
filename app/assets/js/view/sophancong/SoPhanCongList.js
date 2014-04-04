@@ -5,26 +5,6 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         'sunerp.component.NhanVienPicker',
         'sunerp.controller.sophancong.SoPhanCongListCtr'
     ],
-    tbar: [
-        {
-            xtype: 'textfield',
-            name: 'searchField',
-            hideLabel: true,
-            width: 200
-        },
-        {
-            text: 'Thêm mới',
-            tooltip: 'Thêm mới',
-            iconCls: 'add',
-            action: 'addNew'
-        },
-        {
-            text: 'Cập nhật',
-            tooltip: 'Cập nhật',
-            iconCls: 'save',
-            action: 'save'
-        }
-    ],
     alias: 'widget.soPhanCongList',
     controller: 'sunerp.controller.sophancong.SoPhanCongListCtr',
     inject: ['soPhanCongStore', 'taskStore'],
@@ -166,7 +146,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
 
 
         me.cellEditing = new Ext.grid.plugin.CellEditing({
-            clicksToEdit: 1
+            clicksToEdit: 2
         });
 
         me.plugins = [me.cellEditing];
