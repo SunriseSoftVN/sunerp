@@ -12,5 +12,14 @@ Ext.define('sunerp.view.core.BaseListEditView', {
         'Ext.form.field.Text',
         'Ext.toolbar.Paging',
         'Ext.form.field.ComboBox'
-    ]
+    ],
+    deleteBtn: function () {
+        return {
+            icon: '/assets/img/icons/fam/delete.png',
+            tooltip: 'Delete',
+            handler: function (view, rowIndex, colIndex, item, e, record) {
+                this.fireEvent('deleteRecord', this, view, rowIndex, colIndex, item, e, record);
+            }
+        }
+    }
 });
