@@ -4,7 +4,49 @@
 
 Ext.define('sunerp.controller.core.BaseListEditController', {
     extend: 'Deft.mvc.ViewController',
-    onMainStoreLoad: function() {
+    //this property has to be set in subclass
+    mainStore: null,
+    modelClass: null,
+    control: {},
+    constructor: function(config) {
+        this.control['deleteBtn'] = {
+            selector: 'actioncolumn',
+            listeners: {
+                deleteRecord: 'doDelete'
+            }
+        };
+        this.control['addBtn'] = {
+            selector: 'button[action=addNew]',
+            listeners: {
+                click: 'addNewRow'
+            }
+        };
+        this.control['saveBtn'] = {
+            selector: 'button[action=save]',
+            listeners: {
+                click: 'doSave'
+            }
+        };
+        this.callParent(config);
+    },
+    onMainStoreLoad: function () {
+        //fix can't get selected model bug.
         this.getView().getSelectionModel().deselectAll();
+    },
+    doDelete: function (column, view, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        Ext.MessageBox.confirm('Confirm', 'Are you sure you want to delete that?', function (btn) {
+            if (btn == 'yes') {
+                me.mainStore.remove(record);
+                me.mainStore.sync();
+            }
+        });
+    },
+    addNewRow: function () {
+        var rec = Ext.create(this.modelClass);
+        this.mainStore.insert(this.mainStore.count(), rec);
+    },
+    doSave: function() {
+        this.mainStore.sync();
     }
 });

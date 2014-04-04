@@ -117,14 +117,5 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         me.plugins = [me.cellEditing];
 
         me.callParent(arguments);
-    },
-    deleteBtn: function () {
-        return {
-            icon: '/assets/img/icons/fam/delete.png',
-            tooltip: 'Delete',
-            handler: function (view, rowIndex, colIndex, item, e, record) {
-                this.fireEvent('deleteRecord', this, view, rowIndex, colIndex, item, e, record);
-            }
-        }
     }
 });

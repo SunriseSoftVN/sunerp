@@ -4,6 +4,7 @@
 
 Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     extend: 'sunerp.controller.core.BaseListEditController',
+    modelClass: 'sunerp.model.SoPhanCong',
     inject: ['soPhanCongStore', 'userService'],
     observe: {
         soPhanCongStore: {
@@ -15,30 +16,14 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         phongBangId: null,
         userService: null
     },
-    control: {
-        addBtn: {
-            selector: 'button[action=addNew]',
-            listeners: {
-                click: 'addNewRow'
-            }
-        },
-        saveBtn: {
-            selector: 'button[action=save]',
-            listeners: {
-                click: 'doSave'
-            }
-        }
-    },
     init: function () {
+        this.mainStore = this.getSoPhanCongStore();
         this.setPhongBangId(this.getUserService().getCurrentUser().phongBangId);
         this.callParent(arguments);
     },
     addNewRow: function () {
-        var rec = new sunerp.model.SoPhanCong();
+        var rec = Ext.create(this.modelClass);
         rec.set('phongBangId', this.getPhongBangId());
-        this.getSoPhanCongStore().insert(this.getSoPhanCongStore().count(), rec);
-    },
-    doSave: function() {
-        this.getSoPhanCongStore().sync();
+        this.mainStore.insert(this.mainStore.count(), rec);
     }
 });
