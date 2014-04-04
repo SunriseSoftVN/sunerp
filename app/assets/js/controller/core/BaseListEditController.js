@@ -8,7 +8,13 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
     mainStore: null,
     modelClass: null,
     control: {},
-    constructor: function(config) {
+    constructor: function (config) {
+        this.control['deleteBtn'] = {
+            selector: 'button[action=delete]',
+            listeners: {
+                click: 'doDelete'
+            }
+        };
         this.control['addBtn'] = {
             selector: 'button[action=addNew]',
             listeners: {
@@ -29,20 +35,24 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
         };
         this.callParent(config);
     },
-    doDelete: function (column, view, rowIndex, colIndex, item, e, record) {
+    doDelete: function () {
         var me = this;
-        Ext.MessageBox.confirm('Confirm', 'Are you sure you want to delete that?', function (btn) {
-            if (btn == 'yes') {
-                me.mainStore.remove(record);
-                me.mainStore.sync();
-            }
-        });
+        var view = me.getView();
+        if (view.getSelectionModel().hasSelection()) {
+            Ext.MessageBox.confirm('Confirm', 'Are you sure you want to delete that?', function (btn) {
+                if (btn == 'yes') {
+                    var model = view.getSelectionModel().getLastSelected();
+                    me.mainStore.remove(model);
+                    me.mainStore.sync();
+                }
+            });
+        }
     },
     addNewRow: function () {
         var rec = Ext.create(this.modelClass);
         this.mainStore.insert(this.mainStore.count(), rec);
     },
-    doSave: function() {
+    doSave: function () {
         this.mainStore.sync();
     },
     onSearchFieldChange: function (f, e) {

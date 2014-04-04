@@ -72,7 +72,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 dataIndex: 'ngayPhanCong',
                 xtype: 'datecolumn',
                 format: 'd-m-Y',
-                width: 100,
+                width: 120,
                 locked   : true,
                 editor: {
                     xtype: 'datefield',
@@ -146,7 +146,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
 
 
         me.cellEditing = new Ext.grid.plugin.CellEditing({
-            clicksToEdit: 2
+            clicksToEdit: 1
         });
 
         me.plugins = [me.cellEditing];
