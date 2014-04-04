@@ -94,7 +94,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       "gio" -> of[Double],
       "ghiChu" -> text,
       "soPhanCongExtId" -> default(longNumber, {
-        val soPhanCongExtId: Long = SoPhanCongExts.insert(SoPhanCongExt())
+        val soPhanCongExtId: Long = SoPhanCongExts.save(SoPhanCongExt())
         soPhanCongExtId
       }),
       "ngayPhanCong" -> jodaDate("yyyy-MM-dd'T'HH:mm:ss")
@@ -143,5 +143,11 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       total = totalRow,
       data = data
     )
+  }
+
+  override protected def afterDelete(entity: SoPhanCong)(implicit session: Session): SoPhanCong = {
+    //remove soPhanCongExt.
+    SoPhanCongExts.deleteById(entity.soPhanCongExtId)
+    super.afterDelete(entity)
   }
 }

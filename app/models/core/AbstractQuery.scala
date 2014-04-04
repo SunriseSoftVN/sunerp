@@ -17,7 +17,15 @@ abstract class AbstractQuery[E, T <: AbstractTable[E]](cons: Tag => T) extends T
 
   def findById(id: Long)(implicit session: Session) = where(_.id === id).firstOption
 
-  def deleteById(id: Long)(implicit session: Session) = where(_.id === id).delete
+  protected def beforeDelete(entity: E)(implicit session: Session) = entity
+  protected def afterDelete(entity: E)(implicit session: Session) = entity
+
+  def deleteById(id: Long)(implicit session: Session) = findById(id).map(entity => {
+    beforeDelete(entity)
+    val result = where(_.id === id).delete
+    afterDelete(entity)
+    result
+  })
 
   protected def beforeUpdate(entity: E)(implicit session: Session) = entity
 
