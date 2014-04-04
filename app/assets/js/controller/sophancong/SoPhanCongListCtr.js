@@ -16,6 +16,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         phongBangId: null,
         userService: null
     },
+    searchField: "nhanVien.firstName",
     init: function () {
         this.mainStore = this.getSoPhanCongStore();
         this.setPhongBangId(this.getUserService().getCurrentUser().phongBangId);

@@ -27,6 +27,12 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
                 click: 'doSave'
             }
         };
+        this.control['searchTxt'] = {
+            selector: 'textfield[name=searchField]',
+            listeners: {
+                specialkey: 'onSearchFieldChange'
+            }
+        };
         this.callParent(config);
     },
     onMainStoreLoad: function () {
@@ -48,5 +54,14 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
     },
     doSave: function() {
         this.mainStore.sync();
+    },
+    onSearchFieldChange: function (f, e) {
+        var me = this;
+        var searchValue = me.getSearchTxt().getValue();
+        if (e.getKey() == e.ENTER) {
+            me.mainStore.clearFilter(true);
+            me.mainStore.filter(me.searchField, searchValue);
+            me.mainStore.loadPage(1);
+        }
     }
 });
