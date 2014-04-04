@@ -2,6 +2,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
     extend: 'sunerp.view.core.BaseListEditView',
     requires: [
         'sunerp.component.CongViecPicker',
+        'sunerp.component.NhanVienCb',
         'sunerp.component.NhanVienPicker',
         'sunerp.controller.sophancong.SoPhanCongListCtr'
     ],
@@ -23,7 +24,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 width: 100,
                 locked   : true,
                 editor: {
-                    xtype: 'nhanvienpicker',
+                    xtype: 'nhanviencb',
                     gird: me
                 }
             },

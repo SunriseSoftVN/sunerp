@@ -93,6 +93,8 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
 
   def findByMaNv(maNv: String)(implicit session: Session) = where(_.maNv === maNv).firstOption()
 
+  def findByPhongBangId(phongBangId: Long)(implicit session: Session) = where(_.phongBangId === phongBangId).list()
+
   def login(maNv: String, password: String)(implicit session: Session) = {
     val nhanVien = findByMaNv(maNv)
     nhanVien.isDefined && Hash.checkPassword(password, nhanVien.get.password)

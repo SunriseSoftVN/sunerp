@@ -16,13 +16,20 @@ import play.api.mvc.AnyContent
  * @since 3/8/14 4:20 PM
  *
  */
-object NhanVienCtr extends BaseCtr[NhanVien,NhanViens] with MainTemplate {
+object NhanVienCtr extends BaseCtr[NhanVien, NhanViens] with MainTemplate {
   override def editForm(implicit session: Session) = NhanViens.editForm
+
   override implicit val jsonWrite: Writes[NhanVien] = NhanViens.nhanVienJsonFormat
   override val dao: AbstractQuery[NhanVien, NhanViens] = NhanViens
   override val domainName: String = "nhanVien"
+
   override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
     val result = NhanViens.load(paging, loggedIn(request))
     Json.toJson(result)
   }
+
+  def findByPhongBangId(phongBangId: Long) = StackAction(AuthorityKey -> domainName)(implicit request => {
+    val result = NhanViens.findByPhongBangId(phongBangId)
+    Ok(Json.toJson(result))
+  })
 }
