@@ -11,10 +11,12 @@ Ext.define('sunerp.store.BaseStore', {
     remoteSort: true,
     remoteFilter: true,
     pageSize: 50,
-    listeners: {
-        metachange: function (store, meta) {
-            store.last().set('id', meta.id);
-            store.last().setDirty(false);
-        }
+    constructor: function () {
+        this.callParent(arguments);
+        this.on('metachange', function (store, meta) {
+            var model = store.getNewRecords()[0];
+            model.set('id', meta.id);
+            model.setDirty(false);
+        });
     }
 });

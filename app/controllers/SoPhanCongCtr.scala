@@ -38,7 +38,7 @@ object SoPhanCongCtr extends Controller with AuthElement with AuthConfigImpl wit
       tuple => {
         val (id, nhanVienId, taskId, phongBangId, khoiLuong, gio, ghiChu, ngayPhanCong, soPhanCongExt) = tuple
         val soPhanCongExtId = SoPhanCongExts.save(soPhanCongExt)
-        SoPhanCongs.save(SoPhanCong(
+        val newId = SoPhanCongs.save(SoPhanCong(
           id = id,
           nhanVienId = nhanVienId,
           taskId = taskId,
@@ -49,7 +49,12 @@ object SoPhanCongCtr extends Controller with AuthElement with AuthConfigImpl wit
           ngayPhanCong = ngayPhanCong,
           soPhanCongExtId = soPhanCongExtId
         ))
-        Ok
+        Ok(Json.obj(
+          "metaData" -> Json.obj(
+            "id" -> newId,
+            "soPhanCongExtId" -> soPhanCongExtId
+          )
+        ))
       }
     )
   })
@@ -74,7 +79,10 @@ object SoPhanCongCtr extends Controller with AuthElement with AuthConfigImpl wit
               ngayPhanCong = ngayPhanCong
             ), id)
 
-            SoPhanCongExts.update(soPhanCongExt, soPhanCongExt.id)
+            SoPhanCongExts.update(
+              soPhanCongExt.copy(id = Some(soPhanCong.soPhanCongExtId)),
+              Some(soPhanCong.soPhanCongExtId)
+            )
           })
         })
         Ok
