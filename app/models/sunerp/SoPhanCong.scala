@@ -110,7 +110,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       query = query.where(tuple => {
         val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
         filter.property match {
-          case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.valueForLike
+          case "nhanVien.maNv" => nhanVien.maNv.toLowerCase like filter.valueForLike
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -124,7 +124,20 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
           case "khoiLuong" => orderColumn(sort.direction, soPhanCong.khoiLuong)
           case "gio" => orderColumn(sort.direction, soPhanCong.gio)
           case "ngayPhanCong" => orderColumn(sort.direction, soPhanCong.ngayPhanCong)
-          case "nhanVien.firstName" => orderColumn(sort.direction, nhanVien.firstName)
+          case "nhanVien.maNv" => orderColumn(sort.direction, nhanVien.maNv)
+          case "soPhanCongExt.chuNhat" => orderColumn(sort.direction, soPhanCongExt.chuNhat)
+          case "soPhanCongExt.viecRieng" => orderColumn(sort.direction, soPhanCongExt.viecRieng)
+          case "soPhanCongExt.lamDem" => orderColumn(sort.direction, soPhanCongExt.lamDem)
+          case "soPhanCongExt.baoHoLaoDong" => orderColumn(sort.direction, soPhanCongExt.baoHoLaoDong)
+          case "soPhanCongExt.docHai" => orderColumn(sort.direction, soPhanCongExt.docHai)
+          case "soPhanCongExt.le" => orderColumn(sort.direction, soPhanCongExt.le)
+          case "soPhanCongExt.tet" => orderColumn(sort.direction, soPhanCongExt.tet)
+          case "soPhanCongExt.dauOm" => orderColumn(sort.direction, soPhanCongExt.dauOm)
+          case "soPhanCongExt.conOm" => orderColumn(sort.direction, soPhanCongExt.conOm)
+          case "soPhanCongExt.hop" => orderColumn(sort.direction, soPhanCongExt.hop)
+          case "soPhanCongExt.hocDaiHan" => orderColumn(sort.direction, soPhanCongExt.hocDaiHan)
+          case "soPhanCongExt.hocDotXuat" => orderColumn(sort.direction, soPhanCongExt.hocDotXuat)
+          case "soPhanCongExt.taiNanLd" => orderColumn(sort.direction, soPhanCongExt.taiNanLd)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
