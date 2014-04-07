@@ -39,14 +39,6 @@ case class NhanVien(
     quyenHanhs.exists(quyenHanh => StringUtils.isBlank(authority) || matcher.`match`(authority.toLowerCase, quyenHanh.domain.toLowerCase))
   }
 
-  def canReadAll(authority: String)(implicit session: Session) = {
-    val matcher = new SimpleRegexMatcher
-    val quyenHanh = quyenHanhs.find(quyenHanh => StringUtils.isBlank(authority) || matcher.`match`(authority.toLowerCase, quyenHanh.domain.toLowerCase))
-    quyenHanh.isDefined && quyenHanh.get.showAll
-  }
-
-  def canNotReadAll(authority: String)(implicit session: Session) = !canReadAll(authority)
-
 }
 
 class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
@@ -121,11 +113,6 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       chucVu <- nhanVien.chucVu;
       phongBang <- nhanVien.phongBang
     ) yield (nhanVien, chucVu, phongBang)
-
-    //Only show nhan vien in same room with current user.
-    if(currentUser.canNotReadAll(baseTableRow.tableName)) {
-      query = query.where(tuple => tuple._3.id === currentUser.phongBangId)
-    }
 
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
