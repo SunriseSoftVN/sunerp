@@ -18,8 +18,10 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         this.callParent(arguments);
     },
     addNewRow: function () {
+        var lastModel = this.getView().getStore().last();
         var rec = Ext.create(this.modelClass);
         rec.set('phongBangId', this.getPhongBangId());
+        rec.set('ngayPhanCong', lastModel.get('ngayPhanCong'));
         this.mainStore.insert(this.mainStore.count(), rec);
     }
 });
