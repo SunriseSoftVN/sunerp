@@ -154,6 +154,8 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
 
         me.plugins = [me.cellEditing];
 
+        me.features = [{ftype: 'grouping'}];
+
         me.callParent(arguments);
     }
 });

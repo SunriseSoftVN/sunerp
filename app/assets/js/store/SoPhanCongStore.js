@@ -5,6 +5,7 @@
 Ext.define('sunerp.store.SoPhanCongStore', {
     extend: 'sunerp.store.BaseStore',
     model: 'sunerp.model.SoPhanCong',
+    groupField: 'ngayPhanCong',
     proxy: {
         type: 'restx',
         url: '/sophancong'
