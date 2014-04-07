@@ -85,7 +85,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
   ) yield (soPhanCong, soPhanCongExt, nhanVien, phongBang)
 
   def editForm(implicit session: Session) = Form(
-    mapping(
+    tuple(
       "id" -> optional(longNumber),
       "nhanVienId" -> longNumber,
       "taskId" -> longNumber,
@@ -93,12 +93,9 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       "khoiLuong" -> of[Double],
       "gio" -> of[Double],
       "ghiChu" -> text,
-      "soPhanCongExtId" -> default(longNumber, {
-        val soPhanCongExtId: Long = SoPhanCongExts.save(SoPhanCongExt())
-        soPhanCongExtId
-      }),
-      "ngayPhanCong" -> jodaDate("yyyy-MM-dd'T'HH:mm:ss")
-    )(SoPhanCong.apply)(SoPhanCong.unapply)
+      "ngayPhanCong" -> jodaDate("yyyy-MM-dd'T'HH:mm:ss"),
+      "soPhanCongExt" -> SoPhanCongExts.editForm.mapping
+    )
   )
 
   implicit val soPhanCongJsonFormat = Json.format[SoPhanCong]
