@@ -90,7 +90,8 @@ Ext.define('sunerp.component.core.BasePicker', {
         return [];
     },
     onOk: function () {
-        this.getModel().setAssociationsValue(this.modelName, this.getSelect());
+        this.getModel().set(this.modelName + "Id", this.getSelect().id);
+        this.getModel().set(this.modelName + "." + this.displayField, this.getSelect()[this.displayField]);
         this.getWindow().close();
     },
     onSelected: function (model, selected, eOpts) {

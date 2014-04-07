@@ -5,6 +5,11 @@
 
 Ext.define('sunerp.model.BaseModel', {
     extend: 'Ext.data.Model',
+    /**
+     * Use with care, performance is slow.
+     * @param fieldName
+     * @param newValue
+     */
     setAssociationsValue: function (fieldName, newValue) {
         var me = this;
         if (newValue != null && Ext.isObject(newValue)) {

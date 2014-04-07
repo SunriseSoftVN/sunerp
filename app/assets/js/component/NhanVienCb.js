@@ -23,7 +23,7 @@ Ext.define('sunerp.component.NhanVienCb', {
         me.callParent(arguments);
         if (me.gird.getSelectionModel().hasSelection()) {
             var model = me.gird.getSelectionModel().getLastSelected();
-            model.setAssociationsValue('nhanVien', record.getData());
+            model.set('nhanVienId', record.getData().id);
         }
     }
 });

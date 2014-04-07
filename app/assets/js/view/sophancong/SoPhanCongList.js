@@ -2,6 +2,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
     extend: 'sunerp.view.core.BaseListEditView',
     requires: [
         'sunerp.component.CongViecPicker',
+        'sunerp.component.CongViecPicker',
         'sunerp.component.NhanVienCb',
         'sunerp.component.NhanVienPicker',
         'sunerp.controller.sophancong.SoPhanCongListCtr'
@@ -22,7 +23,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 header: 'Mã NV',
                 dataIndex: 'nhanVien.maNv',
                 width: 100,
-                locked   : true,
+                locked: true,
                 editor: {
                     xtype: 'nhanviencb',
                     gird: me
@@ -33,10 +34,11 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 dataIndex: 'task.name',
                 width: 200,
                 sortable: false,
-                locked   : true,
+                locked: true,
                 editor: {
                     xtype: 'congviecpicker',
-                    gird: me
+                    gird: me,
+                    displayField: 'name'
                 }
             },
             {
@@ -44,7 +46,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 dataIndex: 'khoiLuong',
                 width: 100,
                 xtype: 'numbercolumn',
-                locked   : true,
+                locked: true,
                 editor: {
                     xtype: 'numberfield'
                 }
@@ -54,7 +56,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 dataIndex: 'gio',
                 width: 80,
                 xtype: 'numbercolumn',
-                locked   : true,
+                locked: true,
                 editor: {
                     xtype: 'numberfield'
                 }
@@ -63,7 +65,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 header: 'Ghi chú',
                 dataIndex: 'ghiChu',
                 width: 160,
-                locked   : true,
+                locked: true,
                 editor: {
                     xtype: 'textfield'
                 }
@@ -74,7 +76,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 xtype: 'datecolumn',
                 format: 'd-m-Y',
                 width: 120,
-                locked   : true,
+                locked: true,
                 editor: {
                     xtype: 'datefield',
                     format: 'd-m-Y'
@@ -146,7 +148,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         });
 
 
-        me.cellEditing = new sunerp.component.plugin.CellEditing({
+        me.cellEditing = new Ext.grid.plugin.CellEditing({
             clicksToEdit: 1
         });
 
