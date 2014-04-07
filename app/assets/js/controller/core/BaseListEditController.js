@@ -53,7 +53,11 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
         this.mainStore.insert(this.mainStore.count(), rec);
     },
     doSave: function () {
-        this.mainStore.sync();
+        this.mainStore.sync({
+            success: function() {
+                Ext.Msg.alert('Status', 'Cập nhật thành công.');
+            }
+        });
     },
     onSearchFieldChange: function (f, e) {
         var me = this;

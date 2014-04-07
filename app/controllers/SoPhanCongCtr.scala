@@ -1,13 +1,10 @@
 package controllers
 
-import controllers.element.{TransactionElement, AuthConfigImpl, MainTemplate, BaseCtr}
-import models.sunerp.{SoPhanCong, SoPhanCongs}
-import models.core.AbstractQuery
-import play.api.libs.json.{Json, Writes}
-import dtos.PagingDto
-import play.api.db.slick.Session
-import jp.t2v.lab.play2.stackc.RequestWithAttributes
-import play.api.mvc.{Controller, AnyContent}
+import controllers.element.{TransactionElement, AuthConfigImpl, MainTemplate}
+import models.sunerp.{SoPhanCong, SoPhanCongExts, SoPhanCongs}
+import play.api.libs.json.Json
+import dtos.{FormErrorDto, PagingDto}
+import play.api.mvc.Controller
 import jp.t2v.lab.play2.auth.AuthElement
 
 /**
@@ -33,11 +30,56 @@ object SoPhanCongCtr extends Controller with AuthElement with AuthConfigImpl wit
   })
 
   def save = StackAction(AuthorityKey -> domainName)(implicit request => {
-    Ok
+    SoPhanCongs.editForm.bindFromRequest.fold(
+      formError => {
+        val errors = formError.errors.map(FormErrorDto.apply)
+        BadRequest(Json.toJson(errors))
+      },
+      tuple => {
+        val (id, nhanVienId, taskId, phongBangId, khoiLuong, gio, ghiChu, ngayPhanCong, soPhanCongExt) = tuple
+        val soPhanCongExtId = SoPhanCongExts.save(soPhanCongExt)
+        SoPhanCongs.save(SoPhanCong(
+          id = id,
+          nhanVienId = nhanVienId,
+          taskId = taskId,
+          phongBangId = phongBangId,
+          khoiLuong = khoiLuong,
+          gio = gio,
+          ghiChu = ghiChu,
+          ngayPhanCong = ngayPhanCong,
+          soPhanCongExtId = soPhanCongExtId
+        ))
+        Ok
+      }
+    )
   })
 
   def update(id: Long) = StackAction(AuthorityKey -> domainName)(implicit request => {
-    Ok
+    SoPhanCongs.editForm.bindFromRequest.fold(
+      formError => {
+        val errors = formError.errors.map(FormErrorDto.apply)
+        BadRequest(Json.toJson(errors))
+      },
+      tuple => {
+        val (id, nhanVienId, taskId, phongBangId, khoiLuong, gio, ghiChu, ngayPhanCong, soPhanCongExt) = tuple
+        id.map(_id => {
+          SoPhanCongs.findById(_id).map(soPhanCong => {
+            SoPhanCongs.update(soPhanCong.copy(
+              nhanVienId = nhanVienId,
+              taskId = taskId,
+              phongBangId = phongBangId,
+              khoiLuong = khoiLuong,
+              gio = gio,
+              ghiChu = ghiChu,
+              ngayPhanCong = ngayPhanCong
+            ), id)
+
+            SoPhanCongExts.update(soPhanCongExt, soPhanCongExt.id)
+          })
+        })
+        Ok
+      }
+    )
   })
 
 }

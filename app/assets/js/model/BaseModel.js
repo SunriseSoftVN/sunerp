@@ -13,17 +13,5 @@ Ext.define('sunerp.model.BaseModel', {
             }
             me.set(fieldName + 'Id', newValue.id);
         }
-    },
-    set: function(fieldName, newValue) {
-        var index = fieldName.indexOf('.');
-        if(index > 0) {
-            var table = fieldName.substring(0, index);
-            var field = fieldName.substring(index + 1, fieldName.length);
-            var obj = this.get(table);
-            if(obj != null) {
-                obj[field] = newValue;
-            }
-        }
-        this.callParent(arguments)
     }
 });
