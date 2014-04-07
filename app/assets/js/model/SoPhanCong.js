@@ -18,6 +18,7 @@ Ext.define('sunerp.model.SoPhanCong', {
         'soPhanCongExtId',
         'soPhanCongExt',
         {name: 'task.name', mapping: 'task.name'},
+        {name: 'nhanVien.maNv', mapping: 'nhanVien.maNv'},
         {name: 'nhanVien.firstName', mapping: 'nhanVien.firstName'},
         {name: 'soPhanCongExt.lamDem', mapping: 'soPhanCongExt.lamDem'},
         {name: 'soPhanCongExt.baoHoLaoDong', mapping: 'soPhanCongExt.baoHoLaoDong'},

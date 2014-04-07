@@ -7,8 +7,9 @@ Ext.define('sunerp.component.NhanVienCb', {
     alias: 'widget.nhanviencb',
     triggerAction: 'all',
     forceSelection: true,
+    gird: null,
     queryMode: 'local',
-    valueField: 'id',
+    valueField: 'maNv',
     displayField: 'firstName',
     store: Ext.create('sunerp.store.NhanVienStore', {
         proxy: {
@@ -16,5 +17,13 @@ Ext.define('sunerp.component.NhanVienCb', {
             url: '/nhanvien/findByPhongBangId/1',
             reader: 'json'
         }
-    })
+    }),
+    onItemClick: function (picker, record) {
+        var me = this;
+        me.callParent(arguments);
+        if (me.gird.getSelectionModel().hasSelection()) {
+            var model = me.gird.getSelectionModel().getLastSelected();
+            model.setAssociationsValue('nhanVien', record.getData());
+        }
+    }
 });

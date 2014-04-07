@@ -19,8 +19,8 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         me.columns = [
             {xtype: 'rownumberer'},
             {
-                header: 'Họ tên',
-                dataIndex: 'nhanVien.firstName',
+                header: 'Mã NV',
+                dataIndex: 'nhanVien.maNv',
                 width: 100,
                 locked   : true,
                 editor: {
@@ -146,7 +146,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         });
 
 
-        me.cellEditing = new Ext.grid.plugin.CellEditing({
+        me.cellEditing = new sunerp.component.plugin.CellEditing({
             clicksToEdit: 1
         });
 

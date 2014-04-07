@@ -5,7 +5,7 @@
 Ext.define('sunerp.view.core.BaseListEditView', {
     extend: 'Ext.grid.Panel',
     requires: [
-        'Ext.grid.plugin.CellEditing',
+        'sunerp.component.plugin.CellEditing',
         'Ext.selection.CellModel',
         'Ext.toolbar.TextItem',
         'Ext.form.field.Checkbox',

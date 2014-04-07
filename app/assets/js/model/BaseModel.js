@@ -5,18 +5,13 @@
 
 Ext.define('sunerp.model.BaseModel', {
     extend: 'Ext.data.Model',
-    set: function (fieldName, newValue) {
+    setAssociationsValue: function (fieldName, newValue) {
         var me = this;
-        me.callParent(arguments);
         if (newValue != null && Ext.isObject(newValue)) {
-            Ext.each(me.associations.keys, function (table) {
-                if (fieldName == table) {
-                    for (var key in newValue) {
-                        me.set(table + "." + key, newValue[key]);
-                    }
-                    me.set(table + 'Id', newValue.id);
-                }
-            });
+            for (var key in newValue) {
+                me.set(fieldName + "." + key, newValue[key]);
+            }
+            me.set(fieldName + 'Id', newValue.id);
         }
     }
 });
