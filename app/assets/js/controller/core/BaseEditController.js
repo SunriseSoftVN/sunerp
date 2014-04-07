@@ -42,7 +42,7 @@ Ext.define('sunerp.controller.core.BaseEditController', {
 
             form.getForm().getFields().each(function (field) {
                 if (field.getXType() == "comboboxx") {
-                    record.set(field.getModelName(), field.getSelectedData());
+                    record.setAssociationsValue(field.getModelName(), field.getSelectedData());
                 }
             });
 
