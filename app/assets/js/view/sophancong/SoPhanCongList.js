@@ -5,6 +5,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         'sunerp.component.CongViecPicker',
         'sunerp.component.NhanVienCb',
         'sunerp.component.NhanVienPicker',
+        'sunerp.component.MonthCb',
         'sunerp.controller.sophancong.SoPhanCongListCtr'
     ],
     alias: 'widget.soPhanCongList',
@@ -159,5 +160,16 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         ];
 
         me.callParent(arguments);
+    },
+    getTBar: function () {
+        var tbar = this.callParent(arguments);
+        tbar = Ext.Array.insert(tbar, 1, [
+            {
+                xtype: 'monthcb',
+                name: 'Tháng',
+                width: 100
+            }
+        ]);
+        return tbar;
     }
 });

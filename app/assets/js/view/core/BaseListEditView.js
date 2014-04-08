@@ -19,8 +19,8 @@ Ext.define('sunerp.view.core.BaseListEditView', {
     selModel: {
         selType: 'cellmodel'
     },
-    initComponent: function () {
-        this.tbar = [
+    getTBar: function() {
+        return [
             {
                 xtype: 'textfield',
                 name: 'searchField',
@@ -46,6 +46,9 @@ Ext.define('sunerp.view.core.BaseListEditView', {
                 action: 'delete'
             }
         ];
+    },
+    initComponent: function () {
+        this.tbar = this.getTBar();
         this.callParent(arguments);
     }
 });
