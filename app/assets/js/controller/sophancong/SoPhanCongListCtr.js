@@ -44,7 +44,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         this.mainStore.insert(this.mainStore.count(), rec);
     },
     onChange: function (comp, newValue, oldValue, eOpts) {
-        this.getMonthFilter().setValue(newValue);
+        this.getMonthFilter().setValue(String(newValue));
         this.mainStore.loadPage(1);
     }
 });

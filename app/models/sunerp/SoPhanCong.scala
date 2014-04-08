@@ -2,7 +2,6 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
-import org.joda.time.DateTime
 import com.github.tototoshi.slick.MySQLJodaSupport._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -11,6 +10,13 @@ import play.api.libs.json.Json
 import exception.ForeignKeyNotFound
 import models.qlkh.{Task, Tasks}
 import dtos.{SoPhanCongDto, ExtGirdDto, PagingDto}
+import com.github.nscala_time.time.Imports._
+import models.sunerp.SoPhanCong
+import scala.Some
+import exception.ForeignKeyNotFound
+import models.sunerp.SoPhanCongExt
+import models.qlkh.Task
+
 
 /**
  * The Class SoPhanCong.
@@ -28,7 +34,7 @@ case class SoPhanCong(
                        gio: Double,
                        ghiChu: String,
                        soPhanCongExtId: Long,
-                       ngayPhanCong: DateTime
+                       ngayPhanCong: LocalDate
                        ) extends WithId[Long] {
 
   private var _soPhanCongExt: Option[SoPhanCongExt] = None
@@ -70,7 +76,7 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong")
 
   def soPhanCongExt = foreignKey("so_phan_cong_ext_so_phan_cong_fk", soPhanCongExtId, SoPhanCongExts)(_.id)
 
-  def ngayPhanCong = column[DateTime]("ngayPhanCong", O.NotNull)
+  def ngayPhanCong = column[LocalDate]("ngayPhanCong", O.NotNull)
 
   def * = (id.?, nhanVienId, taskId, phongBangId, khoiLuong, gio, ghiChu, soPhanCongExtId, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
 }
@@ -93,7 +99,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       "khoiLuong" -> of[Double],
       "gio" -> of[Double],
       "ghiChu" -> text,
-      "ngayPhanCong" -> jodaDate("yyyy-MM-dd'T'HH:mm:ss"),
+      "ngayPhanCong" -> jodaLocalDate("yyyy-MM-dd'T'HH:mm:ss"),
       "soPhanCongExt" -> SoPhanCongExts.editForm.mapping
     )
   )
@@ -108,6 +114,11 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
         val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
         filter.property match {
           case "nhanVien.maNv" => nhanVien.maNv.toLowerCase like filter.asLikeValue
+          case "month" =>
+            val month = new LocalDate().withYear(2014).withMonth(filter.asInt)
+            val firstDayOfMonth = month.dayOfMonth().withMinimumValue()
+            val lastDayOfMonth = month.dayOfMonth().withMaximumValue()
+            soPhanCong.ngayPhanCong >= firstDayOfMonth && soPhanCong.ngayPhanCong <= lastDayOfMonth
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

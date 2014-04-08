@@ -2,7 +2,7 @@ package models.sunerp
 
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
-import org.joda.time.DateTime
+import org.joda.time.{LocalDate, DateTime}
 import com.github.tototoshi.slick.MySQLJodaSupport._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -29,7 +29,7 @@ case class SoLuong(
                     luongTgTien: Long,
                     cacKhoangCongId: Long,
                     cacKhoangTruId: Long,
-                    createdDate: DateTime
+                    createdDate: LocalDate
                     ) extends WithId[Long]
 
 class SoLuongs(tag: Tag) extends AbstractTable[SoLuong](tag, "soLuong") {
@@ -60,7 +60,7 @@ class SoLuongs(tag: Tag) extends AbstractTable[SoLuong](tag, "soLuong") {
 
   def cacKhoangTru = foreignKey("cac_khoang_tru_so_luong_fk", cacKhoangTruId, CacKhoangTrus)(_.id)
 
-  def createdDate = column[DateTime]("createdDate", O.NotNull)
+  def createdDate = column[LocalDate]("createdDate", O.NotNull)
 
   def * = (id.?, nhanVienId, chucVu, heSoLuong, luongNd, k2, luongSP, luongTgCong, luongTgTien, cacKhoangCongId, cacKhoangTruId, createdDate) <>(SoLuong.tupled, SoLuong.unapply)
 }
@@ -80,7 +80,7 @@ object SoLuongs extends AbstractQuery[SoLuong, SoLuongs](new SoLuongs(_)) {
       "luongTgTien" -> longNumber,
       "cacKhoangCongId" -> longNumber,
       "cacKhoangTruId" -> longNumber,
-      "createdDate" -> jodaDate
+      "createdDate" -> jodaLocalDate
     )(SoLuong.apply)(SoLuong.unapply)
   )
 

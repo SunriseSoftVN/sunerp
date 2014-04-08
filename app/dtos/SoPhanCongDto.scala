@@ -7,7 +7,7 @@ import models.sunerp.NhanVien
 import models.sunerp.SoPhanCongExt
 import models.sunerp.SoPhanCong
 import models.sunerp.PhongBang
-import org.joda.time.DateTime
+import org.joda.time.{LocalDate, DateTime}
 
 /**
  * The Class SoPhanCongDto.
@@ -25,7 +25,7 @@ case class SoPhanCongDto(
                           gio: Double,
                           ghiChu: String,
                           soPhanCongExtId: Long,
-                          ngayPhanCong: DateTime,
+                          ngayPhanCong: LocalDate,
                           soPhanCongExt: SoPhanCongExt,
                           nhanVien: NhanVien,
                           task: Task,

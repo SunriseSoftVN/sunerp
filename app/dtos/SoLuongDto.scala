@@ -1,6 +1,6 @@
 package dtos
 
-import org.joda.time.DateTime
+import org.joda.time.{LocalDate, DateTime}
 import models.sunerp._
 import play.api.libs.json.{Json, JsValue, Writes}
 import models.sunerp.NhanVien
@@ -30,7 +30,7 @@ case class SoLuongDto(
                        cacKhoangCong: CacKhoangCong,
                        cacKhoangTruId: Long,
                        cacKhoangTru: CacKhoangTru,
-                       createdDate: DateTime
+                       createdDate: LocalDate
                        )
 
 object SoLuongDto {
