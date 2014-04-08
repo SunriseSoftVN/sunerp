@@ -72,7 +72,7 @@ object DBinit {
         NhanViens.save(nhanVien)
 
         val quyenHanhCongTy = new QuyenHanh(
-          domain = "congty",
+          domain = "company",
           chucVuId = chucVuId
         )
 
