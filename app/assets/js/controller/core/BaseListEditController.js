@@ -35,6 +35,13 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
         };
         this.callParent(config);
     },
+    init: function () {
+        this.callParent(arguments);
+        this.afterInit();
+    },
+    afterInit: function () {
+        this.mainStore.clearFilter();
+    },
     doDelete: function () {
         var me = this;
         var view = me.getView();
@@ -54,7 +61,7 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
     },
     doSave: function () {
         this.mainStore.sync({
-            success: function() {
+            success: function () {
                 Ext.Msg.alert('Status', 'Cập nhật thành công.');
             }
         });

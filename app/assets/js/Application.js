@@ -39,7 +39,7 @@ Ext.define('sunerp.Application', {
         return Ext.create("sunerp.view.Viewport");
     },
 
-    buildInjectorConfiguration: function() {
+    buildInjectorConfiguration: function () {
         var config;
         config = {
             cacKhoanCongStore:      'sunerp.store.CacKhoanCongStore',

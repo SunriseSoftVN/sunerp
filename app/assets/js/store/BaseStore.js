@@ -7,7 +7,7 @@ Ext.define('sunerp.store.BaseStore', {
     requires: [
         'sunerp.store.Restx'
     ],
-    autoLoad: true,
+    autoLoad: false,
     remoteSort: true,
     remoteFilter: true,
     pageSize: 50,

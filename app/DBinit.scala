@@ -82,7 +82,7 @@ object DBinit {
         )
 
         val quyenHanhDonVi = new QuyenHanh(
-          domain = "donVi",
+          domain = "donvi",
           chucVuId = chucVuId
         )
 

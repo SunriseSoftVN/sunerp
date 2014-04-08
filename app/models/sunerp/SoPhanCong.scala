@@ -7,15 +7,14 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.libs.json.Json
-import exception.ForeignKeyNotFound
-import models.qlkh.{Task, Tasks}
+import models.qlkh.Tasks
 import dtos.{SoPhanCongDto, ExtGirdDto, PagingDto}
 import com.github.nscala_time.time.Imports._
-import models.sunerp.SoPhanCong
 import scala.Some
 import exception.ForeignKeyNotFound
-import models.sunerp.SoPhanCongExt
 import models.qlkh.Task
+import com.github.nscala_time.time.TypeImports.LocalDate
+import com.github.nscala_time.time.StaticForwarderImports.LocalDate
 
 
 /**
@@ -115,7 +114,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
         filter.property match {
           case "nhanVien.maNv" => nhanVien.maNv.toLowerCase like filter.asLikeValue
           case "month" =>
-            val month = new LocalDate().withYear(2014).withMonth(filter.asInt)
+            val month = new LocalDate().withYear(LocalDate.now.getYear).withMonth(filter.asInt)
             val firstDayOfMonth = month.dayOfMonth().withMinimumValue()
             val lastDayOfMonth = month.dayOfMonth().withMaximumValue()
             soPhanCong.ngayPhanCong >= firstDayOfMonth && soPhanCong.ngayPhanCong <= lastDayOfMonth
