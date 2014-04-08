@@ -18,7 +18,6 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
             {header: 'Domain', dataIndex: 'domain', flex: 1},
             {header: 'Read', dataIndex: 'read', flex: 1, xtype: 'booleancolumn'},
             {header: 'Write', dataIndex: 'write', flex: 1, xtype: 'booleancolumn'},
-            {header: 'Show all', dataIndex: 'showAll', flex: 1, xtype: 'booleancolumn'},
             {header: 'Chức vụ', dataIndex: 'chucVu.name', flex: 1},
             {
                 xtype: 'actioncolumn',
