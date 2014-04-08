@@ -24,6 +24,9 @@ Ext.define('sunerp.controller.core.BaseEditController', {
             this.getForm().loadRecord(this.getView().getModel());
         }
         this.callParent(arguments);
+        this.afterInit();
+    },
+    afterInit: function () {
     },
     doUpdate: function () {
         var view = this.getView(),

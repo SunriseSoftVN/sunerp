@@ -34,6 +34,10 @@ Ext.define('sunerp.controller.core.BaseListController', {
     },
     init: function () {
         this.callParent(arguments);
+        this.afterInit();
+    },
+    afterInit: function () {
+        this.mainStore.clearFilter();
     },
     showEditView: function (grid, record) {
         var view = Ext.create(this.editView, {
