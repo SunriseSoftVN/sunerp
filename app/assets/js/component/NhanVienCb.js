@@ -11,13 +11,21 @@ Ext.define('sunerp.component.NhanVienCb', {
     queryMode: 'local',
     valueField: 'maNv',
     displayField: 'firstName',
-    store: Ext.create('sunerp.store.NhanVienStore', {
-        proxy: {
-            type: 'ajax',
-            url: '/nhanvien/findByPhongBangId/1',
-            reader: 'json'
-        }
-    }),
+    inject: ['userService'],
+    config: {
+        userService: null
+    },
+    initComponent: function () {
+        var phongBangId = this.getUserService().getCurrentUser().phongBangId;
+        this.store = Ext.create('sunerp.store.NhanVienStore', {
+            proxy: {
+                type: 'ajax',
+                url: '/nhanvien/findByPhongBangId/' + phongBangId,
+                reader: 'json'
+            }
+        });
+        this.callParent(arguments);
+    },
     onItemClick: function (picker, record) {
         var me = this;
         me.callParent(arguments);
