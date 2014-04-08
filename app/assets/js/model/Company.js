@@ -9,6 +9,7 @@ Ext.define('sunerp.model.Company', {
         'address',
         'phone',
         'email',
-        'mst'
+        'mst',
+        'companySettingId'
     ]
 });

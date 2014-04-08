@@ -23,7 +23,7 @@ case class DonVi(
 class DonVis(tag: Tag) extends AbstractTable[DonVi](tag, "donVi") {
   def name = column[String]("name", O.NotNull)
   def companyId = column[Long]("companyId", O.NotNull)
-  def company = foreignKey("khoiDonVi_fk", companyId, Companies)(_.id)
+  def company = foreignKey("company_fk", companyId, Companies)(_.id)
   def * = (id.?, name, companyId) <>(DonVi.tupled, DonVi.unapply)
 }
 
@@ -34,7 +34,7 @@ object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
     mapping(
       "id" -> optional(longNumber),
       "name" -> text(minLength = 4),
-      "khoiDonViId" -> longNumber
+      "companyId" -> longNumber
     )(DonVi.apply)(DonVi.unapply)
   )
 
