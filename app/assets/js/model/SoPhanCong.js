@@ -10,8 +10,8 @@ Ext.define('sunerp.model.SoPhanCong', {
         'nhanVien',
         'taskId',
         'task',
-        'phongBangId',
-        'phongBang',
+        'phongBanId',
+        'phongBan',
         'khoiLuong',
         'gio',
         'ghiChu',
@@ -38,7 +38,7 @@ Ext.define('sunerp.model.SoPhanCong', {
     ],
     associations: [
         {type: 'belongsTo', model: 'sunerp.model.SoPhanCongExt', name: 'soPhanCongExt'},
-        {type: 'belongsTo', model: 'sunerp.model.PhongBang', name: 'phongBang'},
+        {type: 'belongsTo', model: 'sunerp.model.PhongBan', name: 'phongBan'},
         {type: 'belongsTo', model: 'sunerp.model.NhanVien', name: 'nhanVien'},
         {type: 'belongsTo', model: 'sunerp.model.Task', name: 'task'}
     ]

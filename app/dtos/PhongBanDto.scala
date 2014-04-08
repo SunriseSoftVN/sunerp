@@ -4,7 +4,7 @@ import models.sunerp.{DonVis, PhongBan, DonVi}
 import play.api.libs.json.{Json, JsValue, Writes}
 
 /**
- * The Class PhongBangDto.
+ * The Class PhongBanDto.
  *
  * @author Nguyen Duc Dung
  * @since 3/19/14 10:20 AM
@@ -21,11 +21,11 @@ case class PhongBanDto(
 object PhongBanDto {
 
   def apply(tuple: (DonVi, PhongBan)) = {
-    val (donVi, phongBang) = tuple
+    val (donVi, phongBan) = tuple
     new PhongBanDto(
-      id = phongBang.id.get,
-      name = phongBang.name,
-      donViId = phongBang.donViId,
+      id = phongBan.id.get,
+      name = phongBan.name,
+      donViId = phongBan.donViId,
       donVi = donVi
     )
   }

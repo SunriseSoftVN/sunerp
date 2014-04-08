@@ -61,20 +61,20 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                     },
                     {
                         xtype: 'comboboxx',
-                        fieldLabel: 'Phòng bang',
-                        name: 'phongBangId',
-                        modelName: 'phongBang',
-                        store: Ext.create('sunerp.store.PhongBangStore', {
+                        fieldLabel: 'Phòng ban',
+                        name: 'phongBanId',
+                        modelName: 'phongBan',
+                        store: Ext.create('sunerp.store.PhongBanStore', {
                             proxy: {
                                 type: 'ajax',
-                                url: '/phongbang/all',
+                                url: '/phongban/all',
                                 reader: 'json'
                             }
                         }),
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,
-                        emptyText: 'Chọn một phòng bang...'
+                        emptyText: 'Chọn một phòng ban...'
                     },
                     {
                         xtype: 'numberfield',

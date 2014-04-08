@@ -8,7 +8,7 @@ import play.api.libs.json.Json
 import dtos.{PhongBanDto, ExtGirdDto, PagingDto}
 
 /**
- * The Class PhongBang.
+ * The Class PhongBan.
  *
  * @author Nguyen Duc Dung
  * @since 3/4/14 9:20 AM
@@ -44,12 +44,12 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
   implicit val phongBanJsonFormat = Json.format[PhongBan]
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[PhongBanDto] = {
-    var query = for (phongBang <- this; donVi <- phongBang.donVi) yield (donVi, phongBang)
+    var query = for (phongBan <- this; donVi <- phongBan.donVi) yield (donVi, phongBan)
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
-        val (donVi, phongBang) = table
+        val (donVi, phongBan) = table
         filter.property match {
-          case "name" => phongBang.name.toLowerCase like filter.asLikeValue
+          case "name" => phongBan.name.toLowerCase like filter.asLikeValue
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -57,9 +57,9 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(table => {
-        val (donVi, phongBang) = table
+        val (donVi, phongBan) = table
         sort.property match {
-          case "name" => orderColumn(sort.direction, phongBang.name)
+          case "name" => orderColumn(sort.direction, phongBan.name)
           case "donVi.name" => orderColumn(sort.direction, donVi.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }

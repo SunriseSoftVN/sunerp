@@ -35,7 +35,7 @@ GET           /nhanvien              controllers.NhanVienCtr.index
 POST          /nhanvien              controllers.NhanVienCtr.save
 PUT           /nhanvien/:id          controllers.NhanVienCtr.update(id: Long)
 DELETE        /nhanvien/:id          controllers.NhanVienCtr.delete(id: Long)
-GET           /nhanvien/findByPhongBangId/:phongBangId          controllers.NhanVienCtr.findByPhongBangId(phongBangId: Long)
+GET           /nhanvien/findByPhongBanId/:phongBanId          controllers.NhanVienCtr.findByPhongBanId(phongBanId: Long)
 
 GET           /phongban/all         controllers.PhongBanCtr.all
 GET           /phongban             controllers.PhongBanCtr.index

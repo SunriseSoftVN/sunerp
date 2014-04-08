@@ -14,12 +14,12 @@ Ext.define('sunerp.model.NhanVien', {
         'chucVu',
         'nhanVien',
         {name: 'chucVu.name', mapping: 'chucVu.name'},
-        'phongBangId',
-        'phongBang',
-        {name: 'phongBang.name', mapping: 'phongBang.name'}
+        'phongBanId',
+        'phongBan',
+        {name: 'phongBan.name', mapping: 'phongBan.name'}
     ],
     associations: [
         {type: 'belongsTo', model: 'sunerp.model.ChucVu', name: 'chucVu'},
-        {type: 'belongsTo', model: 'sunerp.model.PhongBang', name: 'phongBang'}
+        {type: 'belongsTo', model: 'sunerp.model.PhongBan', name: 'phongBan'}
     ]
 });

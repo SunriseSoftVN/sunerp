@@ -23,14 +23,14 @@ case class NhanVienDto(
                         heSoLuong: Long,
                         chucVuId: Long,
                         chucVu: ChucVu,
-                        phongBangId: Long,
-                        phongBang: PhongBan
+                        phongBanId: Long,
+                        phongBan: PhongBan
                         )
 
 object NhanVienDto {
 
   def apply(tuple: (NhanVien, ChucVu, PhongBan)) = {
-    val (nhanVien, chucVu, phongBang) = tuple
+    val (nhanVien, chucVu, phongBan) = tuple
     new NhanVienDto(
       id = nhanVien.id.get,
       maNv = nhanVien.maNv,
@@ -39,9 +39,9 @@ object NhanVienDto {
       lastName = nhanVien.lastName,
       heSoLuong = nhanVien.heSoLuong,
       chucVuId = nhanVien.chucVuId,
-      phongBangId = nhanVien.phongBangId,
+      phongBanId = nhanVien.phongBanId,
       chucVu = chucVu,
-      phongBang = phongBang
+      phongBan = phongBan
     )
   }
 
@@ -54,9 +54,9 @@ object NhanVienDto {
       "lastName" -> o.lastName,
       "heSoLuong" -> o.heSoLuong,
       "chucVuId" -> o.chucVuId,
-      "phongBangId" -> o.phongBangId,
+      "phongBanId" -> o.phongBanId,
       "chucVu" -> ChucVus.chucVuJsonFormat.writes(o.chucVu),
-      "phongBan" -> PhongBans.phongBanJsonFormat.writes(o.phongBang)
+      "phongBan" -> PhongBans.phongBanJsonFormat.writes(o.phongBan)
     )
   }
 

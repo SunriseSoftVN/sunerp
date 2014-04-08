@@ -24,8 +24,8 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
                 flex: 1
             },
             {
-                header: 'Phòng bang',
-                dataIndex: 'phongBang.name',
+                header: 'Phòng ban',
+                dataIndex: 'phongBan.name',
                 flex: 1
             },
             {header: 'Hệ số lương', dataIndex: 'heSoLuong', flex: 1},

@@ -8,7 +8,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     inject: ['soPhanCongStore', 'userService'],
     config: {
         soPhanCongStore: null,
-        phongBangId: null,
+        phongBanId: null,
         userService: null,
         monthFilter: null
     },
@@ -23,7 +23,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     searchField: "nhanVien.maNv",
     init: function () {
         this.mainStore = this.getSoPhanCongStore();
-        this.setPhongBangId(this.getUserService().getCurrentUser().phongBangId);
+        this.setPhongBanId(this.getUserService().getCurrentUser().phongBanId);
         var currentMonth = this.getMonthCb().getValue();
         this.setMonthFilter(new Ext.util.Filter({
             property: 'month',
@@ -39,7 +39,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     addNewRow: function () {
         var rec = Ext.create(this.modelClass);
         var lastModel = this.getView().getStore().last();
-        rec.set('phongBangId', this.getPhongBangId());
+        rec.set('phongBanId', this.getPhongBanId());
         if (lastModel != null) {
             rec.set('ngayPhanCong', lastModel.get('ngayPhanCong'));
         } else {

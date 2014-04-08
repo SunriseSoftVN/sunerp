@@ -94,7 +94,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       "id" -> optional(longNumber),
       "nhanVienId" -> longNumber,
       "taskId" -> longNumber,
-      "phongBangId" -> longNumber,
+      "phongBanId" -> longNumber,
       "khoiLuong" -> of[Double],
       "gio" -> of[Double],
       "ghiChu" -> text,
@@ -125,7 +125,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(tuple => {
-        val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
+        val (soPhanCong, soPhanCongExt, nhanVien, phongBan) = tuple
         sort.property match {
           case "ghiChu" => orderColumn(sort.direction, soPhanCong.ghiChu)
           case "khoiLuong" => orderColumn(sort.direction, soPhanCong.khoiLuong)

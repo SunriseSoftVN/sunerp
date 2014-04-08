@@ -16,11 +16,11 @@ Ext.define('sunerp.component.NhanVienCb', {
         userService: null
     },
     initComponent: function () {
-        var phongBangId = this.getUserService().getCurrentUser().phongBangId;
+        var phongBanId = this.getUserService().getCurrentUser().phongBanId;
         this.store = Ext.create('sunerp.store.NhanVienStore', {
             proxy: {
                 type: 'ajax',
-                url: '/nhanvien/findByPhongBangId/' + phongBangId,
+                url: '/nhanvien/findByPhongBanId/' + phongBanId,
                 reader: 'json'
             }
         });

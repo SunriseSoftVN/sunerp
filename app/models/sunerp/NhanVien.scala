@@ -24,7 +24,7 @@ case class NhanVien(
                      lastName: String,
                      heSoLuong: Long,
                      chucVuId: Long,
-                     phongBangId: Long
+                     phongBanId: Long
                      ) extends WithId[Long] {
 
   private var _quyenHanhs: Option[List[QuyenHanh]] = None
@@ -66,13 +66,13 @@ class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
   def chucVu = foreignKey("chuc_vu_nhan_vien_fk", chucVuId, ChucVus)(_.id)
 
-  def phongBangId = column[Long]("phongBangId", O.NotNull)
+  def phongBanId = column[Long]("phongBanId", O.NotNull)
 
-  def phongBan = foreignKey("phong_bang_nhan_vien_fk", phongBangId, PhongBans)(_.id)
+  def phongBan = foreignKey("phong_ban_nhan_vien_fk", phongBanId, PhongBans)(_.id)
 
   def idx = index("nhanvien_index", maNv, unique = true)
 
-  def * = (id.?, maNv, password, firstName, lastName, heSoLuong, chucVuId, phongBangId) <>(NhanVien.tupled, NhanVien.unapply)
+  def * = (id.?, maNv, password, firstName, lastName, heSoLuong, chucVuId, phongBanId) <>(NhanVien.tupled, NhanVien.unapply)
 }
 
 object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
@@ -86,7 +86,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       "lastName" -> text(minLength = 4),
       "heSoLuong" -> longNumber,
       "chucVuId" -> longNumber,
-      "phongBangId" -> longNumber
+      "phongBanId" -> longNumber
     )(NhanVien.apply)(NhanVien.unapply)
   )
 
@@ -94,7 +94,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
 
   def findByMaNv(maNv: String)(implicit session: Session) = where(_.maNv === maNv).firstOption()
 
-  def findByPhongBangId(phongBangId: Long)(implicit session: Session) = where(_.phongBangId === phongBangId).list()
+  def findByPhongBanId(phongBanId: Long)(implicit session: Session) = where(_.phongBanId === phongBanId).list()
 
   def login(maNv: String, password: String)(implicit session: Session) = {
     val nhanVien = findByMaNv(maNv)
@@ -125,7 +125,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
 
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
-        val (nhanVien, chucVu, phongBang) = table
+        val (nhanVien, chucVu, phongBan) = table
         filter.property match {
           case "firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
@@ -135,14 +135,14 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(table => {
-        val (nhanVien, chucVu, phongBang) = table
+        val (nhanVien, chucVu, phongBan) = table
         sort.property match {
           case "maNv" => orderColumn(sort.direction, nhanVien.maNv)
           case "firstName" => orderColumn(sort.direction, nhanVien.firstName)
           case "lastName" => orderColumn(sort.direction, nhanVien.lastName)
           case "heSoLuong" => orderColumn(sort.direction, nhanVien.heSoLuong)
           case "chucVu.name" => orderColumn(sort.direction, chucVu.name)
-          case "phongBang.name" => orderColumn(sort.direction, phongBang.name)
+          case "phongBan.name" => orderColumn(sort.direction, phongBan.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })

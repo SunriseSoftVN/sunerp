@@ -17,7 +17,7 @@ Ext.define('sunerp.component.NhanVienPicker', {
             {header: 'Họ', dataIndex: 'lastName', flex: 1},
             {header: 'Hệ số luơng', dataIndex: 'heSoLuong', flex: 1},
             {header: 'Chức vụ', dataIndex: 'chucVu.name', flex: 1},
-            {header: 'Phòng ban', dataIndex: 'phongBang.name', flex: 1}
+            {header: 'Phòng ban', dataIndex: 'phongBan.name', flex: 1}
         ];
     }
 });

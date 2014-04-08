@@ -10,7 +10,7 @@ import jp.t2v.lab.play2.stackc.RequestWithAttributes
 import play.api.mvc.AnyContent
 
 /**
- * The Class PhongBangCtr.
+ * The Class PhongBanCtr.
  *
  * @author Nguyen Duc Dung
  * @since 3/8/14 4:19 PM
