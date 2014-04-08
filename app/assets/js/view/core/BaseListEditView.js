@@ -19,30 +19,33 @@ Ext.define('sunerp.view.core.BaseListEditView', {
     selModel: {
         selType: 'cellmodel'
     },
-    tbar: [
-        {
-            xtype: 'textfield',
-            name: 'searchField',
-            hideLabel: true,
-            width: 200
-        },
-        {
-            text: 'Thêm mới',
-            tooltip: 'Thêm mới',
-            iconCls: 'add',
-            action: 'addNew'
-        },
-        {
-            text: 'Cập nhật',
-            tooltip: 'Cập nhật',
-            iconCls: 'save',
-            action: 'save'
-        },
-        {
-            text: 'Xoá',
-            tooltip: 'Xoá',
-            iconCls: 'remove',
-            action: 'delete'
-        }
-    ]
+    initComponent: function () {
+        this.tbar = [
+            {
+                xtype: 'textfield',
+                name: 'searchField',
+                hideLabel: true,
+                width: 200
+            },
+            {
+                text: 'Thêm mới',
+                tooltip: 'Thêm mới',
+                iconCls: 'add',
+                action: 'addNew'
+            },
+            {
+                text: 'Cập nhật',
+                tooltip: 'Cập nhật',
+                iconCls: 'save',
+                action: 'save'
+            },
+            {
+                text: 'Xoá',
+                tooltip: 'Xoá',
+                iconCls: 'remove',
+                action: 'delete'
+            }
+        ];
+        this.callParent(arguments);
+    }
 });
