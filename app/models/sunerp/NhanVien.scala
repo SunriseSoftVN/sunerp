@@ -39,6 +39,15 @@ case class NhanVien(
     quyenHanhs.exists(quyenHanh => StringUtils.isBlank(authority) || matcher.`match`(authority.toLowerCase, quyenHanh.domain.toLowerCase))
   }
 
+  def menuAuth(authority: String)(implicit session: Session) = {
+    val matcher = new SimpleRegexMatcher
+    quyenHanhs.exists(quyenHanh => {
+      val isFullAccess = quyenHanh.write && quyenHanh.read
+      val check = matcher.`match`(authority.toLowerCase, quyenHanh.domain.toLowerCase)
+      StringUtils.isBlank(authority) || (check && isFullAccess)
+    })
+  }
+
 }
 
 class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {

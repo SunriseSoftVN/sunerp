@@ -116,7 +116,7 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
   def menuItems = StackAction(implicit request => {
     def travel(menu: MenuItemDto): MenuItemDto = menu.copy(
       children = menu.children
-        .filter(child => loggedIn.checkAuth(child.id))
+        .filter(child => loggedIn.menuAuth(child.id))
         .map(travel)
     )
 
