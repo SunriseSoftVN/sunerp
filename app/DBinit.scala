@@ -71,13 +71,48 @@ object DBinit {
 
         NhanViens.save(nhanVien)
 
-        val quyenHanh = new QuyenHanh(
-          domain = "*",
+        val quyenHanhCongTy = new QuyenHanh(
+          domain = "congty",
           chucVuId = chucVuId
         )
 
-        QuyenHanhs.save(quyenHanh)
+        val quyenHanhKhoiDonVi = new QuyenHanh(
+          domain = "khoidonvi",
+          chucVuId = chucVuId
+        )
 
+        val quyenHanhDonVi = new QuyenHanh(
+          domain = "donVi",
+          chucVuId = chucVuId
+        )
+
+        val quyenHanhPhongBang = new QuyenHanh(
+          domain = "phongBang",
+          chucVuId = chucVuId
+        )
+
+        val quyenHanhNhanVien = new QuyenHanh(
+          domain = "nhanVien",
+          chucVuId = chucVuId
+        )
+
+        val quyenHanhChucVu = new QuyenHanh(
+          domain = "chucVu",
+          chucVuId = chucVuId
+        )
+
+        val quyenHanh = new QuyenHanh(
+          domain = "quyenHanh",
+          chucVuId = chucVuId
+        )
+
+        QuyenHanhs.save(quyenHanhCongTy)
+        QuyenHanhs.save(quyenHanhKhoiDonVi)
+        QuyenHanhs.save(quyenHanhDonVi)
+        QuyenHanhs.save(quyenHanhPhongBang)
+        QuyenHanhs.save(quyenHanhNhanVien)
+        QuyenHanhs.save(quyenHanhChucVu)
+        QuyenHanhs.save(quyenHanh)
       }
     })
   }
