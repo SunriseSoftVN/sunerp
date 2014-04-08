@@ -52,8 +52,8 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
       query = query.where(table => {
         val (quyenHanh, chucVu) = table
         filter.property match {
-          case "domain" => quyenHanh.domain.toLowerCase like filter.valueForLike
-          case "chucVu.name" => chucVu.name.toLowerCase like filter.valueForLike
+          case "domain" => quyenHanh.domain.toLowerCase like filter.asLikeValue
+          case "chucVu.name" => chucVu.name.toLowerCase like filter.asLikeValue
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

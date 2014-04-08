@@ -22,7 +22,8 @@ case class PagingDto(
 case class SortDirection(property: String, direction: String)
 
 case class ColumnFilter(property: String, value: String) {
-  def valueForLike = "%" + value.toLowerCase + "%"
+  def asLikeValue = "%" + value.toLowerCase + "%"
+  def asInt = String2Int.unapply(value).getOrElse(0)
 }
 
 object PagingDto {

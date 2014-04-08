@@ -44,7 +44,7 @@ object ChucVus extends AbstractQuery[ChucVu, ChucVus](new ChucVus(_)) {
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
         filter.property match {
-          case "name" => table.name.toLowerCase like filter.valueForLike
+          case "name" => table.name.toLowerCase like filter.asLikeValue
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

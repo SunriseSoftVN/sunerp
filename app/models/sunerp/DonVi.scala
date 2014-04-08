@@ -45,7 +45,7 @@ object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
       query = query.where(table => {
         val (donVi, khoiDonVi) = table
         filter.property match {
-          case "name" => donVi.name.toLowerCase like filter.valueForLike
+          case "name" => donVi.name.toLowerCase like filter.asLikeValue
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

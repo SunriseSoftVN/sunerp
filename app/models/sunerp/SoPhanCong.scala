@@ -107,7 +107,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       query = query.where(tuple => {
         val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
         filter.property match {
-          case "nhanVien.maNv" => nhanVien.maNv.toLowerCase like filter.valueForLike
+          case "nhanVien.maNv" => nhanVien.maNv.toLowerCase like filter.asLikeValue
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

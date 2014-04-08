@@ -50,8 +50,8 @@ object KhoiDonVis extends AbstractQuery[KhoiDonVi, KhoiDonVis](new KhoiDonVis(_)
       query = query.where(table => {
         val (khoiDonVi, company) = table
         filter.property match {
-          case "name" => khoiDonVi.name.toLowerCase like filter.valueForLike
-          case "company.name" => company.name.toLowerCase like filter.valueForLike
+          case "name" => khoiDonVi.name.toLowerCase like filter.asLikeValue
+          case "company.name" => company.name.toLowerCase like filter.asLikeValue
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

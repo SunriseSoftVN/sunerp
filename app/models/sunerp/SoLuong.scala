@@ -98,7 +98,7 @@ object SoLuongs extends AbstractQuery[SoLuong, SoLuongs](new SoLuongs(_)) {
       query = query.where(table => {
         val (soluong, nhanVien, cacKhoangCong, cacKhoangTru) = table
         filter.property match {
-          case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.valueForLike
+          case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

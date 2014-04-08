@@ -27,8 +27,9 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         var currentMonth = this.getMonthCb().getValue();
         this.setMonthFilter(new Ext.util.Filter({
             property: 'month',
-            value: currentMonth
+            value: String(currentMonth)
         }));
+        this.mainStore.addFilter([this.getMonthFilter()], true);
         this.callParent(arguments);
     },
     addNewRow: function () {
