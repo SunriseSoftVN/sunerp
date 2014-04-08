@@ -31,16 +31,9 @@ object DBinit {
 
         val companyId = Companies.save(company)
 
-        val khoiDonVi = new KhoiDonVi(
-          name = "Mặc định",
-          companyId = companyId
-        )
-
-        val khoiDonViId = KhoiDonVis.save(khoiDonVi)
-
         val donVi = new DonVi(
           name = "Mặc định",
-          khoiDonViId = khoiDonViId
+          companyId = companyId
         )
 
         val donViId = DonVis.save(donVi)

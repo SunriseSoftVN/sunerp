@@ -17,14 +17,14 @@ import dtos.{DonViDto, ExtGirdDto, PagingDto}
 case class DonVi(
                   id: Option[Long] = None,
                   name: String,
-                  khoiDonViId: Long
+                  companyId: Long
                   ) extends WithId[Long]
 
 class DonVis(tag: Tag) extends AbstractTable[DonVi](tag, "donVi") {
   def name = column[String]("name", O.NotNull)
-  def khoiDonViId = column[Long]("khoiDonViId", O.NotNull)
-  def khoiDonVi = foreignKey("khoiDonVi_fk", khoiDonViId, KhoiDonVis)(_.id)
-  def * = (id.?, name, khoiDonViId) <>(DonVi.tupled, DonVi.unapply)
+  def companyId = column[Long]("companyId", O.NotNull)
+  def company = foreignKey("khoiDonVi_fk", companyId, Companies)(_.id)
+  def * = (id.?, name, companyId) <>(DonVi.tupled, DonVi.unapply)
 }
 
 object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
@@ -39,7 +39,7 @@ object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
   )
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[DonViDto] = {
-    var query = for (donVi <- this; khoiDonVi <- donVi.khoiDonVi) yield (donVi, khoiDonVi)
+    var query = for (donVi <- this; company <- donVi.company) yield (donVi, company)
 
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
@@ -53,10 +53,10 @@ object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(table => {
-        val (donVi, khoiDonVi) = table
+        val (donVi, company) = table
         sort.property match {
           case "name" => orderColumn(sort.direction, donVi.name)
-          case "khoiDonVi.name" => orderColumn(sort.direction, khoiDonVi.name)
+          case "company.name" => orderColumn(sort.direction, company.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })

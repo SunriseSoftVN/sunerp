@@ -20,12 +20,6 @@ POST          /company               controllers.CompanyCtr.save
 PUT           /company/:id           controllers.CompanyCtr.update(id: Long)
 DELETE        /company/:id           controllers.CompanyCtr.delete(id: Long)
 
-GET           /khoidonvi             controllers.KhoiDonViCtr.index
-POST          /khoidonvi             controllers.KhoiDonViCtr.save
-PUT           /khoidonvi/:id         controllers.KhoiDonViCtr.update(id: Long)
-DELETE        /khoidonvi/:id         controllers.KhoiDonViCtr.delete(id: Long)
-GET           /khoidonvi/all         controllers.KhoiDonViCtr.all
-
 GET           /soluong               controllers.SoLuongCtr.index
 POST          /soluong               controllers.SoLuongCtr.save
 PUT           /soluong/:id           controllers.SoLuongCtr.update(id: Long)

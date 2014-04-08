@@ -8,8 +8,7 @@ create table `cacKhoangTru` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`do
 create table `chucVu` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`phuCapTrachNhiem` BIGINT NOT NULL);
 create table `companySetting` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`luongToiThieu` BIGINT NOT NULL);
 create table `company` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`address` VARCHAR(254) NOT NULL,`phone` VARCHAR(254) NOT NULL,`email` VARCHAR(254) NOT NULL,`mst` VARCHAR(254) NOT NULL,`companySettingId` BIGINT NOT NULL);
-create table `donVi` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`khoiDonViId` BIGINT NOT NULL);
-create table `khoiDonVi` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`companyId` BIGINT NOT NULL);
+create table `donVi` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`companyId` BIGINT NOT NULL);
 create table `nhanVien` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`maNv` VARCHAR(254) NOT NULL,`password` VARCHAR(254) NOT NULL,`firstName` VARCHAR(254) NOT NULL,`lastName` VARCHAR(254) NOT NULL,`heSoLuong` BIGINT NOT NULL,`chucVuId` BIGINT NOT NULL,`phongBanId` BIGINT NOT NULL);
 create unique index `nhanvien_index` on `nhanVien` (`maNv`);
 create table `phongBan` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`donViId` BIGINT NOT NULL,`name` VARCHAR(254) NOT NULL);
@@ -19,8 +18,7 @@ create table `soLuong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVie
 create table `soPhanCongExt` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`lamDem` BOOLEAN DEFAULT false NOT NULL,`baoHoLaoDong` BOOLEAN DEFAULT false NOT NULL,`docHai` BOOLEAN DEFAULT false NOT NULL,`le` BOOLEAN DEFAULT false NOT NULL,`tet` BOOLEAN DEFAULT false NOT NULL,`thaiSan` BOOLEAN DEFAULT false NOT NULL,`dauOm` BOOLEAN DEFAULT false NOT NULL,`conOm` BOOLEAN DEFAULT false NOT NULL,`taiNanLd` BOOLEAN DEFAULT false NOT NULL,`hop` BOOLEAN DEFAULT false NOT NULL,`hocDaiHan` BOOLEAN DEFAULT false NOT NULL,`hocDotXuat` BOOLEAN DEFAULT false NOT NULL,`viecRieng` BOOLEAN DEFAULT false NOT NULL,`chuNhat` BOOLEAN DEFAULT false NOT NULL);
 create table `soPhanCong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`nhanVienId` BIGINT NOT NULL,`taskId` BIGINT NOT NULL,`phongBanId` BIGINT NOT NULL,`khoiLuong` DOUBLE NOT NULL,`gio` DOUBLE NOT NULL,`ghiChu` VARCHAR(254) NOT NULL,`soPhanCongExtId` BIGINT NOT NULL,`ngayPhanCong` DATE NOT NULL);
 alter table `company` add constraint `company_company_setting_fk` foreign key(`companySettingId`) references `companySetting`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `donVi` add constraint `khoiDonVi_fk` foreign key(`khoiDonViId`) references `khoiDonVi`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `khoiDonVi` add constraint `company_khoi_don_vi_fk` foreign key(`companyId`) references `company`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `donVi` add constraint `khoiDonVi_fk` foreign key(`companyId`) references `company`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `nhanVien` add constraint `chuc_vu_nhan_vien_fk` foreign key(`chucVuId`) references `chucVu`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `nhanVien` add constraint `phong_ban_nhan_vien_fk` foreign key(`phongBanId`) references `phongBan`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `phongBan` add constraint `doi_vi_phong_ban_fk` foreign key(`donViId`) references `donVi`(`id`) on update NO ACTION on delete NO ACTION;
@@ -36,7 +34,6 @@ alter table `soPhanCong` add constraint `phong_ban_so_phan_cong_fk` foreign key(
 
 ALTER TABLE company DROP FOREIGN KEY company_company_setting_fk;
 ALTER TABLE donVi DROP FOREIGN KEY khoiDonVi_fk;
-ALTER TABLE khoiDonVi DROP FOREIGN KEY company_khoi_don_vi_fk;
 ALTER TABLE nhanVien DROP FOREIGN KEY chuc_vu_nhan_vien_fk;
 ALTER TABLE nhanVien DROP FOREIGN KEY phong_ban_nhan_vien_fk;
 ALTER TABLE phongBan DROP FOREIGN KEY doi_vi_phong_ban_fk;
@@ -53,7 +50,6 @@ drop table `chucVu`;
 drop table `companySetting`;
 drop table `company`;
 drop table `donVi`;
-drop table `khoiDonVi`;
 drop table `nhanVien`;
 drop table `phongBan`;
 drop table `quyLuong`;

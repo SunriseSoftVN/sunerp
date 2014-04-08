@@ -22,20 +22,20 @@ Ext.define('sunerp.view.donvi.DonViEdit', {
                     },
                     {
                         xtype: 'comboboxx',
-                        fieldLabel: 'Khối đơn vị',
-                        name: 'khoiDonViId',
-                        modelName: 'khoiDonVi',
-                        store: Ext.create('sunerp.store.KhoiDonViStore', {
+                        fieldLabel: 'Công ty',
+                        name: 'companyId',
+                        modelName: 'company',
+                        store: Ext.create('sunerp.store.CompanyStore', {
                             proxy: {
                                 type: 'ajax',
-                                url: '/khoidonvi/all',
+                                url: '/company/all',
                                 reader: 'json'
                             }
                         }),
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,
-                        emptyText: 'Chọn một khối đơn vị...'
+                        emptyText: 'Chọn một công ty...'
                     }
                 ]
             }

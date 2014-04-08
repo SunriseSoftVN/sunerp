@@ -33,12 +33,6 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
         leaf = true
       ),
       MenuItemDto(
-        id = "khoiDonVi",
-        view = "sunerp.view.khoidonvi.KhoiDonViList",
-        text = "Khối đơn vị",
-        leaf = true
-      ),
-      MenuItemDto(
         id = "donVi",
         view = "sunerp.view.donvi.DonViList",
         text = "Đơn vị",

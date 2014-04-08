@@ -1,7 +1,9 @@
 package dtos
 
-import models.sunerp.{KhoiDonVis, DonVi, KhoiDonVi}
+import models.sunerp._
 import play.api.libs.json.{Json, JsValue, Writes}
+import models.sunerp.DonVi
+import models.sunerp.Company
 
 /**
  * The Class DonViDto.
@@ -13,18 +15,18 @@ import play.api.libs.json.{Json, JsValue, Writes}
 case class DonViDto(
                      id: Long,
                      name: String,
-                     khoiDonViId: Long,
-                     khoiDonVi: KhoiDonVi
+                     companyId: Long,
+                     company: Company
                      )
 
 object DonViDto {
-  def apply(tuple: (DonVi, KhoiDonVi)) = {
-    val (donVi, khoiDonVi) = tuple
+  def apply(tuple: (DonVi, Company)) = {
+    val (donVi, company) = tuple
     new DonViDto(
       id = donVi.id.get,
       name = donVi.name,
-      khoiDonViId = donVi.khoiDonViId,
-      khoiDonVi = khoiDonVi
+      companyId = donVi.companyId,
+      company = company
     )
   }
 
@@ -32,8 +34,8 @@ object DonViDto {
     override def writes(o: DonViDto): JsValue = Json.obj(
       "id" -> o.id,
       "name" -> o.name,
-      "khoiDonViId" -> o.khoiDonViId,
-      "khoiDonVi" -> KhoiDonVis.khoiDonViJsonFormat.writes(o.khoiDonVi)
+      "companyId" -> o.companyId,
+      "company" -> Companies.companyJsonFormat.writes(o.company)
     )
   }
 }
