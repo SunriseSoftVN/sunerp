@@ -4,7 +4,8 @@ import models.sunerp._
 import play.api.libs.json.{Json, JsValue, Writes}
 import models.sunerp.NhanVien
 import models.sunerp.ChucVu
-import models.sunerp.PhongBang
+import models.sunerp.PhongBan
+import models.sunerp.PhongBans
 
 /**
  * The Class NhanVienDto.
@@ -23,12 +24,12 @@ case class NhanVienDto(
                         chucVuId: Long,
                         chucVu: ChucVu,
                         phongBangId: Long,
-                        phongBang: PhongBang
+                        phongBang: PhongBan
                         )
 
 object NhanVienDto {
 
-  def apply(tuple: (NhanVien, ChucVu, PhongBang)) = {
+  def apply(tuple: (NhanVien, ChucVu, PhongBan)) = {
     val (nhanVien, chucVu, phongBang) = tuple
     new NhanVienDto(
       id = nhanVien.id.get,
@@ -55,7 +56,7 @@ object NhanVienDto {
       "chucVuId" -> o.chucVuId,
       "phongBangId" -> o.phongBangId,
       "chucVu" -> ChucVus.chucVuJsonFormat.writes(o.chucVu),
-      "phongBang" -> PhongBangs.phongBangJsonFormat.writes(o.phongBang)
+      "phongBan" -> PhongBans.phongBanJsonFormat.writes(o.phongBang)
     )
   }
 

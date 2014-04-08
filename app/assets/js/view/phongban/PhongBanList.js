@@ -1,18 +1,18 @@
 /**
  * Created by dungvn3000 on 3/18/14.
  */
-Ext.define('sunerp.view.phongbang.PhongBangList', {
+Ext.define('sunerp.view.phongban.PhongBanList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.phongBangList',
-    requires: ['sunerp.controller.phongbang.PhongBangListCtr'],
-    controller: 'sunerp.controller.phongbang.PhongBangListCtr',
-    inject: ['phongBangStore'],
+    requires: ['sunerp.controller.phongban.PhongBanListCtr'],
+    controller: 'sunerp.controller.phongban.PhongBanListCtr',
+    inject: ['phongBanStore'],
     config: {
-        phongBangStore: null
+        phongBanStore: null
     },
     initComponent: function () {
         var me = this;
-        me.store = this.getPhongBangStore();
+        me.store = this.getPhongBanStore();
         me.columns = [
             {xtype: 'rownumberer'},
             {header: 'Tên', dataIndex: 'name', flex: 1},

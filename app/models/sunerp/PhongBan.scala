@@ -5,7 +5,7 @@ import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
-import dtos.{PhongBangDto, ExtGirdDto, PagingDto}
+import dtos.{PhongBanDto, ExtGirdDto, PagingDto}
 
 /**
  * The Class PhongBang.
@@ -14,36 +14,36 @@ import dtos.{PhongBangDto, ExtGirdDto, PagingDto}
  * @since 3/4/14 9:20 AM
  *
  */
-case class PhongBang(
+case class PhongBan(
                       id: Option[Long] = None,
                       donViId: Long,
                       name: String
                       ) extends WithId[Long]
 
-class PhongBangs(tag: Tag) extends AbstractTable[PhongBang](tag, "phongBang") {
+class PhongBans(tag: Tag) extends AbstractTable[PhongBan](tag, "phongBan") {
 
   def donViId = column[Long]("donViId", O.NotNull)
 
-  def donVi = foreignKey("doi_vi_phong_bang_fk", donViId, DonVis)(_.id)
+  def donVi = foreignKey("doi_vi_phong_ban_fk", donViId, DonVis)(_.id)
 
   def name = column[String]("name", O.NotNull)
 
-  def * = (id.?, donViId, name) <>(PhongBang.tupled, PhongBang.unapply)
+  def * = (id.?, donViId, name) <>(PhongBan.tupled, PhongBan.unapply)
 }
 
-object PhongBangs extends AbstractQuery[PhongBang, PhongBangs](new PhongBangs(_)) {
+object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
 
   def editForm = Form(
     mapping(
       "id" -> optional(longNumber),
       "donViId" -> longNumber,
       "name" -> text
-    )(PhongBang.apply)(PhongBang.unapply)
+    )(PhongBan.apply)(PhongBan.unapply)
   )
 
-  implicit val phongBangJsonFormat = Json.format[PhongBang]
+  implicit val phongBanJsonFormat = Json.format[PhongBan]
 
-  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[PhongBangDto] = {
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[PhongBanDto] = {
     var query = for (phongBang <- this; donVi <- phongBang.donVi) yield (donVi, phongBang)
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {
@@ -72,9 +72,9 @@ object PhongBangs extends AbstractQuery[PhongBang, PhongBangs](new PhongBangs(_)
       .drop(pagingDto.start)
       .take(pagingDto.limit)
       .list
-      .map(PhongBangDto.apply)
+      .map(PhongBanDto.apply)
 
-    ExtGirdDto[PhongBangDto](
+    ExtGirdDto[PhongBanDto](
       total = totalRow,
       data = rows
     )

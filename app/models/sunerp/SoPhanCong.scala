@@ -28,7 +28,7 @@ case class SoPhanCong(
                        id: Option[Long] = None,
                        nhanVienId: Long,
                        taskId: Long,
-                       phongBangId: Long,
+                       phongBanId: Long,
                        khoiLuong: Double,
                        gio: Double,
                        ghiChu: String,
@@ -61,9 +61,9 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong")
 
   def taskId = column[Long]("taskId", O.NotNull)
 
-  def phongBangId = column[Long]("phongBangId", O.NotNull)
+  def phongBanId = column[Long]("phongBanId", O.NotNull)
 
-  def phongBang = foreignKey("phong_bang_so_phan_cong_fk", phongBangId, PhongBangs)(_.id)
+  def phongBan = foreignKey("phong_ban_so_phan_cong_fk", phongBanId, PhongBans)(_.id)
 
   def khoiLuong = column[Double]("khoiLuong", O.NotNull)
 
@@ -77,7 +77,7 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong")
 
   def ngayPhanCong = column[LocalDate]("ngayPhanCong", O.NotNull)
 
-  def * = (id.?, nhanVienId, taskId, phongBangId, khoiLuong, gio, ghiChu, soPhanCongExtId, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
+  def * = (id.?, nhanVienId, taskId, phongBanId, khoiLuong, gio, ghiChu, soPhanCongExtId, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
 }
 
 object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCongs(_)) {
@@ -85,9 +85,9 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
   val soPhanCongQuery = for (
     soPhanCong <- SoPhanCongs;
     nhanVien <- soPhanCong.nhanVien;
-    phongBang <- soPhanCong.phongBang;
+    phongBan <- soPhanCong.phongBan;
     soPhanCongExt <- soPhanCong.soPhanCongExt
-  ) yield (soPhanCong, soPhanCongExt, nhanVien, phongBang)
+  ) yield (soPhanCong, soPhanCongExt, nhanVien, phongBan)
 
   def editForm(implicit session: Session) = Form(
     tuple(
@@ -110,7 +110,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
 
     pagingDto.filters.foreach(filter => {
       query = query.where(tuple => {
-        val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
+        val (soPhanCong, soPhanCongExt, nhanVien, phongBan) = tuple
         filter.property match {
           case "nhanVien.maNv" => nhanVien.maNv.toLowerCase like filter.asLikeValue
           case "month" =>

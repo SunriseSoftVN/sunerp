@@ -68,7 +68,7 @@ class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
   def phongBangId = column[Long]("phongBangId", O.NotNull)
 
-  def phongBang = foreignKey("phong_bang_nhan_vien_fk", phongBangId, PhongBangs)(_.id)
+  def phongBan = foreignKey("phong_bang_nhan_vien_fk", phongBangId, PhongBans)(_.id)
 
   def idx = index("nhanvien_index", maNv, unique = true)
 
@@ -120,8 +120,8 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
     var query = for (
       nhanVien <- this;
       chucVu <- nhanVien.chucVu;
-      phongBang <- nhanVien.phongBang
-    ) yield (nhanVien, chucVu, phongBang)
+      phongBan <- nhanVien.phongBan
+    ) yield (nhanVien, chucVu, phongBan)
 
     pagingDto.filters.foreach(filter => {
       query = query.where(table => {

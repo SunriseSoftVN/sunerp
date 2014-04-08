@@ -37,11 +37,11 @@ PUT           /nhanvien/:id          controllers.NhanVienCtr.update(id: Long)
 DELETE        /nhanvien/:id          controllers.NhanVienCtr.delete(id: Long)
 GET           /nhanvien/findByPhongBangId/:phongBangId          controllers.NhanVienCtr.findByPhongBangId(phongBangId: Long)
 
-GET           /phongbang/all         controllers.PhongBangCtr.all
-GET           /phongbang             controllers.PhongBangCtr.index
-POST          /phongbang             controllers.PhongBangCtr.save
-PUT           /phongbang/:id         controllers.PhongBangCtr.update(id: Long)
-DELETE        /phongbang/:id         controllers.PhongBangCtr.delete(id: Long)
+GET           /phongban/all         controllers.PhongBanCtr.all
+GET           /phongban             controllers.PhongBanCtr.index
+POST          /phongban             controllers.PhongBanCtr.save
+PUT           /phongban/:id         controllers.PhongBanCtr.update(id: Long)
+DELETE        /phongban/:id         controllers.PhongBanCtr.delete(id: Long)
 
 GET           /donvi                 controllers.DonViCtr.index
 POST          /donvi                 controllers.DonViCtr.save

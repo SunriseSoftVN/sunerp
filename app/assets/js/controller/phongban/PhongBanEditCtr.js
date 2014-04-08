@@ -2,14 +2,14 @@
  * Created by dungvn3000 on 3/18/14.
  */
 
-Ext.define('sunerp.controller.phongbang.PhongBangEditCtr', {
+Ext.define('sunerp.controller.phongban.PhongBanEditCtr', {
     extend: 'sunerp.controller.core.BaseEditController',
-    inject: ['phongBangStore'],
+    inject: ['phongBanStore'],
     config: {
-        phongBangStore: null
+        phongBanStore: null
     },
     init: function() {
-        this.mainStore = this.getPhongBangStore();
+        this.mainStore = this.getPhongBanStore();
         this.callParent(arguments);
     }
 });

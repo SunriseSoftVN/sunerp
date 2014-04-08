@@ -36,13 +36,13 @@ object SoPhanCongCtr extends Controller with AuthElement with AuthConfigImpl wit
         BadRequest(Json.toJson(errors))
       },
       tuple => {
-        val (id, nhanVienId, taskId, phongBangId, khoiLuong, gio, ghiChu, ngayPhanCong, soPhanCongExt) = tuple
+        val (id, nhanVienId, taskId, phongBanId, khoiLuong, gio, ghiChu, ngayPhanCong, soPhanCongExt) = tuple
         val soPhanCongExtId = SoPhanCongExts.save(soPhanCongExt)
         val newId = SoPhanCongs.save(SoPhanCong(
           id = id,
           nhanVienId = nhanVienId,
           taskId = taskId,
-          phongBangId = phongBangId,
+          phongBanId = phongBanId,
           khoiLuong = khoiLuong,
           gio = gio,
           ghiChu = ghiChu,
@@ -66,13 +66,13 @@ object SoPhanCongCtr extends Controller with AuthElement with AuthConfigImpl wit
         BadRequest(Json.toJson(errors))
       },
       tuple => {
-        val (id, nhanVienId, taskId, phongBangId, khoiLuong, gio, ghiChu, ngayPhanCong, soPhanCongExt) = tuple
+        val (id, nhanVienId, taskId, phongBanId, khoiLuong, gio, ghiChu, ngayPhanCong, soPhanCongExt) = tuple
         id.map(_id => {
           SoPhanCongs.findById(_id).map(soPhanCong => {
             SoPhanCongs.update(soPhanCong.copy(
               nhanVienId = nhanVienId,
               taskId = taskId,
-              phongBangId = phongBangId,
+              phongBanId = phongBanId,
               khoiLuong = khoiLuong,
               gio = gio,
               ghiChu = ghiChu,

@@ -6,7 +6,7 @@ import models.qlkh.{Tasks, Task}
 import models.sunerp.NhanVien
 import models.sunerp.SoPhanCongExt
 import models.sunerp.SoPhanCong
-import models.sunerp.PhongBang
+import models.sunerp.PhongBan
 import org.joda.time.{LocalDate, DateTime}
 
 /**
@@ -20,7 +20,7 @@ case class SoPhanCongDto(
                           id: Long,
                           nhanVienId: Long,
                           taskId: Long,
-                          phongBangId: Long,
+                          phongBanId: Long,
                           khoiLuong: Double,
                           gio: Double,
                           ghiChu: String,
@@ -29,19 +29,19 @@ case class SoPhanCongDto(
                           soPhanCongExt: SoPhanCongExt,
                           nhanVien: NhanVien,
                           task: Task,
-                          phongBang: PhongBang
+                          phongBan: PhongBan
                           )
 
 
 object SoPhanCongDto {
 
-  def apply(tuple: (SoPhanCong, SoPhanCongExt, NhanVien, PhongBang)) = {
-    val (soPhanCong, soPhanCongExt, nhanVien, phongBang) = tuple
+  def apply(tuple: (SoPhanCong, SoPhanCongExt, NhanVien, PhongBan)) = {
+    val (soPhanCong, soPhanCongExt, nhanVien, phongBan) = tuple
     new SoPhanCongDto(
       id = soPhanCong.id.get,
       nhanVienId = soPhanCong.nhanVienId,
       taskId = soPhanCong.taskId,
-      phongBangId = soPhanCong.phongBangId,
+      phongBanId = soPhanCong.phongBanId,
       khoiLuong = soPhanCong.khoiLuong,
       gio = soPhanCong.gio,
       ghiChu = soPhanCong.ghiChu,
@@ -50,7 +50,7 @@ object SoPhanCongDto {
       soPhanCongExt = soPhanCongExt,
       nhanVien = nhanVien,
       task = soPhanCong.task,
-      phongBang = phongBang
+      phongBan = phongBan
     )
   }
 
@@ -59,7 +59,7 @@ object SoPhanCongDto {
       "id" -> o.id,
       "nhanVienId" -> o.nhanVienId,
       "taskId" -> o.taskId,
-      "phongBangId" -> o.phongBangId,
+      "phongBanId" -> o.phongBanId,
       "khoiLuong" -> o.khoiLuong,
       "gio" -> o.gio,
       "ghiChu" -> o.ghiChu,
@@ -68,7 +68,7 @@ object SoPhanCongDto {
       "soPhanCongExt" -> SoPhanCongExts.soPhanCongExtJsonFormat.writes(o.soPhanCongExt),
       "nhanVien" -> NhanViens.nhanVienJsonFormat.writes(o.nhanVien),
       "task" -> Tasks.taskJsonFormat.writes(o.task),
-      "phongBang" -> PhongBangs.phongBangJsonFormat.writes(o.phongBang)
+      "phongBan" -> PhongBans.phongBanJsonFormat.writes(o.phongBan)
     )
   }
 }

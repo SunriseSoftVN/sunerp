@@ -1,6 +1,6 @@
 package dtos
 
-import models.sunerp.{DonVis, PhongBang, DonVi}
+import models.sunerp.{DonVis, PhongBan, DonVi}
 import play.api.libs.json.{Json, JsValue, Writes}
 
 /**
@@ -10,7 +10,7 @@ import play.api.libs.json.{Json, JsValue, Writes}
  * @since 3/19/14 10:20 AM
  *
  */
-case class PhongBangDto(
+case class PhongBanDto(
                          id: Long,
                          name: String,
                          donViId: Long,
@@ -18,11 +18,11 @@ case class PhongBangDto(
                          )
 
 
-object PhongBangDto {
+object PhongBanDto {
 
-  def apply(tuple: (DonVi, PhongBang)) = {
+  def apply(tuple: (DonVi, PhongBan)) = {
     val (donVi, phongBang) = tuple
-    new PhongBangDto(
+    new PhongBanDto(
       id = phongBang.id.get,
       name = phongBang.name,
       donViId = phongBang.donViId,
@@ -30,8 +30,8 @@ object PhongBangDto {
     )
   }
 
-  implicit val jsonWrite = new Writes[PhongBangDto] {
-    override def writes(o: PhongBangDto): JsValue = Json.obj(
+  implicit val jsonWrite = new Writes[PhongBanDto] {
+    override def writes(o: PhongBanDto): JsValue = Json.obj(
       "id" -> o.id,
       "name" -> o.name,
       "donViId" -> o.donViId,

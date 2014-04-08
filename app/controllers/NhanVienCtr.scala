@@ -1,7 +1,7 @@
 package controllers
 
 import controllers.element.{MainTemplate, BaseCtr}
-import models.sunerp.{PhongBangs, NhanViens, NhanVien}
+import models.sunerp.{PhongBans, NhanViens, NhanVien}
 import models.core.AbstractQuery
 import play.api.libs.json.{Json, JsValue, Writes}
 import dtos.PagingDto

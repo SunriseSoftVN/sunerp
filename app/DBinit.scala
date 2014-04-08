@@ -45,12 +45,12 @@ object DBinit {
 
         val donViId = DonVis.save(donVi)
 
-        val phongBang = new PhongBang(
+        val phongBang = new PhongBan(
           name = "Phòng kỹ thuật",
           donViId = donViId
         )
 
-        val phongBangId = PhongBangs.save(phongBang)
+        val phongBangId = PhongBans.save(phongBang)
 
         val chucVu = new ChucVu(
           name = "Quản trị hệ thống",
@@ -86,8 +86,8 @@ object DBinit {
           chucVuId = chucVuId
         )
 
-        val quyenHanhPhongBang = new QuyenHanh(
-          domain = "phongbang",
+        val quyenHanhPhongBan = new QuyenHanh(
+          domain = "phongban",
           chucVuId = chucVuId
         )
 
@@ -109,7 +109,7 @@ object DBinit {
         QuyenHanhs.save(quyenHanhCongTy)
         QuyenHanhs.save(quyenHanhKhoiDonVi)
         QuyenHanhs.save(quyenHanhDonVi)
-        QuyenHanhs.save(quyenHanhPhongBang)
+        QuyenHanhs.save(quyenHanhPhongBan)
         QuyenHanhs.save(quyenHanhNhanVien)
         QuyenHanhs.save(quyenHanhChucVu)
         QuyenHanhs.save(quyenHanh)
