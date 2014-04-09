@@ -31,14 +31,12 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                     {
                         xtype: 'textfield',
                         name: 'firstName',
-                        minLength: 4,
                         allowBlank: false,
                         fieldLabel: 'Tên'
                     },
                     {
                         xtype: 'textfield',
                         name: 'lastName',
-                        minLength: 4,
                         allowBlank: false,
                         fieldLabel: 'Họ'
                     },

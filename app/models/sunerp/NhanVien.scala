@@ -83,8 +83,8 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       "id" -> optional(longNumber),
       "maNv" -> text(minLength = 4),
       "password" -> text(minLength = 4),
-      "firstName" -> text(minLength = 4),
-      "lastName" -> text(minLength = 4),
+      "firstName" -> nonEmptyText,
+      "lastName" -> nonEmptyText,
       "heSoLuong" -> of[Double],
       "chucVuId" -> longNumber,
       "phongBanId" -> longNumber
