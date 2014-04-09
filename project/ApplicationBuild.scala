@@ -35,9 +35,6 @@ object ApplicationBuild extends Build {
     "jp.t2v" %% "play2-auth" % "0.11.0",
     "jp.t2v" %% "play2-auth-test" % "0.11.0" % "test",
     "org.apache.commons" % "commons-email" % "1.3.1",
-    "com.restfb" % "restfb" % "1.6.11",
-    "com.google.http-client" % "google-http-client-jackson2" % "1.11.0-beta",
-    "com.google.apis" % "google-api-services-oauth2" % "v2-rev48-1.16.0-rc",
     "org.mindrot" % "jbcrypt" % "0.3m",
     "org.scalautils" %% "scalautils" % "2.0"
   ) ++ persistentDependencies ++ templateEngine
