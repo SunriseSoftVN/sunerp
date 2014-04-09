@@ -61,7 +61,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                     },
                     {
                         xtype: 'comboboxx',
-                        fieldLabel: 'Phòng ban',
+                        fieldLabel: 'Đơn vị',
                         name: 'phongBanId',
                         modelName: 'phongBan',
                         store: Ext.create('sunerp.store.PhongBanStore', {
@@ -74,7 +74,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,
-                        emptyText: 'Chọn một phòng ban...'
+                        emptyText: 'Chọn một đơn vị...'
                     },
                     {
                         xtype: 'numberfield',

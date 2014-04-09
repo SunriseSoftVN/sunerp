@@ -24,7 +24,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
                 flex: 1
             },
             {
-                header: 'Phòng ban',
+                header: 'Đơn vị',
                 dataIndex: 'phongBan.name',
                 flex: 1
             },
