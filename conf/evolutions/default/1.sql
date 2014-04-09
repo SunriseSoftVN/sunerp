@@ -5,11 +5,11 @@
 
 create table `cacKhoangCong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`phuCapTn` BIGINT NOT NULL,`phuCapLd` BIGINT NOT NULL,`trucBHLD` BIGINT NOT NULL,`phuCapKV` BIGINT NOT NULL,`congPhanLuong` BIGINT NOT NULL,`chiKhac` BIGINT NOT NULL,`luongDocHai` BIGINT NOT NULL,`nuocUong` BIGINT NOT NULL,`anGiuaCa` BIGINT NOT NULL,`omDauSinhDe` BIGINT NOT NULL);
 create table `cacKhoangTru` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`doanPhi` BIGINT NOT NULL,`ungKy1` BIGINT NOT NULL,`bhyt` BIGINT NOT NULL,`bhxh` BIGINT NOT NULL,`thuNo` BIGINT NOT NULL);
-create table `chucVu` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`phuCapTrachNhiem` BIGINT NOT NULL);
+create table `chucVu` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`phuCapTrachNhiem` DOUBLE NOT NULL);
 create table `companySetting` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`luongToiThieu` BIGINT NOT NULL);
 create table `company` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`address` VARCHAR(254) NOT NULL,`phone` VARCHAR(254) NOT NULL,`email` VARCHAR(254) NOT NULL,`mst` VARCHAR(254) NOT NULL,`companySettingId` BIGINT NOT NULL);
 create table `donVi` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`companyId` BIGINT NOT NULL);
-create table `nhanVien` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`maNv` VARCHAR(254) NOT NULL,`password` VARCHAR(254) NOT NULL,`firstName` VARCHAR(254) NOT NULL,`lastName` VARCHAR(254) NOT NULL,`heSoLuong` BIGINT NOT NULL,`chucVuId` BIGINT NOT NULL,`phongBanId` BIGINT NOT NULL);
+create table `nhanVien` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`maNv` VARCHAR(254) NOT NULL,`password` VARCHAR(254) NOT NULL,`firstName` VARCHAR(254) NOT NULL,`lastName` VARCHAR(254) NOT NULL,`heSoLuong` DOUBLE NOT NULL,`chucVuId` BIGINT NOT NULL,`phongBanId` BIGINT NOT NULL);
 create unique index `nhanvien_index` on `nhanVien` (`maNv`);
 create table `phongBan` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`donViId` BIGINT NOT NULL,`name` VARCHAR(254) NOT NULL);
 create table `quyLuong` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`soTien` BIGINT NOT NULL);
@@ -23,12 +23,12 @@ alter table `nhanVien` add constraint `chuc_vu_nhan_vien_fk` foreign key(`chucVu
 alter table `nhanVien` add constraint `phong_ban_nhan_vien_fk` foreign key(`phongBanId`) references `phongBan`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `phongBan` add constraint `doi_vi_phong_ban_fk` foreign key(`donViId`) references `donVi`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `quyenHanh` add constraint `quyen_hanh_chuc_vu_fk` foreign key(`chucVuId`) references `chucVu`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `soLuong` add constraint `cac_khoang_cong_so_luong_fk` foreign key(`cacKhoangCongId`) references `cacKhoangCong`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `soLuong` add constraint `cac_khoang_tru_so_luong_fk` foreign key(`cacKhoangTruId`) references `cacKhoangTru`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `soLuong` add constraint `nhanvien_so_luong_fk` foreign key(`nhanVienId`) references `nhanVien`(`id`) on update NO ACTION on delete NO ACTION;
-alter table `soPhanCong` add constraint `so_phan_cong_ext_so_phan_cong_fk` foreign key(`soPhanCongExtId`) references `soPhanCongExt`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `soLuong` add constraint `cac_khoang_tru_so_luong_fk` foreign key(`cacKhoangTruId`) references `cacKhoangTru`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `soLuong` add constraint `cac_khoang_cong_so_luong_fk` foreign key(`cacKhoangCongId`) references `cacKhoangCong`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `soPhanCong` add constraint `nhan_vien_so_phan_cong_fk` foreign key(`nhanVienId`) references `nhanVien`(`id`) on update NO ACTION on delete NO ACTION;
 alter table `soPhanCong` add constraint `phong_ban_so_phan_cong_fk` foreign key(`phongBanId`) references `phongBan`(`id`) on update NO ACTION on delete NO ACTION;
+alter table `soPhanCong` add constraint `so_phan_cong_ext_so_phan_cong_fk` foreign key(`soPhanCongExtId`) references `soPhanCongExt`(`id`) on update NO ACTION on delete NO ACTION;
 
 # --- !Downs
 
@@ -38,12 +38,12 @@ ALTER TABLE nhanVien DROP FOREIGN KEY chuc_vu_nhan_vien_fk;
 ALTER TABLE nhanVien DROP FOREIGN KEY phong_ban_nhan_vien_fk;
 ALTER TABLE phongBan DROP FOREIGN KEY doi_vi_phong_ban_fk;
 ALTER TABLE quyenHanh DROP FOREIGN KEY quyen_hanh_chuc_vu_fk;
-ALTER TABLE soLuong DROP FOREIGN KEY cac_khoang_cong_so_luong_fk;
-ALTER TABLE soLuong DROP FOREIGN KEY cac_khoang_tru_so_luong_fk;
 ALTER TABLE soLuong DROP FOREIGN KEY nhanvien_so_luong_fk;
-ALTER TABLE soPhanCong DROP FOREIGN KEY so_phan_cong_ext_so_phan_cong_fk;
+ALTER TABLE soLuong DROP FOREIGN KEY cac_khoang_tru_so_luong_fk;
+ALTER TABLE soLuong DROP FOREIGN KEY cac_khoang_cong_so_luong_fk;
 ALTER TABLE soPhanCong DROP FOREIGN KEY nhan_vien_so_phan_cong_fk;
 ALTER TABLE soPhanCong DROP FOREIGN KEY phong_ban_so_phan_cong_fk;
+ALTER TABLE soPhanCong DROP FOREIGN KEY so_phan_cong_ext_so_phan_cong_fk;
 drop table `cacKhoangCong`;
 drop table `cacKhoangTru`;
 drop table `chucVu`;

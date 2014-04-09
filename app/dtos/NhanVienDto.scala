@@ -20,7 +20,7 @@ case class NhanVienDto(
                         password: String,
                         firstName: String,
                         lastName: String,
-                        heSoLuong: Long,
+                        heSoLuong: Double,
                         chucVuId: Long,
                         chucVu: ChucVu,
                         phongBanId: Long,

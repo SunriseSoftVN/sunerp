@@ -8,6 +8,7 @@ import play.api.libs.json.Json
 import dtos.{NhanVienDto, ExtGirdDto, PagingDto}
 import org.apache.commons.digester.SimpleRegexMatcher
 import org.apache.commons.lang3.StringUtils
+import play.api.data.format.Formats._
 
 /**
  * The Class NhanVien.
@@ -22,7 +23,7 @@ case class NhanVien(
                      password: String,
                      firstName: String,
                      lastName: String,
-                     heSoLuong: Long,
+                     heSoLuong: Double,
                      chucVuId: Long,
                      phongBanId: Long
                      ) extends WithId[Long] {
@@ -60,7 +61,7 @@ class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
   def lastName = column[String]("lastName", O.NotNull)
 
-  def heSoLuong = column[Long]("heSoLuong", O.NotNull)
+  def heSoLuong = column[Double]("heSoLuong", O.NotNull)
 
   def chucVuId = column[Long]("chucVuId", O.NotNull)
 
@@ -84,7 +85,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       "password" -> text(minLength = 4),
       "firstName" -> text(minLength = 4),
       "lastName" -> text(minLength = 4),
-      "heSoLuong" -> longNumber,
+      "heSoLuong" -> of[Double],
       "chucVuId" -> longNumber,
       "phongBanId" -> longNumber
     )(NhanVien.apply)(NhanVien.unapply)

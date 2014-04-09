@@ -6,6 +6,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
 import dtos.{ExtGirdDto, PagingDto}
+import play.api.data.format.Formats._
 
 /**
  * The Class ChucVu.
@@ -17,13 +18,13 @@ import dtos.{ExtGirdDto, PagingDto}
 case class ChucVu(
                    id: Option[Long] = None,
                    name: String,
-                   phuCapTrachNhiem: Long
+                   phuCapTrachNhiem: Double
                    ) extends WithId[Long]
 
 class ChucVus(tag: Tag) extends AbstractTable[ChucVu](tag, "chucVu") {
   def name = column[String]("name", O.NotNull)
 
-  def phuCapTrachNhiem = column[Long]("phuCapTrachNhiem", O.NotNull)
+  def phuCapTrachNhiem = column[Double]("phuCapTrachNhiem", O.NotNull)
 
   def * = (id.?, name, phuCapTrachNhiem) <>(ChucVu.tupled, ChucVu.unapply)
 }
@@ -34,7 +35,7 @@ object ChucVus extends AbstractQuery[ChucVu, ChucVus](new ChucVus(_)) {
     mapping(
       "id" -> optional(longNumber),
       "name" -> text(minLength = 4),
-      "phuCapTrachNhiem" -> longNumber
+      "phuCapTrachNhiem" -> of[Double]
     )(ChucVu.apply)(ChucVu.unapply)
   )
 
