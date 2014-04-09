@@ -21,15 +21,15 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhEdit', {
                     },
                     {
                         xtype: 'checkboxfield',
-                        name: 'write',
-                        fieldLabel: 'Write',
+                        name: 'read',
+                        fieldLabel: 'Read',
                         inputValue: true,
                         uncheckedValue: false
                     },
                     {
                         xtype: 'checkboxfield',
-                        name: 'read',
-                        fieldLabel: 'Read',
+                        name: 'write',
+                        fieldLabel: 'Write',
                         inputValue: true,
                         uncheckedValue: false
                     },
