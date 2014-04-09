@@ -20,7 +20,7 @@ Ext.define('sunerp.controller.HeaderCtr', {
             success: function (response) {
                 var nhanVien = Ext.decode(response.responseText);
                 me.getUserService().setCurrentUser(nhanVien);
-                me.getLoginMenu().setText('Welcome ' + nhanVien.maNv);
+                me.getLoginMenu().setText('Welcome ' + nhanVien.firstName);
             }
         });
         me.callParent(arguments);
