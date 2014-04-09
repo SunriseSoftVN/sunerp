@@ -9,6 +9,7 @@ Ext.define('sunerp.model.QuyenHanh', {
         'read',
         'write',
         'chucVuId',
+        'gioiHan',
         'chucVu',
         {name: 'chucVu.name', mapping: 'chucVu.name'}
     ],

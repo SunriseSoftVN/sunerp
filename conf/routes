@@ -46,6 +46,7 @@ GET           /donvi/all             controllers.DonViCtr.all
 GET           /quyenhanh             controllers.QuyenHanhCtr.index
 POST          /quyenhanh             controllers.QuyenHanhCtr.save
 PUT           /quyenhanh/:id         controllers.QuyenHanhCtr.update(id: Long)
+GET           /quyenhanh/getGioiHans controllers.QuyenHanhCtr.getGioiHans
 DELETE        /quyenhanh/:id         controllers.QuyenHanhCtr.delete(id: Long)
 
 GET           /task                  controllers.TaskCtr.index

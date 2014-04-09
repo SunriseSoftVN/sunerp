@@ -1,7 +1,7 @@
 package controllers
 
 import controllers.element.{MainTemplate, BaseCtr}
-import models.sunerp.{QuyenHanh, QuyenHanhs}
+import models.sunerp.{GioiHan, QuyenHanh, QuyenHanhs}
 import models.core.AbstractQuery
 import play.api.libs.json.{Json, JsValue, Writes}
 import play.api.data.Form
@@ -19,11 +19,18 @@ import play.api.mvc.AnyContent
  */
 object QuyenHanhCtr extends BaseCtr[QuyenHanh, QuyenHanhs] with MainTemplate {
   override val domainName: String = "quyenHanh"
+
   override def editForm(implicit session: Session): Form[QuyenHanh] = QuyenHanhs.editForm
+
   override implicit val jsonWrite: Writes[QuyenHanh] = QuyenHanhs.jsonFormat
   override val dao: AbstractQuery[QuyenHanh, QuyenHanhs] = QuyenHanhs
+
   override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
     val result = QuyenHanhs.load(paging)
     Json.toJson(result)
   }
+
+  def getGioiHans = StackAction(AuthorityKey -> domainName)(implicit request => {
+    Ok(GioiHan.asComboxDataSource)
+  })
 }

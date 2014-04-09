@@ -22,16 +22,25 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhEdit', {
                     {
                         xtype: 'checkboxfield',
                         name: 'read',
-                        fieldLabel: 'Read',
+                        fieldLabel: 'Đọc',
                         inputValue: true,
                         uncheckedValue: false
                     },
                     {
                         xtype: 'checkboxfield',
                         name: 'write',
-                        fieldLabel: 'Write',
+                        fieldLabel: 'Ghi',
                         inputValue: true,
                         uncheckedValue: false
+                    },
+                    {
+                        xtype: 'comboboxx',
+                        name: 'gioiHan',
+                        fieldLabel: 'Giới hạn',
+                        valueField: 'value',
+                        displayField: 'name',
+                        allowBlank: false,
+                        store: Ext.create('sunerp.store.GioiHanStore')
                     },
                     {
                         xtype: 'comboboxx',

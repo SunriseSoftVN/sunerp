@@ -19,6 +19,7 @@ case class QuyenHanh(
                       domain: String,
                       read: Boolean = true,
                       write: Boolean = true,
+                      gioiHan: String = GioiHan.CONGTY,
                       chucVuId: Long
                       ) extends WithId[Long]
 
@@ -30,11 +31,13 @@ class QuyenHanhs(tag: Tag) extends AbstractTable[QuyenHanh](tag, "quyenHanh") {
 
   def write = column[Boolean]("write", O.NotNull)
 
+  def gioiHan = column[String]("gioiHan", O.NotNull)
+
   def chucVuId = column[Long]("chucVuId", O.NotNull)
 
   def chucVu = foreignKey("quyen_hanh_chuc_vu_fk", chucVuId, ChucVus)(_.id)
 
-  def * = (id.?, domain, read, write, chucVuId) <>(QuyenHanh.tupled, QuyenHanh.unapply)
+  def * = (id.?, domain, read, write, gioiHan, chucVuId) <>(QuyenHanh.tupled, QuyenHanh.unapply)
 }
 
 object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)) {
@@ -92,6 +95,7 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
       "domain" -> nonEmptyText,
       "read" -> boolean,
       "write" -> boolean,
+      "gioiHan" -> nonEmptyText,
       "chucVuId" -> longNumber
     )(QuyenHanh.apply)(QuyenHanh.unapply)
   )

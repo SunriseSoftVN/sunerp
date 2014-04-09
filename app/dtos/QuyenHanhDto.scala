@@ -16,6 +16,7 @@ case class QuyenHanhDto(
                          read: Boolean,
                          write: Boolean,
                          chucVuId: Long,
+                         gioiHan: String,
                          chucVu: ChucVu
                          )
 
@@ -28,6 +29,7 @@ object QuyenHanhDto {
     write = tuple._1.write,
     read = tuple._1.read,
     chucVuId = tuple._1.chucVuId,
+    gioiHan = tuple._1.gioiHan,
     chucVu = tuple._2
   )
 
@@ -38,6 +40,7 @@ object QuyenHanhDto {
       "read" -> o.read,
       "write" -> o.write,
       "chucVuId" -> o.chucVuId,
+      "gioiHan" -> o.gioiHan,
       "chucVu" -> ChucVus.chucVuJsonFormat.writes(o.chucVu)
     )
   }
