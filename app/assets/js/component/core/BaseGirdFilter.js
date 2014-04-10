@@ -3,9 +3,13 @@
  */
 
 Ext.define('sunerp.component.core.BaseGirdFilter', {
+    extend: 'Ext.Component',
     comp: null,
     filter: null,
-    constructor: function () {
+    store: null,
+    constructor: function (config) {
+        config = config || {};
+        this.initConfig(config);
         this.callParent(arguments);
     },
     getFilter: function () {

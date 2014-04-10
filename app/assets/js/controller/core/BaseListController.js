@@ -7,8 +7,6 @@ Ext.define('sunerp.controller.core.BaseListController', {
     editView: null,
     mainStore: null,
     searchField: null,
-    //private
-    mainFilter: null,
     control: {},
     constructor: function (config) {
         this.control['view'] = {
@@ -27,22 +25,14 @@ Ext.define('sunerp.controller.core.BaseListController', {
             }
         };
         this.control['searchTxt'] = {
-            selector: 'textfield[name=searchField]',
-            listeners: {
-                specialkey: 'onSearchFieldChange'
-            }
+            selector: 'textfield[name=searchField]'
         };
         this.callParent(config);
     },
     init: function () {
         var me = this;
         me.callParent(arguments);
-        me.afterInit();
-        me.mainFilter = new Ext.util.Filter({
-            property: me.searchField,
-            value: null
-        });
-        me.mainStore.addFilter(me.mainFilter, false);
+//        me.afterInit();
     },
     afterInit: function () {
         this.mainStore.clearFilter();
@@ -63,13 +53,5 @@ Ext.define('sunerp.controller.core.BaseListController', {
                 me.mainStore.sync();
             }
         });
-    },
-    onSearchFieldChange: function (f, e) {
-        var me = this;
-        var searchValue = me.getSearchTxt().getValue();
-        if (e.getKey() == e.ENTER) {
-            me.mainFilter.setValue(searchValue);
-            me.mainStore.loadPage(1);
-        }
     }
 });

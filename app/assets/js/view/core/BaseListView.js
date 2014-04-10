@@ -10,6 +10,8 @@ Ext.define('sunerp.view.core.BaseListView', {
         'Ext.form.field.Text',
         'Ext.toolbar.Paging'
     ],
+    store: null,
+    searchField: null,
     initComponent: function () {
         var me = this;
         me.bbar = Ext.create('Ext.PagingToolbar', {
@@ -30,15 +32,24 @@ Ext.define('sunerp.view.core.BaseListView', {
             }
         }
     },
-    getTBar: function () {
-        return [
-            {
-                xtype: 'textfield',
+    getFilterComponents: function () {
+        var me = this;
+        var comps = [];
+        var textFilter = Ext.create('sunerp.component.filter.TextFilter', {
+            comp: Ext.create('Ext.form.field.Text', {
                 name: 'searchField',
                 hideLabel: true,
                 emptyText: 'Tìm kiếm...',
                 width: 200
-            },
+            }),
+            fieldName: me.searchField,
+            store: me.store
+        });
+        comps.push(textFilter.getComponent());
+        return comps;
+    },
+    getTBar: function () {
+        var comps = [
             {
                 text: 'Thêm mới',
                 tooltip: 'Thêm mới',
@@ -46,5 +57,8 @@ Ext.define('sunerp.view.core.BaseListView', {
                 action: 'addNew'
             }
         ];
+
+        comps = Ext.Array.insert(comps, 0, this.getFilterComponents());
+        return comps;
     }
 });
