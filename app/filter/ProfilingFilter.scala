@@ -12,7 +12,7 @@ import scala.concurrent.Future
  */
 object ProfilingFilter extends Filter {
 
-  val warningTime = 10 //ms
+  val warningTime = 1000 //ms
 
   def apply(next: (RequestHeader) => Future[SimpleResult])(request: RequestHeader): Future[SimpleResult] = {
     val startTime = System.currentTimeMillis()
