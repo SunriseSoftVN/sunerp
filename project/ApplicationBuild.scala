@@ -25,7 +25,7 @@ object ApplicationBuild extends Build {
   )
 
   val appDependencies = Seq(
-    "com.chuusai" % "shapeless" % "2.0.0-M1" cross CrossVersion.full,
+    "com.chuusai" % "shapeless" % "2.0.0" cross CrossVersion.full,
     "org.scalaz" %% "scalaz-core" % "7.0.5",
     "commons-collections" % "commons-collections" % "3.2.1",
     "org.apache.commons" % "commons-lang3" % "3.1",
