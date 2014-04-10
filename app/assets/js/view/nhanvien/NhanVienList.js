@@ -4,7 +4,10 @@
 Ext.define('sunerp.view.nhanvien.NhanVienList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.nhanVienList',
-    requires: ['sunerp.controller.nhanvien.NhanVienListCtr'],
+    requires: [
+        'sunerp.component.PhongBanCb',
+        'sunerp.controller.nhanvien.NhanVienListCtr'
+    ],
     controller: 'sunerp.controller.nhanvien.NhanVienListCtr',
     inject: ['nhanVienStore'],
     config: {
@@ -38,5 +41,16 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
             }
         ];
         me.callParent(arguments);
+    },
+    getTBar: function() {
+        var tbar = this.callParent(arguments);
+        tbar = Ext.Array.insert(tbar, 1, [
+            {
+                xtype: 'phongbancb',
+                name: 'Đơn vị',
+                width: 150
+            }
+        ]);
+        return tbar;
     }
 });

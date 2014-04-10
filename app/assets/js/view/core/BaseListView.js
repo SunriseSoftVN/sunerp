@@ -10,20 +10,6 @@ Ext.define('sunerp.view.core.BaseListView', {
         'Ext.form.field.Text',
         'Ext.toolbar.Paging'
     ],
-    tbar: [
-        {
-            xtype: 'textfield',
-            name: 'searchField',
-            hideLabel: true,
-            width: 200
-        },
-        {
-            text: 'Thêm mới',
-            tooltip: 'Thêm mới',
-            iconCls: 'add',
-            action: 'addNew'
-        }
-    ],
     initComponent: function () {
         var me = this;
         me.bbar = Ext.create('Ext.PagingToolbar', {
@@ -32,6 +18,7 @@ Ext.define('sunerp.view.core.BaseListView', {
             displayMsg: 'Displaying topics {0} - {1} of {2}',
             emptyMsg: "No topics to display"
         });
+        me.tbar = me.getTBar();
         me.callParent(arguments);
     },
     deleteBtn: function () {
@@ -42,5 +29,21 @@ Ext.define('sunerp.view.core.BaseListView', {
                 this.fireEvent('deleteRecord', this, view, rowIndex, colIndex, item, e, record);
             }
         }
+    },
+    getTBar: function () {
+        return [
+            {
+                xtype: 'textfield',
+                name: 'searchField',
+                hideLabel: true,
+                width: 200
+            },
+            {
+                text: 'Thêm mới',
+                tooltip: 'Thêm mới',
+                iconCls: 'add',
+                action: 'addNew'
+            }
+        ];
     }
 });

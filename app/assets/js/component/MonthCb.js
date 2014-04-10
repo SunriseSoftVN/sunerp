@@ -11,6 +11,7 @@ Ext.define('sunerp.component.MonthCb', {
     displayField: 'name',
     valueField: 'value',
     editable: false,
+    emptyText: 'Tháng',
     value: new Date().getMonth() + 1,
     store: Ext.create('Ext.data.Store', {
         fields: ['value', 'name'],
