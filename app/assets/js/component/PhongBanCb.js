@@ -19,7 +19,18 @@ Ext.define('sunerp.component.PhongBanCb', {
     },
     initComponent: function () {
         var me = this;
-        var store = Ext.create('sunerp.store.PhongBanStore');
+        var store = Ext.create('sunerp.store.PhongBanStore', {
+            listeners: {
+                load: function (store, records, successful, eOpts) {
+                    var fakeModel = new sunerp.model.PhongBan({
+                        id: null,
+                        name: 'Công ty'
+                    });
+                    store.insert(0, fakeModel);
+                    me.select(fakeModel);
+                }
+            }
+        });
         if (me.donViId != null) {
             var donViFilter = new Ext.util.Filter({
                 property: 'donViId',
@@ -29,6 +40,7 @@ Ext.define('sunerp.component.PhongBanCb', {
             me.setDonViFilter(donViFilter);
         }
         me.store = store;
+        me.store.load();
         me.callParent(arguments);
     }
 });

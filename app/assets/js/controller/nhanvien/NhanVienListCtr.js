@@ -6,12 +6,37 @@ Ext.define('sunerp.controller.nhanvien.NhanVienListCtr', {
     extend: 'sunerp.controller.core.BaseListController',
     inject: ['nhanVienStore'],
     config: {
-        nhanVienStore: null
+        nhanVienStore: null,
+        donViFilter: null
+    },
+    control: {
+        phongBanCb: {
+            selector: 'phongbancb',
+            listeners: {
+                change: 'onChange'
+            }
+        }
     },
     editView: 'sunerp.view.nhanvien.NhanVienEdit',
     searchField: 'firstName',
     init: function () {
         this.mainStore = this.getNhanVienStore();
         this.callParent(arguments);
+    },
+    afterInit: function () {
+        this.mainStore.clearFilter(true);
+        this.setDonViFilter(new Ext.util.Filter({
+            property: 'phongBanId',
+            value: null
+        }));
+        this.mainStore.addFilter(this.getDonViFilter(), true);
+    },
+    onChange: function (comp, newValue, oldValue, eOpts) {
+        if(newValue) {
+            this.getDonViFilter().setValue(String(newValue));
+        } else {
+            this.getDonViFilter().setValue(null);
+        }
+        this.mainStore.loadPage(1);
     }
 });

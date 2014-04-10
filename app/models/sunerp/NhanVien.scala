@@ -124,11 +124,12 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       phongBan <- nhanVien.phongBan
     ) yield (nhanVien, chucVu, phongBan)
 
-    pagingDto.filters.foreach(filter => {
+    pagingDto.filters.foreach(filter => if(filter.value.isDefined) {
       query = query.where(table => {
         val (nhanVien, chucVu, phongBan) = table
         filter.property match {
           case "firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
+          case "phongBanId" => nhanVien.phongBanId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

@@ -17,13 +17,11 @@ Ext.define('sunerp.component.NhanVienCb', {
     },
     initComponent: function () {
         var phongBanId = this.getUserService().getCurrentUser().phongBanId;
-        this.store = Ext.create('sunerp.store.NhanVienStore', {
-            proxy: {
-                type: 'ajax',
-                url: '/nhanvien/findByPhongBanId/' + phongBanId,
-                reader: 'json'
-            }
-        });
+        this.store = Ext.create('sunerp.store.NhanVienStore');
+        if(phongBanId) {
+            this.store.filter('phongBanId', String(phongBanId));
+        }
+        this.store.load();
         this.callParent(arguments);
     },
     onItemClick: function (picker, record) {

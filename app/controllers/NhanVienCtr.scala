@@ -27,9 +27,4 @@ object NhanVienCtr extends BaseCtr[NhanVien, NhanViens] with MainTemplate {
     val result = NhanViens.load(paging, loggedIn(request))
     Json.toJson(result)
   }
-
-  def findByPhongBanId(phongBanId: Long) = StackAction(AuthorityKey -> domainName)(implicit request => {
-    val result = NhanViens.findByPhongBanId(phongBanId)
-    Ok(Json.toJson(result))
-  })
 }
