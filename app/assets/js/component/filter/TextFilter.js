@@ -7,15 +7,19 @@ Ext.define('sunerp.component.filter.TextFilter', {
     fieldName: null,
     initComponent: function () {
         var me = this;
-        if (me.comp) {
-            var filter = new Ext.util.Filter({
-                property: me.fieldName,
-                value: null
-            });
-            me.filter = filter;
-            me.store.addFilter(filter, false);
-            me.comp.on('specialkey', me.onSpecialkey, me)
-        }
+        me.comp = Ext.create('Ext.form.field.Text', {
+            name: 'searchField',
+            hideLabel: true,
+            emptyText: 'Tìm kiếm...',
+            width: 200
+        });
+        var filter = new Ext.util.Filter({
+            property: me.fieldName,
+            value: null
+        });
+        me.filter = filter;
+        me.store.addFilter(filter, false);
+        me.comp.on('specialkey', me.onSpecialkey, me);
         me.callParent(arguments);
     },
     onSpecialkey: function (f, e) {

@@ -23,6 +23,10 @@ Ext.define('sunerp.view.core.BaseListView', {
         me.tbar = me.getTBar();
         me.callParent(arguments);
     },
+    afterRender: function () {
+        this.store.load();
+        this.callParent(arguments);
+    },
     deleteBtn: function () {
         return {
             icon: '/assets/img/icons/fam/delete.png',
@@ -36,12 +40,6 @@ Ext.define('sunerp.view.core.BaseListView', {
         var me = this;
         var comps = [];
         var textFilter = Ext.create('sunerp.component.filter.TextFilter', {
-            comp: Ext.create('Ext.form.field.Text', {
-                name: 'searchField',
-                hideLabel: true,
-                emptyText: 'Tìm kiếm...',
-                width: 200
-            }),
             fieldName: me.searchField,
             store: me.store
         });

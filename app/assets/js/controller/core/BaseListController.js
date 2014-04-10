@@ -6,7 +6,6 @@ Ext.define('sunerp.controller.core.BaseListController', {
     extend: 'Deft.mvc.ViewController',
     editView: null,
     mainStore: null,
-    searchField: null,
     control: {},
     constructor: function (config) {
         this.control['view'] = {
@@ -32,10 +31,6 @@ Ext.define('sunerp.controller.core.BaseListController', {
     init: function () {
         var me = this;
         me.callParent(arguments);
-//        me.afterInit();
-    },
-    afterInit: function () {
-        this.mainStore.clearFilter();
     },
     showEditView: function (grid, record) {
         var view = Ext.create(this.editView, {
