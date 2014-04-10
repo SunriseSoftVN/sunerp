@@ -3,6 +3,7 @@ package dtos
 import play.api.mvc._
 import utils.String2Int
 import play.api.libs.json._
+import org.apache.commons.lang3.StringUtils
 
 /**
  * The Class PageDto.
@@ -21,9 +22,11 @@ case class PagingDto(
 
 case class SortDirection(property: String, direction: String)
 
-case class ColumnFilter(property: String, value: String) {
-  def asLikeValue = "%" + value.toLowerCase + "%"
-  def asInt = String2Int.unapply(value).getOrElse(0)
+case class ColumnFilter(property: String, value: Option[String]) {
+  def asLikeValue = value.map(_value => "%" + _value.toLowerCase + "%").getOrElse("%")
+  def asInt = value.collect {
+    case String2Int(intValue) => intValue
+  }.getOrElse(0)
 }
 
 object PagingDto {
