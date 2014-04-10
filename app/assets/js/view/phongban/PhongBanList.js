@@ -31,5 +31,19 @@ Ext.define('sunerp.view.phongban.PhongBanList', {
             }
         ];
         me.callParent(arguments);
+    },
+    getFilterComponents: function () {
+        var me = this;
+        var comps = me.callParent(arguments);
+        var donViCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.DonViCb', {
+                name: 'Đơn vị',
+                width: 200
+            }),
+            fieldName: 'donViId',
+            store: me.store
+        });
+        comps = Ext.Array.insert(comps, 1, [donViCbFilter.getComponent()]);
+        return comps;
     }
 });

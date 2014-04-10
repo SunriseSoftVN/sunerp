@@ -50,6 +50,7 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
         val (donVi, phongBan) = table
         filter.property match {
           case "name" => phongBan.name.toLowerCase like filter.asLikeValue
+          case "donViId" => phongBan.donViId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

@@ -49,7 +49,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
         var phongBanCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
             comp: Ext.create('sunerp.component.PhongBanCb', {
                 name: 'Đơn vị',
-                width: 150
+                width: 200
             }),
             fieldName: 'phongBanId',
             store: me.store
