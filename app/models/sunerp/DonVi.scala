@@ -41,7 +41,7 @@ object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[DonViDto] = {
     var query = for (donVi <- this; company <- donVi.company) yield (donVi, company)
 
-    pagingDto.filters.foreach(filter => {
+    pagingDto.getFilters.foreach(filter => {
       query = query.where(table => {
         val (donVi, khoiDonVi) = table
         filter.property match {

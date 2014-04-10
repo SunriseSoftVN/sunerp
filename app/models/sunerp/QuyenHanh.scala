@@ -51,12 +51,13 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[QuyenHanhDto] = {
     var query = for (quyenHanh <- this; chucVu <- quyenHanh.chucVu) yield (quyenHanh, chucVu)
 
-    pagingDto.filters.foreach(filter => {
+    pagingDto.getFilters.foreach(filter => {
       query = query.where(table => {
         val (quyenHanh, chucVu) = table
         filter.property match {
           case "domain" => quyenHanh.domain.toLowerCase like filter.asLikeValue
           case "chucVu.name" => chucVu.name.toLowerCase like filter.asLikeValue
+          case "chucVuId" => quyenHanh.chucVuId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

@@ -42,7 +42,7 @@ object ChucVus extends AbstractQuery[ChucVu, ChucVus](new ChucVus(_)) {
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[ChucVu] = {
     var query = for (row <- this) yield row
 
-    pagingDto.filters.foreach(filter => {
+    pagingDto.getFilters.foreach(filter => {
       query = query.where(table => {
         filter.property match {
           case "name" => table.name.toLowerCase like filter.asLikeValue

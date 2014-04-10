@@ -124,7 +124,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       phongBan <- nhanVien.phongBan
     ) yield (nhanVien, chucVu, phongBan)
 
-    pagingDto.filters.foreach(filter => if(filter.value.isDefined) {
+    pagingDto.getFilters.foreach(filter => {
       query = query.where(table => {
         val (nhanVien, chucVu, phongBan) = table
         filter.property match {

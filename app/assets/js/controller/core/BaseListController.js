@@ -7,8 +7,10 @@ Ext.define('sunerp.controller.core.BaseListController', {
     editView: null,
     mainStore: null,
     searchField: null,
+    //private
+    mainFilter: null,
     control: {},
-    constructor: function(config) {
+    constructor: function (config) {
         this.control['view'] = {
             itemdblclick: "showEditView"
         };
@@ -33,8 +35,14 @@ Ext.define('sunerp.controller.core.BaseListController', {
         this.callParent(config);
     },
     init: function () {
-        this.callParent(arguments);
-        this.afterInit();
+        var me = this;
+        me.callParent(arguments);
+        me.afterInit();
+        me.mainFilter = new Ext.util.Filter({
+            property: me.searchField,
+            value: null
+        });
+        me.mainStore.addFilter(me.mainFilter, false);
     },
     afterInit: function () {
         this.mainStore.clearFilter();
@@ -60,8 +68,7 @@ Ext.define('sunerp.controller.core.BaseListController', {
         var me = this;
         var searchValue = me.getSearchTxt().getValue();
         if (e.getKey() == e.ENTER) {
-            me.mainStore.clearFilter(true);
-            me.mainStore.filter(me.searchField, searchValue);
+            me.mainFilter.setValue(searchValue);
             me.mainStore.loadPage(1);
         }
     }

@@ -45,7 +45,7 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[PhongBanDto] = {
     var query = for (phongBan <- this; donVi <- phongBan.donVi) yield (donVi, phongBan)
-    pagingDto.filters.foreach(filter => {
+    pagingDto.getFilters.foreach(filter => {
       query = query.where(table => {
         val (donVi, phongBan) = table
         filter.property match {

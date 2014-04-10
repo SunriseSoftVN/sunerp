@@ -94,7 +94,7 @@ object SoLuongs extends AbstractQuery[SoLuong, SoLuongs](new SoLuongs(_)) {
       cacKhoangTru <- soluong.cacKhoangTru
     ) yield (soluong, nhanVien, cacKhoangCong, cacKhoangTru)
 
-    pagingDto.filters.foreach(filter => {
+    pagingDto.getFilters.foreach(filter => {
       query = query.where(table => {
         val (soluong, nhanVien, cacKhoangCong, cacKhoangTru) = table
         filter.property match {

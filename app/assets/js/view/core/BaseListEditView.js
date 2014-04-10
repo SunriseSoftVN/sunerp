@@ -25,6 +25,7 @@ Ext.define('sunerp.view.core.BaseListEditView', {
                 xtype: 'textfield',
                 name: 'searchField',
                 hideLabel: true,
+                emptyText: 'Tìm kiếm...',
                 width: 200
             },
             {

@@ -13,12 +13,15 @@ import org.apache.commons.lang3.StringUtils
  *
  */
 case class PagingDto(
+                      //do not call it directly user @see getFilters instead
                       filters: List[ColumnFilter],
                       page: Int,
                       start: Int,
                       limit: Int,
                       sorts: List[SortDirection]
-                      )
+                      ) {
+  def getFilters : List[ColumnFilter] = filters.filter(_.value.isDefined)
+}
 
 case class SortDirection(property: String, direction: String)
 

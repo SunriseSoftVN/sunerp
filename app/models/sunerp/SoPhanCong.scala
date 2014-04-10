@@ -108,7 +108,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
   def load(pagingDto: PagingDto)(implicit session: Session) = {
     var query = soPhanCongQuery
 
-    pagingDto.filters.foreach(filter => {
+    pagingDto.getFilters.foreach(filter => {
       query = query.where(tuple => {
         val (soPhanCong, soPhanCongExt, nhanVien, phongBan) = tuple
         filter.property match {
