@@ -15,6 +15,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         taskStore: null,
         soPhanCongStore: null
     },
+    searchField: "nhanVien.maNv",
     initComponent: function () {
         var me = this;
         me.store = me.getSoPhanCongStore();
@@ -161,15 +162,18 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
 
         me.callParent(arguments);
     },
-    getTBar: function () {
-        var tbar = this.callParent(arguments);
-        tbar = Ext.Array.insert(tbar, 1, [
-            {
-                xtype: 'monthcb',
+    getFilterComponents: function () {
+        var me = this;
+        var comps = me.callParent(arguments);
+        var momthCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.MonthCb', {
                 name: 'Tháng',
                 width: 100
-            }
-        ]);
-        return tbar;
+            }),
+            fieldName: 'month',
+            store: me.store
+        });
+        comps = Ext.Array.insert(comps, 1, [momthCbFilter.getComponent()]);
+        return comps;
     }
 });

@@ -19,15 +19,23 @@ Ext.define('sunerp.view.core.BaseListEditView', {
     selModel: {
         selType: 'cellmodel'
     },
-    getTBar: function() {
-        return [
-            {
-                xtype: 'textfield',
-                name: 'searchField',
-                hideLabel: true,
-                emptyText: 'Tìm kiếm...',
-                width: 200
-            },
+    searchField: null,
+    getFilterComponents: function () {
+        var me = this;
+        var comps = [];
+        var textFilter = Ext.create('sunerp.component.filter.TextFilter', {
+            fieldName: me.searchField,
+            store: me.store
+        });
+        comps.push(textFilter.getComponent());
+        return comps;
+    },
+    afterRender: function () {
+        this.store.load();
+        this.callParent(arguments);
+    },
+    getTBar: function () {
+        var comps = [
             {
                 text: 'Thêm mới',
                 tooltip: 'Thêm mới',
@@ -47,9 +55,14 @@ Ext.define('sunerp.view.core.BaseListEditView', {
                 action: 'delete'
             }
         ];
+        comps = Ext.Array.insert(comps, 0, this.getFilterComponents());
+        return comps;
     },
     initComponent: function () {
-        this.tbar = this.getTBar();
-        this.callParent(arguments);
+        var me = this;
+        //clear old filter before add a new one.
+        me.store.clearFilter(true);
+        me.tbar = me.getTBar();
+        me.callParent(arguments);
     }
 });

@@ -29,19 +29,12 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
             }
         };
         this.control['searchTxt'] = {
-            selector: 'textfield[name=searchField]',
-            listeners: {
-                specialkey: 'onSearchFieldChange'
-            }
+            selector: 'textfield[name=searchField]'
         };
         this.callParent(config);
     },
     init: function () {
         this.callParent(arguments);
-        this.afterInit();
-    },
-    afterInit: function () {
-        this.mainStore.clearFilter();
     },
     doDelete: function () {
         var me = this;
@@ -66,21 +59,5 @@ Ext.define('sunerp.controller.core.BaseListEditController', {
                 Ext.Msg.alert('Status', 'Cập nhật thành công.');
             }
         });
-    },
-    onSearchFieldChange: function (f, e) {
-        var me = this;
-        var searchValue = me.getSearchTxt().getValue();
-        if (e.getKey() == e.ENTER) {
-            if (me.mainFilter == null) {
-                me.mainFilter = new Ext.util.Filter({
-                    property: me.searchField,
-                    value: String(searchValue)
-                });
-                me.mainStore.addFilter([me.mainFilter], true)
-            } else {
-                me.mainFilter.setValue(searchValue);
-                me.mainStore.loadPage(1);
-            }
-        }
     }
 });

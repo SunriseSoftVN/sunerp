@@ -9,32 +9,12 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     config: {
         soPhanCongStore: null,
         phongBanId: null,
-        userService: null,
-        monthFilter: null
+        userService: null
     },
-    control: {
-        monthCb: {
-            selector: 'monthcb',
-            listeners: {
-                change: 'onChange'
-            }
-        }
-    },
-    searchField: "nhanVien.maNv",
     init: function () {
         this.mainStore = this.getSoPhanCongStore();
         this.setPhongBanId(this.getUserService().getCurrentUser().phongBanId);
-        var currentMonth = this.getMonthCb().getValue();
-        this.setMonthFilter(new Ext.util.Filter({
-            property: 'month',
-            value: String(currentMonth)
-        }));
         this.callParent(arguments);
-    },
-    afterInit: function () {
-        this.mainStore.clearFilter(true);
-        this.mainStore.addFilter([this.getMonthFilter()], false);
-        this.mainStore.loadPage(1);
     },
     addNewRow: function () {
         var rec = Ext.create(this.modelClass);
@@ -46,9 +26,5 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
             rec.set('ngayPhanCong', new Date());
         }
         this.mainStore.insert(this.mainStore.count(), rec);
-    },
-    onChange: function (comp, newValue, oldValue, eOpts) {
-        this.getMonthFilter().setValue(String(newValue));
-        this.mainStore.loadPage(1);
     }
 });
