@@ -3,12 +3,9 @@
  */
 
 Ext.define('sunerp.component.NhanVienCb', {
-    extend: 'Ext.form.field.ComboBox',
+    extend: 'sunerp.component.Combobox',
     alias: 'widget.nhanviencb',
-    triggerAction: 'all',
-    forceSelection: true,
     gird: null,
-    queryMode: 'local',
     valueField: 'maNv',
     displayField: 'firstName',
     inject: ['userService'],
@@ -27,7 +24,7 @@ Ext.define('sunerp.component.NhanVienCb', {
     onItemClick: function (picker, record) {
         var me = this;
         me.callParent(arguments);
-        if (me.gird.getSelectionModel().hasSelection()) {
+        if (me.gird && me.gird.getSelectionModel().hasSelection()) {
             var model = me.gird.getSelectionModel().getLastSelected();
             model.set('nhanVienId', record.getData().id);
         }

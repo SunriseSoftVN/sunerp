@@ -8,6 +8,7 @@ Ext.define('sunerp.component.Combobox', {
     triggerAction: 'all',
     forceSelection: true,
     queryMode: 'local',
+    editable: false,
     config: {
         modelName: null
     },

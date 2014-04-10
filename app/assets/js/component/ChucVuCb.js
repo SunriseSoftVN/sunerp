@@ -3,14 +3,10 @@
  */
 
 Ext.define('sunerp.component.ChucVuCb', {
-    extend: 'Ext.form.field.ComboBox',
+    extend: 'sunerp.component.Combobox',
     alias: 'widget.chucvucb',
-    triggerAction: 'all',
-    forceSelection: true,
-    queryMode: 'local',
     displayField: 'name',
     valueField: 'id',
-    editable: false,
     emptyText: "Chức vụ",
     initComponent: function () {
         var me = this;
