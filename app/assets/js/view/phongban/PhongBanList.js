@@ -10,6 +10,7 @@ Ext.define('sunerp.view.phongban.PhongBanList', {
     config: {
         phongBanStore: null
     },
+    searchField: 'name',
     initComponent: function () {
         var me = this;
         me.store = this.getPhongBanStore();

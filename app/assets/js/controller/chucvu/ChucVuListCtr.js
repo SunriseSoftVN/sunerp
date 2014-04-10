@@ -9,7 +9,6 @@ Ext.define('sunerp.controller.chucvu.ChucVuListCtr', {
         chucVuStore: null
     },
     editView: 'sunerp.view.chucvu.ChucVuEdit',
-    searchField: 'name',
     init: function () {
         this.mainStore = this.getChucVuStore();
         this.callParent(arguments);

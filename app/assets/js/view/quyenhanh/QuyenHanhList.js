@@ -13,6 +13,7 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
     config: {
         quyenHanhStore: null
     },
+    searchField: 'domain',
     initComponent: function () {
         var me = this;
         me.store = this.getQuyenHanhStore();

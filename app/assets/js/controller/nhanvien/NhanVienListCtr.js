@@ -18,7 +18,6 @@ Ext.define('sunerp.controller.nhanvien.NhanVienListCtr', {
         }
     },
     editView: 'sunerp.view.nhanvien.NhanVienEdit',
-    searchField: 'firstName',
     init: function () {
         this.mainStore = this.getNhanVienStore();
         this.callParent(arguments);

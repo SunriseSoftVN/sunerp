@@ -20,7 +20,6 @@ Ext.define('sunerp.controller.quyenhanh.QuyenHanhListCtr', {
         }
     },
     editView: 'sunerp.view.quyenhanh.QuyenHanhEdit',
-    searchField: 'domain',
     init: function () {
         this.mainStore = this.getQuyenHanhStore();
         this.callParent(arguments);

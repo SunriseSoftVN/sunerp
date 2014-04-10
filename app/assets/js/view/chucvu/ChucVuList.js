@@ -11,6 +11,7 @@ Ext.define('sunerp.view.chucvu.ChucVuList', {
     config: {
         chucVuStore: null
     },
+    searchField: 'name',
     initComponent: function () {
         var me = this;
         me.store = this.getChucVuStore();

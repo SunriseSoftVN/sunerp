@@ -10,6 +10,7 @@ Ext.define('sunerp.view.donvi.DonViList', {
     config: {
         donViStore: null
     },
+    searchField: 'name',
     initComponent: function () {
         var me = this;
         me.store = this.getDonViStore();

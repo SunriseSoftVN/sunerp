@@ -11,6 +11,7 @@ Ext.define('sunerp.view.company.CompanyList', {
     config: {
         companyStore: null
     },
+    searchField: 'name',
     initComponent: function () {
         var me = this;
         me.store = this.getCompanyStore();

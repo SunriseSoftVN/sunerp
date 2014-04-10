@@ -9,7 +9,6 @@ Ext.define('sunerp.controller.donvi.DonViListCtr', {
         donViStore: null
     },
     editView: 'sunerp.view.donvi.DonViEdit',
-    searchField: 'name',
     init: function () {
         this.mainStore = this.getDonViStore();
         this.callParent(arguments);

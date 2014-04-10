@@ -9,7 +9,6 @@ Ext.define('sunerp.controller.phongban.PhongBanListCtr', {
         phongBanStore: null
     },
     editView: 'sunerp.view.phongban.PhongBanEdit',
-    searchField: 'name',
     init: function () {
         this.mainStore = this.getPhongBanStore();
         this.callParent(arguments);

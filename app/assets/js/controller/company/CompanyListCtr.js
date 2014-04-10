@@ -9,7 +9,6 @@ Ext.define('sunerp.controller.company.CompanyListCtr', {
         companyStore: null
     },
     editView: 'sunerp.view.company.CompanyEdit',
-    searchField: 'name',
     init: function () {
         this.mainStore = this.getCompanyStore();
         this.callParent(arguments);
