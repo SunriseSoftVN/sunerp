@@ -45,13 +45,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                         fieldLabel: 'Chức vụ',
                         name: 'chucVuId',
                         modelName: 'chucVu',
-                        store: Ext.create('sunerp.store.ChucVuStore', {
-                            proxy: {
-                                type: 'ajax',
-                                url: '/chucvu/all',
-                                reader: 'json'
-                            }
-                        }),
+                        store: Ext.create('sunerp.store.ChucVuStore'),
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,
@@ -62,13 +56,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                         fieldLabel: 'Đơn vị',
                         name: 'phongBanId',
                         modelName: 'phongBan',
-                        store: Ext.create('sunerp.store.PhongBanStore', {
-                            proxy: {
-                                type: 'ajax',
-                                url: '/phongban/all',
-                                reader: 'json'
-                            }
-                        }),
+                        store: Ext.create('sunerp.store.PhongBanStore'),
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,

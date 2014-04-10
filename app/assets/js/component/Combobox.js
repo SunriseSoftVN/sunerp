@@ -11,12 +11,11 @@ Ext.define('sunerp.component.Combobox', {
     config: {
         modelName: null
     },
-    listeners: {
-        afterRender: function() {
-            this.store.reload();
-        }
+    initComponent: function () {
+        this.store.load();
+        this.callParent(arguments);
     },
-    getSelectedData: function() {
+    getSelectedData: function () {
         var value = this.getValue();
         var record = this.findRecordByValue(value);
         return record.getData();

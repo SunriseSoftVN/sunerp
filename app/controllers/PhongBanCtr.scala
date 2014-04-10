@@ -28,8 +28,4 @@ object PhongBanCtr extends BaseCtr[PhongBan, PhongBans] with MainTemplate {
     val result = PhongBans.load(paging)
     Json.toJson(result)
   }
-
-  def all = StackAction(AuthorityKey -> domainName)(implicit request => {
-    Ok(Json.toJson(PhongBans.all))
-  })
 }

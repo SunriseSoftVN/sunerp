@@ -8,6 +8,7 @@ Ext.define('sunerp.Application', {
     requires: [
         'Ext.tip.QuickTipManager',
         'Ext.window.MessageBox',
+        'sunerp.Utils',
         'sunerp.store.CacKhoanCongStore',
         'sunerp.store.CacKhoangTruStore',
         'sunerp.store.ChucVuStore',

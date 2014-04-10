@@ -26,8 +26,4 @@ object DonViCtr extends BaseCtr[DonVi, DonVis] with MainTemplate {
     val result = DonVis.load(paging)
     Json.toJson(result)
   }
-
-  def all = StackAction(AuthorityKey -> domainName)(implicit request => {
-    Ok(Json.toJson(DonVis.all))
-  })
 }

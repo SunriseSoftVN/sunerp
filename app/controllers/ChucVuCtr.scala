@@ -25,7 +25,4 @@ object ChucVuCtr extends BaseCtr[ChucVu, ChucVus] with MainTemplate {
     val result = ChucVus.load(paging)
     Json.toJson(result)
   }
-  def all = StackAction(AuthorityKey -> domainName)(implicit request => {
-    Ok(Json.toJson(ChucVus.all))
-  })
 }

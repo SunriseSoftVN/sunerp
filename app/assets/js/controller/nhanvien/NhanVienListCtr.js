@@ -32,11 +32,7 @@ Ext.define('sunerp.controller.nhanvien.NhanVienListCtr', {
         this.mainStore.addFilter(this.getDonViFilter(), true);
     },
     onChange: function (comp, newValue, oldValue, eOpts) {
-        if(newValue) {
-            this.getDonViFilter().setValue(String(newValue));
-        } else {
-            this.getDonViFilter().setValue(null);
-        }
+        this.getDonViFilter().setValue(sunerp.Utils.toString(newValue));
         this.mainStore.loadPage(1);
     }
 });

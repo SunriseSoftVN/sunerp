@@ -25,13 +25,7 @@ Ext.define('sunerp.view.donvi.DonViEdit', {
                         fieldLabel: 'Công ty',
                         name: 'companyId',
                         modelName: 'company',
-                        store: Ext.create('sunerp.store.CompanyStore', {
-                            proxy: {
-                                type: 'ajax',
-                                url: '/company/all',
-                                reader: 'json'
-                            }
-                        }),
+                        store: Ext.create('sunerp.store.CompanyStore'),
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,

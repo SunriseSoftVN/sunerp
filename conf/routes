@@ -9,13 +9,11 @@ GET           /loginUser             controllers.HomeCtr.loginUser
 
 
 GET           /chucvu                controllers.ChucVuCtr.index
-GET           /chucvu/all            controllers.ChucVuCtr.all
 POST          /chucvu                controllers.ChucVuCtr.save
 PUT           /chucvu/:id            controllers.ChucVuCtr.update(id: Long)
 DELETE        /chucvu/:id            controllers.ChucVuCtr.delete(id: Long)
 
 GET           /company               controllers.CompanyCtr.index
-GET           /company/all           controllers.CompanyCtr.all
 POST          /company               controllers.CompanyCtr.save
 PUT           /company/:id           controllers.CompanyCtr.update(id: Long)
 DELETE        /company/:id           controllers.CompanyCtr.delete(id: Long)
@@ -30,7 +28,6 @@ POST          /nhanvien              controllers.NhanVienCtr.save
 PUT           /nhanvien/:id          controllers.NhanVienCtr.update(id: Long)
 DELETE        /nhanvien/:id          controllers.NhanVienCtr.delete(id: Long)
 
-GET           /phongban/all         controllers.PhongBanCtr.all
 GET           /phongban             controllers.PhongBanCtr.index
 POST          /phongban             controllers.PhongBanCtr.save
 PUT           /phongban/:id         controllers.PhongBanCtr.update(id: Long)
@@ -40,7 +37,6 @@ GET           /donvi                 controllers.DonViCtr.index
 POST          /donvi                 controllers.DonViCtr.save
 PUT           /donvi/:id             controllers.DonViCtr.update(id: Long)
 DELETE        /donvi/:id             controllers.DonViCtr.delete(id: Long)
-GET           /donvi/all             controllers.DonViCtr.all
 
 GET           /quyenhanh             controllers.QuyenHanhCtr.index
 POST          /quyenhanh             controllers.QuyenHanhCtr.save

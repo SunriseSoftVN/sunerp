@@ -4,7 +4,10 @@
 Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.quyenHanhList',
-    requires: ['sunerp.controller.quyenhanh.QuyenHanhListCtr'],
+    requires: [
+        'sunerp.controller.quyenhanh.QuyenHanhListCtr',
+        'sunerp.component.ChucVuCb'
+    ],
     controller: 'sunerp.controller.quyenhanh.QuyenHanhListCtr',
     inject: ['quyenHanhStore'],
     config: {
@@ -29,5 +32,16 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
             }
         ];
         me.callParent(arguments);
+    },
+    getTBar: function () {
+        var tbar = this.callParent(arguments);
+        tbar = Ext.Array.insert(tbar, 1, [
+            {
+                xtype: 'chucvucb',
+                name: 'Chức vụ',
+                width: 150
+            }
+        ]);
+        return tbar;
     }
 });

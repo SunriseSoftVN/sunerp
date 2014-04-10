@@ -47,13 +47,7 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhEdit', {
                         fieldLabel: 'Chức vụ',
                         name: 'chucVuId',
                         modelName: 'chucVu',
-                        store: Ext.create('sunerp.store.ChucVuStore', {
-                            proxy: {
-                                type: 'ajax',
-                                url: '/chucvu/all',
-                                reader: 'json'
-                            }
-                        }),
+                        store: Ext.create('sunerp.store.ChucVuStore'),
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,

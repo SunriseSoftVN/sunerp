@@ -25,13 +25,7 @@ Ext.define('sunerp.view.phongban.PhongBanEdit', {
                         fieldLabel: 'Đơn vị',
                         name: 'donViId',
                         modelName: 'donVi',
-                        store: Ext.create('sunerp.store.DonViStore', {
-                            proxy: {
-                                type: 'ajax',
-                                url: '/donvi/all',
-                                reader: 'json'
-                            }
-                        }),
+                        store: Ext.create('sunerp.store.DonViStore'),
                         valueField: 'id',
                         displayField: 'name',
                         allowBlank: false,
