@@ -10,7 +10,7 @@ Ext.define('sunerp.store.BaseStore', {
     autoLoad: false,
     remoteSort: true,
     remoteFilter: true,
-    pageSize: 50,
+    pageSize: 100,
     constructor: function () {
         this.callParent(arguments);
         this.on('metachange', function (store, meta) {
