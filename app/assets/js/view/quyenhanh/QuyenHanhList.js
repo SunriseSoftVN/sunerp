@@ -34,15 +34,18 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
         ];
         me.callParent(arguments);
     },
-    getTBar: function () {
-        var tbar = this.callParent(arguments);
-        tbar = Ext.Array.insert(tbar, 1, [
-            {
-                xtype: 'chucvucb',
+    getFilterComponents: function () {
+        var me = this;
+        var comps = me.callParent(arguments);
+        var phongBanCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.ChucVuCb', {
                 name: 'Chức vụ',
                 width: 150
-            }
-        ]);
-        return tbar;
+            }),
+            fieldName: 'chucVuId',
+            store: me.store
+        });
+        comps = Ext.Array.insert(comps, 1, [phongBanCbFilter.getComponent()]);
+        return comps;
     }
 });

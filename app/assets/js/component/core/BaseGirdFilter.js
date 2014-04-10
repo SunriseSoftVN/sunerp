@@ -7,10 +7,21 @@ Ext.define('sunerp.component.core.BaseGirdFilter', {
     comp: null,
     filter: null,
     store: null,
+    fieldName: null,
     constructor: function (config) {
         config = config || {};
         this.initConfig(config);
         this.callParent(arguments);
+    },
+    initComponent: function () {
+        var me = this;
+        var filter = new Ext.util.Filter({
+            property: me.fieldName,
+            value: null
+        });
+        me.filter = filter;
+        me.store.addFilter(filter, false);
+        me.callParent(arguments);
     },
     getFilter: function () {
         return this.filter;

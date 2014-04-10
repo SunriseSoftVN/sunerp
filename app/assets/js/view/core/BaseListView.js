@@ -14,6 +14,8 @@ Ext.define('sunerp.view.core.BaseListView', {
     searchField: null,
     initComponent: function () {
         var me = this;
+        //clear old filter before add a new one.
+        me.store.clearFilter(true);
         me.bbar = Ext.create('Ext.PagingToolbar', {
             store: me.store,
             displayInfo: true,

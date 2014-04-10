@@ -43,15 +43,18 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
         ];
         me.callParent(arguments);
     },
-    getTBar: function() {
-        var tbar = this.callParent(arguments);
-        tbar = Ext.Array.insert(tbar, 1, [
-            {
-                xtype: 'phongbancb',
+    getFilterComponents: function () {
+        var me = this;
+        var comps = me.callParent(arguments);
+        var phongBanCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.PhongBanCb', {
                 name: 'Đơn vị',
                 width: 150
-            }
-        ]);
-        return tbar;
+            }),
+            fieldName: 'phongBanId',
+            store: me.store
+        });
+        comps = Ext.Array.insert(comps, 1, [phongBanCbFilter.getComponent()]);
+        return comps;
     }
 });

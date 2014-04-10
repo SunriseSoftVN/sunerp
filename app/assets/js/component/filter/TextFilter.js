@@ -4,7 +4,6 @@
 
 Ext.define('sunerp.component.filter.TextFilter', {
     extend: 'sunerp.component.core.BaseGirdFilter',
-    fieldName: null,
     initComponent: function () {
         var me = this;
         me.comp = Ext.create('Ext.form.field.Text', {
@@ -13,12 +12,7 @@ Ext.define('sunerp.component.filter.TextFilter', {
             emptyText: 'Tìm kiếm...',
             width: 200
         });
-        var filter = new Ext.util.Filter({
-            property: me.fieldName,
-            value: null
-        });
-        me.filter = filter;
-        me.store.addFilter(filter, false);
+
         me.comp.on('specialkey', me.onSpecialkey, me);
         me.callParent(arguments);
     },
@@ -27,6 +21,10 @@ Ext.define('sunerp.component.filter.TextFilter', {
         var searchValue = f.getValue();
         if (e.getKey() == e.ENTER) {
             me.filter.setValue(searchValue);
+            me.store.loadPage(1);
+        } else if (e.getKey() == e.ESC) {
+            f.setValue("");
+            me.filter.setValue(null);
             me.store.loadPage(1);
         }
     }
