@@ -7,7 +7,7 @@ Ext.define('sunerp.component.NhanVienCb', {
     alias: 'widget.nhanviencb',
     gird: null,
     valueField: 'maNv',
-    displayField: 'firstName',
+    displayField: 'fullName',
     inject: ['userService'],
     config: {
         userService: null

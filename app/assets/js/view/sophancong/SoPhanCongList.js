@@ -22,13 +22,16 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         me.columns = [
             {xtype: 'rownumberer'},
             {
-                header: 'Mã NV',
+                header: 'Họ tên',
                 dataIndex: 'nhanVien.maNv',
-                width: 100,
+                width: 150,
                 locked: true,
                 editor: {
                     xtype: 'nhanviencb',
                     gird: me
+                },
+                renderer: function (value, metaData, record) {
+                    return record.data.nhanVien.firstName +" " + record.data.nhanVien.lastName;
                 }
             },
             {
@@ -56,7 +59,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
             {
                 header: 'Giờ',
                 dataIndex: 'gio',
-                width: 80,
+                width: 60,
                 xtype: 'numbercolumn',
                 locked: true,
                 editor: {

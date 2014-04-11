@@ -1,6 +1,11 @@
 /**
  * Created by dungvn3000 on 3/17/14.
  */
+
+function fullName(v, record) {
+    return record.data.firstName + " " + record.data.lastName;
+}
+
 Ext.define('sunerp.model.NhanVien', {
     extend: 'sunerp.model.BaseModel',
     fields: [
@@ -9,6 +14,7 @@ Ext.define('sunerp.model.NhanVien', {
         'password',
         'firstName',
         'lastName',
+        {name: 'fullName', convert: fullName},
         'heSoLuong',
         'chucVuId',
         'chucVu',
