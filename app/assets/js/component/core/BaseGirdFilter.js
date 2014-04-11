@@ -17,7 +17,7 @@ Ext.define('sunerp.component.core.BaseGirdFilter', {
         var me = this;
         var filter = new Ext.util.Filter({
             property: me.fieldName,
-            value: null
+            value: sunerp.Utils.toString(me.comp.getValue())
         });
         me.filter = filter;
         me.store.addFilter(filter, false);
