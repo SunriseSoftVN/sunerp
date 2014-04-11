@@ -129,7 +129,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 xtype: 'checkcolumn'
             },
             {
-                header: 'Tai nạn LD', dataIndex: 'soPhanCongExt.taiNanLd', width: 100,
+                header: 'Tai nạn LĐ', dataIndex: 'soPhanCongExt.taiNanLd', width: 100,
                 xtype: 'checkcolumn'
             },
             {
