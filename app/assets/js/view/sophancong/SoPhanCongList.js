@@ -15,7 +15,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         taskStore: null,
         soPhanCongStore: null
     },
-    searchField: "nhanVien.maNv",
+    searchField: "nhanVien.firstName",
     initComponent: function () {
         var me = this;
         me.store = me.getSoPhanCongStore();
@@ -43,7 +43,8 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 editor: {
                     xtype: 'congviecpicker',
                     gird: me,
-                    displayField: 'name'
+                    displayField: 'name',
+                    wHeight: 500
                 }
             },
             {
@@ -169,6 +170,6 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
             fieldName: 'month',
             store: me.store
         });
-        me.tbar.insert(1, momthCbFilter.getComponent())
+        me.tbar.insert(1, momthCbFilter)
     }
 });

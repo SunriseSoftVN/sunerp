@@ -19,6 +19,8 @@ case class Task(
                  code: String,
                  name: String,
                  defaultValue: Double,
+                 quota: Option[Double],
+                 unit: String,
                  taskTypeCode: Int
                  ) extends WithId[Long]
 
@@ -31,9 +33,13 @@ class Tasks(tag: Tag) extends AbstractTable[Task](tag, "task") {
 
   def defaultValue = column[Double]("defaultValue", O.NotNull)
 
+  def quota = column[Double]("quota")
+
+  def unit = column[String]("unit", O.NotNull)
+
   def taskTypeCode = column[Int]("taskTypeCode", O.NotNull)
 
-  def * = (id.?, code, name, defaultValue, taskTypeCode) <>(Task.tupled, Task.unapply)
+  def * = (id.?, code, name, defaultValue, quota.?, unit, taskTypeCode) <>(Task.tupled, Task.unapply)
 }
 
 object Tasks extends AbstractQuery[Task, Tasks](new Tasks(_)) {
@@ -65,6 +71,8 @@ object Tasks extends AbstractQuery[Task, Tasks](new Tasks(_)) {
           case "name" => orderColumn(sort.direction, table.name)
           case "code" => orderColumn(sort.direction, table.code)
           case "defaultValue" => orderColumn(sort.direction, table.defaultValue)
+          case "quota" => orderColumn(sort.direction, table.quota)
+          case "unit" => orderColumn(sort.direction, table.unit)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })

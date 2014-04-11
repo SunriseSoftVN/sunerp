@@ -43,6 +43,6 @@ Ext.define('sunerp.view.phongban.PhongBanList', {
             fieldName: 'donViId',
             store: me.store
         });
-        me.tbar.insert(1, donViCbFilter.getComponent())
+        me.tbar.insert(1, donViCbFilter)
     }
 });

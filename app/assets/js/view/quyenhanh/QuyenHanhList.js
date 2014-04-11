@@ -45,6 +45,6 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
             fieldName: 'chucVuId',
             store: me.store
         });
-        me.tbar.insert(1, chucVuCbFilter.getComponent())
+        me.tbar.insert(1, chucVuCbFilter)
     }
 });

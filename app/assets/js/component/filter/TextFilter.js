@@ -4,6 +4,7 @@
 
 Ext.define('sunerp.component.filter.TextFilter', {
     extend: 'sunerp.component.core.BaseGirdFilter',
+    alias: 'widget.textfilter',
     initComponent: function () {
         var me = this;
         me.comp = Ext.create('Ext.form.field.Text', {

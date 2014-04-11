@@ -10,7 +10,9 @@ Ext.define('sunerp.component.CongViecPicker', {
         return [
             {header: 'Mã CV', dataIndex: 'code'},
             {header: 'Tên', dataIndex: 'name', flex: 1},
-            {header: 'Khối lượng', dataIndex: 'defaultValue', xtype: 'numbercolumn'}
+            {header: 'Đơn vị', dataIndex: 'unit'},
+            {header: 'Khối lượng', dataIndex: 'defaultValue', xtype: 'numbercolumn'},
+            {header: 'Định mức', dataIndex: 'quota', xtype: 'numbercolumn'}
         ];
     }
 });

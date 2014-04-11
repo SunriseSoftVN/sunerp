@@ -3,11 +3,12 @@
  */
 
 Ext.define('sunerp.component.core.BaseGirdFilter', {
-    extend: 'Ext.Component',
+    extend: 'Ext.container.Container',
     comp: null,
     filter: null,
     store: null,
     fieldName: null,
+    layout: 'fit',
     constructor: function (config) {
         config = config || {};
         this.initConfig(config);
@@ -21,6 +22,7 @@ Ext.define('sunerp.component.core.BaseGirdFilter', {
         });
         me.filter = filter;
         me.store.addFilter(filter, false);
+        me.items = [me.comp];
         me.callParent(arguments);
     },
     getFilter: function () {

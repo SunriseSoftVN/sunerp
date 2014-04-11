@@ -12,6 +12,8 @@ Ext.define('sunerp.component.core.BasePicker', {
     searchEmptyText: null,
     searchField: null,
     title: null,
+    wHeight: 400,
+    wWidth: 700,
     config: {
         store: null,
         model: null,
@@ -28,8 +30,8 @@ Ext.define('sunerp.component.core.BasePicker', {
             me.setModel(model);
             var window = Ext.create('Ext.window.Window', {
                 title: me.title,
-                height: 400,
-                width: 700,
+                height: me.wHeight,
+                width: me.wWidth,
                 layout: 'fit',
                 modal: true,
                 items: me.createGrid(),

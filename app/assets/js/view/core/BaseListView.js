@@ -5,6 +5,7 @@
 Ext.define('sunerp.view.core.BaseListView', {
     extend: 'Ext.grid.Panel',
     requires: [
+        'sunerp.component.filter.TextFilter',
         'Ext.toolbar.TextItem',
         'Ext.form.field.Checkbox',
         'Ext.form.field.Text',
@@ -25,13 +26,13 @@ Ext.define('sunerp.view.core.BaseListView', {
     },
     initTBar: function () {
         var me = this;
-        var textFilter = Ext.create('sunerp.component.filter.TextFilter', {
-            fieldName: me.searchField,
-            store: me.store
-        });
         var tbar = Ext.create('Ext.toolbar.Toolbar', {
             items: [
-                textFilter.getComponent(),
+                {
+                    xtype: 'textfilter',
+                    fieldName: me.searchField,
+                    store: me.store
+                },
                 {
                     text: 'Thêm mới',
                     tooltip: 'Thêm mới',

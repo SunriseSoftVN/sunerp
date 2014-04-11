@@ -54,6 +54,6 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
             fieldName: 'phongBanId',
             store: me.store
         });
-        me.tbar.insert(1, phongBanCbFilter.getComponent())
+        me.tbar.insert(1, phongBanCbFilter)
     }
 });

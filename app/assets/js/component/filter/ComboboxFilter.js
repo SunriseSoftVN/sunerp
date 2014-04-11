@@ -4,6 +4,7 @@
 
 Ext.define('sunerp.component.filter.ComboboxFilter', {
     extend: 'sunerp.component.core.BaseGirdFilter',
+    alias: 'widget.comboboxfilter',
     initComponent: function () {
         var me = this;
         me.comp.on('change', me.onChange, me);
