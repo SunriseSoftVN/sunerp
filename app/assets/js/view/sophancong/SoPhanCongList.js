@@ -142,13 +142,6 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
             }
         ];
 
-        me.bbar = Ext.create('Ext.PagingToolbar', {
-            store: me.store,
-            displayInfo: true,
-            displayMsg: 'Displaying topics {0} - {1} of {2}',
-            emptyMsg: "No topics to display"
-        });
-
 
         me.cellEditing = new Ext.grid.plugin.CellEditing({
             clicksToEdit: 1
@@ -162,9 +155,9 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
 
         me.callParent(arguments);
     },
-    getFilterComponents: function () {
+    initTBar: function () {
         var me = this;
-        var comps = me.callParent(arguments);
+        me.callParent(arguments);
         var momthCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
             comp: Ext.create('sunerp.component.MonthCb', {
                 name: 'Tháng',
@@ -173,7 +166,6 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
             fieldName: 'month',
             store: me.store
         });
-        comps = Ext.Array.insert(comps, 1, [momthCbFilter.getComponent()]);
-        return comps;
+        me.tbar.insert(1, momthCbFilter.getComponent())
     }
 });

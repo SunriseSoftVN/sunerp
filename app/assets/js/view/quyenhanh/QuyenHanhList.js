@@ -34,10 +34,10 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
         ];
         me.callParent(arguments);
     },
-    getFilterComponents: function () {
+    initTBar: function () {
         var me = this;
-        var comps = me.callParent(arguments);
-        var phongBanCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+        me.callParent(arguments);
+        var chucVuCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
             comp: Ext.create('sunerp.component.ChucVuCb', {
                 name: 'Chức vụ',
                 width: 150
@@ -45,7 +45,6 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
             fieldName: 'chucVuId',
             store: me.store
         });
-        comps = Ext.Array.insert(comps, 1, [phongBanCbFilter.getComponent()]);
-        return comps;
+        me.tbar.insert(1, chucVuCbFilter.getComponent())
     }
 });

@@ -43,9 +43,9 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
         ];
         me.callParent(arguments);
     },
-    getFilterComponents: function () {
+    initTBar: function () {
         var me = this;
-        var comps = me.callParent(arguments);
+        me.callParent(arguments);
         var phongBanCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
             comp: Ext.create('sunerp.component.PhongBanCb', {
                 name: 'Đơn vị',
@@ -54,7 +54,6 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
             fieldName: 'phongBanId',
             store: me.store
         });
-        comps = Ext.Array.insert(comps, 1, [phongBanCbFilter.getComponent()]);
-        return comps;
+        me.tbar.insert(1, phongBanCbFilter.getComponent())
     }
 });
