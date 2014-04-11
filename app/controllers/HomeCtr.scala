@@ -90,8 +90,8 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     children = List(
       quanLyCongty,
       quanLyNhanVien,
-      quanLyLuong,
-      quanLyCongViec
+      quanLyCongViec,
+      quanLyLuong
     )
   )
 
