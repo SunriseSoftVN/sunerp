@@ -16,6 +16,9 @@ Ext.define('sunerp.view.core.BaseListView', {
     config: {
         tbar: null
     },
+    viewConfig: {
+        stripeRows: false
+    },
     initComponent: function () {
         var me = this;
         //clear old filter before add a new one.

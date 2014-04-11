@@ -15,7 +15,7 @@ Ext.define('sunerp.view.core.BaseListEditView', {
         'Ext.form.field.ComboBox'
     ],
     viewConfig: {
-        stripeRows: true
+        stripeRows: false
     },
     selModel: {
         selType: 'cellmodel'
