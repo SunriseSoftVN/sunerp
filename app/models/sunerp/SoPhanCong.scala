@@ -28,6 +28,7 @@ case class SoPhanCong(
                        id: Option[Long] = None,
                        nhanVienId: Long,
                        taskId: Long,
+                       taskName: String,
                        phongBanId: Long,
                        khoiLuong: Double,
                        gio: Double,
@@ -46,10 +47,9 @@ case class SoPhanCong(
 
   private var _task: Option[Task] = None
 
-  def task = _task.getOrElse {
-    val result = Tasks.findById(taskId).getOrElse(throw ForeignKeyNotFound())
-    _task = Some(result)
-    result
+  def task = _task.orElse {
+    _task = Tasks.findById(taskId)
+    _task
   }
 }
 
@@ -60,6 +60,8 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong")
   def nhanVien = foreignKey("nhan_vien_so_phan_cong_fk", nhanVienId, NhanViens)(_.id)
 
   def taskId = column[Long]("taskId", O.NotNull)
+
+  def taskName = column[String]("taskName", O.NotNull)
 
   def phongBanId = column[Long]("phongBanId", O.NotNull)
 
@@ -77,7 +79,7 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong")
 
   def ngayPhanCong = column[LocalDate]("ngayPhanCong", O.NotNull)
 
-  def * = (id.?, nhanVienId, taskId, phongBanId, khoiLuong, gio, ghiChu, soPhanCongExtId, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
+  def * = (id.?, nhanVienId, taskId, taskName, phongBanId, khoiLuong, gio, ghiChu, soPhanCongExtId, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
 }
 
 object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCongs(_)) {
@@ -94,6 +96,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       "id" -> optional(longNumber),
       "nhanVienId" -> longNumber,
       "taskId" -> longNumber,
+      "taskName" -> nonEmptyText,
       "phongBanId" -> longNumber,
       "khoiLuong" -> of[Double],
       "gio" -> of[Double],
@@ -128,6 +131,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       query = query.sortBy(tuple => {
         val (soPhanCong, soPhanCongExt, nhanVien, phongBan) = tuple
         sort.property match {
+          case "taskName" => orderColumn(sort.direction, soPhanCong.taskName)
           case "ghiChu" => orderColumn(sort.direction, soPhanCong.ghiChu)
           case "khoiLuong" => orderColumn(sort.direction, soPhanCong.khoiLuong)
           case "gio" => orderColumn(sort.direction, soPhanCong.gio)

@@ -31,14 +31,17 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                     gird: me
                 },
                 renderer: function (value, metaData, record) {
-                    return record.data.nhanVien.firstName +" " + record.data.nhanVien.lastName;
+                    if (record.data.nhanVien) {
+                        return record.data.nhanVien.firstName + " " + record.data.nhanVien.lastName;
+                    } else {
+                        return "";
+                    }
                 }
             },
             {
                 header: 'Công việc',
-                dataIndex: 'task.name',
+                dataIndex: 'taskName',
                 width: 200,
-                sortable: false,
                 locked: true,
                 editor: {
                     xtype: 'congviecpicker',

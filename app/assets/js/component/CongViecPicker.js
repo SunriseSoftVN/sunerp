@@ -14,5 +14,10 @@ Ext.define('sunerp.component.CongViecPicker', {
             {header: 'Khối lượng', dataIndex: 'defaultValue', xtype: 'numbercolumn'},
             {header: 'Định mức', dataIndex: 'quota', xtype: 'numbercolumn'}
         ];
+    },
+    onOk: function () {
+        this.getModel().set(this.modelName + "Id", this.getSelect().id);
+        this.getModel().set(this.modelName + "Name" , this.getSelect()[this.displayField]);
+        this.getWindow().close();
     }
 });

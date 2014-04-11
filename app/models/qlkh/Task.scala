@@ -50,6 +50,10 @@ object Tasks extends AbstractQuery[Task, Tasks](new Tasks(_)) {
     where(_.id === id).firstOption
   })
 
+  def findByCode(code: String) = DB(dbName).withSession(implicit session => {
+    where(_.code === code).firstOption
+  })
+
   def load(pagingDto: PagingDto): ExtGirdDto[Task] = DB(dbName).withSession(implicit session => {
     var query = for (row <- this) yield row
 

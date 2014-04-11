@@ -2,12 +2,12 @@ package dtos
 
 import play.api.libs.json.{Writes, Json}
 import models.sunerp._
-import models.qlkh.{Tasks, Task}
+import models.qlkh.Tasks
 import models.sunerp.NhanVien
 import models.sunerp.SoPhanCongExt
 import models.sunerp.SoPhanCong
 import models.sunerp.PhongBan
-import org.joda.time.{LocalDate, DateTime}
+import org.joda.time.LocalDate
 
 /**
  * The Class SoPhanCongDto.
@@ -20,6 +20,7 @@ case class SoPhanCongDto(
                           id: Long,
                           nhanVienId: Long,
                           taskId: Long,
+                          taskName: String,
                           phongBanId: Long,
                           khoiLuong: Double,
                           gio: Double,
@@ -28,7 +29,6 @@ case class SoPhanCongDto(
                           ngayPhanCong: LocalDate,
                           soPhanCongExt: SoPhanCongExt,
                           nhanVien: NhanVien,
-                          task: Task,
                           phongBan: PhongBan
                           )
 
@@ -41,6 +41,7 @@ object SoPhanCongDto {
       id = soPhanCong.id.get,
       nhanVienId = soPhanCong.nhanVienId,
       taskId = soPhanCong.taskId,
+      taskName = soPhanCong.taskName,
       phongBanId = soPhanCong.phongBanId,
       khoiLuong = soPhanCong.khoiLuong,
       gio = soPhanCong.gio,
@@ -49,7 +50,6 @@ object SoPhanCongDto {
       ngayPhanCong = soPhanCong.ngayPhanCong,
       soPhanCongExt = soPhanCongExt,
       nhanVien = nhanVien,
-      task = soPhanCong.task,
       phongBan = phongBan
     )
   }
@@ -59,6 +59,7 @@ object SoPhanCongDto {
       "id" -> o.id,
       "nhanVienId" -> o.nhanVienId,
       "taskId" -> o.taskId,
+      "taskName" -> o.taskName,
       "phongBanId" -> o.phongBanId,
       "khoiLuong" -> o.khoiLuong,
       "gio" -> o.gio,
@@ -67,7 +68,6 @@ object SoPhanCongDto {
       "ngayPhanCong" -> o.ngayPhanCong.toString("MM-dd-yyyy"),
       "soPhanCongExt" -> SoPhanCongExts.soPhanCongExtJsonFormat.writes(o.soPhanCongExt),
       "nhanVien" -> NhanViens.nhanVienJsonFormat.writes(o.nhanVien),
-      "task" -> Tasks.taskJsonFormat.writes(o.task),
       "phongBan" -> PhongBans.phongBanJsonFormat.writes(o.phongBan)
     )
   }
