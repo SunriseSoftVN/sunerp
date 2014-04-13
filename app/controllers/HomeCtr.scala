@@ -85,13 +85,27 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     )
   )
 
+  val baoCao = MenuItemDto(
+    text = "Báo cáo",
+    expanded = true,
+    children = List(
+      MenuItemDto(
+        id = "khoiLuongReport",
+        view = "sunerp.view.report.KhoiLuongReport",
+        text = "Khối lượng",
+        leaf = true
+      )
+    )
+  )
+
   val rootMenu = MenuItemDto(
     expanded = true,
     children = List(
       quanLyCongty,
       quanLyNhanVien,
       quanLyCongViec,
-      quanLyLuong
+      quanLyLuong,
+      baoCao
     )
   )
 
