@@ -7,6 +7,7 @@ GET           /                      controllers.HomeCtr.index
 GET           /menuItems             controllers.HomeCtr.menuItems
 GET           /loginUser             controllers.HomeCtr.loginUser
 GET           /domains               controllers.HomeCtr.domains
+GET           /test               controllers.HomeCtr.test
 
 GET           /chucvu                controllers.ChucVuCtr.index
 POST          /chucvu                controllers.ChucVuCtr.save

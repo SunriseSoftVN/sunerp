@@ -3,5 +3,16 @@
  */
 
 Ext.define('sunerp.view.report.KhoiLuongReport', {
-
+    extend: 'Ext.panel.Panel',
+    requires: ['Ext.ux.IFrame'],
+    layout: 'fit',
+    tbar: [
+        { xtype: 'button', text: 'Button 1' }
+    ],
+    items: [
+        {
+            xtype: 'uxiframe',
+            src : "http://vnexpress.net"
+        }
+    ]
 });
