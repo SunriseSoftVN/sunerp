@@ -7,6 +7,12 @@ object ApplicationBuild extends Build {
   val appName = "sunerp"
   val appVersion = "1.0.1"
 
+  val reportDependencies = Seq(
+    "net.sourceforge.dynamicreports" % "dynamicreports-core" % "3.2.0",
+    "net.sourceforge.dynamicreports" % "dynamicreports-adhoc" % "3.2.0",
+    "net.sourceforge.dynamicreports" % "dynamicreports-googlecharts" % "3.2.0"
+  )
+
   val templateEngine = Seq(
     "com.mohiva" %% "play-html-compressor" % "0.2-SNAPSHOT",
     "org.ocpsoft.prettytime" % "prettytime" % "3.2.4.Final",
@@ -37,11 +43,12 @@ object ApplicationBuild extends Build {
     "org.apache.commons" % "commons-email" % "1.3.1",
     "org.mindrot" % "jbcrypt" % "0.3m",
     "org.scalautils" %% "scalautils" % "2.0"
-  ) ++ persistentDependencies ++ templateEngine
+  ) ++ persistentDependencies ++ templateEngine ++ reportDependencies
 
   val appResolvers = Seq(
     "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
     "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/",
+    "JasperReports maven repository" at "http://jasperreports.sourceforge.net/maven2/",
     "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
   )
 
