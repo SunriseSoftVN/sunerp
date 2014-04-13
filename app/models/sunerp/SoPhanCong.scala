@@ -29,6 +29,9 @@ case class SoPhanCong(
                        nhanVienId: Long,
                        taskId: Long,
                        taskName: String,
+                       taskCode: String,
+                       taskUnit: String,
+                       taskQuota: Option[Double],
                        phongBanId: Long,
                        khoiLuong: Double,
                        gio: Double,
@@ -63,6 +66,12 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong")
 
   def taskName = column[String]("taskName", O.NotNull)
 
+  def taskCode = column[String]("taskCode", O.NotNull)
+
+  def taskUnit = column[String]("taskUnit", O.NotNull)
+
+  def taskQuota = column[Double]("taskQuota")
+
   def phongBanId = column[Long]("phongBanId", O.NotNull)
 
   def phongBan = foreignKey("phong_ban_so_phan_cong_fk", phongBanId, PhongBans)(_.id)
@@ -79,7 +88,7 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong")
 
   def ngayPhanCong = column[LocalDate]("ngayPhanCong", O.NotNull)
 
-  def * = (id.?, nhanVienId, taskId, taskName, phongBanId, khoiLuong, gio, ghiChu, soPhanCongExtId, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
+  def * = (id.?, nhanVienId, taskId, taskName, taskCode, taskUnit, taskQuota.?, phongBanId, khoiLuong, gio, ghiChu, soPhanCongExtId, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
 }
 
 object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCongs(_)) {
@@ -97,6 +106,9 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
       "nhanVienId" -> longNumber,
       "taskId" -> longNumber,
       "taskName" -> nonEmptyText,
+      "taskCode" -> nonEmptyText,
+      "taskUnit" -> nonEmptyText,
+      "taskQuota" -> optional(of[Double]),
       "phongBanId" -> longNumber,
       "khoiLuong" -> of[Double],
       "gio" -> of[Double],
