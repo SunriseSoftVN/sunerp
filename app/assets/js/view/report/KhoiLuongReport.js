@@ -15,7 +15,7 @@ Ext.define('sunerp.view.report.KhoiLuongReport', {
     layout: 'fit',
     tbar: [
         {xtype: 'donvicb', addShowAll: false},
-        {xtype: 'phongbancb', addShowAll: false},
+        {xtype: 'phongbancb', addShowAll: false, emptyText: 'Phòng ban'},
         {xtype: 'monthcb', width: 100},
         {xtype: 'yearcb', width: 100},
         {xtype: 'button', iconCls: 'report', text: 'Xem báo cáo' },
