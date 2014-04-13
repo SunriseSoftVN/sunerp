@@ -5,7 +5,6 @@ Ext.define('sunerp.view.phongban.PhongBanEdit', {
     extend: 'sunerp.view.core.BaseEditView',
     alias: 'widget.phongBanEdit',
     title: 'Edit PhongBan',
-    requires: ['sunerp.controller.phongban.PhongBanEditCtr'],
     controller: 'sunerp.controller.phongban.PhongBanEditCtr',
     initComponent: function () {
         this.items = [

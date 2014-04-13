@@ -5,7 +5,6 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
     extend: 'sunerp.view.core.BaseEditView',
     alias: 'widget.nhanVienEdit',
     title: 'Edit NhanVien',
-    requires: ['sunerp.controller.nhanvien.NhanVienEditCtr'],
     controller: 'sunerp.controller.nhanvien.NhanVienEditCtr',
     initComponent: function () {
         this.items = [

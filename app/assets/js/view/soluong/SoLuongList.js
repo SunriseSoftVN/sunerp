@@ -4,7 +4,6 @@
 Ext.define('sunerp.view.soluong.SoLuongList', {
     extend: 'sunerp.view.core.BaseListView',
     requires: [
-        'sunerp.controller.soluong.SoLuongListCtr',
         'sunerp.component.NhanVienPicker'
     ],
     tbar: [

@@ -4,7 +4,6 @@
 Ext.define('sunerp.view.phongban.PhongBanList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.phongBanList',
-    requires: ['sunerp.controller.phongban.PhongBanListCtr'],
     controller: 'sunerp.controller.phongban.PhongBanListCtr',
     inject: ['phongBanStore'],
     config: {

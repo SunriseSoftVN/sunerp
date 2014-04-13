@@ -5,8 +5,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         'sunerp.component.CongViecPicker',
         'sunerp.component.NhanVienCb',
         'sunerp.component.NhanVienPicker',
-        'sunerp.component.MonthCb',
-        'sunerp.controller.sophancong.SoPhanCongListCtr'
+        'sunerp.component.MonthCb'
     ],
     alias: 'widget.soPhanCongList',
     controller: 'sunerp.controller.sophancong.SoPhanCongListCtr',

@@ -5,7 +5,6 @@ Ext.define('sunerp.view.donvi.DonViEdit', {
     extend: 'sunerp.view.core.BaseEditView',
     alias: 'widget.donViEdit',
     title: 'Edit DonVi',
-    requires: ['sunerp.controller.donvi.DonViEditCtr'],
     controller: 'sunerp.controller.donvi.DonViEditCtr',
     initComponent: function () {
         this.items = [

@@ -5,7 +5,6 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.quyenHanhList',
     requires: [
-        'sunerp.controller.quyenhanh.QuyenHanhListCtr',
         'sunerp.component.ChucVuCb'
     ],
     controller: 'sunerp.controller.quyenhanh.QuyenHanhListCtr',

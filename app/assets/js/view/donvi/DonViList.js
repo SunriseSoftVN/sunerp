@@ -4,7 +4,6 @@
 Ext.define('sunerp.view.donvi.DonViList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.donViList',
-    requires: ['sunerp.controller.donvi.DonViListCtr'],
     controller: 'sunerp.controller.donvi.DonViListCtr',
     inject: ['donViStore'],
     config: {

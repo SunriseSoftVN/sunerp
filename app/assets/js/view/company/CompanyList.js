@@ -5,7 +5,6 @@
 Ext.define('sunerp.view.company.CompanyList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.companyList',
-    requires: ['sunerp.controller.company.CompanyListCtr'],
     controller: 'sunerp.controller.company.CompanyListCtr',
     inject: ['companyStore'],
     config: {

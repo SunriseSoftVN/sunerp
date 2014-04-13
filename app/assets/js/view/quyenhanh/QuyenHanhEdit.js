@@ -5,7 +5,6 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhEdit', {
     extend: 'sunerp.view.core.BaseEditView',
     alias: 'widget.quyenHanhEdit',
     title: 'Edit Quyền Hành',
-    requires: ['sunerp.controller.quyenhanh.QuyenHanhEditCtr'],
     controller: 'sunerp.controller.quyenhanh.QuyenHanhEditCtr',
     initComponent: function () {
         this.items = [

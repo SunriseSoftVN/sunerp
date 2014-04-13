@@ -6,7 +6,6 @@ Ext.define('sunerp.view.company.CompanyEdit', {
     extend: 'sunerp.view.core.BaseEditView',
     alias: 'widget.companyEdit',
     title: 'Edit Company',
-    requires: ['sunerp.controller.company.CompanyEditCtr'],
     controller: 'sunerp.controller.company.CompanyEditCtr',
     initComponent: function () {
         this.items = [

@@ -5,8 +5,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.nhanVienList',
     requires: [
-        'sunerp.component.PhongBanCb',
-        'sunerp.controller.nhanvien.NhanVienListCtr'
+        'sunerp.component.PhongBanCb'
     ],
     controller: 'sunerp.controller.nhanvien.NhanVienListCtr',
     inject: ['nhanVienStore'],

@@ -4,15 +4,17 @@
 
 Ext.define('sunerp.view.report.KhoiLuongReport', {
     extend: 'Ext.panel.Panel',
-    requires: ['Ext.ux.IFrame'],
+    requires: [
+        'Ext.ux.IFrame'
+    ],
+    controller: 'sunerp.controller.report.KhoiLuongReportCtr',
     layout: 'fit',
     tbar: [
         { xtype: 'button', text: 'Button 1' }
     ],
     items: [
         {
-            xtype: 'uxiframe',
-            src : "http://vnexpress.net"
+            xtype: 'uxiframe'
         }
     ]
 });
