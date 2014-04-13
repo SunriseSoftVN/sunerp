@@ -10,17 +10,20 @@ Ext.define('sunerp.component.DonViCb', {
     //if it is null, that mean load all phongbans.
     donViId: null,
     emptyText: "Đơn vị",
+    addShowAll: true,
     initComponent: function () {
         var me = this;
         var store = Ext.create('sunerp.store.DonViStore', {
             listeners: {
                 load: function (store, records, successful, eOpts) {
-                    var fakeModel = new sunerp.model.DonVi({
-                        id: null,
-                        name: 'Tất cả'
-                    });
-                    store.insert(0, fakeModel);
-                    me.select(fakeModel);
+                    if (me.addShowAll) {
+                        var fakeModel = new sunerp.model.DonVi({
+                            id: null,
+                            name: 'Tất cả'
+                        });
+                        store.insert(0, fakeModel);
+                        me.select(fakeModel);
+                    }
                 }
             }
         });

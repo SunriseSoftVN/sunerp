@@ -10,17 +10,20 @@ Ext.define('sunerp.component.PhongBanCb', {
     //if it is null, that mean load all phongbans.
     donViId: null,
     emptyText: "Đơn vị",
+    addShowAll: true,
     initComponent: function () {
         var me = this;
         var store = Ext.create('sunerp.store.PhongBanStore', {
             listeners: {
                 load: function (store, records, successful, eOpts) {
-                    var fakeModel = new sunerp.model.PhongBan({
-                        id: null,
-                        name: 'Công ty'
-                    });
-                    store.insert(0, fakeModel);
-                    me.select(fakeModel);
+                    if(me.addShowAll) {
+                        var fakeModel = new sunerp.model.PhongBan({
+                            id: null,
+                            name: 'Công ty'
+                        });
+                        store.insert(0, fakeModel);
+                        me.select(fakeModel);
+                    }
                 }
             }
         });
