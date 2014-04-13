@@ -14,10 +14,13 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhEdit', {
                 border: false,
                 items: [
                     {
-                        xtype: 'textfield',
+                        xtype: 'comboboxx',
                         name: 'domain',
                         allowBlank: false,
-                        fieldLabel: 'Domain'
+                        valueField: 'value',
+                        displayField: 'name',
+                        fieldLabel: 'Domain',
+                        store: Ext.create('sunerp.store.DomainStore')
                     },
                     {
                         xtype: 'checkboxfield',

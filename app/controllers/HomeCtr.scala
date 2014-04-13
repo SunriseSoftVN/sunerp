@@ -134,4 +134,16 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     Ok(Json.toJson(authMenu.copy(children = authMenu.children.filterNot(_.children.isEmpty))))
   })
 
+  def domains = StackAction(implicit request => {
+    def travel(menu: MenuItemDto): List[MenuItemDto] = menu.leaf match {
+      case true => menu :: Nil
+      case _ => menu.children.flatMap(travel)
+    }
+    val data = travel(rootMenu).map(leaf => Json.obj(
+      "value" -> leaf.id.toLowerCase,
+      "name" -> leaf.id.toLowerCase
+    ))
+
+    Ok(Json.toJson(data))
+  })
 }
