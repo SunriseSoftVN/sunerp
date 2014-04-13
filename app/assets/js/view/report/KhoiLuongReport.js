@@ -7,6 +7,8 @@ Ext.define('sunerp.view.report.KhoiLuongReport', {
     requires: [
         'Ext.ux.IFrame',
         'sunerp.component.DonViCb',
+        'sunerp.component.MonthCb',
+        'sunerp.component.YearCb',
         'sunerp.component.PhongBanCb'
     ],
     controller: 'sunerp.controller.report.KhoiLuongReportCtr',
@@ -14,7 +16,11 @@ Ext.define('sunerp.view.report.KhoiLuongReport', {
     tbar: [
         {xtype: 'donvicb', addShowAll: false},
         {xtype: 'phongbancb', addShowAll: false},
-        { xtype: 'button', text: 'Button 1' }
+        {xtype: 'monthcb', width: 100},
+        {xtype: 'yearcb', width: 100},
+        {xtype: 'button', iconCls: 'report', text: 'Xem báo cáo' },
+        {xtype: 'button', iconCls: 'pdf', text: 'Download Pdf' },
+        {xtype: 'button', iconCls: 'excel', text: 'Download Excel' }
     ],
     items: [
         {
