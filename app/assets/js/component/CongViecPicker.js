@@ -17,7 +17,10 @@ Ext.define('sunerp.component.CongViecPicker', {
     },
     onOk: function () {
         this.getModel().set(this.modelName + "Id", this.getSelect().id);
-        this.getModel().set(this.modelName + "Name" , this.getSelect()[this.displayField]);
+        this.getModel().set(this.modelName + "Name" , this.getSelect().name);
+        this.getModel().set(this.modelName + "Code" , this.getSelect().code);
+        this.getModel().set(this.modelName + "Unit" , this.getSelect().unit);
+        this.getModel().set(this.modelName + "Quota" , this.getSelect().quota);
         this.getWindow().close();
     }
 });
