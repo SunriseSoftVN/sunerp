@@ -2,12 +2,13 @@ package config
 
 import com.escalatesoft.subcut.inject._
 import controllers._
-import services.{ReportServiceImpl, ReportService}
+import services._
 
 
 object ApplicationConfiguration extends NewBindingModule(module => {
   import module._
-  bind[ReportService] to moduleInstanceOf[ReportServiceImpl]
+
+  //Controller
   bind[ReportCtr] to moduleInstanceOf[ReportCtr]
   bind[ChucVuCtr] to moduleInstanceOf[ChucVuCtr]
   bind[HomeCtr] to moduleInstanceOf[HomeCtr]
@@ -23,4 +24,7 @@ object ApplicationConfiguration extends NewBindingModule(module => {
   bind[SoLuongCtr] to moduleInstanceOf[SoLuongCtr]
   bind[SoPhanCongCtr] to moduleInstanceOf[SoPhanCongCtr]
   bind[TaskCtr] to moduleInstanceOf[TaskCtr]
+
+  //Service
+  bind[KhoiLuongReportService] to moduleInstanceOf[KhoiLuongReportServiceImpl]
 })
