@@ -2,7 +2,7 @@ package services
 
 import com.escalatesoft.subcut.inject.BindingModule
 import play.api.db.slick.Session
-import models.sunerp.{SoPhanCongs, SoPhanCong}
+import net.sf.dynamicreports.report.datasource.DRDataSource
 
 /**
  * The Class KhoiLuongReportService.
@@ -17,8 +17,19 @@ trait KhoiLuongReportService {
 
 }
 
+import net.sf.dynamicreports.report.builder.DynamicReports._
+
 class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) extends KhoiLuongReportService {
+
   override def doReport(implicit session: Session): Unit = {
-    SoPhanCongs.all
+    val ds = new DRDataSource("item")
+    ds.add("macbook")
+    ds.add("iphone")
+    report.columns(
+      col.column("Item", "item", `type`.stringType())
+    ).title(cmp.text("Dung ne"))
+      .setDataSource(ds)
+      .show(false)
   }
+
 }

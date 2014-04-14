@@ -6,7 +6,6 @@ import jp.t2v.lab.play2.auth.AuthenticationElement
 import dtos.MenuItemDto
 import play.api.libs.json.Json
 import models.sunerp.NhanViens
-import net.sf.dynamicreports.report.datasource.DRDataSource
 import com.escalatesoft.subcut.inject.BindingModule
 
 object DomainKey {
@@ -164,18 +163,4 @@ class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with
     Ok(Json.toJson(data))
   })
 
-  import net.sf.dynamicreports.report.builder.DynamicReports._
-
-  def test = StackAction(implicit request => {
-    val ds = new DRDataSource("item")
-    ds.add("macbook")
-    ds.add("iphone")
-
-    report.columns(
-      col.column("Item", "item", `type`.stringType())
-    ).title(cmp.text("Dung ne"))
-      .setDataSource(ds)
-      .show(false)
-    Ok
-  })
 }

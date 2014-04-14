@@ -7,6 +7,8 @@ import jp.t2v.lab.play2.auth.AuthElement
 import controllers.element.{TransactionElement, AuthConfigImpl}
 import DomainKey.khoiLuongReport
 import services.KhoiLuongReportService
+import scala.concurrent.{ExecutionContext, Future}
+import ExecutionContext.Implicits.global
 
 /**
  * The Class ReportCtr.
@@ -20,8 +22,10 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
 
   val khoiLuongReportService = inject[KhoiLuongReportService]
 
-  def test = StackAction(AuthorityKey -> khoiLuongReport)(implicit request => {
-    khoiLuongReportService.doReport
-    Ok
+  def doKhoiluongreport = AsyncStack(AuthorityKey -> khoiLuongReport)(implicit request => {
+    Future {
+      khoiLuongReportService.doReport
+      Ok
+    }
   })
 }

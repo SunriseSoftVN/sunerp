@@ -55,6 +55,8 @@ POST          /sophancong            @controllers.SoPhanCongCtr.save
 PUT           /sophancong/:id        @controllers.SoPhanCongCtr.update(id: Long)
 DELETE        /sophancong/:id        @controllers.SoPhanCongCtr.delete(id: Long)
 
+GET           /report/khoiluongreport @controllers.ReportCtr.doKhoiluongreport
+
 GET           /admin/shutdown        @controllers.AdminCtr.shutdown
 
 # Map static resources from the /public folder to the /assets URL path
