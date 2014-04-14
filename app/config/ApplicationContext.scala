@@ -53,6 +53,7 @@ object ApplicationContext extends Injectable {
       case `soLuongCtrClass` => soLuongCtr.asInstanceOf[A]
       case `soPhanCongCtrClass` => soPhanCongCtr.asInstanceOf[A]
       case `taskCtrClass` => taskCtr.asInstanceOf[A]
+      case `nhanVienCtrClass` => nhanVienCtr.asInstanceOf[A]
       case _ => throw new IllegalArgumentException
     }
   }
