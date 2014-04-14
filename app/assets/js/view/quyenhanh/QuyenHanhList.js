@@ -17,7 +17,7 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
         var me = this;
         me.store = this.getQuyenHanhStore();
         me.columns = [
-            {xtype: 'rownumberer'},
+            {xtype: 'rownumberer', width: 30},
             {header: 'Domain', dataIndex: 'domain', flex: 1},
             {header: 'Đọc', dataIndex: 'read', flex: 1, xtype: 'booleancolumn'},
             {header: 'Ghi', dataIndex: 'write', flex: 1, xtype: 'booleancolumn'},

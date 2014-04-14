@@ -15,7 +15,7 @@ Ext.define('sunerp.view.company.CompanyList', {
         var me = this;
         me.store = this.getCompanyStore();
         me.columns = [
-            {xtype: 'rownumberer'},
+            {xtype: 'rownumberer', width: 30},
             {header: 'Tên công ty', dataIndex: 'name', flex: 1},
             {header: 'Địa chỉ', dataIndex: 'address', flex: 1},
             {header: 'Số điện thoại', dataIndex: 'phone', flex: 1},

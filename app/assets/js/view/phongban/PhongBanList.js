@@ -14,7 +14,7 @@ Ext.define('sunerp.view.phongban.PhongBanList', {
         var me = this;
         me.store = this.getPhongBanStore();
         me.columns = [
-            {xtype: 'rownumberer'},
+            {xtype: 'rownumberer', width: 30},
             {header: 'Tên', dataIndex: 'name', flex: 1},
             {
                 header: 'Đơn vị',

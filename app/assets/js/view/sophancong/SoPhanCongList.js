@@ -19,7 +19,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         var me = this;
         me.store = me.getSoPhanCongStore();
         me.columns = [
-            {xtype: 'rownumberer'},
+            {xtype: 'rownumberer', width: 30},
             {
                 header: 'Họ tên',
                 dataIndex: 'nhanVien.maNv',

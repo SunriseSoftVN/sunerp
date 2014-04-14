@@ -36,7 +36,7 @@ Ext.define('sunerp.view.soluong.SoLuongList', {
         var me = this;
         me.store = this.getSoLuongStore();
         me.columns = [
-            {xtype: 'rownumberer'},
+            {xtype: 'rownumberer', width: 30},
             {
                 header: 'Họ tên',
                 dataIndex: 'nhanVien.firstName',
