@@ -10,16 +10,20 @@ Ext.define('sunerp.controller.report.KhoiLuongReportCtr', {
             listeners: {
                 click: 'doReport'
             }
+        },
+        iframe: {
+            selector: 'uxiframe'
         }
     },
     init: function () {
         this.callParent(arguments);
     },
     doReport: function () {
+        var me = this;
         Ext.Ajax.request({
             url: '/report/khoiluongreport',
             success: function (response) {
-                alert('ok');
+                me.getIframe().load('/report/file/report.pdf')
             }
         });
     }

@@ -3,6 +3,8 @@ package services
 import com.escalatesoft.subcut.inject.BindingModule
 import play.api.db.slick.Session
 import net.sf.dynamicreports.report.datasource.DRDataSource
+import play.api.Play
+import play.api.Play.current
 
 /**
  * The Class KhoiLuongReportService.
@@ -22,14 +24,18 @@ import net.sf.dynamicreports.report.builder.DynamicReports._
 class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) extends KhoiLuongReportService {
 
   override def doReport(implicit session: Session): Unit = {
+    val pdfExporter = export.pdfExporter(Play.application.getFile("report/report.pdf"))
+      .setCharacterEncoding("UTF-8")
+
     val ds = new DRDataSource("item")
     ds.add("macbook")
     ds.add("iphone")
-    report.columns(
+    val builder = report.columns(
       col.column("Item", "item", `type`.stringType())
-    ).title(cmp.text("Dung ne"))
+    ).title(cmp.text("Bình Thạnh, Gò Vấp"))
       .setDataSource(ds)
-      .show(false)
+
+    builder.toPdf(pdfExporter)
   }
 
 }

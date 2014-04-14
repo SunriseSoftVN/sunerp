@@ -13,6 +13,7 @@ dist
 /.project
 /RUNNING_PID
 /.settings
+report/*.pdf
 .directory
 scala-2.10
 specs2-reports

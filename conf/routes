@@ -56,6 +56,7 @@ PUT           /sophancong/:id        @controllers.SoPhanCongCtr.update(id: Long)
 DELETE        /sophancong/:id        @controllers.SoPhanCongCtr.delete(id: Long)
 
 GET           /report/khoiluongreport @controllers.ReportCtr.doKhoiluongreport
+GET           /report/file/*file      @controllers.ReportCtr.view(file)
 
 GET           /admin/shutdown        @controllers.AdminCtr.shutdown
 
