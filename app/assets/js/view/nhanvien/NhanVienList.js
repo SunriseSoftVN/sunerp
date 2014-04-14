@@ -56,7 +56,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
         var chuVuCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
             comp: Ext.create('sunerp.component.ChucVuCb', {
                 name: 'Chức vụ',
-                width: 140
+                width: 200
             }),
             fieldName: 'chucVuId',
             store: me.store
