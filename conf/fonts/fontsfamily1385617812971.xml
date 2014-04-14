@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+
+    <fontFamily name="Arial">
+        <normal><![CDATA[fonts/Arial.ttf]]></normal>
+        <bold><![CDATA[fonts/Arial_Bold.ttf]]></bold>
+        <italic><![CDATA[fonts/Arial_Italic.ttf]]></italic>
+        <boldItalic><![CDATA[fonts/Arial_Bold_Italic.ttf]]></boldItalic>
+        <pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
+        <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
+        <locales>
+            <locale>en_US</locale>
+            <locale>vi_VN</locale>
+        </locales>
+    </fontFamily>
+
+
+</fontFamilies>
