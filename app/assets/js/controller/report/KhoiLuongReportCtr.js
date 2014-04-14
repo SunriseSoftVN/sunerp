@@ -11,6 +11,18 @@ Ext.define('sunerp.controller.report.KhoiLuongReportCtr', {
                 click: 'doReport'
             }
         },
+        pdfBtn: {
+            selector: 'button[action=downloadPdf]',
+            listeners: {
+                click: 'doDownloadPdf'
+            }
+        },
+        xlsBtn: {
+            selector: 'button[action=downloadXls]',
+            listeners: {
+                click: 'doDownloadXls'
+            }
+        },
         iframe: {
             selector: 'uxiframe'
         }
@@ -23,8 +35,35 @@ Ext.define('sunerp.controller.report.KhoiLuongReportCtr', {
         Ext.Ajax.request({
             url: '/report/khoiluongreport',
             success: function (response) {
-                me.getIframe().load('/report/file/report.pdf')
+                me.getIframe().load('/report/file/' + response.responseText)
             }
+        });
+    },
+    doDownloadPdf: function () {
+        var me = this;
+        Ext.Ajax.request({
+            url: '/report/khoiluongreport?fileType=pdf',
+            success: function (response) {
+                me.showMsg('/report/file/' + response.responseText + '?download=true')
+            }
+        });
+
+    },
+    doDownloadXls: function () {
+        var me = this;
+        Ext.Ajax.request({
+            url: '/report/khoiluongreport?fileType=xls',
+            success: function (response) {
+                me.showMsg('/report/file/' + response.responseText + '?download=true');
+            }
+        });
+    },
+    showMsg: function (url) {
+        Ext.Msg.show({
+            title: 'Báo cáo',
+            msg: 'Tạo báo cáo thành công <a target="_blank" href="' + url + '"><b>download</b></a>',
+            icon: Ext.MessageBox.INFO,
+            buttons: Ext.MessageBox.OK
         });
     }
 });

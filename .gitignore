@@ -14,6 +14,7 @@ dist
 /RUNNING_PID
 /.settings
 report/*.pdf
+report/*.xls
 .directory
 scala-2.10
 specs2-reports

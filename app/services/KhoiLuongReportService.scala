@@ -15,7 +15,12 @@ import play.api.Play.current
  */
 trait KhoiLuongReportService {
 
-  def doReport(implicit session: Session)
+  /**
+   * Build report
+   * @param session
+   * @return report file name
+   */
+  def doReport(fileType: String)(implicit session: Session): String
 
 }
 
@@ -23,9 +28,13 @@ import net.sf.dynamicreports.report.builder.DynamicReports._
 
 class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) extends KhoiLuongReportService {
 
-  override def doReport(implicit session: Session): Unit = {
-    val pdfExporter = export.pdfExporter(Play.application.getFile("report/report.pdf"))
-      .setCharacterEncoding("UTF-8")
+  override def doReport(fileType: String)(implicit session: Session): String = {
+    val reportDir = "report/"
+    val xlsFile = "report.xls"
+    val pdfFile = "report.pdf"
+
+    val pdfExporter = export.pdfExporter(Play.application.getFile(reportDir + pdfFile))
+    val xlsExporter = export.xlsExporter(Play.application.getFile(reportDir + xlsFile))
 
     val ds = new DRDataSource("item")
     ds.add("macbook")
@@ -35,7 +44,15 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     ).title(cmp.text("Bình Thạnh, Gò Vấp"))
       .setDataSource(ds)
 
-    builder.toPdf(pdfExporter)
+    fileType match {
+      case "pdf" =>
+        builder.toPdf(pdfExporter)
+        pdfFile
+      case "xls" =>
+        builder.toXls(xlsExporter)
+        xlsFile
+      case _ => ???
+    }
   }
 
 }

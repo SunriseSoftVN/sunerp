@@ -27,14 +27,13 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
 
   val khoiLuongReportService = inject[KhoiLuongReportService]
 
-  def doKhoiluongreport = AsyncStack(AuthorityKey -> khoiLuongReport)(implicit request => {
+  def doKhoiluongreport(fileType: String) = AsyncStack(AuthorityKey -> khoiLuongReport)(implicit request => {
     Future {
-      khoiLuongReportService.doReport
-      Ok
+      Ok(khoiLuongReportService.doReport(fileType))
     }
   })
 
-  def view(file: String) = Action.async(implicit request => {
+  def view(file: String, download: Boolean) = Action.async(implicit request => {
     val promise = Promise[SimpleResult]()
     Future {
       Play.application.getExistingFile("report/" + file).map(_file => {
@@ -42,9 +41,14 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
         try {
           val content = IOUtils.toByteArray(input)
           promise.success {
-            Ok(content).as("application/pdf").withHeaders(
-              "Content-Disposition" -> s"inline; filename=$file"
-            )
+            val result = Ok(content)
+            if (download) {
+              result
+            } else {
+              result.as("application/pdf").withHeaders(
+                "Content-Disposition" -> s"inline; filename=$file"
+              )
+            }
           }
         } catch {
           case ex: Exception =>

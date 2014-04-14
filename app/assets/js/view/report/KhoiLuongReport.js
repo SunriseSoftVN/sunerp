@@ -19,8 +19,8 @@ Ext.define('sunerp.view.report.KhoiLuongReport', {
         {xtype: 'monthcb', width: 100},
         {xtype: 'yearcb', width: 100},
         {xtype: 'button', action: 'doReport', iconCls: 'report', text: 'Xem báo cáo' },
-        {xtype: 'button', iconCls: 'pdf', text: 'Download Pdf' },
-        {xtype: 'button', iconCls: 'excel', text: 'Download Excel' }
+        {xtype: 'button', action: 'downloadPdf', iconCls: 'pdf', text: 'Download Pdf' },
+        {xtype: 'button', action: 'downloadXls', iconCls: 'excel', text: 'Download Excel' }
     ],
     items: [
         {
