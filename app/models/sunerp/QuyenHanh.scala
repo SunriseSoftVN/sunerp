@@ -70,7 +70,7 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
           case "domain" => orderColumn(sort.direction, quyenHanh.domain)
           case "read" => orderColumn(sort.direction, quyenHanh.read)
           case "write" => orderColumn(sort.direction, quyenHanh.write)
-          case "gioiHan" => orderColumn(sort.direction, quyenHanh.write)
+          case "gioiHan" => orderColumn(sort.direction, quyenHanh.gioiHan)
           case "chucVu.name" => orderColumn(sort.direction, chucVu.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
