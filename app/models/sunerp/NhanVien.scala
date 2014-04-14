@@ -131,6 +131,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
           case "firstName" => nhanVien.firstName.toLowerCase.like(filter.asLikeValue)
           case "nameOrMaNv" => nhanVien.firstName.toLowerCase.like(filter.asLikeValue) || nhanVien.maNv.toLowerCase.like(filter.asLikeValue)
           case "phongBanId" => nhanVien.phongBanId === filter.asLong
+          case "chucVuId" => nhanVien.chucVuId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

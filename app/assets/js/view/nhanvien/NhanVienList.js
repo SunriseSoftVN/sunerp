@@ -53,6 +53,14 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
             fieldName: 'phongBanId',
             store: me.store
         });
-        me.tbar.insert(1, phongBanCbFilter)
+        var chuVuCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.ChucVuCb', {
+                name: 'Chức vụ',
+                width: 140
+            }),
+            fieldName: 'chucVuId',
+            store: me.store
+        });
+        me.tbar.insert(1, [phongBanCbFilter, chuVuCbFilter]);
     }
 });
