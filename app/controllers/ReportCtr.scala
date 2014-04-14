@@ -1,9 +1,8 @@
 package controllers
 
 import play.api.mvc.{Action, Controller}
-import controllers.element.TransactionElement
-import com.escalatesoft.subcut.inject.{Injectable, BindingModule}
-import services.TextGenerator
+import com.escalatesoft.subcut.inject._
+import services.ReportService
 
 /**
  * The Class ReportCtr.
@@ -14,13 +13,8 @@ import services.TextGenerator
  */
 class ReportCtr(implicit val bindingModule: BindingModule) extends Controller with Injectable {
 
-  // injectOptional provides safe interception of bindings, but falling back on a default implementation otherwise
-  def textGenerator = inject[TextGenerator]
+  val reportService = inject[ReportService]
 
-
-  def test = Action(implicit request => {
-    Ok(textGenerator.welcomeText)
-  })
-
+  def test = Action(implicit request => Ok)
 
 }
