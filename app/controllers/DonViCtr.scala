@@ -20,7 +20,7 @@ object DonViCtr extends BaseCtr[DonVi, DonVis] with MainTemplate {
   override def editForm(implicit session: Session) = DonVis.editForm
   override implicit val jsonWrite: Writes[DonVi] = DonVis.donViJsonFormat
   override val dao: AbstractQuery[DonVi, DonVis] = DonVis
-  override val domainName: String = "donVi"
+  override val domainName: String = DomainKey.donVi
   override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
     implicit val jsonWrite = DonViDto.jsonWrite
     val result = DonVis.load(paging)

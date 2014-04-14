@@ -6,15 +6,7 @@ import services.{ReportServiceImpl, ReportService}
 
 
 object ApplicationConfiguration extends NewBindingModule(module => {
-
   import module._
-
-  bind[ReportService] toModuleSingle {
-    implicit module => new ReportServiceImpl
-  }
-
-  bind[ReportCtr] toModuleSingle {
-    implicit module => new ReportCtr
-  }
-
+  bind[ReportService] to moduleInstanceOf[ReportServiceImpl]
+  bind[ReportCtr] to moduleInstanceOf[ReportCtr]
 })

@@ -18,7 +18,7 @@ import play.api.mvc.AnyContent
  *
  */
 object QuyenHanhCtr extends BaseCtr[QuyenHanh, QuyenHanhs] with MainTemplate {
-  override val domainName: String = "quyenHanh"
+  override val domainName: String = DomainKey.quyenHanh
 
   override def editForm(implicit session: Session): Form[QuyenHanh] = QuyenHanhs.editForm
 

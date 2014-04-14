@@ -21,7 +21,7 @@ object NhanVienCtr extends BaseCtr[NhanVien, NhanViens] with MainTemplate {
 
   override implicit val jsonWrite: Writes[NhanVien] = NhanViens.nhanVienJsonFormat
   override val dao: AbstractQuery[NhanVien, NhanViens] = NhanViens
-  override val domainName: String = "nhanVien"
+  override val domainName: String = DomainKey.nhanVien
 
   override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
     val result = NhanViens.load(paging, loggedIn(request))

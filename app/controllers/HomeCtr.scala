@@ -8,14 +8,29 @@ import play.api.libs.json.Json
 import models.sunerp.NhanViens
 import net.sf.dynamicreports.report.datasource.DRDataSource
 
+object DomainKey {
+  val soPhanCong = "soPhanCong"
+  val company = "company"
+  val donVi = "donVi"
+  val phongBan = "phongBan"
+  val nhanVien = "nhanVien"
+  val chucVu = "chucVu"
+  val quyenHanh = "quyenHanh"
+  val soLuong = "soLuong"
+  val khoiLuongReport = "khoiLuongReport"
+  val task = "task"
+}
+
 object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl with MainTemplate with TransactionElement {
+
+  import DomainKey._
 
   val quanLyCongViec = MenuItemDto(
     text = "Quản lý công việc",
     expanded = true,
     children = List(
       MenuItemDto(
-        id = "soPhanCong",
+        id = soPhanCong,
         view = "sunerp.view.sophancong.SoPhanCongList",
         text = "Sổ phân công",
         leaf = true
@@ -28,19 +43,19 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     expanded = true,
     children = List(
       MenuItemDto(
-        id = "company",
+        id = company,
         view = "sunerp.view.company.CompanyList",
         text = "Công ty",
         leaf = true
       ),
       MenuItemDto(
-        id = "donVi",
+        id = donVi,
         view = "sunerp.view.donvi.DonViList",
         text = "Đơn vị",
         leaf = true
       ),
       MenuItemDto(
-        id = "phongBan",
+        id = phongBan,
         view = "sunerp.view.phongban.PhongBanList",
         text = "Phòng ban và cung",
         leaf = true
@@ -53,19 +68,19 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     expanded = true,
     children = List(
       MenuItemDto(
-        id = "nhanVien",
+        id = nhanVien,
         view = "sunerp.view.nhanvien.NhanVienList",
         text = "Nhân viên",
         leaf = true
       ),
       MenuItemDto(
-        id = "chucVu",
+        id = chucVu,
         view = "sunerp.view.chucvu.ChucVuList",
         text = "Chức vụ",
         leaf = true
       ),
       MenuItemDto(
-        id = "quyenHanh",
+        id = quyenHanh,
         view = "sunerp.view.quyenhanh.QuyenHanhList",
         text = "Quyền hành",
         leaf = true
@@ -78,7 +93,7 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     expanded = true,
     children = List(
       MenuItemDto(
-        id = "soLuong",
+        id = soLuong,
         view = "sunerp.view.soluong.SoLuongList",
         text = "Sổ lương",
         leaf = true
@@ -91,7 +106,7 @@ object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl
     expanded = true,
     children = List(
       MenuItemDto(
-        id = "khoiLuongReport",
+        id = khoiLuongReport,
         view = "sunerp.view.report.KhoiLuongReport",
         text = "Khối lượng",
         leaf = true

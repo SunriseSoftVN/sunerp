@@ -15,9 +15,7 @@ import models.qlkh.{Task, Tasks}
  *
  */
 object TaskCtr extends Controller with AuthElement with AuthConfigImpl {
-
-  val domainName = "task"
-
+  val domainName = DomainKey.task
   implicit val jsonWrite: Writes[Task] = Tasks.taskJsonFormat
 
   def index = StackAction(AuthorityKey -> domainName)(implicit request => {

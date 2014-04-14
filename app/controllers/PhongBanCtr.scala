@@ -21,7 +21,7 @@ object PhongBanCtr extends BaseCtr[PhongBan, PhongBans] with MainTemplate {
 
   override implicit val jsonWrite: Writes[PhongBan] = PhongBans.phongBanJsonFormat
   override val dao: AbstractQuery[PhongBan, PhongBans] = PhongBans
-  override val domainName: String = "phongBan"
+  override val domainName: String = DomainKey.phongBan
 
   override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
     implicit val jsonWrite = PhongBanDto.jsonWrite

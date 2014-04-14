@@ -16,7 +16,7 @@ import jp.t2v.lab.play2.auth.AuthElement
  */
 object SoPhanCongCtr extends Controller with AuthElement with AuthConfigImpl with TransactionElement with MainTemplate {
 
-  val domainName = "soPhanCong"
+  val domainName = DomainKey.soPhanCong
 
   def index = StackAction(AuthorityKey -> domainName)(implicit request => {
     val paging = PagingDto(request)

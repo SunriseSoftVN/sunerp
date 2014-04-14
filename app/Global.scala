@@ -1,15 +1,13 @@
 import com.typesafe.config.ConfigFactory
-import config.{ApplicationContext, ApplicationConfiguration}
+import config.ApplicationContext
 import filter.{ProfilingFilter, HTMLCompressorFilter}
 import java.io.File
 import play.api._
-import play.api.libs.Files
 import play.api.mvc.Results._
 import play.libs.Akka
 import play.api.mvc.{RequestHeader, WithFilters}
 import play.api.Play.current
 import scala.concurrent.Future
-import com.escalatesoft.subcut.inject._
 
 /**
  * The Class Global.
@@ -63,14 +61,4 @@ object Global extends WithFilters(HTMLCompressorFilter(), ProfilingFilter) {
    * that we can override to resolve a given controller. This resolution is required by the Play router.
    */
   override def getControllerInstance[A](controllerClass: Class[A]): A = ApplicationContext.getControllerInstance(controllerClass)
-
-  /**
-   * Writes the given DDL statements to a file.
-   */
-  private def writeScript(ddlStatements: Seq[String], directory: File, fileName: String): Unit = {
-    val createScript = new File(directory, fileName)
-    val createSql = ddlStatements.mkString("\n")
-    Files.writeFileIfChanged(createScript, ScriptHeader + createSql)
-  }
-
 }

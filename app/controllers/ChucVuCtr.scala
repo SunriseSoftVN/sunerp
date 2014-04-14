@@ -17,7 +17,7 @@ import play.api.mvc.AnyContent
  *
  */
 object ChucVuCtr extends BaseCtr[ChucVu, ChucVus] with MainTemplate {
-  override val domainName: String = "chucVu"
+  override val domainName: String = DomainKey.chucVu
   override implicit val jsonWrite: Writes[ChucVu] = ChucVus.chucVuJsonFormat
   override val dao: AbstractQuery[ChucVu, ChucVus] = ChucVus
   override def editForm(implicit session: Session) = ChucVus.editForm

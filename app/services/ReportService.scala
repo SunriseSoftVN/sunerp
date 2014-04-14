@@ -1,6 +1,7 @@
 package services
 
 import com.escalatesoft.subcut.inject.BindingModule
+import play.api.db.slick.Session
 
 /**
  * The Class ReportService.
@@ -10,7 +11,9 @@ import com.escalatesoft.subcut.inject.BindingModule
  *
  */
 trait ReportService {
-
+  def test(implicit session: Session): String
 }
 
-class ReportServiceImpl(implicit val bindingModule: BindingModule) extends ReportService
+class ReportServiceImpl(implicit val bindingModule: BindingModule) extends ReportService{
+  override def test(implicit session: Session): String = "dung ne"
+}
