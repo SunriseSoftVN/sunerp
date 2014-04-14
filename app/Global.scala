@@ -1,4 +1,5 @@
 import com.typesafe.config.ConfigFactory
+import config.SunERPConfiguration
 import filter.{ProfilingFilter, HTMLCompressorFilter}
 import java.io.File
 import play.api._
@@ -8,6 +9,7 @@ import play.libs.Akka
 import play.api.mvc.{RequestHeader, WithFilters}
 import play.api.Play.current
 import scala.concurrent.Future
+import com.escalatesoft.subcut.inject._
 
 /**
  * The Class Global.
@@ -59,6 +61,24 @@ object Global extends WithFilters(HTMLCompressorFilter(), ProfilingFilter) {
     Future.successful(NotFound(views.html.notfound()))
   }
 
+
+  object Context extends Injectable {
+    implicit val bindingModule = SunERPConfiguration // use the standard config by default
+    val application = inject[controllers.ReportCtr]
+    val applicationClass = classOf[controllers.ReportCtr]
+  }
+
+  /**
+   * Controllers must be resolved through the bindings. There is a special method of GlobalSettings
+   * that we can override to resolve a given controller. This resolution is required by the Play router.
+   */
+  override def getControllerInstance[A](controllerClass: Class[A]): A = {
+    controllerClass match {
+      case Context.applicationClass => Context.application.asInstanceOf[A]
+      case _ => throw new IllegalArgumentException
+    }
+  }
+
   /**
    * Writes the given DDL statements to a file.
    */
@@ -67,6 +87,5 @@ object Global extends WithFilters(HTMLCompressorFilter(), ProfilingFilter) {
     val createSql = ddlStatements.mkString("\n")
     Files.writeFileIfChanged(createScript, ScriptHeader + createSql)
   }
-
 
 }

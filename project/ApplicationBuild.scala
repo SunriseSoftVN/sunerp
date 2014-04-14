@@ -46,7 +46,7 @@ object ApplicationBuild extends Build {
     "jp.t2v" %% "play2-auth-test" % "0.11.0" % "test",
     "org.apache.commons" % "commons-email" % "1.3.1",
     "org.mindrot" % "jbcrypt" % "0.3m",
-    "org.scalautils" %% "scalautils" % "2.0"
+    "org.scalautils" %% "scalautils" % "2.1.3"
   ) ++ persistentDependencies ++ templateEngine ++ reportDependencies ++ diDependencies
 
   val appResolvers = Seq(
