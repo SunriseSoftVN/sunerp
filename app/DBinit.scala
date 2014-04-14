@@ -69,11 +69,6 @@ object DBinit {
           chucVuId = chucVuId
         )
 
-        val quyenHanhKhoiDonVi = new QuyenHanh(
-          domain = "khoidonvi",
-          chucVuId = chucVuId
-        )
-
         val quyenHanhDonVi = new QuyenHanh(
           domain = "donvi",
           chucVuId = chucVuId
@@ -100,7 +95,6 @@ object DBinit {
         )
 
         QuyenHanhs.save(quyenHanhCongTy)
-        QuyenHanhs.save(quyenHanhKhoiDonVi)
         QuyenHanhs.save(quyenHanhDonVi)
         QuyenHanhs.save(quyenHanhPhongBan)
         QuyenHanhs.save(quyenHanhNhanVien)
