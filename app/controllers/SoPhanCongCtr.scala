@@ -6,6 +6,7 @@ import play.api.libs.json.Json
 import dtos.{FormErrorDto, PagingDto}
 import play.api.mvc.Controller
 import jp.t2v.lab.play2.auth.AuthElement
+import com.escalatesoft.subcut.inject.BindingModule
 
 /**
  * The Class SoPhanCongCtr.
@@ -14,7 +15,7 @@ import jp.t2v.lab.play2.auth.AuthElement
  * @since 3/8/14 4:20 PM
  *
  */
-object SoPhanCongCtr extends Controller with AuthElement with AuthConfigImpl with TransactionElement with MainTemplate {
+class SoPhanCongCtr(implicit val bindingModule: BindingModule) extends Controller with AuthElement with AuthConfigImpl with TransactionElement with MainTemplate {
 
   val domainName = DomainKey.soPhanCong
 

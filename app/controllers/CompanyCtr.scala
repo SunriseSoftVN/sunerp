@@ -9,6 +9,7 @@ import dtos.PagingDto
 import play.api.db.slick.Session
 import jp.t2v.lab.play2.stackc.RequestWithAttributes
 import play.api.mvc.AnyContent
+import com.escalatesoft.subcut.inject.BindingModule
 
 /**
  * The Class CompanyCtr.
@@ -17,7 +18,7 @@ import play.api.mvc.AnyContent
  * @since 3/19/14 8:00 AM
  *
  */
-object CompanyCtr extends BaseCtr[Company, Companies] with MainTemplate {
+class CompanyCtr(implicit val bindingModule: BindingModule) extends BaseCtr[Company, Companies] with MainTemplate {
   override implicit val jsonWrite: Writes[Company] = Companies.companyJsonFormat
   override val dao: AbstractQuery[Company, Companies] = Companies
   override val domainName: String = DomainKey.company

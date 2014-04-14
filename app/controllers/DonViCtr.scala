@@ -8,6 +8,7 @@ import dtos.{DonViDto, PagingDto}
 import play.api.db.slick.Session
 import jp.t2v.lab.play2.stackc.RequestWithAttributes
 import play.api.mvc.AnyContent
+import com.escalatesoft.subcut.inject.BindingModule
 
 /**
  * The Class DonViCtr.
@@ -16,7 +17,7 @@ import play.api.mvc.AnyContent
  * @since 3/8/14 4:19 PM
  *
  */
-object DonViCtr extends BaseCtr[DonVi, DonVis] with MainTemplate {
+class DonViCtr(implicit val bindingModule: BindingModule) extends BaseCtr[DonVi, DonVis] with MainTemplate {
   override def editForm(implicit session: Session) = DonVis.editForm
   override implicit val jsonWrite: Writes[DonVi] = DonVis.donViJsonFormat
   override val dao: AbstractQuery[DonVi, DonVis] = DonVis

@@ -6,6 +6,7 @@ import controllers.element.AuthConfigImpl
 import dtos.PagingDto
 import play.api.libs.json.{Writes, Json}
 import models.qlkh.{Task, Tasks}
+import com.escalatesoft.subcut.inject.BindingModule
 
 /**
  * The Class TaskCtr.
@@ -14,7 +15,7 @@ import models.qlkh.{Task, Tasks}
  * @since 3/12/14 5:10 PM
  *
  */
-object TaskCtr extends Controller with AuthElement with AuthConfigImpl {
+class TaskCtr(implicit val bindingModule: BindingModule) extends Controller with AuthElement with AuthConfigImpl {
   val domainName = DomainKey.task
   implicit val jsonWrite: Writes[Task] = Tasks.taskJsonFormat
 

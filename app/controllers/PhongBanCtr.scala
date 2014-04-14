@@ -8,6 +8,7 @@ import dtos.{PhongBanDto, PagingDto}
 import play.api.db.slick.Session
 import jp.t2v.lab.play2.stackc.RequestWithAttributes
 import play.api.mvc.AnyContent
+import com.escalatesoft.subcut.inject.BindingModule
 
 /**
  * The Class PhongBanCtr.
@@ -16,7 +17,7 @@ import play.api.mvc.AnyContent
  * @since 3/8/14 4:19 PM
  *
  */
-object PhongBanCtr extends BaseCtr[PhongBan, PhongBans] with MainTemplate {
+class PhongBanCtr(implicit val bindingModule: BindingModule) extends BaseCtr[PhongBan, PhongBans] with MainTemplate {
   override def editForm(implicit session: Session) = PhongBans.editForm
 
   override implicit val jsonWrite: Writes[PhongBan] = PhongBans.phongBanJsonFormat

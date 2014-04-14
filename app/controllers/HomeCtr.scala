@@ -7,6 +7,7 @@ import dtos.MenuItemDto
 import play.api.libs.json.Json
 import models.sunerp.NhanViens
 import net.sf.dynamicreports.report.datasource.DRDataSource
+import com.escalatesoft.subcut.inject.BindingModule
 
 object DomainKey {
   val soPhanCong = "soPhanCong"
@@ -21,7 +22,7 @@ object DomainKey {
   val task = "task"
 }
 
-object HomeCtr extends Controller with AuthenticationElement with AuthConfigImpl with MainTemplate with TransactionElement {
+class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with AuthenticationElement with AuthConfigImpl with MainTemplate with TransactionElement {
 
   import DomainKey._
 

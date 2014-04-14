@@ -9,6 +9,7 @@ import dtos.PagingDto
 import play.api.db.slick.Session
 import jp.t2v.lab.play2.stackc.RequestWithAttributes
 import play.api.mvc.AnyContent
+import com.escalatesoft.subcut.inject.BindingModule
 
 /**
  * The Class QuyenHanhCtr.
@@ -17,7 +18,7 @@ import play.api.mvc.AnyContent
  * @since 3/22/14 7:24 AM
  *
  */
-object QuyenHanhCtr extends BaseCtr[QuyenHanh, QuyenHanhs] with MainTemplate {
+class QuyenHanhCtr(implicit val bindingModule: BindingModule) extends BaseCtr[QuyenHanh, QuyenHanhs] with MainTemplate {
   override val domainName: String = DomainKey.quyenHanh
 
   override def editForm(implicit session: Session): Form[QuyenHanh] = QuyenHanhs.editForm

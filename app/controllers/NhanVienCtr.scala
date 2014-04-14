@@ -8,6 +8,7 @@ import dtos.PagingDto
 import play.api.db.slick.Session
 import jp.t2v.lab.play2.stackc.RequestWithAttributes
 import play.api.mvc.AnyContent
+import com.escalatesoft.subcut.inject.BindingModule
 
 /**
  * The Class NhanVienCtr.
@@ -16,7 +17,7 @@ import play.api.mvc.AnyContent
  * @since 3/8/14 4:20 PM
  *
  */
-object NhanVienCtr extends BaseCtr[NhanVien, NhanViens] with MainTemplate {
+class NhanVienCtr(implicit val bindingModule: BindingModule) extends BaseCtr[NhanVien, NhanViens] with MainTemplate {
   override def editForm(implicit session: Session) = NhanViens.editForm
 
   override implicit val jsonWrite: Writes[NhanVien] = NhanViens.nhanVienJsonFormat

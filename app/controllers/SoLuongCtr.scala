@@ -8,6 +8,7 @@ import dtos.PagingDto
 import play.api.db.slick.Session
 import jp.t2v.lab.play2.stackc.RequestWithAttributes
 import play.api.mvc.AnyContent
+import com.escalatesoft.subcut.inject.BindingModule
 
 /**
  * The Class SoLuongCtr.
@@ -16,7 +17,7 @@ import play.api.mvc.AnyContent
  * @since 3/8/14 4:20 PM
  *
  */
-object SoLuongCtr extends BaseCtr[SoLuong, SoLuongs] with MainTemplate {
+class SoLuongCtr(implicit val bindingModule: BindingModule) extends BaseCtr[SoLuong, SoLuongs] with MainTemplate {
   override implicit val jsonWrite: Writes[SoLuong] = SoLuongs.soLuongJsonFormat
   override val dao: AbstractQuery[SoLuong, SoLuongs] = SoLuongs
   override val domainName: String = DomainKey.soLuong

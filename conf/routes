@@ -3,60 +3,59 @@
 # ~~~~
 
 # Home page
-GET           /                      controllers.HomeCtr.index
-GET           /menuItems             controllers.HomeCtr.menuItems
-GET           /loginUser             controllers.HomeCtr.loginUser
-GET           /domains               controllers.HomeCtr.domains
-GET           /test                  @controllers.ReportCtr.test
+GET           /                      @controllers.HomeCtr.index
+GET           /menuItems             @controllers.HomeCtr.menuItems
+GET           /loginUser             @controllers.HomeCtr.loginUser
+GET           /domains               @controllers.HomeCtr.domains
 
-GET           /chucvu                controllers.ChucVuCtr.index
-POST          /chucvu                controllers.ChucVuCtr.save
-PUT           /chucvu/:id            controllers.ChucVuCtr.update(id: Long)
-DELETE        /chucvu/:id            controllers.ChucVuCtr.delete(id: Long)
+GET           /chucvu                @controllers.ChucVuCtr.index
+POST          /chucvu                @controllers.ChucVuCtr.save
+PUT           /chucvu/:id            @controllers.ChucVuCtr.update(id: Long)
+DELETE        /chucvu/:id            @controllers.ChucVuCtr.delete(id: Long)
 
-GET           /company               controllers.CompanyCtr.index
-POST          /company               controllers.CompanyCtr.save
-PUT           /company/:id           controllers.CompanyCtr.update(id: Long)
-DELETE        /company/:id           controllers.CompanyCtr.delete(id: Long)
+GET           /company               @controllers.CompanyCtr.index
+POST          /company               @controllers.CompanyCtr.save
+PUT           /company/:id           @controllers.CompanyCtr.update(id: Long)
+DELETE        /company/:id           @controllers.CompanyCtr.delete(id: Long)
 
-GET           /soluong               controllers.SoLuongCtr.index
-POST          /soluong               controllers.SoLuongCtr.save
-PUT           /soluong/:id           controllers.SoLuongCtr.update(id: Long)
-DELETE        /soluong/:id           controllers.SoLuongCtr.delete(id: Long)
+GET           /soluong               @controllers.SoLuongCtr.index
+POST          /soluong               @controllers.SoLuongCtr.save
+PUT           /soluong/:id           @controllers.SoLuongCtr.update(id: Long)
+DELETE        /soluong/:id           @controllers.SoLuongCtr.delete(id: Long)
 
-GET           /nhanvien              controllers.NhanVienCtr.index
-POST          /nhanvien              controllers.NhanVienCtr.save
-PUT           /nhanvien/:id          controllers.NhanVienCtr.update(id: Long)
-DELETE        /nhanvien/:id          controllers.NhanVienCtr.delete(id: Long)
+GET           /nhanvien              @controllers.NhanVienCtr.index
+POST          /nhanvien              @controllers.NhanVienCtr.save
+PUT           /nhanvien/:id          @controllers.NhanVienCtr.update(id: Long)
+DELETE        /nhanvien/:id          @controllers.NhanVienCtr.delete(id: Long)
 
-GET           /phongban             controllers.PhongBanCtr.index
-POST          /phongban             controllers.PhongBanCtr.save
-PUT           /phongban/:id         controllers.PhongBanCtr.update(id: Long)
-DELETE        /phongban/:id         controllers.PhongBanCtr.delete(id: Long)
+GET           /phongban              @controllers.PhongBanCtr.index
+POST          /phongban              @controllers.PhongBanCtr.save
+PUT           /phongban/:id          @controllers.PhongBanCtr.update(id: Long)
+DELETE        /phongban/:id          @controllers.PhongBanCtr.delete(id: Long)
 
-GET           /donvi                 controllers.DonViCtr.index
-POST          /donvi                 controllers.DonViCtr.save
-PUT           /donvi/:id             controllers.DonViCtr.update(id: Long)
-DELETE        /donvi/:id             controllers.DonViCtr.delete(id: Long)
+GET           /donvi                 @controllers.DonViCtr.index
+POST          /donvi                 @controllers.DonViCtr.save
+PUT           /donvi/:id             @controllers.DonViCtr.update(id: Long)
+DELETE        /donvi/:id             @controllers.DonViCtr.delete(id: Long)
 
-GET           /quyenhanh             controllers.QuyenHanhCtr.index
-POST          /quyenhanh             controllers.QuyenHanhCtr.save
-PUT           /quyenhanh/:id         controllers.QuyenHanhCtr.update(id: Long)
-GET           /quyenhanh/getGioiHans controllers.QuyenHanhCtr.getGioiHans
-DELETE        /quyenhanh/:id         controllers.QuyenHanhCtr.delete(id: Long)
+GET           /quyenhanh             @controllers.QuyenHanhCtr.index
+POST          /quyenhanh             @controllers.QuyenHanhCtr.save
+PUT           /quyenhanh/:id         @controllers.QuyenHanhCtr.update(id: Long)
+GET           /quyenhanh/getGioiHans @controllers.QuyenHanhCtr.getGioiHans
+DELETE        /quyenhanh/:id         @controllers.QuyenHanhCtr.delete(id: Long)
 
-GET           /task                  controllers.TaskCtr.index
+GET           /task                  @controllers.TaskCtr.index
 
-GET           /user/login            controllers.AuthCtr.login
-POST          /user/auth             controllers.AuthCtr.auth
-GET           /user/logout           controllers.AuthCtr.logout
+GET           /user/login            @controllers.AuthCtr.login
+POST          /user/auth             @controllers.AuthCtr.auth
+GET           /user/logout           @controllers.AuthCtr.logout
 
-GET           /sophancong            controllers.SoPhanCongCtr.index
-POST          /sophancong            controllers.SoPhanCongCtr.save
-PUT           /sophancong/:id        controllers.SoPhanCongCtr.update(id: Long)
-DELETE        /sophancong/:id        controllers.SoPhanCongCtr.delete(id: Long)
+GET           /sophancong            @controllers.SoPhanCongCtr.index
+POST          /sophancong            @controllers.SoPhanCongCtr.save
+PUT           /sophancong/:id        @controllers.SoPhanCongCtr.update(id: Long)
+DELETE        /sophancong/:id        @controllers.SoPhanCongCtr.delete(id: Long)
 
-GET           /admin/shutdown        controllers.AdminCtr.shutdown
+GET           /admin/shutdown        @controllers.AdminCtr.shutdown
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file          controllers.Assets.at(path="/public", file)

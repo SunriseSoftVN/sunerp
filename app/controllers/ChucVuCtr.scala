@@ -8,6 +8,7 @@ import dtos.PagingDto
 import play.api.db.slick.Session
 import jp.t2v.lab.play2.stackc.RequestWithAttributes
 import play.api.mvc.AnyContent
+import com.escalatesoft.subcut.inject.BindingModule
 
 /**
  * The Class ChucVuCtr.
@@ -16,7 +17,7 @@ import play.api.mvc.AnyContent
  * @since 3/8/14 4:20 PM
  *
  */
-object ChucVuCtr extends BaseCtr[ChucVu, ChucVus] with MainTemplate {
+class ChucVuCtr(implicit val bindingModule: BindingModule) extends BaseCtr[ChucVu, ChucVus] with MainTemplate {
   override val domainName: String = DomainKey.chucVu
   override implicit val jsonWrite: Writes[ChucVu] = ChucVus.chucVuJsonFormat
   override val dao: AbstractQuery[ChucVu, ChucVus] = ChucVus
