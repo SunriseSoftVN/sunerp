@@ -12,7 +12,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
     config: {
         nhanVienStore: null
     },
-    searchField: 'firstName',
+    searchField: 'nameOrMaNv',
     initComponent: function () {
         var me = this;
         me.store = this.getNhanVienStore();

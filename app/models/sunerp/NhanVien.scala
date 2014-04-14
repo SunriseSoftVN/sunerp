@@ -128,7 +128,8 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       query = query.where(table => {
         val (nhanVien, chucVu, phongBan) = table
         filter.property match {
-          case "firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
+          case "firstName" => nhanVien.firstName.toLowerCase.like(filter.asLikeValue)
+          case "nameOrMaNv" => nhanVien.firstName.toLowerCase.like(filter.asLikeValue) || nhanVien.maNv.toLowerCase.like(filter.asLikeValue)
           case "phongBanId" => nhanVien.phongBanId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
