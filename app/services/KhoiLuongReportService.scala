@@ -5,6 +5,7 @@ import play.api.db.slick.Session
 import net.sf.dynamicreports.report.datasource.DRDataSource
 import play.api.Play
 import play.api.Play.current
+import net.sf.dynamicreports.report.constant.HorizontalAlignment
 
 /**
  * The Class KhoiLuongReportService.
@@ -36,13 +37,20 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val pdfExporter = export.pdfExporter(Play.application.getFile(reportDir + pdfFile))
     val xlsExporter = export.xlsExporter(Play.application.getFile(reportDir + xlsFile))
 
+    val boldStyle = stl.style().bold()
+    val boldCenteredStyle = stl.style(boldStyle)
+      .setHorizontalAlignment(HorizontalAlignment.CENTER)
+
     val ds = new DRDataSource("item")
     ds.add("macbook")
     ds.add("iphone")
-    val builder = report.columns(
-      col.column("Item", "item", `type`.stringType())
-    ).title(cmp.text("Bình Thạnh, Gò Vấp"))
-      .setDataSource(ds)
+    val builder =
+      report
+        .columns(
+          col.column("Item", "item", `type`.stringType())
+        )
+        .title(cmp.text("BIỂU TỔNG HỢP CÔNG VIỆC HÀNG NGÀY").setStyle(boldCenteredStyle))
+        .setDataSource(ds)
 
     fileType match {
       case "pdf" =>
