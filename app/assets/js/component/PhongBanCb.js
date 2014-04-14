@@ -19,7 +19,7 @@ Ext.define('sunerp.component.PhongBanCb', {
                     if(me.addShowAll) {
                         var fakeModel = new sunerp.model.PhongBan({
                             id: null,
-                            name: 'Công ty'
+                            name: 'Tất cả'
                         });
                         store.insert(0, fakeModel);
                         me.select(fakeModel);
