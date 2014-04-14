@@ -7,6 +7,10 @@ object ApplicationBuild extends Build {
   val appName = "sunerp"
   val appVersion = "1.0.1"
 
+  val diDependencies = Seq(
+    "com.escalatesoft.subcut" %% "subcut" % "2.0"
+  )
+
   val reportDependencies = Seq(
     "net.sourceforge.dynamicreports" % "dynamicreports-core" % "3.2.0",
     "net.sourceforge.dynamicreports" % "dynamicreports-adhoc" % "3.2.0",
@@ -43,7 +47,7 @@ object ApplicationBuild extends Build {
     "org.apache.commons" % "commons-email" % "1.3.1",
     "org.mindrot" % "jbcrypt" % "0.3m",
     "org.scalautils" %% "scalautils" % "2.0"
-  ) ++ persistentDependencies ++ templateEngine ++ reportDependencies
+  ) ++ persistentDependencies ++ templateEngine ++ reportDependencies ++ diDependencies
 
   val appResolvers = Seq(
     "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
