@@ -51,6 +51,19 @@ Ext.define('sunerp.Application', {
             "T12"
         ];
 
+        Ext.Ajax.on('beforerequest', function (conn, options) {
+            Ext.select('#waiting-container').show();
+        });
+
+        Ext.Ajax.on('requestcomplete', function (conn, response, options) {
+            Ext.select('#waiting-container').hide();
+        });
+
+        Ext.Ajax.on('requestexception', function (conn, response, options) {
+            Ext.select('#waiting-container').hide();
+            Ext.Msg.alert('Error ' + response.status, response.responseText);
+        });
+
         return Ext.create("sunerp.view.Viewport");
     },
 
