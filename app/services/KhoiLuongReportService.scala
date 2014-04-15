@@ -8,6 +8,8 @@ import net.sf.dynamicreports.report.constant.{PageType, PageOrientation, WhenNoD
 import java.awt.Color
 import scala.collection.JavaConverters._
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
+import dtos.KhoiLuongReportDto
 
 /**
  * The Class KhoiLuongReportService.
@@ -40,6 +42,17 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val xlsExporter = export.xlsExporter(Play.application.getFile(reportDir + xlsFile))
 
     val report = KhoiLuongReportColumnBuilder.buildLayout()
+
+    val kl = new KhoiLuongReportDto
+    kl.setTaskName("dung ne")
+    kl.setTaskCode("dung ne")
+    kl.setTaskUnit("dung ne")
+    kl.setTotal(10)
+    kl.getKhoiLuongCongViec.put("1", 18)
+    val data = List(kl)
+    val ds = new JRBeanCollectionDataSource(data.asJava)
+
+    report.setDataSource(ds)
 
     fileType match {
       case "pdf" =>

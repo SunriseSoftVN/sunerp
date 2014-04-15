@@ -3,6 +3,7 @@ package services;
 
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
+import net.sf.dynamicreports.report.builder.grid.ColumnTitleGroupBuilder;
 import net.sf.dynamicreports.report.builder.grid.HorizontalColumnGridListBuilder;
 import net.sf.dynamicreports.report.builder.grid.VerticalColumnGridListBuilder;
 import net.sf.dynamicreports.report.constant.*;
@@ -20,12 +21,10 @@ import static services.ReportStyle.*;
 public final class KhoiLuongReportColumnBuilder {
 
     public static JasperReportBuilder buildLayout() {
-        TextColumnBuilder<String> maCv = col.column("Mã Cv", "taskCode", type.stringType());
+        TextColumnBuilder<String> maCv = col.column("Mã Cv", "taskCode", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
         TextColumnBuilder<String> taskName = col.column("Nội dung Cv", "taskName", type.stringType()).setFixedWidth(200);
-        TextColumnBuilder<String> taskUnit = col.column("Đơn vị", "taskUnit", type.stringType());
-        TextColumnBuilder<Double> total = col.column("Tổng cộng", "total", type.doubleType());
-        TextColumnBuilder<String> date = col.column("Ngày thực hiện", "data", type.stringType());
-
+        TextColumnBuilder<String> taskUnit = col.column("Đơn vị", "taskUnit", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
+        TextColumnBuilder<Double> total = col.column("Tổng cộng", "total", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
 
         JasperReportBuilder builder = report()
                 .title(
@@ -41,21 +40,22 @@ public final class KhoiLuongReportColumnBuilder {
                         )
                 )
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
+                .setColumnStyle(COLUMN_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
                 .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE);
 
-        builder.columns(maCv, taskName, taskUnit, total, date);
-        HorizontalColumnGridListBuilder hb = grid.horizontalColumnGridList();
-        VerticalColumnGridListBuilder vb = grid.verticalColumnGridList();
+        builder.columns(maCv, taskName, taskUnit, total);
+        ColumnTitleGroupBuilder tg = grid.titleGroup();
+        tg.setTitle("Ngày thực hiện");
         for (Integer i = 1; i <= 31; i++) {
-            TextColumnBuilder<Double> _col = col.column(i.toString(), i.toString(), type.doubleType()).setWidth(50);
+            TextColumnBuilder<Double> _col = col
+                    .column(i.toString(), "khoiLuongCongViec." + i, type.doubleType())
+                    .setStyle(COLUMN_NUMBER_STYLE)
+                    .setWidth(50);
             builder.addColumn(_col);
-            hb.add(_col);
+            tg.add(_col);
         }
-        vb.add(date, hb);
-
-        builder.columnGrid(maCv, taskName, taskUnit, total, vb);
-
+        builder.columnGrid(maCv, taskName, taskUnit, total, tg);
         return builder;
     }
 

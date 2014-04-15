@@ -2,6 +2,7 @@ package services;
 
 import net.sf.dynamicreports.report.builder.style.StyleBuilder;
 import net.sf.dynamicreports.report.constant.HorizontalAlignment;
+import net.sf.dynamicreports.report.constant.VerticalAlignment;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.stl;
 
@@ -22,7 +23,17 @@ public final class ReportStyle {
     public static final StyleBuilder SUB_TITLE_STYLE = stl.style(BOLD_CENTERED_STYLE).setPadding(5).setBottomPadding(10);
     public static final StyleBuilder LEFT_SUB_TITLE_STYLE = stl.style(SUB_TITLE_STYLE).setHorizontalAlignment(HorizontalAlignment.LEFT);
     public static final StyleBuilder RIGHT_SUB_TITLE_STYLE = stl.style(SUB_TITLE_STYLE).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-    public static final StyleBuilder COLUMN_TITLE_STYLE = stl.style(BOLD_CENTERED_STYLE).setBorder(stl.penThin());
+    public static final StyleBuilder COLUMN_TITLE_STYLE = stl.style(BOLD_CENTERED_STYLE).setBorder(stl.penThin())
+            .setVerticalAlignment(VerticalAlignment.MIDDLE);
+    public static final StyleBuilder COLUMN_STYLE = stl.style().setBorder(stl.penThin())
+            .setHorizontalAlignment(HorizontalAlignment.LEFT)
+            .setVerticalAlignment(VerticalAlignment.MIDDLE)
+            .setLeftPadding(3);
 
+    public static final StyleBuilder COLUMN_CENTER_STYLE = stl.style(COLUMN_STYLE)
+            .setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+    public static final StyleBuilder COLUMN_NUMBER_STYLE = stl.style(COLUMN_STYLE)
+            .setHorizontalAlignment(HorizontalAlignment.RIGHT).setRightPadding(3);
 
 }
