@@ -62,6 +62,7 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
               )
             }
           }
+          //delete temp file
           _file.delete()
         } catch {
           case ex: Exception =>
