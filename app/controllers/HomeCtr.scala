@@ -19,6 +19,19 @@ object DomainKey {
   val soLuong = "soLuong"
   val khoiLuongReport = "khoiLuongReport"
   val task = "task"
+
+  val list = List(
+    soPhanCong,
+    company,
+    donVi,
+    phongBan,
+    nhanVien,
+    chucVu,
+    quyenHanh,
+    soLuong,
+    khoiLuongReport,
+    task
+  )
 }
 
 class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with AuthenticationElement with AuthConfigImpl with MainTemplate with TransactionElement {
@@ -151,15 +164,10 @@ class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with
   })
 
   def domains = StackAction(implicit request => {
-    def travel(menu: MenuItemDto): List[MenuItemDto] = menu.leaf match {
-      case true => menu :: Nil
-      case _ => menu.children.flatMap(travel)
-    }
-    val data = travel(rootMenu).map(leaf => Json.obj(
-      "value" -> leaf.id.toLowerCase,
-      "name" -> leaf.id.toLowerCase
+    val data = DomainKey.list.map(key => Json.obj(
+      "name" -> key.toLowerCase,
+      "value" -> key.toLowerCase
     ))
-
     Ok(Json.toJson(data))
   })
 
