@@ -35,7 +35,7 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
     if (req.donViId.isDefined && req.phongBanId.isDefined) {
       Future {
         promise.success {
-          Ok(khoiLuongReportService.doPhongBanReport(fileType))
+          Ok(khoiLuongReportService.doPhongBanReport(fileType, req))
         }
       }
     } else {
