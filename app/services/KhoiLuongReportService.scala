@@ -18,11 +18,11 @@ import dtos.report.PhongBanKhoiLuongRow
 trait KhoiLuongReportService {
 
   /**
-   * Build report
+   * Build report for a "PhongBan".
    * @param session
    * @return report file name
    */
-  def doReport(fileType: String)(implicit session: Session): String
+  def doPhongBanReport(fileType: String)(implicit session: Session): String
 
 }
 
@@ -30,7 +30,7 @@ import net.sf.dynamicreports.report.builder.DynamicReports._
 
 class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) extends KhoiLuongReportService {
 
-  override def doReport(fileType: String)(implicit session: Session): String = {
+  override def doPhongBanReport(fileType: String)(implicit session: Session): String = {
     val reportDir = "report/"
     val xlsFile = "report.xls"
     val pdfFile = "report.pdf"

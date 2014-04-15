@@ -13,6 +13,7 @@ import play.api.{Logger, Play}
 import play.api.Play.current
 import java.io.FileInputStream
 import org.apache.commons.io.IOUtils
+import dtos.report.KhoiLuongReportRequest
 
 
 /**
@@ -28,9 +29,20 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
   val khoiLuongReportService = inject[KhoiLuongReportService]
 
   def doKhoiluongreport(fileType: String) = AsyncStack(AuthorityKey -> khoiLuongReport)(implicit request => {
-    Future {
-      Ok(khoiLuongReportService.doReport(fileType))
+    val promise = Promise[SimpleResult]()
+    val req = KhoiLuongReportRequest(request)
+
+    if (req.donViId.isDefined && req.phongBanId.isDefined) {
+      Future {
+        promise.success {
+          Ok(khoiLuongReportService.doPhongBanReport(fileType))
+        }
+      }
+    } else {
+      promise.success(BadRequest)
     }
+
+    promise.future
   })
 
   def view(file: String, download: Boolean) = Action.async(implicit request => {
