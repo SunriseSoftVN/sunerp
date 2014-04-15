@@ -106,6 +106,16 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
     )
   )
 
+  def soPhanCongQueryRange(month: Int, year: Int) = {
+    val date = new LocalDate().withYear(year).withMonth(month)
+    val firstDayOfMonth = date.dayOfMonth().withMinimumValue()
+    val lastDayOfMonth = date.dayOfMonth().withMaximumValue()
+    for (
+      soPhanCong <- SoPhanCongs
+      if soPhanCong.ngayPhanCong >= firstDayOfMonth && soPhanCong.ngayPhanCong <= lastDayOfMonth
+    ) yield soPhanCong
+  }
+
   implicit val soPhanCongJsonFormat = Json.format[SoPhanCong]
 
   def load(pagingDto: PagingDto)(implicit session: Session) = {

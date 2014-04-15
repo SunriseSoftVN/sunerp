@@ -46,6 +46,10 @@ object Tasks extends AbstractQuery[Task, Tasks](new Tasks(_)) {
 
   val dbName = "qlkh"
 
+  def all: List[Task] = DB(dbName).withSession(implicit session => {
+    all(session)
+  })
+
   def findById(id: Long) = DB(dbName).withSession(implicit session => {
     where(_.id === id).firstOption
   })

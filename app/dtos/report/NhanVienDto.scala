@@ -1,5 +1,7 @@
 package dtos.report
 
+import models.sunerp.NhanVien
+
 /**
  * The Class NhanVienDto.
  *
@@ -8,3 +10,12 @@ package dtos.report
  *
  */
 case class NhanVienDto(id: Long, name: String)
+
+object NhanVienDto {
+
+  def apply(nhanVien: NhanVien) = new NhanVienDto(
+    id = nhanVien.id.get,
+    name = nhanVien.firstName
+  )
+
+}

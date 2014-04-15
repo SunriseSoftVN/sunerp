@@ -7,7 +7,9 @@ import play.api.Play.current
 import scala.collection.JavaConverters._
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import dtos.report.{KhoiLuongReportRequest, PhongBanKhoiLuongRow}
-import java.util.UUID
+import models.sunerp.SoPhanCongs
+import models.qlkh.Tasks
+import play.api.db.slick.Config.driver.simple._
 
 /**
  * The Class KhoiLuongReportService.
@@ -40,7 +42,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val pdfExporter = export.pdfExporter(Play.application.getFile(reportDir + pdfFile))
     val xlsExporter = export.xlsExporter(Play.application.getFile(reportDir + xlsFile))
     val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
-    val ds = new JRBeanCollectionDataSource(buildPhongBanData())
+    val ds = new JRBeanCollectionDataSource(buildPhongBanData(req))
     report.setDataSource(ds)
 
     fileType match {
@@ -54,7 +56,29 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     }
   }
 
-  private def buildPhongBanData() = {
+  private def buildPhongBanData(req: KhoiLuongReportRequest)(implicit session: Session) = {
+    val tasks = Tasks.all
+
+    val soPhanCongQuery = for (
+      soPhanCong <- SoPhanCongs.soPhanCongQueryRange(req.month, req.year)
+      if soPhanCong.phongBanId === req.phongBanId
+    ) yield soPhanCong
+
+    val query = for (
+      soPhanCong <- soPhanCongQuery;
+      soPhanCongExt <- soPhanCong.soPhanCongExt;
+      nhanVien <- soPhanCong.nhanVien
+    ) yield (soPhanCong, nhanVien, soPhanCongExt)
+
+    val result = query.list()
+
+    for (tuple <- result) {
+      val (soPhanCong, nhanVien, soPhanCongExt) = tuple
+      //make sure every task in so phan cong all aways exits.
+      val task = tasks.find(_.id.get == soPhanCong.taskId).get
+    }
+
+
     val kl = new PhongBanKhoiLuongRow
     kl.setTaskName("dung ne")
     kl.setTaskCode("dung ne")

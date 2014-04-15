@@ -21,9 +21,15 @@ case class KhoiLuongReportRequest(
                                    ) {
 
   def donViName = donVi.get.name
+
+  def donViId = donVi.get.id
+
   def phongBanName = phongBan.get.name
 
+  def phongBanId = phongBan.get.id
+
   def donViNameStrip = StringUtils.convertNonAscii(donViName.toLowerCase).replaceAll(" ", "-")
+
   def phongBanNameStrip = StringUtils.convertNonAscii(phongBanName.toLowerCase).replaceAll(" ", "-")
 }
 

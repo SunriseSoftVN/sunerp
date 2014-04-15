@@ -1,5 +1,7 @@
 package dtos.report
 
+import models.qlkh.Task
+
 /**
  * The Class TaskDto.
  *
@@ -13,5 +15,18 @@ case class TaskDto(
                     code: String,
                     unit: String,
                     khoiLuongDM: Double,
-                    gioDM: Double
+                    gioDM: Option[Double] = None
                     )
+
+object TaskDto {
+
+  def apply(task: Task) = new TaskDto(
+    id = task.id.get,
+    name = task.name,
+    code = task.code,
+    unit = task.unit,
+    khoiLuongDM = task.defaultValue,
+    gioDM = task.quota.map(_ * task.defaultValue)
+  )
+
+}
