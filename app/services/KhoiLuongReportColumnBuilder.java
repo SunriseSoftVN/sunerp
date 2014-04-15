@@ -24,7 +24,7 @@ public final class KhoiLuongReportColumnBuilder {
         TextColumnBuilder<String> maCv = col.column("Mã Cv", "taskCode", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
         TextColumnBuilder<String> taskName = col.column("Nội dung Cv", "taskName", type.stringType()).setFixedWidth(200);
         TextColumnBuilder<String> taskUnit = col.column("Đơn vị", "taskUnit", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
-        TextColumnBuilder<Double> total = col.column("Tổng cộng", "total", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+        TextColumnBuilder<Double> total = col.column("Tổng cộng", "totalKhoiLuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
 
         JasperReportBuilder builder = report()
                 .title(

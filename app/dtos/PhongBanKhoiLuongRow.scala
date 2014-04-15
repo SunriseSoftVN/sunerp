@@ -4,13 +4,16 @@ import scala.beans.BeanProperty
 import java.util
 
 /**
- * The Class KhoiLuongReportDto.
+ * The Class PhongBanKhoiLuongRow.
  *
  * @author Nguyen Duc Dung
  * @since 4/15/14 12:53 PM
  *
  */
-class KhoiLuongReportDto {
+class PhongBanKhoiLuongRow {
+
+  @BeanProperty
+  var taskId: Long = _
 
   @BeanProperty
   var taskName: String = _
@@ -22,8 +25,14 @@ class KhoiLuongReportDto {
   var taskUnit: String = _
 
   @BeanProperty
-  var total: Double = _
+  var totalKhoiLuong: Double = _
+
+  @BeanProperty
+  var totalGio: Double = _
 
   @BeanProperty
   var khoiLuongCongViec = new util.HashMap[String, Double]()
+
+  @BeanProperty
+  var gioCongViec = new util.HashMap[String, Double]()
 }

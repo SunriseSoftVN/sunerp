@@ -4,12 +4,9 @@ import com.escalatesoft.subcut.inject.BindingModule
 import play.api.db.slick.Session
 import play.api.Play
 import play.api.Play.current
-import net.sf.dynamicreports.report.constant.{PageType, PageOrientation, WhenNoDataType, HorizontalAlignment}
-import java.awt.Color
 import scala.collection.JavaConverters._
-import net.sf.dynamicreports.report.builder.column.TextColumnBuilder
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
-import dtos.KhoiLuongReportDto
+import dtos.PhongBanKhoiLuongRow
 
 /**
  * The Class KhoiLuongReportService.
@@ -43,11 +40,11 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
 
     val report = KhoiLuongReportColumnBuilder.buildLayout()
 
-    val kl = new KhoiLuongReportDto
+    val kl = new PhongBanKhoiLuongRow
     kl.setTaskName("dung ne")
     kl.setTaskCode("dung ne")
     kl.setTaskUnit("dung ne")
-    kl.setTotal(10)
+    kl.setTotalKhoiLuong(10)
     kl.getKhoiLuongCongViec.put("1", 18)
     val data = List(kl)
     val ds = new JRBeanCollectionDataSource(data.asJava)

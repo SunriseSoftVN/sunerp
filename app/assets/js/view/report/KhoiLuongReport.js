@@ -14,7 +14,7 @@ Ext.define('sunerp.view.report.KhoiLuongReport', {
     controller: 'sunerp.controller.report.KhoiLuongReportCtr',
     layout: 'fit',
     tbar: [
-        {xtype: 'donvicb', addShowAll: false},
+        {xtype: 'donvicb'},
         {xtype: 'phongbancb', emptyText: 'Phòng ban'},
         {xtype: 'monthcb', width: 100},
         {xtype: 'yearcb', width: 100},
