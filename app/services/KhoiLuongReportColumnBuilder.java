@@ -5,13 +5,10 @@ import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.grid.HorizontalColumnGridListBuilder;
 import net.sf.dynamicreports.report.builder.grid.VerticalColumnGridListBuilder;
-import net.sf.dynamicreports.report.constant.PageOrientation;
-import net.sf.dynamicreports.report.constant.PageType;
-import net.sf.dynamicreports.report.constant.WhenNoDataType;
+import net.sf.dynamicreports.report.constant.*;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
-import static services.ReportStyle.COLUMN_TITLE_STYLE;
-import static services.ReportStyle.TITLE_STYLE;
+import static services.ReportStyle.*;
 
 /**
  * The Class KhoiLuongReportColumnBuilder.
@@ -31,7 +28,18 @@ public final class KhoiLuongReportColumnBuilder {
 
 
         JasperReportBuilder builder = report()
-                .title(cmp.text("BIỂU TỔNG HỢP CÔNG VIỆC HÀNG NGÀY").setStyle(TITLE_STYLE))
+                .title(
+                        cmp.horizontalList().add(
+                                cmp.verticalList().add(
+                                        cmp.text("Xí nghiệp ……..").setStyle(stl.style(LEFT_TITLE_STYLE).setLeftPadding(5)),
+                                        cmp.text("Cung (Trạm)…………").setStyle(LEFT_SUB_TITLE_STYLE)
+                                ).setFixedWidth(150),
+                                cmp.verticalList().add(
+                                        cmp.text("BIỂU TỔNG HỢP CÔNG VIỆC HÀNG NGÀY").setStyle(TITLE_STYLE),
+                                        cmp.text("Tháng ….... Quý....... Năm 20.....").setStyle(SUB_TITLE_STYLE)
+                                )
+                        )
+                )
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
                 .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE);
