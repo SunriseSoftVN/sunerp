@@ -2,10 +2,12 @@ package services
 
 import com.escalatesoft.subcut.inject.BindingModule
 import play.api.db.slick.Session
-import net.sf.dynamicreports.report.datasource.DRDataSource
 import play.api.Play
 import play.api.Play.current
-import net.sf.dynamicreports.report.constant.HorizontalAlignment
+import net.sf.dynamicreports.report.constant.{PageType, PageOrientation, WhenNoDataType, HorizontalAlignment}
+import java.awt.Color
+import scala.collection.JavaConverters._
+import net.sf.dynamicreports.report.builder.column.TextColumnBuilder
 
 /**
  * The Class KhoiLuongReportService.
@@ -37,27 +39,14 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val pdfExporter = export.pdfExporter(Play.application.getFile(reportDir + pdfFile))
     val xlsExporter = export.xlsExporter(Play.application.getFile(reportDir + xlsFile))
 
-    val boldStyle = stl.style().bold()
-    val boldCenteredStyle = stl.style(boldStyle)
-      .setHorizontalAlignment(HorizontalAlignment.CENTER)
-
-    val ds = new DRDataSource("item")
-    ds.add("macbook")
-    ds.add("iphone")
-    val builder =
-      report
-        .columns(
-          col.column("Item", "item", `type`.stringType())
-        )
-        .title(cmp.text("BIỂU TỔNG HỢP CÔNG VIỆC HÀNG NGÀY").setStyle(boldCenteredStyle))
-        .setDataSource(ds)
+    val report = KhoiLuongReportColumnBuilder.buildLayout()
 
     fileType match {
       case "pdf" =>
-        builder.toPdf(pdfExporter)
+        report.toPdf(pdfExporter)
         pdfFile
       case "xls" =>
-        builder.toXls(xlsExporter)
+        report.toXls(xlsExporter)
         xlsFile
       case _ => ???
     }
