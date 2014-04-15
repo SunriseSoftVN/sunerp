@@ -1,4 +1,4 @@
-package dtos
+package dtos.report
 
 import scala.beans.BeanProperty
 import java.util

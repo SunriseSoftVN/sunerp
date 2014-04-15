@@ -6,7 +6,7 @@ import play.api.Play
 import play.api.Play.current
 import scala.collection.JavaConverters._
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
-import dtos.PhongBanKhoiLuongRow
+import dtos.report.PhongBanKhoiLuongRow
 
 /**
  * The Class KhoiLuongReportService.
