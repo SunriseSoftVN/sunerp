@@ -4,9 +4,9 @@ package services;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.grid.ColumnTitleGroupBuilder;
-import net.sf.dynamicreports.report.builder.grid.HorizontalColumnGridListBuilder;
-import net.sf.dynamicreports.report.builder.grid.VerticalColumnGridListBuilder;
-import net.sf.dynamicreports.report.constant.*;
+import net.sf.dynamicreports.report.constant.PageOrientation;
+import net.sf.dynamicreports.report.constant.PageType;
+import net.sf.dynamicreports.report.constant.WhenNoDataType;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
 import static services.ReportStyle.*;
