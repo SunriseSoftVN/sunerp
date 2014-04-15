@@ -1,7 +1,7 @@
 package dtos.report
 
 import play.api.mvc.{AnyContent, Request}
-import utils.{String2Long, String2Int}
+import utils.{StringUtils, String2Long, String2Int}
 import org.joda.time.LocalDate
 import models.sunerp.{DonVis, PhongBans, PhongBan, DonVi}
 import play.api.db.slick.Session
@@ -18,7 +18,14 @@ case class KhoiLuongReportRequest(
                                    year: Int,
                                    donVi: Option[DonVi] = None,
                                    phongBan: Option[PhongBan] = None
-                                   )
+                                   ) {
+
+  def donViName = donVi.get.name
+  def phongBanName = phongBan.get.name
+
+  def donViNameStrip = StringUtils.convertNonAscii(donViName.toLowerCase).replaceAll(" ", "-")
+  def phongBanNameStrip = StringUtils.convertNonAscii(phongBanName.toLowerCase).replaceAll(" ", "-")
+}
 
 
 object KhoiLuongReportRequest {

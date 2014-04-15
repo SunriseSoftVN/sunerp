@@ -7,6 +7,7 @@ import play.api.Play.current
 import scala.collection.JavaConverters._
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import dtos.report.{KhoiLuongReportRequest, PhongBanKhoiLuongRow}
+import java.util.UUID
 
 /**
  * The Class KhoiLuongReportService.
@@ -30,14 +31,14 @@ import net.sf.dynamicreports.report.builder.DynamicReports._
 
 class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) extends KhoiLuongReportService {
 
-  override def doPhongBanReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
-    val reportDir = "report/"
-    val xlsFile = "report.xls"
-    val pdfFile = "report.pdf"
+  val reportDir = "report/"
 
+  override def doPhongBanReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
+    val fileName = s"khoiluong-${req.donViNameStrip}-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
+    val pdfFile = fileName + ".pdf"
+    val xlsFile = fileName + ".xls"
     val pdfExporter = export.pdfExporter(Play.application.getFile(reportDir + pdfFile))
     val xlsExporter = export.xlsExporter(Play.application.getFile(reportDir + xlsFile))
-
     val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
 
     val kl = new PhongBanKhoiLuongRow

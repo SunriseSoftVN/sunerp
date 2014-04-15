@@ -62,6 +62,7 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
               )
             }
           }
+          _file.delete()
         } catch {
           case ex: Exception =>
             Logger.error(ex.getMessage, ex)
