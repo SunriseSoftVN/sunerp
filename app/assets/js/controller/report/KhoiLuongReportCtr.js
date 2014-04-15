@@ -23,6 +23,18 @@ Ext.define('sunerp.controller.report.KhoiLuongReportCtr', {
                 click: 'doDownloadXls'
             }
         },
+        donViCb: {
+            selector: 'donvicb'
+        },
+        phongBanCb: {
+            selector: 'phongbancb'
+        },
+        monthCb: {
+            selector: 'monthcb'
+        },
+        yearCb: {
+            selector: 'yearcb'
+        },
         iframe: {
             selector: 'uxiframe'
         }
@@ -32,30 +44,34 @@ Ext.define('sunerp.controller.report.KhoiLuongReportCtr', {
     },
     doReport: function () {
         var me = this;
-        Ext.Ajax.request({
-            url: '/report/khoiluongreport',
-            success: function (response) {
-                me.getIframe().load('/report/file/' + response.responseText)
-            }
+        me.request('/report/khoiluongreport', function (response) {
+            me.getIframe().load('/report/file/' + response.responseText)
         });
     },
     doDownloadPdf: function () {
         var me = this;
-        Ext.Ajax.request({
-            url: '/report/khoiluongreport?fileType=pdf',
-            success: function (response) {
-                me.showMsg('/report/file/' + response.responseText + '?download=true')
-            }
+        me.request('/report/khoiluongreport?fileType=pdf', function (response) {
+            me.showMsg('/report/file/' + response.responseText + '?download=true')
         });
-
     },
     doDownloadXls: function () {
         var me = this;
+        me.request('/report/khoiluongreport?fileType=xls', function (response) {
+            me.showMsg('/report/file/' + response.responseText + '?download=true')
+        });
+    },
+    request: function (url, success) {
+        var me = this;
         Ext.Ajax.request({
-            url: '/report/khoiluongreport?fileType=xls',
-            success: function (response) {
-                me.showMsg('/report/file/' + response.responseText + '?download=true');
-            }
+            url: url,
+            params: {
+                month: me.getMonthCb().getValue(),
+                year: me.getYearCb().getValue(),
+                donViId: me.getDonViCb().getValue(),
+                phongBanId: me.getPhongBanCb().getValue()
+            },
+            method: 'GET',
+            success: success
         });
     },
     showMsg: function (url) {
