@@ -28,7 +28,7 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
 
   val khoiLuongReportService = inject[KhoiLuongReportService]
 
-  def doKhoiluongreport(fileType: String) = AsyncStack(AuthorityKey -> khoiLuongReport)(implicit request => {
+  def doKhoiLuongReport(fileType: String) = AsyncStack(AuthorityKey -> khoiLuongReport)(implicit request => {
     val promise = Promise[SimpleResult]()
     val req = KhoiLuongReportRequest(request)
 

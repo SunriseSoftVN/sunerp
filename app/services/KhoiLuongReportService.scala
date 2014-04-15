@@ -40,16 +40,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val pdfExporter = export.pdfExporter(Play.application.getFile(reportDir + pdfFile))
     val xlsExporter = export.xlsExporter(Play.application.getFile(reportDir + xlsFile))
     val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
-
-    val kl = new PhongBanKhoiLuongRow
-    kl.setTaskName("dung ne")
-    kl.setTaskCode("dung ne")
-    kl.setTaskUnit("dung ne")
-    kl.setTotalKhoiLuong(10)
-    kl.getKhoiLuongCongViec.put("1", 18)
-    val data = List(kl)
-    val ds = new JRBeanCollectionDataSource(data.asJava)
-
+    val ds = new JRBeanCollectionDataSource(buildPhongBanData())
     report.setDataSource(ds)
 
     fileType match {
@@ -61,6 +52,17 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
         xlsFile
       case _ => ???
     }
+  }
+
+  private def buildPhongBanData() = {
+    val kl = new PhongBanKhoiLuongRow
+    kl.setTaskName("dung ne")
+    kl.setTaskCode("dung ne")
+    kl.setTaskUnit("dung ne")
+    kl.setTotalKhoiLuong(10)
+    kl.getKhoiLuongCongViec.put("1", 18)
+    val data = List(kl)
+    data.asJava
   }
 
 }
