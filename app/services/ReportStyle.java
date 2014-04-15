@@ -22,7 +22,7 @@ public final class ReportStyle {
     public static final StyleBuilder SUB_TITLE_STYLE = stl.style(BOLD_CENTERED_STYLE).setPadding(5).setBottomPadding(10);
     public static final StyleBuilder LEFT_SUB_TITLE_STYLE = stl.style(SUB_TITLE_STYLE).setHorizontalAlignment(HorizontalAlignment.LEFT);
     public static final StyleBuilder RIGHT_SUB_TITLE_STYLE = stl.style(SUB_TITLE_STYLE).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-    public static final StyleBuilder COLUMN_TITLE_STYLE = stl.style(BOLD_CENTERED_STYLE).setBorder(stl.pen1Point());
+    public static final StyleBuilder COLUMN_TITLE_STYLE = stl.style(BOLD_CENTERED_STYLE).setBorder(stl.penThin());
 
 
 }
