@@ -3,6 +3,8 @@ package dtos.report
 import play.api.mvc.{AnyContent, Request}
 import utils.{String2Long, String2Int}
 import org.joda.time.LocalDate
+import models.sunerp.{DonVis, PhongBans, PhongBan, DonVi}
+import play.api.db.slick.Session
 
 /**
  * The Class KhoiLuongReportRequest.
@@ -14,14 +16,14 @@ import org.joda.time.LocalDate
 case class KhoiLuongReportRequest(
                                    month: Int,
                                    year: Int,
-                                   donViId: Option[Long] = None,
-                                   phongBanId: Option[Long] = None
+                                   donVi: Option[DonVi] = None,
+                                   phongBan: Option[PhongBan] = None
                                    )
 
 
 object KhoiLuongReportRequest {
 
-  def apply(request: Request[AnyContent]) = {
+  def apply(request: Request[AnyContent])(implicit session: Session) = {
     val month = request.getQueryString("month").collect {
       case String2Int(_month) => _month
     }.getOrElse {
@@ -36,19 +38,21 @@ object KhoiLuongReportRequest {
       LocalDate.now.getYear
     }
 
-    val phongBanId = request.getQueryString("phongBanId").collect {
-      case String2Long(_phongBanId) => _phongBanId
+    val phongBan = request.getQueryString("phongBanId").flatMap {
+      case String2Long(_id) => PhongBans.findById(_id)
+      case _ => None
     }
 
-    val donViId = request.getQueryString("donViId").collect {
-      case String2Long(_donViId) => _donViId
+    val donVi = request.getQueryString("donViId").flatMap {
+      case String2Long(_id) => DonVis.findById(_id)
+      case _ => None
     }
 
     new KhoiLuongReportRequest(
       month = month,
       year = year,
-      donViId = donViId,
-      phongBanId = phongBanId
+      donVi = donVi,
+      phongBan = phongBan
     )
   }
 

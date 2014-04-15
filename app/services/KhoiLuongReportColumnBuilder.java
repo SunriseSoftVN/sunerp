@@ -33,12 +33,12 @@ public final class KhoiLuongReportColumnBuilder {
                 .title(
                         cmp.horizontalList().add(
                                 cmp.verticalList().add(
-                                        cmp.text("Xí nghiệp ……..").setStyle(stl.style(LEFT_TITLE_STYLE).setLeftPadding(5)),
-                                        cmp.text("Cung (Trạm)…………").setStyle(LEFT_SUB_TITLE_STYLE)
+                                        cmp.text("Xí nghiệp: " + request.donVi().get().name()).setStyle(stl.style(LEFT_TITLE_STYLE).setLeftPadding(5)),
+                                        cmp.text("Cung (Trạm): " + request.phongBan().get().name()).setStyle(LEFT_SUB_TITLE_STYLE)
                                 ).setFixedWidth(150),
                                 cmp.verticalList().add(
                                         cmp.text("BIỂU TỔNG HỢP CÔNG VIỆC HÀNG NGÀY").setStyle(TITLE_STYLE),
-                                        cmp.text("Tháng " + request.month() + "  Quý " + quarter + "  Năm " + request.year()).setStyle(SUB_TITLE_STYLE)
+                                        cmp.text("Tháng: " + request.month() + "  Quý: " + quarter + "  Năm: " + request.year()).setStyle(SUB_TITLE_STYLE)
                                 )
                         )
                 )

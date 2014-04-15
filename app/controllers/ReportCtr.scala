@@ -32,7 +32,7 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
     val promise = Promise[SimpleResult]()
     val req = KhoiLuongReportRequest(request)
 
-    if (req.donViId.isDefined && req.phongBanId.isDefined) {
+    if (req.donVi.isDefined && req.phongBan.isDefined) {
       Future {
         promise.success {
           Ok(khoiLuongReportService.doPhongBanReport(fileType, req))
