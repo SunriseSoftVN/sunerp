@@ -133,6 +133,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
         filter.property match {
           case "nhanVien.maNv" => nhanVien.maNv.toLowerCase like filter.asLikeValue
           case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
+          case "phongBanId" => soPhanCong.phongBanId === filter.asLong
           case "month" =>
             val date = new LocalDate().withYear(LocalDate.now.getYear).withMonth(filter.asInt)
             val firstDayOfMonth = date.dayOfMonth().withMinimumValue()

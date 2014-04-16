@@ -11,6 +11,11 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         phongBanId: null,
         userService: null
     },
+    observe: {
+        soPhanCongStore: {
+            beforeload: 'onStoreBeforeLoad'
+        }
+    },
     control: {
         monthCb: {
             selector: 'monthcb'
@@ -25,6 +30,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
             }
         }
     },
+    phongBanFilter: null,
     init: function () {
         this.mainStore = this.getSoPhanCongStore();
         this.setPhongBanId(this.getUserService().getCurrentUser().phongBanId);
@@ -55,5 +61,15 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
                 me.mainStore.reload();
             }
         });
+    },
+    onStoreBeforeLoad: function (store, operation) {
+        var me = this;
+        if (!me.phongBanFilter) {
+            me.phongBanFilter = new Ext.util.Filter({
+                property: 'phongBanId',
+                value: sunerp.Utils.toString(me.getUserService().getCurrentUser().phongBanId)
+            });
+            store.addFilter(me.phongBanFilter);
+        }
     }
 });
