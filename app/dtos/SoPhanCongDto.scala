@@ -20,7 +20,7 @@ case class SoPhanCongDto(
                           id: Long,
                           nhanVienId: Long,
                           taskId: Option[Long],
-                          taskName: String,
+                          taskName: Option[String],
                           phongBanId: Long,
                           quota: Double,
                           khoiLuong: Double,

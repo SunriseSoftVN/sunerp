@@ -41,7 +41,6 @@ class SoPhanCongServiceImpl(implicit val bindingModule: BindingModule) extends S
         val extId = SoPhanCongExts.save(SoPhanCongExt())
         val soPhanCong = SoPhanCong(
           nhanVienId = nhanVien.id.get,
-          taskName = "",
           phongBanId = phongBanId,
           soPhanCongExtId = extId,
           khoiLuong = 0d,
