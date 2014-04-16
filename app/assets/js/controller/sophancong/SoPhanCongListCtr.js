@@ -41,7 +41,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     onInitBtnClick: function () {
         var me = this;
         Ext.Ajax.request({
-            url: '/sophancong/init/' + me.getMonthCb().getValue(),
+            url: '/sophancong/init/' + me.getMonthCb().getValue() + "/" + this.getPhongBanId(),
             success: function (rep) {
                 alert('ok');
             }

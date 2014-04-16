@@ -99,8 +99,9 @@ with TransactionElement with MainTemplate with Injectable {
     )
   })
 
-  def init(month: Int) = AsyncStack(AuthorityKey -> domainName)(implicit request => {
+  def init(month: Int, phongBanId: Long) = AsyncStack(AuthorityKey -> domainName)(implicit request => {
     Future {
+      soPhanCongService.initData(month, phongBanId)
       Ok
     }
   })
