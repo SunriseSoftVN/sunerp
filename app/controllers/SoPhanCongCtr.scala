@@ -6,7 +6,8 @@ import play.api.libs.json.Json
 import dtos.{FormErrorDto, PagingDto}
 import play.api.mvc.Controller
 import jp.t2v.lab.play2.auth.AuthElement
-import com.escalatesoft.subcut.inject.BindingModule
+import services.SoPhanCongService
+import com.escalatesoft.subcut.inject._
 
 /**
  * The Class SoPhanCongCtr.
@@ -15,9 +16,12 @@ import com.escalatesoft.subcut.inject.BindingModule
  * @since 3/8/14 4:20 PM
  *
  */
-class SoPhanCongCtr(implicit val bindingModule: BindingModule) extends Controller with AuthElement with AuthConfigImpl with TransactionElement with MainTemplate {
+class SoPhanCongCtr(implicit val bindingModule: BindingModule) extends Controller with AuthElement with AuthConfigImpl
+with TransactionElement with MainTemplate with Injectable {
 
   val domainName = DomainKey.soPhanCong
+
+  val soPhanCongService = inject[SoPhanCongService]
 
   def index = StackAction(AuthorityKey -> domainName)(implicit request => {
     val paging = PagingDto(request)

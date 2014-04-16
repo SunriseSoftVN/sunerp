@@ -27,4 +27,5 @@ object ApplicationConfiguration extends NewBindingModule(module => {
 
   //Service
   bind[KhoiLuongReportService] to moduleInstanceOf[KhoiLuongReportServiceImpl]
+  bind[SoPhanCongService] to moduleInstanceOf[SoPhanCongServiceImpl]
 })

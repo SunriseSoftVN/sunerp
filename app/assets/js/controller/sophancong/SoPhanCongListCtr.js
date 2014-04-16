@@ -11,6 +11,14 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         phongBanId: null,
         userService: null
     },
+    control: {
+        iniBtn: {
+            selector: 'button[action=init]',
+            listeners: {
+                click: 'onInitBtnClick'
+            }
+        }
+    },
     init: function () {
         this.mainStore = this.getSoPhanCongStore();
         this.setPhongBanId(this.getUserService().getCurrentUser().phongBanId);
@@ -26,5 +34,8 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
             rec.set('ngayPhanCong', new Date());
         }
         this.mainStore.insert(this.mainStore.count(), rec);
+    },
+    onInitBtnClick: function () {
+        alert('dung ne');
     }
 });
