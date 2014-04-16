@@ -59,13 +59,8 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   private def buildPhongBanData(req: KhoiLuongReportRequest)(implicit session: Session) = {
     val tasks = Tasks.all
 
-    val soPhanCongQuery = for (
-      soPhanCong <- SoPhanCongs.soPhanCongQueryRange(req.month, req.year)
-      if soPhanCong.phongBanId === req.phongBanId && soPhanCong.taskId.isNotNull
-    ) yield soPhanCong
-
     val query = for (
-      soPhanCong <- soPhanCongQuery;
+      soPhanCong <- SoPhanCongs.soPhanCongCommonQuery(req.month, req.year, req.phongBanId);
       soPhanCongExt <- soPhanCong.soPhanCongExt;
       nhanVien <- soPhanCong.nhanVien
     ) yield (soPhanCong, nhanVien, soPhanCongExt)

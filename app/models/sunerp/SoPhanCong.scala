@@ -112,6 +112,11 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
     )
   )
 
+  def soPhanCongCommonQuery(month: Int, year: Int, phongBanId: Long) = for (
+    soPhanCong <- SoPhanCongs.soPhanCongQueryRange(month, year)
+    if soPhanCong.phongBanId === phongBanId && soPhanCong.taskId.isNotNull
+  ) yield soPhanCong
+
   def soPhanCongQueryRange(month: Int, year: Int) = {
     val date = new LocalDate().withYear(year).withMonth(month)
     val firstDayOfMonth = date.dayOfMonth().withMinimumValue()
