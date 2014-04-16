@@ -1,6 +1,7 @@
 package utils
 
 import org.apache.commons._
+import org.scalautils.Equality
 
 /**
  * The Class Empty2None.
@@ -18,5 +19,13 @@ object Options {
       None
     }
   })
+
+  implicit val optionLongEq = new Equality[Option[Long]] {
+    def areEqual(a: Option[Long], b: Any): Boolean =
+      b match {
+        case o: Long => a.isDefined && a.get == o
+        case _ => false
+      }
+  }
 
 }
