@@ -49,7 +49,7 @@ Ext.define('sunerp.view.Viewport', {
                     html: '<div style="text-align: center">' +
                         '<img src="/assets/companylogo.png">' +
                         '<h4>Công ty TNHH SunriseSoft</h4>' +
-                        '<p>Website: <a target="_blank" href="http://www.sunrisesoft.vn/">sunrisesoft.vn</a></p>' +
+                        '<p>Website: <a target="_blank" href="http://www.sunrisesoft.vn/">http://sunrisesoft.vn</a></p>' +
                         '</div>',
                     bodyStyle: 'background-image: url(/assets/img/square.gif)'
                 }
