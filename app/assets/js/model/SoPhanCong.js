@@ -44,6 +44,7 @@ Ext.define('sunerp.model.SoPhanCong', {
         {type: 'belongsTo', model: 'sunerp.model.Task', name: 'task'}
     ],
     set: function (fieldName, newValue) {
+        //automatic set time for task has a quota.
         var quota = this.get("quota");
         var khoiLuong = this.get("khoiLuong");
         var gio = 0;
