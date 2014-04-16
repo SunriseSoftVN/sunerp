@@ -172,6 +172,14 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
             fieldName: 'month',
             store: me.store
         });
-        me.tbar.insert(1, momthCbFilter)
+        me.tbar.insert(1, momthCbFilter);
+
+        me.tbar.add({
+            xtype: 'button',
+            action: 'init',
+            iconCls: 'init',
+            text: 'Khởi tạo',
+            tooltip: 'Khởi tạo dữ liệu với tất cả nhân viên trong phòng hoặc cung'
+        });
     }
 });
