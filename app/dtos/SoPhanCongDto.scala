@@ -19,7 +19,7 @@ import org.joda.time.LocalDate
 case class SoPhanCongDto(
                           id: Long,
                           nhanVienId: Long,
-                          taskId: Long,
+                          taskId: Option[Long],
                           taskName: String,
                           phongBanId: Long,
                           khoiLuong: Double,

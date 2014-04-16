@@ -27,7 +27,7 @@ import com.github.nscala_time.time.StaticForwarderImports.LocalDate
 case class SoPhanCong(
                        id: Option[Long] = None,
                        nhanVienId: Long,
-                       taskId: Long,
+                       taskId: Option[Long] = None,
                        taskName: String,
                        phongBanId: Long,
                        khoiLuong: Double,
@@ -48,8 +48,11 @@ case class SoPhanCong(
   private var _task: Option[Task] = None
 
   def task = _task.orElse {
-    _task = Tasks.findById(taskId)
-    _task
+    taskId.map {
+      _id =>
+        _task = Tasks.findById(_id)
+        _task
+    }
   }
 }
 
@@ -59,7 +62,7 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong")
 
   def nhanVien = foreignKey("nhan_vien_so_phan_cong_fk", nhanVienId, NhanViens)(_.id)
 
-  def taskId = column[Long]("taskId", O.NotNull)
+  def taskId = column[Long]("taskId")
 
   def taskName = column[String]("taskName", O.NotNull)
 
@@ -79,7 +82,7 @@ class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong")
 
   def ngayPhanCong = column[LocalDate]("ngayPhanCong", O.NotNull)
 
-  def * = (id.?, nhanVienId, taskId, taskName, phongBanId, khoiLuong, gio, ghiChu, soPhanCongExtId, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
+  def * = (id.?, nhanVienId, taskId.?, taskName, phongBanId, khoiLuong, gio, ghiChu, soPhanCongExtId, ngayPhanCong) <>(SoPhanCong.tupled, SoPhanCong.unapply)
 }
 
 object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCongs(_)) {
@@ -95,7 +98,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
     tuple(
       "id" -> optional(longNumber),
       "nhanVienId" -> longNumber,
-      "taskId" -> longNumber,
+      "taskId" -> optional(longNumber),
       "taskName" -> nonEmptyText,
       "phongBanId" -> longNumber,
       "khoiLuong" -> of[Double],

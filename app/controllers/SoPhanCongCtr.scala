@@ -8,6 +8,8 @@ import play.api.mvc.Controller
 import jp.t2v.lab.play2.auth.AuthElement
 import services.SoPhanCongService
 import com.escalatesoft.subcut.inject._
+import scala.concurrent.{ExecutionContext, Future}
+import ExecutionContext.Implicits.global
 
 /**
  * The Class SoPhanCongCtr.
@@ -95,6 +97,12 @@ with TransactionElement with MainTemplate with Injectable {
         Ok
       }
     )
+  })
+
+  def init(month: Int) = AsyncStack(AuthorityKey -> domainName)(implicit request => {
+    Future {
+      Ok
+    }
   })
 
 }

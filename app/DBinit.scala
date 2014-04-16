@@ -94,12 +94,19 @@ object DBinit {
           chucVuId = chucVuId
         )
 
+        val quyenHanhTask = new QuyenHanh(
+          domain = "task",
+          write = false,
+          chucVuId = chucVuId
+        )
+
         QuyenHanhs.save(quyenHanhCongTy)
         QuyenHanhs.save(quyenHanhDonVi)
         QuyenHanhs.save(quyenHanhPhongBan)
         QuyenHanhs.save(quyenHanhNhanVien)
         QuyenHanhs.save(quyenHanhChucVu)
         QuyenHanhs.save(quyenHanh)
+        QuyenHanhs.save(quyenHanhTask)
       }
     })
   }

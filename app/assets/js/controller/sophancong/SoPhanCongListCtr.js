@@ -12,6 +12,9 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         userService: null
     },
     control: {
+        monthCb: {
+            selector: 'monthcb'
+        },
         iniBtn: {
             selector: 'button[action=init]',
             listeners: {
@@ -36,6 +39,12 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         this.mainStore.insert(this.mainStore.count(), rec);
     },
     onInitBtnClick: function () {
-        alert('dung ne');
+        var me = this;
+        Ext.Ajax.request({
+            url: '/sophancong/init/' + me.getMonthCb().getValue(),
+            success: function (rep) {
+                alert('ok');
+            }
+        });
     }
 });

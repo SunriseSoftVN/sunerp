@@ -50,6 +50,7 @@ GET           /user/login            @controllers.AuthCtr.login
 POST          /user/auth             @controllers.AuthCtr.auth
 GET           /user/logout           @controllers.AuthCtr.logout
 
+GET           /sophancong/init/:month       @controllers.SoPhanCongCtr.init(month: Int)
 GET           /sophancong            @controllers.SoPhanCongCtr.index
 POST          /sophancong            @controllers.SoPhanCongCtr.save
 PUT           /sophancong/:id        @controllers.SoPhanCongCtr.update(id: Long)
