@@ -61,7 +61,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
 
     val soPhanCongQuery = for (
       soPhanCong <- SoPhanCongs.soPhanCongQueryRange(req.month, req.year)
-      if soPhanCong.phongBanId === req.phongBanId
+      if soPhanCong.phongBanId === req.phongBanId && soPhanCong.taskId.isNotNull
     ) yield soPhanCong
 
     val query = for (
