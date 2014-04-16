@@ -32,9 +32,9 @@ class SoPhanCongServiceImpl(implicit val bindingModule: BindingModule) extends S
       //nhan vien da duoc phan cong trong ngay
       val nhanVienIds = soPhanCongs.filter(_.ngayPhanCong == _date).map(_.nhanVienId)
       //Nhan vien chua duoc phan cong
-      val notAssignnhanViens = nhanViens.filterNot(nhanVien => nhanVienIds.exists(_ == nhanVien.id.get))
+      val notAssignNhanViens = nhanViens.filterNot(nhanVien => nhanVienIds.exists(_ == nhanVien.id.get))
 
-      notAssignnhanViens.foreach(nhanVien => {
+      notAssignNhanViens.foreach(nhanVien => {
         val extId = SoPhanCongExts.save(SoPhanCongExt())
         val soPhanCong = SoPhanCong(
           nhanVienId = nhanVien.id.get,
