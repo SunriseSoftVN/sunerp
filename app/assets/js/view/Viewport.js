@@ -6,6 +6,7 @@ Ext.define('sunerp.view.Viewport', {
         'sunerp.view.Header',
         'sunerp.view.LeftPanel',
         'sunerp.view.ContentPanel',
+        'sunerp.layout.Center',
         'sunerp.controller.NavigationCtr'
     ],
 
@@ -28,15 +29,31 @@ Ext.define('sunerp.view.Viewport', {
             stateful: true,
             stateId: 'mainnav.west',
             collapsible: true,
-            tools: [{
-                type: 'gear',
-                regionTool: true
-            }]
+            tools: [
+                {
+                    type: 'gear',
+                    regionTool: true
+                }
+            ]
         },
         {
             region: 'center',
             xtype: 'contentPanel',
-            id: 'content-panel'
+            id: 'content-panel',
+            layout: 'ux.center',
+            items: [
+                {
+                    border: false,
+                    width: 200,
+                    height: '30%', // assign 90% of the container height to the item
+                    html: '<div style="text-align: center">' +
+                        '<img src="/assets/companylogo.png">' +
+                        '<h4>Công ty TNHH SunriseSoft</h4>' +
+                        '<p>Website: <a target="_blank" href="http://www.sunrisesoft.vn/">sunrisesoft.vn</a></p>' +
+                        '</div>',
+                    bodyStyle: 'background-image: url(/assets/img/square.gif)'
+                }
+            ]
         }
     ]
 });
