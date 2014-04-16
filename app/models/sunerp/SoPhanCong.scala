@@ -51,7 +51,7 @@ case class SoPhanCong(
   private var _task: Option[Task] = None
 
   def task = _task.orElse {
-    taskId.map {
+    taskId.flatMap {
       _id =>
         _task = Tasks.findById(_id)
         _task

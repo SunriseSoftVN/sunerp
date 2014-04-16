@@ -14,6 +14,7 @@ Ext.define('sunerp.model.SoPhanCong', {
         'phongBanId',
         'phongBan',
         'khoiLuong',
+        'quota',
         'gio',
         'ghiChu',
         'soPhanCongExtId',
@@ -41,5 +42,22 @@ Ext.define('sunerp.model.SoPhanCong', {
         {type: 'belongsTo', model: 'sunerp.model.PhongBan', name: 'phongBan'},
         {type: 'belongsTo', model: 'sunerp.model.NhanVien', name: 'nhanVien'},
         {type: 'belongsTo', model: 'sunerp.model.Task', name: 'task'}
-    ]
+    ],
+    set: function (fieldName, newValue) {
+        var quota = this.get("quota");
+        var khoiLuong = this.get("khoiLuong");
+        var gio = 0;
+        if (fieldName == 'khoiLuong' && quota) {
+            gio = quota * newValue;
+            if (gio > 0) {
+                this.set("gio", gio);
+            }
+        } else if(fieldName == 'quota' && khoiLuong) {
+            gio = newValue * khoiLuong;
+            if (gio > 0) {
+                this.set("gio", gio);
+            }
+        }
+        this.callParent(arguments);
+    }
 });
