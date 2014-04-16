@@ -21,6 +21,8 @@ case class PagingDto(
                       sorts: List[SortDirection]
                       ) {
   def getFilters : List[ColumnFilter] = filters.filter(_.value.isDefined)
+
+  def findFilters(property: String) = filters.find(_.property == property)
 }
 
 case class SortDirection(property: String, direction: String)

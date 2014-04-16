@@ -15,6 +15,9 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         monthCb: {
             selector: 'monthcb'
         },
+        dayCb: {
+            selector: 'daycb'
+        },
         iniBtn: {
             selector: 'button[action=init]',
             listeners: {
@@ -34,7 +37,13 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         if (lastModel != null) {
             rec.set('ngayPhanCong', lastModel.get('ngayPhanCong'));
         } else {
-            rec.set('ngayPhanCong', new Date());
+            var year = new Date().getFullYear();
+            var month = this.getMonthCb().getValue() - 1;
+            var day = new Date().getDate();
+            if (this.getDayCb().getValue()) {
+                day = this.getDayCb().getValue();
+            }
+            rec.set('ngayPhanCong', new Date(year, month, day));
         }
         this.mainStore.insert(this.mainStore.count(), rec);
     },
@@ -43,7 +52,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         Ext.Ajax.request({
             url: '/sophancong/init/' + me.getMonthCb().getValue() + "/" + this.getPhongBanId(),
             success: function (rep) {
-                alert('ok');
+                me.mainStore.reload();
             }
         });
     }

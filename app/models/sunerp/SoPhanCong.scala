@@ -15,6 +15,9 @@ import exception.ForeignKeyNotFound
 import models.qlkh.Task
 import com.github.nscala_time.time.TypeImports.LocalDate
 import com.github.nscala_time.time.StaticForwarderImports.LocalDate
+import play.api.Logger
+import org.joda.time.IllegalFieldValueException
+import utils.DateTimeUtils
 
 
 /**
@@ -131,10 +134,13 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
           case "nhanVien.maNv" => nhanVien.maNv.toLowerCase like filter.asLikeValue
           case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
           case "month" =>
-            val month = new LocalDate().withYear(LocalDate.now.getYear).withMonth(filter.asInt)
-            val firstDayOfMonth = month.dayOfMonth().withMinimumValue()
-            val lastDayOfMonth = month.dayOfMonth().withMaximumValue()
+            val date = new LocalDate().withYear(LocalDate.now.getYear).withMonth(filter.asInt)
+            val firstDayOfMonth = date.dayOfMonth().withMinimumValue()
+            val lastDayOfMonth = date.dayOfMonth().withMaximumValue()
             soPhanCong.ngayPhanCong >= firstDayOfMonth && soPhanCong.ngayPhanCong <= lastDayOfMonth
+          case "day" =>
+            val month = pagingDto.findFilters("month").map(_.asInt).getOrElse(LocalDate.now.getMonthOfYear)
+            soPhanCong.ngayPhanCong === DateTimeUtils.createLocalDate(month, filter.asInt)
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
