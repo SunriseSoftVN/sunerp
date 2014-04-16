@@ -75,7 +75,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     for (tuple <- result) {
       val (soPhanCong, nhanVien, soPhanCongExt) = tuple
       //make sure every task in so phan cong all aways exits.
-      val task = tasks.find(_.id.get == soPhanCong.taskId).get
+      val task = tasks.find(_.id == soPhanCong.taskId).get
     }
 
 
