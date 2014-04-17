@@ -45,12 +45,12 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   override def doDonViReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
     val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
     //build layout
-    val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
-    val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan)
-    //build data
-    val ds = new JRBeanCollectionDataSource(phongBanDto.javaReportRows())
-    report.setDataSource(ds)
-    exportReport(fileType, fileName, report, ds)
+    val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
+//    val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan)
+//    //build data
+//    val ds = new JRBeanCollectionDataSource(Collections)
+//    report.setDataSource(ds)
+    exportReport(fileType, fileName, report)
   }
 
   override def doPhongBanReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
@@ -62,10 +62,10 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val ds = new JRBeanCollectionDataSource(phongBanDto.javaReportRows())
     report.setDataSource(ds)
 
-    exportReport(fileType, fileName, report, ds)
+    exportReport(fileType, fileName, report)
   }
 
-  private def exportReport(fileType: String, fileName: String, report: JasperReportBuilder, ds: JRBeanCollectionDataSource) = {
+  private def exportReport(fileType: String, fileName: String, report: JasperReportBuilder) = {
     val pdfFile = fileName + ".pdf"
     val xlsFile = fileName + ".xls"
     val pdfExporter = export.pdfExporter(Play.application.getFile(reportDir + pdfFile))
