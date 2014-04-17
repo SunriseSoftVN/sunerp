@@ -13,6 +13,7 @@ import dtos.report.PhongBanDto
 import dtos.report.KhoiLuongDto
 import models.sunerp.DonVi
 import models.sunerp.PhongBan
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 
 /**
  * The Class KhoiLuongReportService.
@@ -45,10 +46,9 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val pdfExporter = export.pdfExporter(Play.application.getFile(reportDir + pdfFile))
     val xlsExporter = export.xlsExporter(Play.application.getFile(reportDir + xlsFile))
     val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
-    //    val ds = new JRBeanCollectionDataSource(buildPhongBanData(req))
-    //    report.setDataSource(ds)
-
-    buildPhongBanData(req.month, req.year, req.getPhongBan)
+    val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan)
+    val ds = new JRBeanCollectionDataSource(phongBanDto.javaReportRows())
+    report.setDataSource(ds)
 
     fileType match {
       case "pdf" =>
@@ -96,7 +96,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
         nhanVien = dtos.report.NhanVienDto(nhanVien),
         khoiLuong = soPhanCong.khoiLuong,
         gio = soPhanCong.gio,
-        date = soPhanCong.ngayPhanCong
+        ngayPhanCong = soPhanCong.ngayPhanCong
       )
     }
 

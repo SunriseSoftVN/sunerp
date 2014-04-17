@@ -14,5 +14,5 @@ case class KhoiLuongDto(
                          nhanVien: NhanVienDto,
                          khoiLuong: Double,
                          gio: Double,
-                         date: LocalDate
+                         ngayPhanCong: LocalDate
                          )
