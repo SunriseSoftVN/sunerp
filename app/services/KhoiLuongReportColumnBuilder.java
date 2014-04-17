@@ -43,17 +43,15 @@ public final class KhoiLuongReportColumnBuilder {
         JasperReportBuilder builder = report()
                 .title(
                         cmp.verticalList(
-                                cmp.centerHorizontal(
-                                        cmp.horizontalList(
-                                                cmp.verticalList(
-                                                        cmp.text("CÔNG TY THÔNG TIN TÍN HIỆU ĐƯỜNG SẮT VINH").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
-                                                        cmp.text("XN: " + request.donViName()).setStyle(SUB_TITLE_STYLE)
-                                                ).setFixedWidth(400),
-                                                cmp.verticalList(
-                                                        cmp.text("CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
-                                                        cmp.text("Độc lập - Tự do - Hạnh phúc").setStyle(stl.style(SUB_TITLE_STYLE).setUnderline(true))
-                                                ).setFixedWidth(400)
-                                        )
+                                cmp.horizontalList(
+                                        cmp.verticalList(
+                                                cmp.text("CÔNG TY THÔNG TIN TÍN HIỆU ĐƯỜNG SẮT VINH").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
+                                                cmp.text("XN: " + request.donViName()).setStyle(SUB_TITLE_STYLE)
+                                        ).setFixedWidth(400),
+                                        cmp.verticalList(
+                                                cmp.text("CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
+                                                cmp.text("Độc lập - Tự do - Hạnh phúc").setStyle(stl.style(SUB_TITLE_STYLE).setUnderline(true))
+                                        ).setFixedWidth(400)
                                 ),
                                 cmp.verticalList(
                                         cmp.text("TỔNG HỢP THỰC HIỆN KHỐI LƯỢNG SCTX KCHT TTTH ĐS THÁNG " + request.month() + " QUÝ " + quarter).setStyle(stl.style(TITLE_STYLE).setBottomPadding(10))
