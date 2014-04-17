@@ -14,6 +14,7 @@ import dtos.report.KhoiLuongDto
 import models.sunerp.DonVi
 import models.sunerp.PhongBan
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
+import net.sf.dynamicreports.jasper.builder.JasperReportBuilder
 
 /**
  * The Class KhoiLuongReportService.
@@ -31,6 +32,8 @@ trait KhoiLuongReportService {
    */
   def doPhongBanReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
 
+  def doDonViReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
+
 }
 
 import net.sf.dynamicreports.report.builder.DynamicReports._
@@ -39,17 +42,34 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
 
   val reportDir = "report/"
 
+  override def doDonViReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
+    val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
+    //build layout
+    val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
+    val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan)
+    //build data
+    val ds = new JRBeanCollectionDataSource(phongBanDto.javaReportRows())
+    report.setDataSource(ds)
+    exportReport(fileType, fileName, report, ds)
+  }
+
   override def doPhongBanReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
     val fileName = s"khoiluong-${req.donViNameStrip}-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
+    //build layout
+    val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
+    val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan)
+    //build data
+    val ds = new JRBeanCollectionDataSource(phongBanDto.javaReportRows())
+    report.setDataSource(ds)
+
+    exportReport(fileType, fileName, report, ds)
+  }
+
+  private def exportReport(fileType: String, fileName: String, report: JasperReportBuilder, ds: JRBeanCollectionDataSource) = {
     val pdfFile = fileName + ".pdf"
     val xlsFile = fileName + ".xls"
     val pdfExporter = export.pdfExporter(Play.application.getFile(reportDir + pdfFile))
     val xlsExporter = export.xlsExporter(Play.application.getFile(reportDir + xlsFile))
-    val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
-    val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan)
-    val ds = new JRBeanCollectionDataSource(phongBanDto.javaReportRows())
-    report.setDataSource(ds)
-
     fileType match {
       case "pdf" =>
         report.toPdf(pdfExporter)
