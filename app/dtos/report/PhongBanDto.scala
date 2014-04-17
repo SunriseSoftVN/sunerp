@@ -15,6 +15,10 @@ case class PhongBanDto(id: Long, name: String, khoiLuongs: List[KhoiLuongDto] = 
 
   lazy val tasks = khoiLuongs.map(_.task)
 
+  /**
+   * Tranfrom data to report row.
+   * @return
+   */
   def reportRows() = {
     val groupByTaskId = khoiLuongs.groupBy(_.task.id)
     val rows = for (taskId <- groupByTaskId.keys) yield {
@@ -32,7 +36,9 @@ case class PhongBanDto(id: Long, name: String, khoiLuongs: List[KhoiLuongDto] = 
         //tong khoi luong cua mot cong viec, trong mot ngay
         val day = ngayPhanCong.getDayOfMonth
         val khoiLuongTrongNgay = khoiLuongGroupByDate(ngayPhanCong).map(_.khoiLuong).sum
-        row.getKhoiLuongCongViec.put(day.toString, khoiLuongTrongNgay)
+        if(khoiLuongTrongNgay > 0) {
+          row.getKhoiLuongCongViec.put(day.toString, khoiLuongTrongNgay)
+        }
       }
       row
     }

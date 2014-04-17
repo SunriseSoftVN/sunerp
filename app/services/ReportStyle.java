@@ -28,7 +28,7 @@ public final class ReportStyle {
     public static final StyleBuilder COLUMN_STYLE = stl.style().setBorder(stl.penThin())
             .setHorizontalAlignment(HorizontalAlignment.LEFT)
             .setVerticalAlignment(VerticalAlignment.MIDDLE)
-            .setLeftPadding(3);
+            .setPadding(3);
 
     public static final StyleBuilder COLUMN_CENTER_STYLE = stl.style(COLUMN_STYLE)
             .setHorizontalAlignment(HorizontalAlignment.CENTER);
