@@ -81,5 +81,5 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
     )
   }
 
-  def findByDonViId(donViId: Long)(implicit session: Session) = where(_.donViId === donViId).list()
+  def findByDonViId(donViId: Long)(implicit session: Session) = where(_.donViId === donViId).sortBy(_.name).list()
 }

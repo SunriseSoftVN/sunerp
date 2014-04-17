@@ -5,6 +5,7 @@ import utils.{StringUtils, String2Long, String2Int}
 import org.joda.time.LocalDate
 import models.sunerp.{DonVis, PhongBans, PhongBan, DonVi}
 import play.api.db.slick.Session
+import scala.collection.JavaConverters._
 
 /**
  * The Class KhoiLuongReportRequest.
@@ -17,8 +18,11 @@ case class KhoiLuongReportRequest(
                                    month: Int,
                                    year: Int,
                                    donVi: Option[DonVi] = None,
-                                   phongBan: Option[PhongBan] = None
+                                   phongBan: Option[PhongBan] = None,
+                                   phongBans: List[PhongBan] = Nil
                                    ) {
+
+  def getPhongBans = phongBans.asJava
 
   def getDonVi = donVi.get
 
@@ -69,7 +73,10 @@ object KhoiLuongReportRequest {
       month = month,
       year = year,
       donVi = donVi,
-      phongBan = phongBan
+      phongBan = phongBan,
+      phongBans = if(phongBan.isEmpty && donVi.isDefined) {
+        PhongBans.findByDonViId(donVi.get.getId)
+      } else Nil
     )
   }
 

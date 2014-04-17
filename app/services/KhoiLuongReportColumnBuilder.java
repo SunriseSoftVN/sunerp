@@ -1,7 +1,9 @@
 package services;
 
 
+import com.google.common.base.Strings;
 import dtos.report.KhoiLuongReportRequest;
+import models.sunerp.PhongBan;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.grid.ColumnTitleGroupBuilder;
@@ -9,6 +11,7 @@ import net.sf.dynamicreports.report.constant.ComponentPositionType;
 import net.sf.dynamicreports.report.constant.PageOrientation;
 import net.sf.dynamicreports.report.constant.PageType;
 import net.sf.dynamicreports.report.constant.WhenNoDataType;
+import org.apache.commons.lang3.StringUtils;
 import utils.DateTimeUtils;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
@@ -33,6 +36,8 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> quyGio = col.column(" Giờ", "quyGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> conLaiKL = col.column(" KL", "conLaiKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> conLaiGio = col.column(" Giờ", "conLaiGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> xnKL = col.column(" KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> xnGio = col.column(" Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
 
     public static JasperReportBuilder buildDonViLayout(KhoiLuongReportRequest request) {
         int quarter = DateTimeUtils.getQuarter(request.month());
@@ -61,7 +66,7 @@ public final class KhoiLuongReportColumnBuilder {
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
                 .setPageFormat(PageType.A4, PageOrientation.LANDSCAPE);
 
-        builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, quyKL, quyGio, conLaiKL, conLaiGio);
+        builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, quyKL, quyGio, conLaiKL, conLaiGio, xnKL, xnGio);
 
         ColumnTitleGroupBuilder khQuy = grid.titleGroup();
         khQuy.setTitle("KH quý");
@@ -73,7 +78,39 @@ public final class KhoiLuongReportColumnBuilder {
         conLai.add(conLaiKL);
         conLai.add(conLaiGio);
 
-        builder.columnGrid(maCv, taskName, taskUnit, dinhMuc, soLan, khQuy, conLai);
+        ColumnTitleGroupBuilder xn = grid.titleGroup();
+        xn.setTitle("Toàn XN");
+        xn.add(xnKL);
+        xn.add(xnGio);
+
+        ColumnTitleGroupBuilder tb = grid.titleGroup();
+        tb.setTitle("THỰC HIỆN KẾ HOẠCH THÁNG, QUÝ");
+        tb.add(xn);
+
+        for (PhongBan phongBan : request.getPhongBans()) {
+            ColumnTitleGroupBuilder phongBanGroup = grid.titleGroup();
+            phongBanGroup.setTitle(phongBan.name());
+
+            TextColumnBuilder<Double> klCol = col
+                    .column("KL", "khoiLuongCongViec." + phongBan.donViId(), type.doubleType())
+                    .setStyle(COLUMN_NUMBER_STYLE)
+                    .setWidth(50);
+
+            TextColumnBuilder<Double> gioCol = col
+                    .column("Giờ", "gioCongViec." + phongBan.donViId(), type.doubleType())
+                    .setStyle(COLUMN_NUMBER_STYLE)
+                    .setWidth(50);
+
+            phongBanGroup.add(klCol);
+            phongBanGroup.add(gioCol);
+
+            builder.addColumn(klCol);
+            builder.addColumn(gioCol);
+
+            tb.add(phongBanGroup);
+        }
+
+        builder.columnGrid(maCv, taskName, taskUnit, dinhMuc, soLan, khQuy, conLai, tb);
 
         return builder;
     }
