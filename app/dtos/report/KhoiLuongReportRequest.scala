@@ -20,13 +20,17 @@ case class KhoiLuongReportRequest(
                                    phongBan: Option[PhongBan] = None
                                    ) {
 
-  def donViName = donVi.get.name
+  def getDonVi = donVi.get
 
-  def donViId = donVi.get.id
+  def getPhongBan = phongBan.get
 
-  def phongBanName = phongBan.get.name
+  def donViName = getDonVi.name
 
-  def phongBanId = phongBan.get.id.get
+  def donViId = getDonVi.getId
+
+  def phongBanName = getPhongBan.name
+
+  def phongBanId = getPhongBan.getId
 
   def donViNameStrip = StringUtils.convertNonAscii(donViName.toLowerCase).replaceAll(" ", "-")
 

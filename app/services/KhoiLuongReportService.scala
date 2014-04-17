@@ -8,7 +8,6 @@ import dtos.report._
 import models.sunerp._
 import models.qlkh.Tasks
 import play.api.db.slick.Config.driver.simple._
-import dtos.report.KhoiLuongDto
 import dtos.report.DonViDto
 import dtos.report.PhongBanDto
 import dtos.report.KhoiLuongDto
@@ -48,6 +47,8 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
     //    val ds = new JRBeanCollectionDataSource(buildPhongBanData(req))
     //    report.setDataSource(ds)
+
+    buildPhongBanData(req.month, req.year, req.getPhongBan)
 
     fileType match {
       case "pdf" =>
