@@ -13,6 +13,7 @@ import play.api.libs.json.{Json, JsValue, Writes}
 case class PhongBanDto(
                          id: Long,
                          name: String,
+                         shortName: Option[String],
                          donViId: Long,
                          donVi: DonVi
                          )
@@ -25,6 +26,7 @@ object PhongBanDto {
     new PhongBanDto(
       id = phongBan.id.get,
       name = phongBan.name,
+      shortName = phongBan.shortName,
       donViId = phongBan.donViId,
       donVi = donVi
     )
@@ -34,6 +36,7 @@ object PhongBanDto {
     override def writes(o: PhongBanDto): JsValue = Json.obj(
       "id" -> o.id,
       "name" -> o.name,
+      "shortName" -> o.shortName,
       "donViId" -> o.donViId,
       "donVi" -> DonVis.donViJsonFormat.writes(o.donVi)
     )

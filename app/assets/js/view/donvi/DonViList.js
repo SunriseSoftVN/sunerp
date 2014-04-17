@@ -16,6 +16,7 @@ Ext.define('sunerp.view.donvi.DonViList', {
         me.columns = [
             {xtype: 'rownumberer', width: 30},
             {header: 'Tên', dataIndex: 'name', flex: 1},
+            {header: 'Tên viết tắt', dataIndex: 'shortName', flex: 1},
             {
                 header: 'Công ty',
                 dataIndex: 'company.name',

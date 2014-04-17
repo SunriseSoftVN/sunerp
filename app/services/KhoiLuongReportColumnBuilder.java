@@ -7,12 +7,11 @@ import models.sunerp.PhongBan;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.grid.ColumnTitleGroupBuilder;
-import net.sf.dynamicreports.report.constant.ComponentPositionType;
-import net.sf.dynamicreports.report.constant.PageOrientation;
-import net.sf.dynamicreports.report.constant.PageType;
-import net.sf.dynamicreports.report.constant.WhenNoDataType;
+import net.sf.dynamicreports.report.constant.*;
 import org.apache.commons.lang3.StringUtils;
 import utils.DateTimeUtils;
+
+import java.awt.*;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
 import static services.ReportStyle.*;
@@ -89,7 +88,8 @@ public final class KhoiLuongReportColumnBuilder {
 
         for (PhongBan phongBan : request.getPhongBans()) {
             ColumnTitleGroupBuilder phongBanGroup = grid.titleGroup();
-            phongBanGroup.setTitle(phongBan.name());
+            phongBanGroup.setTitle(phongBan.getShortName());
+            phongBanGroup.setTitleStretchWithOverflow(false);
 
             TextColumnBuilder<Double> klCol = col
                     .column("KL", "khoiLuongCongViec." + phongBan.donViId(), type.doubleType())
@@ -110,7 +110,10 @@ public final class KhoiLuongReportColumnBuilder {
             tb.add(phongBanGroup);
         }
 
-        builder.columnGrid(maCv, taskName, taskUnit, dinhMuc, soLan, khQuy, conLai, tb);
+        builder.columnGrid(
+                maCv, taskName, taskUnit, dinhMuc, soLan,
+                khQuy, conLai, tb
+        );
 
         return builder;
     }

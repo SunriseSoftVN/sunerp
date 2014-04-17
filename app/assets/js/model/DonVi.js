@@ -6,6 +6,7 @@ Ext.define('sunerp.model.DonVi', {
     fields: [
         'id',
         'name',
+        'shortName',
         'companyId',
         'company',
         {name: 'company.name', mapping: 'company.name'}

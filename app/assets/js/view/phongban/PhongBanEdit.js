@@ -20,6 +20,11 @@ Ext.define('sunerp.view.phongban.PhongBanEdit', {
                         fieldLabel: 'Tên'
                     },
                     {
+                        xtype: 'textfield',
+                        name: 'shortName',
+                        fieldLabel: 'Tên viết tắt'
+                    },
+                    {
                         xtype: 'comboboxx',
                         fieldLabel: 'Đơn vị',
                         name: 'donViId',

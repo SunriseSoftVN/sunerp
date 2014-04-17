@@ -15,6 +15,7 @@ import models.sunerp.Company
 case class DonViDto(
                      id: Long,
                      name: String,
+                     shortName: Option[String],
                      companyId: Long,
                      company: Company
                      )
@@ -25,6 +26,7 @@ object DonViDto {
     new DonViDto(
       id = donVi.id.get,
       name = donVi.name,
+      shortName = donVi.shortName,
       companyId = donVi.companyId,
       company = company
     )
@@ -34,6 +36,7 @@ object DonViDto {
     override def writes(o: DonViDto): JsValue = Json.obj(
       "id" -> o.id,
       "name" -> o.name,
+      "shortName" -> o.shortName,
       "companyId" -> o.companyId,
       "company" -> Companies.companyJsonFormat.writes(o.company)
     )

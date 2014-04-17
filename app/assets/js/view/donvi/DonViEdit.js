@@ -20,6 +20,11 @@ Ext.define('sunerp.view.donvi.DonViEdit', {
                         fieldLabel: 'Tên'
                     },
                     {
+                        xtype: 'textfield',
+                        name: 'shortName',
+                        fieldLabel: 'Tên viết tắt'
+                    },
+                    {
                         xtype: 'comboboxx',
                         fieldLabel: 'Công ty',
                         name: 'companyId',

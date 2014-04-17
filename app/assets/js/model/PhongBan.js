@@ -8,7 +8,8 @@ Ext.define('sunerp.model.PhongBan', {
         'donViId',
         'donVi',
         {name: 'donVi.name', mapping: 'donVi.name'},
-        'name'
+        'name',
+        'shortName'
     ],
     associations: [
         {type: 'belongsTo', model: 'sunerp.model.DonVi', name: 'donVi'}

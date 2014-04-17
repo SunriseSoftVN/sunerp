@@ -15,10 +15,15 @@ import dtos.{PhongBanDto, ExtGirdDto, PagingDto}
  *
  */
 case class PhongBan(
-                      id: Option[Long] = None,
-                      donViId: Long,
-                      name: String
-                      ) extends WithId[Long]
+                     id: Option[Long] = None,
+                     donViId: Long,
+                     name: String,
+                     shortName: Option[String] = None
+                     ) extends WithId[Long] {
+
+  def getShortName = shortName.getOrElse(name)
+
+}
 
 class PhongBans(tag: Tag) extends AbstractTable[PhongBan](tag, "phongBan") {
 
@@ -28,7 +33,9 @@ class PhongBans(tag: Tag) extends AbstractTable[PhongBan](tag, "phongBan") {
 
   def name = column[String]("name", O.NotNull)
 
-  def * = (id.?, donViId, name) <>(PhongBan.tupled, PhongBan.unapply)
+  def shortName = column[String]("shortName")
+
+  def * = (id.?, donViId, name, shortName.?) <>(PhongBan.tupled, PhongBan.unapply)
 }
 
 object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
@@ -37,7 +44,8 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
     mapping(
       "id" -> optional(longNumber),
       "donViId" -> longNumber,
-      "name" -> text
+      "name" -> text(minLength = 4),
+      "shortName" -> optional(nonEmptyText)
     )(PhongBan.apply)(PhongBan.unapply)
   )
 
@@ -50,6 +58,7 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
         val (donVi, phongBan) = table
         filter.property match {
           case "name" => phongBan.name.toLowerCase like filter.asLikeValue
+          case "shortName" => phongBan.shortName like filter.asLikeValue
           case "donViId" => phongBan.donViId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
@@ -61,6 +70,7 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
         val (donVi, phongBan) = table
         sort.property match {
           case "name" => orderColumn(sort.direction, phongBan.name)
+          case "shortName" => orderColumn(sort.direction, phongBan.shortName)
           case "donVi.name" => orderColumn(sort.direction, donVi.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }

@@ -17,14 +17,22 @@ import dtos.{DonViDto, ExtGirdDto, PagingDto}
 case class DonVi(
                   id: Option[Long] = None,
                   name: String,
+                  shortName: Option[String] = None,
                   companyId: Long
-                  ) extends WithId[Long]
+                  ) extends WithId[Long] {
+  def getShortName = shortName.getOrElse(name)
+}
 
 class DonVis(tag: Tag) extends AbstractTable[DonVi](tag, "donVi") {
   def name = column[String]("name", O.NotNull)
+
+  def shortName = column[String]("shortName")
+
   def companyId = column[Long]("companyId", O.NotNull)
+
   def company = foreignKey("company_fk", companyId, Companies)(_.id)
-  def * = (id.?, name, companyId) <>(DonVi.tupled, DonVi.unapply)
+
+  def * = (id.?, name, shortName.?, companyId) <>(DonVi.tupled, DonVi.unapply)
 }
 
 object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
@@ -34,6 +42,7 @@ object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
     mapping(
       "id" -> optional(longNumber),
       "name" -> text(minLength = 4),
+      "shortName" -> optional(nonEmptyText),
       "companyId" -> longNumber
     )(DonVi.apply)(DonVi.unapply)
   )
@@ -46,6 +55,7 @@ object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
         val (donVi, khoiDonVi) = table
         filter.property match {
           case "name" => donVi.name.toLowerCase like filter.asLikeValue
+          case "shortName" => donVi.shortName.toLowerCase like filter.asLikeValue
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -56,6 +66,7 @@ object DonVis extends AbstractQuery[DonVi, DonVis](new DonVis(_)) {
         val (donVi, company) = table
         sort.property match {
           case "name" => orderColumn(sort.direction, donVi.name)
+          case "shortName" => orderColumn(sort.direction, donVi.shortName)
           case "company.name" => orderColumn(sort.direction, company.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
