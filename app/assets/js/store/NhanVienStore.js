@@ -10,7 +10,7 @@ Ext.define('sunerp.store.NhanVienStore', {
     },
     sorters: [
         {
-            property: 'name'
+            property: 'firstName'
         }
     ]
 });
