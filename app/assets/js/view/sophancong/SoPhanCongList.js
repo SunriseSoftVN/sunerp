@@ -56,7 +56,8 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 xtype: 'numbercolumn',
                 locked: true,
                 editor: {
-                    xtype: 'numberfield'
+                    xtype: 'numberfield',
+                    minValue: 0
                 }
             },
             {
@@ -66,7 +67,8 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 xtype: 'numbercolumn',
                 locked: true,
                 editor: {
-                    xtype: 'numberfield'
+                    xtype: 'numberfield',
+                    minValue: 0
                 }
             },
             {
