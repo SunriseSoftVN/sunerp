@@ -28,6 +28,11 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<String> taskUnit = col.column("Đơn vị", "taskUnit", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
     public static final TextColumnBuilder<Double> total = col.column("Tổng cộng", "totalKhoiLuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> dinhMuc = col.column("ĐM", "dinhMuc", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> soLan = col.column(" Số lần", "soLan", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> quyKL = col.column(" KL", "quyKl", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> quyGio = col.column(" Giờ", "quyGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> conLaiKL = col.column(" KL", "conLaiKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> conLaiGio = col.column(" Giờ", "conLaiGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
 
     public static JasperReportBuilder buildDonViLayout(KhoiLuongReportRequest request) {
         int quarter = DateTimeUtils.getQuarter(request.month());
@@ -56,18 +61,20 @@ public final class KhoiLuongReportColumnBuilder {
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
                 .setPageFormat(PageType.A4, PageOrientation.LANDSCAPE);
 
-        builder.columns(maCv, taskName, taskUnit, total);
-        ColumnTitleGroupBuilder tg = grid.titleGroup();
-        tg.setTitle("Ngày thực hiện");
-        for (Integer i = 1; i <= 31; i++) {
-            TextColumnBuilder<Double> _col = col
-                    .column(i.toString(), "khoiLuongCongViec." + i, type.doubleType())
-                    .setStyle(COLUMN_NUMBER_STYLE)
-                    .setWidth(50);
-            builder.addColumn(_col);
-            tg.add(_col);
-        }
-        builder.columnGrid(maCv, taskName, taskUnit, total, tg);
+        builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, quyKL, quyGio, conLaiKL, conLaiGio);
+
+        ColumnTitleGroupBuilder khQuy = grid.titleGroup();
+        khQuy.setTitle("KH quý");
+        khQuy.add(quyKL);
+        khQuy.add(quyGio);
+
+        ColumnTitleGroupBuilder conLai = grid.titleGroup();
+        conLai.setTitle("Còn lại");
+        conLai.add(conLaiKL);
+        conLai.add(conLaiGio);
+
+        builder.columnGrid(maCv, taskName, taskUnit, dinhMuc, soLan, khQuy, conLai);
+
         return builder;
     }
 
