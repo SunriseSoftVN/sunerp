@@ -15,7 +15,7 @@ case class TaskDto(
                     code: String,
                     unit: String,
                     khoiLuongDM: Double,
-                    gioDM: Option[Double] = None
+                    dinhMuc: Option[Double] = None
                     )
 
 object TaskDto {
@@ -26,7 +26,7 @@ object TaskDto {
     code = task.code,
     unit = task.unit,
     khoiLuongDM = task.defaultValue,
-    gioDM = task.quota.map(_ * task.defaultValue)
+    dinhMuc = task.quota.map(_ * task.defaultValue)
   )
 
 }

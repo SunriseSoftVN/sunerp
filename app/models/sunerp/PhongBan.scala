@@ -80,4 +80,6 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
       data = rows
     )
   }
+
+  def findByDonViId(donViId: Long)(implicit session: Session) = where(_.donViId === donViId).list()
 }
