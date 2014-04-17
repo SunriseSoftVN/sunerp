@@ -8,5 +8,10 @@ Ext.define('sunerp.store.ChucVuStore', {
     proxy: {
         type: 'restx',
         url: '/chucvu'
-    }
+    },
+    sorters: [
+        {
+            property: 'name'
+        }
+    ]
 });

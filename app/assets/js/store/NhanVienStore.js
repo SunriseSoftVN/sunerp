@@ -7,5 +7,10 @@ Ext.define('sunerp.store.NhanVienStore', {
     proxy: {
         type: 'restx',
         url: '/nhanvien'
-    }
+    },
+    sorters: [
+        {
+            property: 'name'
+        }
+    ]
 });

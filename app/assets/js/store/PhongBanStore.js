@@ -7,5 +7,10 @@ Ext.define('sunerp.store.PhongBanStore', {
     proxy: {
         type: 'restx',
         url: '/phongban'
-    }
+    },
+    sorters: [
+        {
+            property: 'name'
+        }
+    ]
 });

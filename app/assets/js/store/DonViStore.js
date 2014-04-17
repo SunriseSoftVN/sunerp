@@ -7,5 +7,10 @@ Ext.define('sunerp.store.DonViStore', {
     proxy: {
         type: 'restx',
         url: '/donvi'
-    }
+    },
+    sorters: [
+        {
+            property: 'name'
+        }
+    ]
 });

@@ -35,7 +35,7 @@ public final class KhoiLuongReportColumnBuilder {
                                 cmp.verticalList().add(
                                         cmp.text("Xí nghiệp: " + request.donViName()).setStyle(stl.style(LEFT_TITLE_STYLE).setLeftPadding(5)),
                                         cmp.text("Cung (Trạm): " + request.phongBanName()).setStyle(LEFT_SUB_TITLE_STYLE)
-                                ).setFixedWidth(150),
+                                ).setFixedWidth(200),
                                 cmp.verticalList().add(
                                         cmp.text("BIỂU TỔNG HỢP CÔNG VIỆC HÀNG NGÀY").setStyle(TITLE_STYLE),
                                         cmp.text("Tháng: " + request.month() + "  Quý: " + quarter + "  Năm: " + request.year()).setStyle(SUB_TITLE_STYLE)
