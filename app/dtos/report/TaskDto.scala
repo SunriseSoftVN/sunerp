@@ -14,8 +14,8 @@ case class TaskDto(
                     name: String,
                     code: String,
                     unit: String,
-                    khoiLuongDM: Double,
-                    dinhMuc: Option[Double] = None
+                    soLan: Option[Double] = None,
+                    dinhMuc: Double
                     )
 
 object TaskDto {
@@ -25,8 +25,8 @@ object TaskDto {
     name = task.name,
     code = task.code,
     unit = task.unit,
-    khoiLuongDM = task.defaultValue,
-    dinhMuc = task.quota.map(_ * task.defaultValue)
+    soLan = if (task.dynamicQuota) None else task.quota,
+    dinhMuc = task.defaultValue
   )
 
 }

@@ -4,7 +4,7 @@ import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.db.slick.DB
 import play.api.Play.current
-import play.api.libs.json.Json
+import play.api.libs.json.{JsValue, Writes, Json}
 import dtos.{ExtGirdDto, PagingDto}
 
 /**
@@ -20,6 +20,7 @@ case class Task(
                  name: String,
                  defaultValue: Double,
                  quota: Option[Double],
+                 dynamicQuota: Boolean,
                  unit: String,
                  taskTypeCode: Int
                  ) extends WithId[Long]
@@ -35,11 +36,13 @@ class Tasks(tag: Tag) extends AbstractTable[Task](tag, "task") {
 
   def quota = column[Double]("quota")
 
+  def dynamicQuota = column[Boolean]("dynamicQuota")
+
   def unit = column[String]("unit", O.NotNull)
 
   def taskTypeCode = column[Int]("taskTypeCode", O.NotNull)
 
-  def * = (id.?, code, name, defaultValue, quota.?, unit, taskTypeCode) <>(Task.tupled, Task.unapply)
+  def * = (id.?, code, name, defaultValue, quota.?, dynamicQuota, unit, taskTypeCode) <>(Task.tupled, Task.unapply)
 }
 
 object Tasks extends AbstractQuery[Task, Tasks](new Tasks(_)) {
@@ -99,5 +102,16 @@ object Tasks extends AbstractQuery[Task, Tasks](new Tasks(_)) {
     )
   })
 
-  implicit val taskJsonFormat = Json.format[Task]
+  implicit val taskJsonFormat = new Writes[Task] {
+    override def writes(t: Task): JsValue = Json.obj(
+      "id" -> t.id,
+      "code" -> t.code,
+      "name" -> t.name,
+      "defaultValue" -> t.defaultValue,
+      "quota" -> {
+        if (t.dynamicQuota) 0 else t.quota
+      },
+      "unit" -> t.unit
+    )
+  }
 }

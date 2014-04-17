@@ -14,7 +14,7 @@ Ext.define('sunerp.model.SoPhanCong', {
         'phongBanId',
         'phongBan',
         'khoiLuong',
-        'quota',
+        'dinhMuc',
         'gio',
         'ghiChu',
         'soPhanCongExtId',
@@ -45,15 +45,15 @@ Ext.define('sunerp.model.SoPhanCong', {
     ],
     set: function (fieldName, newValue) {
         //automatic set time for task has a quota.
-        var quota = this.get("quota");
+        var dinhMuc = this.get("dinhMuc");
         var khoiLuong = this.get("khoiLuong");
         var gio = 0;
-        if (fieldName == 'khoiLuong' && quota) {
-            gio = quota * newValue;
+        if (fieldName == 'khoiLuong' && dinhMuc) {
+            gio = dinhMuc * newValue;
             if (gio > 0) {
                 this.set("gio", gio);
             }
-        } else if(fieldName == 'quota' && khoiLuong) {
+        } else if(fieldName == 'dinhMuc' && khoiLuong) {
             gio = newValue * khoiLuong;
             if (gio > 0) {
                 this.set("gio", gio);

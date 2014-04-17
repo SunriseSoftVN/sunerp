@@ -27,6 +27,7 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<String> taskName = col.column("Nội dung Cv", "taskName", type.stringType()).setFixedWidth(200);
     public static final TextColumnBuilder<String> taskUnit = col.column("Đơn vị", "taskUnit", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
     public static final TextColumnBuilder<Double> total = col.column("Tổng cộng", "totalKhoiLuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> dinhMuc = col.column("ĐM", "dinhMuc", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
 
     public static JasperReportBuilder buildDonViLayout(KhoiLuongReportRequest request) {
         int quarter = DateTimeUtils.getQuarter(request.month());
