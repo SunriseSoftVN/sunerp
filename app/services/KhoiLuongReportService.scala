@@ -46,10 +46,15 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
     //build layout
     val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
-//    val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan)
-//    //build data
-//    val ds = new JRBeanCollectionDataSource(Collections)
-//    report.setDataSource(ds)
+    val donViDto = buildDonViData(req.month, req.year, req.getDonVi)
+
+    val row = new DonViKhoiLuongRow
+
+    import scala.collection.JavaConverters._
+
+    //    //build data
+    val ds = new JRBeanCollectionDataSource(List(row, row).asJava)
+    report.setDataSource(ds)
     exportReport(fileType, fileName, report)
   }
 
