@@ -1,7 +1,8 @@
-package dtos.report
+package dtos.report.row
 
 import scala.beans.BeanProperty
 import java.util
+import dtos.report.TaskDto
 
 /**
  * The Class DonViKhoiLuongRow.
@@ -53,4 +54,20 @@ class DonViKhoiLuongRow {
 
   @BeanProperty
   var gioCongViec = new util.HashMap[String, Double]()
+}
+
+object DonViKhoiLuongRow {
+
+  def apply(task: TaskDto, sum: Long => Double) = {
+    val row = new DonViKhoiLuongRow
+    row.taskId = task.id
+    row.taskName = task.name
+    row.taskCode = task.code
+    row.taskUnit = task.unit
+    row.taskDinhMuc = task.dinhMuc
+    row.taskSoLan = task.soLan.getOrElse(0d)
+    row.xnKL = sum(task.id)
+    row
+  }
+
 }

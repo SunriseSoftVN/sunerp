@@ -1,7 +1,8 @@
-package dtos.report
+package dtos.report.row
 
 import scala.beans.BeanProperty
 import java.util
+import dtos.report.TaskDto
 
 /**
  * The Class PhongBanKhoiLuongRow.

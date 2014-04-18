@@ -15,6 +15,7 @@ import models.sunerp.DonVi
 import models.sunerp.PhongBan
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder
+import dtos.report.row.DonViKhoiLuongRow
 
 /**
  * The Class KhoiLuongReportService.
