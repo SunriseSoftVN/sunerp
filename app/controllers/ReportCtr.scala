@@ -5,7 +5,7 @@ import com.escalatesoft.subcut.inject._
 import jp.t2v.lab.play2.stackc.StackableController
 import jp.t2v.lab.play2.auth.AuthElement
 import controllers.element.{TransactionElement, AuthConfigImpl}
-import DomainKey.khoiLuongReport
+import DomainKey.thCongViecHangNgay
 import services.KhoiLuongReportService
 import scala.concurrent.{Promise, ExecutionContext, Future}
 import ExecutionContext.Implicits.global
@@ -28,7 +28,7 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
 
   val khoiLuongReportService = inject[KhoiLuongReportService]
 
-  def doKhoiLuongReport(fileType: String) = AsyncStack(AuthorityKey -> khoiLuongReport)(implicit request => {
+  def doKhoiLuongReport(fileType: String) = AsyncStack(AuthorityKey -> thCongViecHangNgay)(implicit request => {
     val promise = Promise[SimpleResult]()
     val req = KhoiLuongReportRequest(request)
 
