@@ -11,6 +11,11 @@ Ext.define('sunerp.component.DonViCb', {
     donViId: null,
     emptyText: "Đơn vị",
     addShowAll: true,
+    domainKey: null,
+    inject: ['userService'],
+    config: {
+        userService: null
+    },
     initComponent: function () {
         var me = this;
         var store = Ext.create('sunerp.store.DonViStore', {
@@ -29,6 +34,13 @@ Ext.define('sunerp.component.DonViCb', {
         });
         me.store = store;
         me.store.load();
+        //check permission of current user with this component
+        var gioiHan = me.getUserService().checkGioiHan(me.domainKey);
+        var donViId = me.getUserService().getCurrentUser().donViId;
+        me.select(donViId);
+        if (gioiHan == "donvi" || gioiHan == "phongban") {
+            me.hide();
+        }
         me.callParent(arguments);
     }
 });

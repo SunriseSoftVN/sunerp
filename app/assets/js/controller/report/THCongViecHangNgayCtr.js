@@ -4,11 +4,6 @@
 
 Ext.define('sunerp.controller.report.THCongViecHangNgayCtr', {
     extend: 'sunerp.controller.core.BaseReportCtr',
-    inject: ['userService'],
-    config: {
-        userService: null,
-        currentUserGioiHan: null
-    },
     control: {
         donViCb: {
             selector: 'donvicb',
@@ -28,21 +23,6 @@ Ext.define('sunerp.controller.report.THCongViecHangNgayCtr', {
         iframe: {
             selector: 'uxiframe'
         }
-    },
-    init: function () {
-        var me = this;
-        me.setCurrentUserGioiHan(me.getUserService().checkGioiHan('thcongviechangngay'));
-        var donViId = me.getUserService().getCurrentUser().donViId;
-        var phongBanId = me.getUserService().getCurrentUser().phongBanId;
-        me.getDonViCb().select(donViId);
-        if (me.getCurrentUserGioiHan() == "phongban") {
-            me.getDonViCb().hide();
-            me.getPhongBanCb().select(phongBanId);
-            me.getPhongBanCb().hide();
-        } else if (me.getCurrentUserGioiHan() == "donvi") {
-            me.getDonViCb().hide();
-        }
-        me.callParent(arguments);
     },
     doReport: function () {
         var me = this;
