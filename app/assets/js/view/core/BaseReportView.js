@@ -18,7 +18,8 @@ Ext.define('sunerp.view.core.BaseReportView', {
             xtype: 'uxiframe'
         }
     ],
-    initComponent: function() {
+    domainKey: null,
+    initComponent: function () {
         var me = this;
         me.initTBar();
         me.callParent(arguments);

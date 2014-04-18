@@ -14,6 +14,7 @@ Ext.define('sunerp.view.core.BaseEditView', {
     config: {
         model: null
     },
+    domainKey: null,
     initComponent: function() {
         this.buttons = [
             {

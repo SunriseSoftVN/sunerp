@@ -24,6 +24,7 @@ Ext.define('sunerp.view.core.BaseListEditView', {
     config: {
         tbar: null
     },
+    domainKey: null,
     afterRender: function () {
         this.store.load();
         this.callParent(arguments);
