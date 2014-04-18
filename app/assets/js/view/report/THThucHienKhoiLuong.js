@@ -9,7 +9,7 @@ Ext.define('sunerp.view.report.THThucHienKhoiLuong', {
         var me = this;
         me.callParent(arguments);
         me.tbar.insert(0, [
-            {xtype: 'donvicb', addShowAll: false, domainKey: 'ththuchienkhoiluong'},
+            {xtype: 'donvicb', addShowAll: false, domainKey: me.domainKey},
             {xtype: 'monthcb', width: 100},
             {xtype: 'yearcb', width: 100}
         ])

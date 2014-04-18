@@ -9,16 +9,16 @@ import models.sunerp.NhanViens
 import com.escalatesoft.subcut.inject.BindingModule
 
 object DomainKey {
-  val soPhanCong = "soPhanCong"
+  val soPhanCong = "sophancong"
   val company = "company"
-  val donVi = "donVi"
-  val phongBan = "phongBan"
-  val nhanVien = "nhanVien"
-  val chucVu = "chucVu"
-  val quyenHanh = "quyenHanh"
-  val soLuong = "soLuong"
-  val thCongViecHangNgay = "thCongViecHangNgay"
-  val thThucHienKhoiLuong = "thThucHienKhoiLuong"
+  val donVi = "donvi"
+  val phongBan = "phongban"
+  val nhanVien = "nhanvien"
+  val chucVu = "chucvu"
+  val quyenHanh = "quyenhanh"
+  val soLuong = "soluong"
+  val thCongViecHangNgay = "thcongviechangngay"
+  val thThucHienKhoiLuong = "ththuchienkhoiluong"
   val task = "task"
 
   val list = List(

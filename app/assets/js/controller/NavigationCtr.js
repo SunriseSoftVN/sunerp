@@ -28,7 +28,9 @@ Ext.define('sunerp.controller.NavigationCtr', {
         if (id) {// only leaf nodes have ids
             contentPanel.removeAll(true);
             //create new view
-            var view = Ext.create(viewClassName);
+            var view = Ext.create(viewClassName, {
+                domainKey: id
+            });
             contentPanel.add(view);
             contentPanel.setTitle(text);
         }
