@@ -32,7 +32,7 @@ case class NhanVien(
   private var _phongBan: Option[PhongBan] = None
 
   def quyenHanhs(implicit session: Session): List[QuyenHanh] = _quyenHanhs.getOrElse {
-    _quyenHanhs = Some(QuyenHanhs.findByChucVuId(chucVuId))
+    _quyenHanhs = Some(QuyenHanhs.findByChucVuId(chucVuId) ++ QuyenHanhs.findByPhongBanId(phongBanId))
     _quyenHanhs.get
   }
 

@@ -9,11 +9,13 @@ Ext.define('sunerp.model.QuyenHanh', {
         'read',
         'write',
         'chucVuId',
+        'phongBanId',
         'gioiHan',
         'chucVu',
         {name: 'chucVu.name', mapping: 'chucVu.name'}
     ],
     associations: [
-        {type: 'belongsTo', model: 'sunerp.model.ChucVu', name: 'chucVu'}
+        {type: 'belongsTo', model: 'sunerp.model.ChucVu', name: 'chucVu'},
+        {type: 'belongsTo', model: 'sunerp.model.PhongBan', name: 'phongBan'}
     ]
 });

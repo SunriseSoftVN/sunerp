@@ -20,7 +20,8 @@ case class QuyenHanh(
                       read: Boolean = true,
                       write: Boolean = true,
                       gioiHan: String = GioiHan.CONGTY,
-                      chucVuId: Long
+                      chucVuId: Option[Long] = None,
+                      phongBanId: Option[Long] = None
                       ) extends WithId[Long]
 
 
@@ -33,11 +34,15 @@ class QuyenHanhs(tag: Tag) extends AbstractTable[QuyenHanh](tag, "quyenHanh") {
 
   def gioiHan = column[String]("gioiHan", O.NotNull)
 
-  def chucVuId = column[Long]("chucVuId", O.NotNull)
+  def chucVuId = column[Long]("chucVuId")
+
+  def phongBanId = column[Long]("phongBanId")
 
   def chucVu = foreignKey("quyen_hanh_chuc_vu_fk", chucVuId, ChucVus)(_.id)
 
-  def * = (id.?, domain, read, write, gioiHan, chucVuId) <>(QuyenHanh.tupled, QuyenHanh.unapply)
+  def phongBan = foreignKey("quyen_hanh_phong_ban_fk", phongBanId, PhongBans)(_.id)
+
+  def * = (id.?, domain, read, write, gioiHan, chucVuId.?, phongBanId.?) <>(QuyenHanh.tupled, QuyenHanh.unapply)
 }
 
 object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)) {
@@ -48,12 +53,18 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
 
   def findByChucVuId(chucVuId: Long)(implicit session: Session) = where(_.chucVuId === chucVuId).list()
 
+  def findByPhongBanId(phongBanId: Long)(implicit session: Session) = where(quyenHanh => quyenHanh.chucVuId.isNull && quyenHanh.phongBanId === phongBanId).list()
+
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[QuyenHanhDto] = {
-    var query = for (quyenHanh <- this; chucVu <- quyenHanh.chucVu) yield (quyenHanh, chucVu)
+    var query = for {
+      quyenHanh <- this
+      chucVu <- quyenHanh.chucVu
+      phongBan <- quyenHanh.phongBan
+    } yield (quyenHanh, chucVu, phongBan)
 
     pagingDto.getFilters.foreach(filter => {
       query = query.where(table => {
-        val (quyenHanh, chucVu) = table
+        val (quyenHanh, chucVu, phongBan) = table
         filter.property match {
           case "domain" => quyenHanh.domain.toLowerCase like filter.asLikeValue
           case "chucVu.name" => chucVu.name.toLowerCase like filter.asLikeValue
@@ -65,13 +76,14 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(table => {
-        val (quyenHanh, chucVu) = table
+        val (quyenHanh, chucVu, phongBan) = table
         sort.property match {
           case "domain" => orderColumn(sort.direction, quyenHanh.domain)
           case "read" => orderColumn(sort.direction, quyenHanh.read)
           case "write" => orderColumn(sort.direction, quyenHanh.write)
           case "gioiHan" => orderColumn(sort.direction, quyenHanh.gioiHan)
           case "chucVu.name" => orderColumn(sort.direction, chucVu.name)
+          case "phongBan.name" => orderColumn(sort.direction, phongBan.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
@@ -98,7 +110,8 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
       "read" -> boolean,
       "write" -> boolean,
       "gioiHan" -> nonEmptyText,
-      "chucVuId" -> longNumber
+      "chucVuId" -> optional(longNumber),
+      "phongBanId" -> optional(longNumber)
     )(QuyenHanh.apply)(QuyenHanh.unapply)
   )
 

@@ -66,38 +66,38 @@ object DBinit {
 
         val quyenHanhCongTy = new QuyenHanh(
           domain = "company",
-          chucVuId = chucVuId
+          chucVuId = Some(chucVuId)
         )
 
         val quyenHanhDonVi = new QuyenHanh(
           domain = "donvi",
-          chucVuId = chucVuId
+          chucVuId = Some(chucVuId)
         )
 
         val quyenHanhPhongBan = new QuyenHanh(
           domain = "phongban",
-          chucVuId = chucVuId
+          chucVuId = Some(chucVuId)
         )
 
         val quyenHanhNhanVien = new QuyenHanh(
           domain = "nhanvien",
-          chucVuId = chucVuId
+          chucVuId = Some(chucVuId)
         )
 
         val quyenHanhChucVu = new QuyenHanh(
           domain = "chucvu",
-          chucVuId = chucVuId
+          chucVuId = Some(chucVuId)
         )
 
         val quyenHanh = new QuyenHanh(
           domain = "quyenhanh",
-          chucVuId = chucVuId
+          chucVuId = Some(chucVuId)
         )
 
         val quyenHanhTask = new QuyenHanh(
           domain = "task",
           write = false,
-          chucVuId = chucVuId
+          chucVuId = Some(chucVuId)
         )
 
         QuyenHanhs.save(quyenHanhCongTy)

@@ -15,7 +15,8 @@ case class QuyenHanhDto(
                          domain: String,
                          read: Boolean,
                          write: Boolean,
-                         chucVuId: Long,
+                         chucVuId: Option[Long],
+                         phongBanId: Option[Long],
                          gioiHan: String,
                          chucVu: ChucVu
                          )
@@ -23,12 +24,13 @@ case class QuyenHanhDto(
 
 object QuyenHanhDto {
 
-  def apply(tuple: (QuyenHanh, ChucVu)) = new QuyenHanhDto(
+  def apply(tuple: (QuyenHanh, ChucVu, PhongBan)) = new QuyenHanhDto(
     id = tuple._1.id.get,
     domain = tuple._1.domain,
     write = tuple._1.write,
     read = tuple._1.read,
     chucVuId = tuple._1.chucVuId,
+    phongBanId = tuple._1.phongBanId,
     gioiHan = tuple._1.gioiHan,
     chucVu = tuple._2
   )
@@ -40,6 +42,7 @@ object QuyenHanhDto {
       "read" -> o.read,
       "write" -> o.write,
       "chucVuId" -> o.chucVuId,
+      "phongBanId" -> o.phongBanId,
       "gioiHan" -> o.gioiHan,
       "chucVu" -> ChucVus.chucVuJsonFormat.writes(o.chucVu)
     )

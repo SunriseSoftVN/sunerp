@@ -52,8 +52,17 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhEdit', {
                         store: Ext.create('sunerp.store.ChucVuStore'),
                         valueField: 'id',
                         displayField: 'name',
-                        allowBlank: false,
                         emptyText: 'Chọn chức vụ ...'
+                    },
+                    {
+                        xtype: 'comboboxx',
+                        fieldLabel: 'Phòng Ban',
+                        name: 'phongBanId',
+                        modelName: 'phongBan',
+                        store: Ext.create('sunerp.store.PhongBanStore'),
+                        valueField: 'id',
+                        displayField: 'name',
+                        emptyText: 'Chọn phòng Ban ...'
                     }
                 ]
             }

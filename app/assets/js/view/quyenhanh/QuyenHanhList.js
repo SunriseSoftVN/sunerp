@@ -23,6 +23,7 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhList', {
             {header: 'Ghi', dataIndex: 'write', flex: 1, xtype: 'booleancolumn'},
             {header: 'Giới hạn', dataIndex: 'gioiHan', flex: 1},
             {header: 'Chức vụ', dataIndex: 'chucVu.name', flex: 1},
+            {header: 'Phòng Ban', dataIndex: 'phongBan.name', flex: 1},
             {
                 xtype: 'actioncolumn',
                 header: 'Option',
