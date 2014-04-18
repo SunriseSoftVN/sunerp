@@ -23,19 +23,19 @@ Ext.define('sunerp.controller.report.THCongViecHangNgayCtr', {
     },
     doReport: function () {
         var me = this;
-        me.request('/report/khoiluongreport', me.getParams(), function (response) {
+        me.request('/report/doPhongBanReport', me.getParams(), function (response) {
             me.getIframe().load('/report/file/' + response.responseText)
         });
     },
     doDownloadPdf: function () {
         var me = this;
-        me.request('/report/khoiluongreport?fileType=pdf', me.getParams(), function (response) {
+        me.request('/report/doPhongBanReport?fileType=pdf', me.getParams(), function (response) {
             me.showMsg('/report/file/' + response.responseText + '?download=true')
         });
     },
     doDownloadXls: function () {
         var me = this;
-        me.request('/report/khoiluongreport?fileType=xls', me.getParams(), function (response) {
+        me.request('/report/doPhongBanReport?fileType=xls', me.getParams(), function (response) {
             me.showMsg('/report/file/' + response.responseText + '?download=true')
         });
     },

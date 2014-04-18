@@ -57,7 +57,8 @@ DELETE        /sophancong/:id                           @controllers.SoPhanCongC
 GET           /sophancong/init/:month/:phongBanId       @controllers.SoPhanCongCtr.init(month: Int, phongBanId: Long)
 
 
-GET           /report/khoiluongreport @controllers.ReportCtr.doKhoiLuongReport(fileType: String ?= "pdf")
+GET           /report/doDonViReport                     @controllers.ReportCtr.doDonViReport(fileType: String ?= "pdf")
+GET           /report/doPhongBanReport                  @controllers.ReportCtr.doPhongBanReport(fileType: String ?= "pdf")
 GET           /report/file/*file                        @controllers.ReportCtr.view(file, download: Boolean ?= false)
 
 GET           /admin/shutdown                           @controllers.AdminCtr.shutdown

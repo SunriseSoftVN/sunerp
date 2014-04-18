@@ -20,19 +20,19 @@ Ext.define('sunerp.controller.report.THThucHienKhoiLuongCtr', {
     },
     doReport: function () {
         var me = this;
-        me.request('/report/khoiluongreport', me.getParams(), function (response) {
+        me.request('/report/doDonViReport', me.getParams(), function (response) {
             me.getIframe().load('/report/file/' + response.responseText)
         });
     },
     doDownloadPdf: function () {
         var me = this;
-        me.request('/report/khoiluongreport?fileType=pdf', me.getParams(), function (response) {
+        me.request('/report/doDonViReport?fileType=pdf', me.getParams(), function (response) {
             me.showMsg('/report/file/' + response.responseText + '?download=true')
         });
     },
     doDownloadXls: function () {
         var me = this;
-        me.request('/report/khoiluongreport?fileType=xls', me.getParams(), function (response) {
+        me.request('/report/doDonViReport?fileType=xls', me.getParams(), function (response) {
             me.showMsg('/report/file/' + response.responseText + '?download=true')
         });
     },

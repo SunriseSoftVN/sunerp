@@ -5,7 +5,7 @@ import com.escalatesoft.subcut.inject._
 import jp.t2v.lab.play2.stackc.StackableController
 import jp.t2v.lab.play2.auth.AuthElement
 import controllers.element.{TransactionElement, AuthConfigImpl}
-import DomainKey.thCongViecHangNgay
+import DomainKey._
 import services.KhoiLuongReportService
 import scala.concurrent.{Promise, ExecutionContext, Future}
 import ExecutionContext.Implicits.global
@@ -28,25 +28,28 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
 
   val khoiLuongReportService = inject[KhoiLuongReportService]
 
-  def doKhoiLuongReport(fileType: String) = AsyncStack(AuthorityKey -> thCongViecHangNgay)(implicit request => {
-    val promise = Promise[SimpleResult]()
-    val req = KhoiLuongReportRequest(request)
-
-    val f = Future {
-      if (req.donVi.isDefined && req.phongBan.isDefined) {
-        val result = khoiLuongReportService.doPhongBanReport(fileType, req)
-        Ok(result)
-      } else if (req.donVi.isDefined && req.phongBan.isEmpty) {
+  def doDonViReport(fileType: String) = AsyncStack(AuthorityKey -> thThucHienKhoiLuong)(implicit request => {
+    Future {
+      val req = KhoiLuongReportRequest(request)
+      if (req.donVi.isDefined && req.phongBan.isEmpty) {
         val result = khoiLuongReportService.doDonViReport(fileType, req)
         Ok(result)
       } else {
         BadRequest
       }
     }
+  })
 
-    promise.completeWith(f)
-
-    promise.future
+  def doPhongBanReport(fileType: String) = AsyncStack(AuthorityKey -> thCongViecHangNgay)(implicit request => {
+    Future {
+      val req = KhoiLuongReportRequest(request)
+      if (req.donVi.isDefined && req.phongBan.isDefined) {
+        val result = khoiLuongReportService.doPhongBanReport(fileType, req)
+        Ok(result)
+      } else {
+        BadRequest
+      }
+    }
   })
 
   def view(file: String, download: Boolean) = Action.async(implicit request => {
