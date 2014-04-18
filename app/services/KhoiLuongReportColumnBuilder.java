@@ -51,7 +51,7 @@ public final class KhoiLuongReportColumnBuilder {
                                         cmp.verticalList(
                                                 cmp.text("CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
                                                 cmp.text("Độc lập - Tự do - Hạnh phúc").setStyle(stl.style(SUB_TITLE_STYLE).setUnderline(true))
-                                        ).setFixedWidth(550)
+                                        ).setFixedWidth(560)
                                 ),
                                 cmp.verticalList(
                                         cmp.text("TỔNG HỢP THỰC HIỆN KHỐI LƯỢNG SCTX KCHT TTTH ĐS THÁNG " + request.month() + " QUÝ " + quarter).setStyle(stl.style(TITLE_STYLE).setBottomPadding(10))
