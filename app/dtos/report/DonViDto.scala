@@ -16,10 +16,10 @@ case class DonViDto(id: Long, name: String, phongBans: List[PhongBanDto] = Nil) 
   val phongBanIds = phongBans.map(_.id)
 
   def sumKLByPhongBanId(taskId: Long, phongBangId: Long): Double = phongBans
-    .filter(_.id == phongBangId).map(_.sumKL(taskId)).sum
+    .filter(_.id == phongBangId).foldLeft(0d)((kl, phongBan) => phongBan.sumKL(taskId) + kl)
 
   def sumGioByPhongBanId(taskId: Long, phongBangId: Long): Double = phongBans
-    .filter(_.id == phongBangId).map(_.sumGio(taskId)).sum
+    .filter(_.id == phongBangId).foldLeft(0d)((gio, phongBan) => phongBan.sumGio(taskId) + gio)
 
   /**
    * Tranfrom data to report row.
