@@ -17,5 +17,21 @@ Ext.define('sunerp.view.core.BaseReportView', {
         {
             xtype: 'uxiframe'
         }
-    ]
+    ],
+    initComponent: function() {
+        var me = this;
+        me.initTBar();
+        me.callParent(arguments);
+    },
+    initTBar: function () {
+        var me = this;
+        var tbar = Ext.create('Ext.toolbar.Toolbar', {
+            items: [
+                {xtype: 'button', action: 'doReport', iconCls: 'report', text: 'Xem báo cáo' },
+                {xtype: 'button', action: 'downloadPdf', iconCls: 'pdf', text: 'Download Pdf' },
+                {xtype: 'button', action: 'downloadXls', iconCls: 'excel', text: 'Download Excel' }
+            ]
+        });
+        me.tbar = tbar;
+    }
 });
