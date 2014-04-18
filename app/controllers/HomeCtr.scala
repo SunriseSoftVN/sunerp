@@ -122,13 +122,13 @@ class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with
     children = List(
       MenuItemDto(
         id = thCongViecHangNgay,
-        view = "sunerp.view.report.KhoiLuongReport",
+        view = "sunerp.view.report.THCongViecHangNgay",
         text = "TH công việc hàng ngày",
         leaf = true
       ),
       MenuItemDto(
         id = thThucHienKhoiLuong,
-        view = "sunerp.view.report.KhoiLuongReport",
+        view = "sunerp.view.report.THThucHienKhoiLuong",
         text = "TH thực hiện khối lượng",
         leaf = true
       )
