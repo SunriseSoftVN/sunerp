@@ -4,7 +4,7 @@
 
 Ext.define('sunerp.view.report.THCongViecHangNgay', {
     extend: 'sunerp.view.core.BaseReportView',
-    controller: 'sunerp.controller.report.KhoiLuongReportCtr',
+    controller: 'sunerp.controller.report.THCongViecHangNgayCtr',
     initTBar: function () {
         var me = this;
         me.callParent(arguments);
