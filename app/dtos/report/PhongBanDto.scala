@@ -16,6 +16,6 @@ case class PhongBanDto(id: Long, name: String, khoiLuongs: List[KhoiLuongDto] = 
    * Tranfrom data to report row.
    * @return
    */
-  override def reportRows = tasks.map(PhongBanKhoiLuongRow(_, sum, sumByDay)).sortBy(_.taskCode)
+  override def reportRows = tasks.map(PhongBanKhoiLuongRow(_, sumKL, sumKLByDay)).sortBy(_.taskCode)
 
 }

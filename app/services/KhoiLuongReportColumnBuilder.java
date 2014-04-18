@@ -47,11 +47,11 @@ public final class KhoiLuongReportColumnBuilder {
                                         cmp.verticalList(
                                                 cmp.text("CÔNG TY THÔNG TIN TÍN HIỆU ĐƯỜNG SẮT VINH").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
                                                 cmp.text("XN: " + request.donViName()).setStyle(SUB_TITLE_STYLE)
-                                        ).setFixedWidth(400),
+                                        ).setFixedWidth(300),
                                         cmp.verticalList(
                                                 cmp.text("CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
                                                 cmp.text("Độc lập - Tự do - Hạnh phúc").setStyle(stl.style(SUB_TITLE_STYLE).setUnderline(true))
-                                        ).setFixedWidth(400)
+                                        ).setFixedWidth(550)
                                 ),
                                 cmp.verticalList(
                                         cmp.text("TỔNG HỢP THỰC HIỆN KHỐI LƯỢNG SCTX KCHT TTTH ĐS THÁNG " + request.month() + " QUÝ " + quarter).setStyle(stl.style(TITLE_STYLE).setBottomPadding(10))
@@ -61,7 +61,7 @@ public final class KhoiLuongReportColumnBuilder {
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
-                .setPageFormat(PageType.A4, PageOrientation.LANDSCAPE);
+                .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE);
 
         builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, quyKL, quyGio, conLaiKL, conLaiGio, xnKL, xnGio);
 
@@ -90,12 +90,12 @@ public final class KhoiLuongReportColumnBuilder {
             phongBanGroup.setTitleStretchWithOverflow(false);
 
             TextColumnBuilder<Double> klCol = col
-                    .column("KL", "khoiLuongCongViec." + phongBan.donViId(), type.doubleType())
+                    .column("KL", "khoiLuongCongViec." + phongBan.getId(), type.doubleType())
                     .setStyle(COLUMN_NUMBER_STYLE)
                     .setWidth(50);
 
             TextColumnBuilder<Double> gioCol = col
-                    .column("Giờ", "gioCongViec." + phongBan.donViId(), type.doubleType())
+                    .column("Giờ", "gioCongViec." + phongBan.getId(), type.doubleType())
                     .setStyle(COLUMN_NUMBER_STYLE)
                     .setWidth(50);
 

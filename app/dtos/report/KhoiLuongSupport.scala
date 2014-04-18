@@ -20,13 +20,15 @@ trait KhoiLuongSupport[R] {
    * do sum "khoiluong" of the task.
    * @param taskId
    */
-  def sum(taskId: Long) = khoiLuongs.filter(_.task.id == taskId).map(_.khoiLuong).sum
+  def sumKL(taskId: Long) = khoiLuongs.filter(_.task.id == taskId).map(_.khoiLuong).sum
 
 
-  def sumByDay(taskId: Long, dayOfMonth: Int) = khoiLuongs
+  def sumKLByDay(taskId: Long, dayOfMonth: Int) = khoiLuongs
     .filter(khoiLuong => khoiLuong.task.id == taskId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
     .map(_.khoiLuong)
     .sum
+
+  def sumGio(taskId: Long) = khoiLuongs.filter(_.task.id == taskId).map(_.gio).sum
 
   /**
    * Tranfrom data to report row.

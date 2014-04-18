@@ -13,9 +13,18 @@ case class DonViDto(id: Long, name: String, phongBans: List[PhongBanDto] = Nil) 
 
   override val khoiLuongs: List[KhoiLuongDto] = phongBans.flatMap(_.khoiLuongs)
 
+  val phongBanIds = phongBans.map(_.id)
+
+  def sumKLByPhongBanId(taskId: Long, phongBangId: Long): Double = phongBans
+    .filter(_.id == phongBangId).map(_.sumKL(taskId)).sum
+
+  def sumGioByPhongBanId(taskId: Long, phongBangId: Long): Double = phongBans
+    .filter(_.id == phongBangId).map(_.sumGio(taskId)).sum
+
   /**
    * Tranfrom data to report row.
    * @return
    */
-  override def reportRows: List[DonViKhoiLuongRow] = tasks.map(DonViKhoiLuongRow(_, sum)).sortBy(_.taskCode)
+  override def reportRows: List[DonViKhoiLuongRow] = tasks
+    .map(DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByPhongBanId, sumGio, sumGioByPhongBanId)).sortBy(_.taskCode)
 }

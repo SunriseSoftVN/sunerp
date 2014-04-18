@@ -58,7 +58,9 @@ class DonViKhoiLuongRow {
 
 object DonViKhoiLuongRow {
 
-  def apply(task: TaskDto, sum: Long => Double) = {
+  def apply(task: TaskDto, phongBanIds: List[Long],
+            sumKL: Long => Double, sumKLByPhongBan: (Long, Long) => Double,
+            sumGio: Long => Double, sumGioByPhongBang: (Long, Long) => Double) = {
     val row = new DonViKhoiLuongRow
     row.taskId = task.id
     row.taskName = task.name
@@ -66,7 +68,18 @@ object DonViKhoiLuongRow {
     row.taskUnit = task.unit
     row.taskDinhMuc = task.dinhMuc
     row.taskSoLan = task.soLan.getOrElse(0d)
-    row.xnKL = sum(task.id)
+    row.xnKL = sumKL(task.id)
+    row.xnGio = sumGio(task.id)
+    for (phongBangId <- phongBanIds) {
+      val kl = sumKLByPhongBan(task.id, phongBangId)
+      val gio = sumGioByPhongBang(task.id, phongBangId)
+      if (kl > 0) {
+        row.khoiLuongCongViec.put(phongBangId.toString, kl)
+      }
+      if (gio > 0) {
+        row.gioCongViec.put(phongBangId.toString, gio)
+      }
+    }
     row
   }
 

@@ -48,13 +48,8 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     //build layout
     val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
     val donViDto = buildDonViData(req.month, req.year, req.getDonVi)
-
-    val row = new DonViKhoiLuongRow
-
-    import scala.collection.JavaConverters._
-
     //    //build data
-    val ds = new JRBeanCollectionDataSource(List(row, row).asJava)
+    val ds = new JRBeanCollectionDataSource(donViDto.javaReportRows())
     report.setDataSource(ds)
     exportReport(fileType, fileName, report)
   }
@@ -67,7 +62,6 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     //build data
     val ds = new JRBeanCollectionDataSource(phongBanDto.javaReportRows())
     report.setDataSource(ds)
-
     exportReport(fileType, fileName, report)
   }
 
