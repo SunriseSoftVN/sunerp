@@ -4,7 +4,7 @@ import models.core.{Hash, AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.libs.json.Json
+import play.api.libs.json.{JsValue, Writes, Json}
 import dtos.{NhanVienDto, ExtGirdDto, PagingDto}
 import org.apache.commons.digester.SimpleRegexMatcher
 import org.apache.commons.lang3.StringUtils
@@ -29,10 +29,16 @@ case class NhanVien(
                      ) extends WithId[Long] {
 
   private var _quyenHanhs: Option[List[QuyenHanh]] = None
+  private var _phongBan: Option[PhongBan] = None
 
   def quyenHanhs(implicit session: Session): List[QuyenHanh] = _quyenHanhs.getOrElse {
     _quyenHanhs = Some(QuyenHanhs.findByChucVuId(chucVuId))
     _quyenHanhs.get
+  }
+
+  def phongBan(implicit session: Session) : PhongBan = _phongBan.getOrElse {
+    _phongBan = PhongBans.findById(phongBanId)
+    _phongBan.get
   }
 
   def checkAuth(authority: String)(implicit session: Session) = {
@@ -94,6 +100,21 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
   )
 
   implicit val nhanVienJsonFormat = Json.format[NhanVien]
+
+  def nhanVienJsonFormatWithQuyenHanh(implicit session: Session) = new Writes[NhanVien] {
+    import QuyenHanhs.jsonFormat
+    override def writes(nhanVien: NhanVien): JsValue = Json.obj(
+      "id" -> nhanVien.id,
+      "maNv" -> nhanVien.maNv,
+      "firstName" -> nhanVien.firstName,
+      "lastName" -> nhanVien.lastName,
+      "heSoLuong" -> nhanVien.heSoLuong,
+      "chucVuId" -> nhanVien.chucVuId,
+      "phongBanId" -> nhanVien.phongBanId,
+      "donViId" -> nhanVien.phongBan.donViId,
+      "quyenHanhs" -> nhanVien.quyenHanhs
+    )
+  }
 
   def findByMaNv(maNv: String)(implicit session: Session) = where(_.maNv === maNv).firstOption()
 

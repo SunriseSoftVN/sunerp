@@ -155,7 +155,7 @@ class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with
    * @return
    */
   def loginUser = StackAction(implicit request => {
-    Ok(NhanViens.nhanVienJsonFormat.writes(loggedIn))
+    Ok(NhanViens.nhanVienJsonFormatWithQuyenHanh.writes(loggedIn))
   })
 
   def menuItems = StackAction(implicit request => {

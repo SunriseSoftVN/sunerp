@@ -11,12 +11,15 @@ Ext.define('sunerp.component.PhongBanCb', {
     donViId: null,
     emptyText: "Đơn vị",
     addShowAll: true,
+    config: {
+        donViFilter: null
+    },
     initComponent: function () {
         var me = this;
         var store = Ext.create('sunerp.store.PhongBanStore', {
             listeners: {
                 load: function (store, records, successful, eOpts) {
-                    if(me.addShowAll) {
+                    if (me.addShowAll) {
                         var fakeModel = new sunerp.model.PhongBan({
                             id: null,
                             name: 'Tất cả'
@@ -27,9 +30,11 @@ Ext.define('sunerp.component.PhongBanCb', {
                 }
             }
         });
-        if (me.donViId != null) {
-            store.filter('donViId', sunerp.Utils.toString(me.donViId));
-        }
+        me.donViFilter = new Ext.util.Filter({
+            property: 'donViId',
+            value: sunerp.Utils.toString(me.donViId)
+        });
+        store.addFilter(me.donViFilter, false);
         me.store = store;
         me.store.load();
         me.callParent(arguments);
