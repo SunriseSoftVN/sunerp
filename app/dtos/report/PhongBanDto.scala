@@ -1,6 +1,5 @@
 package dtos.report
 
-import scala.collection.JavaConverters._
 import dtos.report.row.PhongBanKhoiLuongRow
 
 /**
@@ -10,7 +9,7 @@ import dtos.report.row.PhongBanKhoiLuongRow
  * @since 4/15/14 2:54 PM
  *
  */
-case class PhongBanDto(id: Long, name: String, khoiLuongs: List[KhoiLuongDto] = Nil) extends KhoiLuongSupport[PhongBanKhoiLuongRow] {
+case class PhongBanDto(id: Long, name: String, override val _khoiLuongs: List[KhoiLuongDto] = Nil) extends KhoiLuongContainer[PhongBanKhoiLuongRow] {
 
   /**
    * Tranfrom data to report row.

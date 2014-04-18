@@ -93,7 +93,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     DonViDto(
       id = donVi.getId,
       name = donVi.name,
-      phongBans = phongBans
+      children = phongBans
     )
   }
 
@@ -123,7 +123,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     PhongBanDto(
       id = phongBan.getId,
       name = phongBan.name,
-      khoiLuongs = khoiLuongs
+      _khoiLuongs = khoiLuongs
     )
   }
 

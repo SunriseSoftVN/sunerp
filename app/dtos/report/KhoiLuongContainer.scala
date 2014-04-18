@@ -3,15 +3,19 @@ package dtos.report
 import scala.collection.JavaConverters._
 
 /**
- * The Class KhoiLuongOp.
+ * The Class KhoiLuongContainer.
  *
  * @author Nguyen Duc Dung
  * @since 4/18/14 9:56 AM
  *
  */
-trait KhoiLuongSupport[R] {
+abstract class KhoiLuongContainer[R] {
 
-  val khoiLuongs: List[KhoiLuongDto]
+  val id: Long
+  val name: String
+  val children: List[_ <: KhoiLuongContainer[_]] = List.empty
+  protected val _khoiLuongs: List[KhoiLuongDto] = List.empty
+  lazy val khoiLuongs : List[KhoiLuongDto] = if(children.isEmpty) _khoiLuongs else children.flatMap(_.khoiLuongs)
 
   //unique task list
   lazy val tasks: List[TaskDto] = khoiLuongs.map(_.task).distinct
@@ -30,6 +34,12 @@ trait KhoiLuongSupport[R] {
 
   def sumGio(taskId: Long) = khoiLuongs.par
     .filter(_.task.id == taskId).foldLeft(0d)((gio, dto) => dto.gio + gio)
+
+  def sumKLByChildId(taskId: Long, childId: Long): Double = children
+    .filter(_.id == childId).foldLeft(0d)((kl, child) => child.sumKL(taskId) + kl)
+
+  def sumGioByChildId(taskId: Long, childId: Long): Double = children
+    .filter(_.id == childId).foldLeft(0d)((gio, child) => child.sumGio(taskId) + gio)
 
   /**
    * Tranfrom data to report row.

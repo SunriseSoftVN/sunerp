@@ -9,22 +9,14 @@ import dtos.report.row.DonViKhoiLuongRow
  * @since 4/17/14 9:09 AM
  *
  */
-case class DonViDto(id: Long, name: String, phongBans: List[PhongBanDto] = Nil) extends KhoiLuongSupport[DonViKhoiLuongRow] {
+case class DonViDto(id: Long, name: String, override val children: List[PhongBanDto] = Nil) extends KhoiLuongContainer[DonViKhoiLuongRow] {
 
-  override val khoiLuongs: List[KhoiLuongDto] = phongBans.flatMap(_.khoiLuongs)
-
-  val phongBanIds = phongBans.map(_.id)
-
-  def sumKLByPhongBanId(taskId: Long, phongBangId: Long): Double = phongBans
-    .filter(_.id == phongBangId).foldLeft(0d)((kl, phongBan) => phongBan.sumKL(taskId) + kl)
-
-  def sumGioByPhongBanId(taskId: Long, phongBangId: Long): Double = phongBans
-    .filter(_.id == phongBangId).foldLeft(0d)((gio, phongBan) => phongBan.sumGio(taskId) + gio)
+  val phongBanIds = children.map(_.id)
 
   /**
    * Tranfrom data to report row.
    * @return
    */
   override def reportRows: List[DonViKhoiLuongRow] = tasks
-    .map(DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByPhongBanId, sumGio, sumGioByPhongBanId)).sortBy(_.taskCode)
+    .map(DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByChildId, sumGio, sumGioByChildId)).sortBy(_.taskCode)
 }
