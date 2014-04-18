@@ -1,7 +1,5 @@
 package dtos.report
 
-import scalaz._
-import Scalaz._
 import scala.collection.JavaConverters._
 
 /**
@@ -13,37 +11,26 @@ import scala.collection.JavaConverters._
  */
 case class PhongBanDto(id: Long, name: String, khoiLuongs: List[KhoiLuongDto] = Nil) {
 
-  lazy val tasks = khoiLuongs.map(_.task)
+  //unique task list
+  lazy val tasks = khoiLuongs.map(_.task).distinct
+
+  /**
+   * do sum "khoiluong" of the task.
+   * @param taskId
+   */
+  def sum(taskId: Long) = khoiLuongs.filter(_.task.id == taskId).map(_.khoiLuong).sum
+
+
+  def sumByDay(taskId: Long, dayOfMonth: Int) = khoiLuongs
+    .filter(khoiLuong => khoiLuong.task.id == taskId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
+    .map(_.khoiLuong)
+    .sum
 
   /**
    * Tranfrom data to report row.
    * @return
    */
-  def reportRows() = {
-    val groupByTaskId = khoiLuongs.groupBy(_.task.id)
-    val rows = for (taskId <- groupByTaskId.keys) yield {
-      val task = tasks.find(_.id == taskId) err "The task can't be not found."
-      val khoiLuongs = groupByTaskId(taskId)
-      val row = new PhongBanKhoiLuongRow()
-      row.setTaskId(task.id)
-      row.setTaskCode(task.code)
-      row.setTaskName(task.name)
-      row.setTaskUnit(task.unit)
-      row.setTotalKhoiLuong(khoiLuongs.map(_.khoiLuong).sum)
-      //nhom khoi luong theo ngay
-      val khoiLuongGroupByDate = khoiLuongs.groupBy(_.ngayPhanCong)
-      for (ngayPhanCong <- khoiLuongGroupByDate.keys) {
-        //tong khoi luong cua mot cong viec, trong mot ngay
-        val day = ngayPhanCong.getDayOfMonth
-        val khoiLuongTrongNgay = khoiLuongGroupByDate(ngayPhanCong).map(_.khoiLuong).sum
-        if(khoiLuongTrongNgay > 0) {
-          row.getKhoiLuongCongViec.put(day.toString, khoiLuongTrongNgay)
-        }
-      }
-      row
-    }
-    rows.toList.sortBy(_.taskCode)
-  }
+  def reportRows() = tasks.map(PhongBanKhoiLuongRow(_, sum, sumByDay)).sortBy(_.taskCode)
 
   /**
    * for java api
