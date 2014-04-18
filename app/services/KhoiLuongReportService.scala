@@ -83,7 +83,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
 
   private def buildCongTyData(month: Int, year: Int)(implicit session: Session) = {
     val donVis = for (donVi <- DonVis.all) yield buildDonViData(month, year, donVi)
-    CongTyDto(donVis = donVis)
+    CongTyDto(children = donVis)
   }
 
   private def buildDonViData(month: Int, year: Int, donVi: DonVi)(implicit session: Session) = {

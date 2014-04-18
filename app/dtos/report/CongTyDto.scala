@@ -9,7 +9,7 @@ import dtos.report.row.CongTyKhoiLuongRow
  * @since 4/17/14 9:10 AM
  *
  */
-case class CongTyDto(donVis: List[DonViDto] = Nil) extends KhoiLuongContainer[CongTyKhoiLuongRow] {
+case class CongTyDto(override val children: List[DonViDto] = Nil) extends KhoiLuongContainer[CongTyKhoiLuongRow] {
 
   override val id: Long = -1 //fake id
   override val name: String = "Công ty"
