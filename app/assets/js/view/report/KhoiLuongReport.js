@@ -3,16 +3,8 @@
  */
 
 Ext.define('sunerp.view.report.KhoiLuongReport', {
-    extend: 'Ext.panel.Panel',
-    requires: [
-        'Ext.ux.IFrame',
-        'sunerp.component.DonViCb',
-        'sunerp.component.MonthCb',
-        'sunerp.component.YearCb',
-        'sunerp.component.PhongBanCb'
-    ],
+    extend: 'sunerp.view.core.BaseReportView',
     controller: 'sunerp.controller.report.KhoiLuongReportCtr',
-    layout: 'fit',
     tbar: [
         {xtype: 'donvicb'},
         {xtype: 'phongbancb', emptyText: 'Phòng ban'},
@@ -21,10 +13,5 @@ Ext.define('sunerp.view.report.KhoiLuongReport', {
         {xtype: 'button', action: 'doReport', iconCls: 'report', text: 'Xem báo cáo' },
         {xtype: 'button', action: 'downloadPdf', iconCls: 'pdf', text: 'Download Pdf' },
         {xtype: 'button', action: 'downloadXls', iconCls: 'excel', text: 'Download Excel' }
-    ],
-    items: [
-        {
-            xtype: 'uxiframe'
-        }
     ]
 });
