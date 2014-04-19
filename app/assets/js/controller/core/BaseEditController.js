@@ -7,7 +7,7 @@ Ext.define('sunerp.controller.core.BaseEditController', {
     //this property has to be set in subclass
     mainStore: null,
     control: {},
-    constructor: function(config) {
+    constructor: function (config) {
         this.control['form'] = {
             selector: 'form'
         };
@@ -45,8 +45,11 @@ Ext.define('sunerp.controller.core.BaseEditController', {
 
             form.getForm().getFields().each(function (field) {
                 if (field.getXType() == "comboboxx") {
-                    record.set(field.getModelName() + "Id", field.getSelectedData().id);
-                    record.set(field.getModelName() + "." + field.displayField, field.getSelectedData()[field.displayField]);
+                    var data = field.getSelectedData();
+                    if (data) {
+                        record.set(field.getModelName() + "Id", data.id);
+                        record.set(field.getModelName() + "." + field.displayField, data[field.displayField]);
+                    }
                 }
             });
 

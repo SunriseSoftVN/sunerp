@@ -19,6 +19,10 @@ Ext.define('sunerp.component.Combobox', {
     getSelectedData: function () {
         var value = this.getValue();
         var record = this.findRecordByValue(value);
-        return record.getData();
+        if (record) {
+            return record.getData();
+        } else {
+            return null;
+        }
     }
 });

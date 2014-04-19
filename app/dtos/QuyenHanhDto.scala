@@ -18,13 +18,14 @@ case class QuyenHanhDto(
                          chucVuId: Option[Long],
                          phongBanId: Option[Long],
                          gioiHan: String,
-                         chucVu: ChucVu
+                         chucVuName: Option[String],
+                         phongBanName: Option[String]
                          )
 
 
 object QuyenHanhDto {
 
-  def apply(tuple: (QuyenHanh, ChucVu, PhongBan)) = new QuyenHanhDto(
+  def apply(tuple: (QuyenHanh, Option[String], Option[String])) = new QuyenHanhDto(
     id = tuple._1.id.get,
     domain = tuple._1.domain,
     write = tuple._1.write,
@@ -32,7 +33,8 @@ object QuyenHanhDto {
     chucVuId = tuple._1.chucVuId,
     phongBanId = tuple._1.phongBanId,
     gioiHan = tuple._1.gioiHan,
-    chucVu = tuple._2
+    chucVuName = tuple._2,
+    phongBanName = tuple._3
   )
 
   implicit val jsonFormat = new Writes[QuyenHanhDto] {
@@ -44,7 +46,12 @@ object QuyenHanhDto {
       "chucVuId" -> o.chucVuId,
       "phongBanId" -> o.phongBanId,
       "gioiHan" -> o.gioiHan,
-      "chucVu" -> ChucVus.chucVuJsonFormat.writes(o.chucVu)
+      "chucVu" -> Json.obj(
+        "name" -> o.chucVuName
+      ),
+      "phongBan" -> Json.obj(
+        "name" -> o.phongBanName
+      )
     )
   }
 }

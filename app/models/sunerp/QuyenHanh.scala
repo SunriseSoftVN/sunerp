@@ -6,6 +6,7 @@ import dtos.{QuyenHanhDto, ExtGirdDto, PagingDto}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
+import models.sunerp
 
 /**
  * The Class QuyenHanh.
@@ -57,39 +58,41 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[QuyenHanhDto] = {
     var query = for {
-      quyenHanh <- this
-      chucVu <- quyenHanh.chucVu
-      phongBan <- quyenHanh.phongBan
-    } yield (quyenHanh, chucVu, phongBan)
+      ((quyenHanh, chucVu), phongBan) <- this leftJoin ChucVus on (_.chucVuId === _.id) leftJoin PhongBans on (_._1.phongBanId === _.id)
+    } yield (quyenHanh, chucVu.name.?, phongBan.name.?)
 
     pagingDto.getFilters.foreach(filter => {
       query = query.where(table => {
-        val (quyenHanh, chucVu, phongBan) = table
+        val (quyenHanh, chucVuName, phongBanName) = table
         filter.property match {
           case "domain" => quyenHanh.domain.toLowerCase like filter.asLikeValue
-          case "chucVu.name" => chucVu.name.toLowerCase like filter.asLikeValue
           case "chucVuId" => quyenHanh.chucVuId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
     })
 
+
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(table => {
-        val (quyenHanh, chucVu, phongBan) = table
+        val (quyenHanh, chucVuName, phongBanName) = table
         sort.property match {
           case "domain" => orderColumn(sort.direction, quyenHanh.domain)
           case "read" => orderColumn(sort.direction, quyenHanh.read)
           case "write" => orderColumn(sort.direction, quyenHanh.write)
           case "gioiHan" => orderColumn(sort.direction, quyenHanh.gioiHan)
-          case "chucVu.name" => orderColumn(sort.direction, chucVu.name)
-          case "phongBan.name" => orderColumn(sort.direction, phongBan.name)
+          case "chucVu.name" => orderColumn(sort.direction, chucVuName)
+          case "phongBan.name" => orderColumn(sort.direction, phongBanName)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
     })
 
-    val totalRow = Query(query.length).first()
+    val countQuery = for {
+      row <- query
+    } yield row._1.id
+
+    val totalRow = Query(countQuery.length).first()
 
     val rows = query
       .drop(pagingDto.start)
