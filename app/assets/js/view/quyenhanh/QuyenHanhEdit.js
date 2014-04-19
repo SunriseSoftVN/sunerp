@@ -49,7 +49,17 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhEdit', {
                         fieldLabel: 'Chức vụ',
                         name: 'chucVuId',
                         modelName: 'chucVu',
-                        store: Ext.create('sunerp.store.ChucVuStore'),
+                        store: Ext.create('sunerp.store.ChucVuStore', {
+                            listeners: {
+                                load: function (store, records, successful, eOpts) {
+                                    var nullModel = new sunerp.model.PhongBan({
+                                        id: null,
+                                        name: 'Tất cả'
+                                    });
+                                    store.insert(0, nullModel);
+                                }
+                            }
+                        }),
                         valueField: 'id',
                         displayField: 'name',
                         emptyText: 'Chọn chức vụ ...'
@@ -59,7 +69,17 @@ Ext.define('sunerp.view.quyenhanh.QuyenHanhEdit', {
                         fieldLabel: 'Phòng Ban',
                         name: 'phongBanId',
                         modelName: 'phongBan',
-                        store: Ext.create('sunerp.store.PhongBanStore'),
+                        store: Ext.create('sunerp.store.PhongBanStore', {
+                            listeners: {
+                                load: function (store, records, successful, eOpts) {
+                                    var nullModel = new sunerp.model.PhongBan({
+                                        id: null,
+                                        name: 'Tất cả'
+                                    });
+                                    store.insert(0, nullModel);
+                                }
+                            }
+                        }),
                         valueField: 'id',
                         displayField: 'name',
                         emptyText: 'Chọn phòng Ban ...'

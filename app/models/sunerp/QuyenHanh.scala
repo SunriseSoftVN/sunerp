@@ -54,7 +54,10 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
 
   def findByChucVuId(chucVuId: Long)(implicit session: Session) = where(_.chucVuId === chucVuId).list()
 
-  def findByPhongBanId(phongBanId: Long)(implicit session: Session) = where(quyenHanh => quyenHanh.chucVuId.isNull && quyenHanh.phongBanId === phongBanId).list()
+  def findByPhongBanId(phongBanId: Long)(implicit session: Session) = where(_.phongBanId === phongBanId).list()
+
+  def findByChucVuAndPhongBanId(chucVuId: Long, phongBanId: Long)(implicit session: Session) =
+    where(qh => qh.chucVuId === chucVuId && qh.phongBanId === phongBanId).list()
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[QuyenHanhDto] = {
     var query = for {
@@ -67,6 +70,7 @@ object QuyenHanhs extends AbstractQuery[QuyenHanh, QuyenHanhs](new QuyenHanhs(_)
         filter.property match {
           case "domain" => quyenHanh.domain.toLowerCase like filter.asLikeValue
           case "chucVuId" => quyenHanh.chucVuId === filter.asLong
+          case "phongBanId" => quyenHanh.phongBanId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
