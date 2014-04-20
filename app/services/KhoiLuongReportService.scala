@@ -15,7 +15,10 @@ import models.sunerp.DonVi
 import models.sunerp.PhongBan
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder
-import dtos.report.row.DonViKhoiLuongRow
+import play.api.libs.ws.WS
+import scala.concurrent.{ExecutionContext, Future}
+import ExecutionContext.Implicits.global
+import dtos.report.qlkh.TaskReportBean
 
 /**
  * The Class KhoiLuongReportService.
@@ -33,7 +36,7 @@ trait KhoiLuongReportService {
    */
   def doPhongBanReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
 
-  def doDonViReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
+  def doDonViReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
 }
 
@@ -43,16 +46,25 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
 
   val reportDir = "report/"
 
-  override def doDonViReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
-    val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
-    //build layout
-    val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
-    val donViDto = buildDonViData(req.month, req.year, req.getDonVi)
-    //    //build data
-    val ds = new JRBeanCollectionDataSource(donViDto.javaReportRows())
-    report.setDataSource(ds)
-    exportReport(fileType, fileName, report)
-  }
+  override def doDonViReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] =
+    WS.url("http://localhost:8089/rest/reportStation")
+      .withQueryString(
+        "stationId" -> StationIds.stationIds.get(req.getDonVi.getId).getOrElse(""),
+        "quarter" -> req.quarter.toString,
+        "year" -> req.year.toString
+      ).get().map {
+      response =>
+        val task = response.json.as[List[TaskReportBean]]
+        val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
+        //build layout
+        val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
+        val donViDto = buildDonViData(req.month, req.year, req.getDonVi)
+        //    //build data
+        val ds = new JRBeanCollectionDataSource(donViDto.javaReportRows())
+        report.setDataSource(ds)
+        exportReport(fileType, fileName, report)
+    }
+
 
   override def doPhongBanReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
     val fileName = s"khoiluong-${req.donViNameStrip}-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"

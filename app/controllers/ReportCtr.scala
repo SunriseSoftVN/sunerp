@@ -14,6 +14,7 @@ import play.api.Play.current
 import java.io.FileInputStream
 import org.apache.commons.io.IOUtils
 import dtos.report.KhoiLuongReportRequest
+import scala.util.{Failure, Success}
 
 
 /**
@@ -29,15 +30,18 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
   val khoiLuongReportService = inject[KhoiLuongReportService]
 
   def doDonViReport(fileType: String) = AsyncStack(AuthorityKey -> thThucHienKhoiLuong)(implicit request => {
-    Future {
-      val req = KhoiLuongReportRequest(request)
-      if (req.donVi.isDefined && req.phongBan.isEmpty) {
-        val result = khoiLuongReportService.doDonViReport(fileType, req)
-        Ok(result)
-      } else {
-        BadRequest
+    val promise = Promise[SimpleResult]()
+    val req = KhoiLuongReportRequest(request)
+    if (req.donVi.isDefined && req.phongBan.isEmpty) {
+      val f = khoiLuongReportService.doDonViReport(fileType, req)
+      f.onComplete {
+        case Success(fileName) => promise.success(Ok(fileName))
+        case Failure(t) => promise.failure(t)
       }
+    } else {
+      promise.success(BadRequest)
     }
+    promise.future
   })
 
   def doPhongBanReport(fileType: String) = AsyncStack(AuthorityKey -> thCongViecHangNgay)(implicit request => {

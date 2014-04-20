@@ -1,7 +1,7 @@
 package dtos.report
 
 import play.api.mvc.{AnyContent, Request}
-import utils.{StringUtils, String2Long, String2Int}
+import utils.{DateTimeUtils, StringUtils, String2Long, String2Int}
 import org.joda.time.LocalDate
 import models.sunerp.{DonVis, PhongBans, PhongBan, DonVi}
 import play.api.db.slick.Session
@@ -21,6 +21,8 @@ case class KhoiLuongReportRequest(
                                    phongBan: Option[PhongBan] = None,
                                    phongBans: List[PhongBan] = Nil
                                    ) {
+
+  lazy val quarter = DateTimeUtils.getQuarter(month)
 
   def getPhongBans = phongBans.asJava
 
