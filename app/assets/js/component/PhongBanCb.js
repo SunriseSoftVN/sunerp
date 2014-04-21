@@ -40,14 +40,16 @@ Ext.define('sunerp.component.PhongBanCb', {
         store.addFilter(me.donViFilter, false);
         me.store = store;
         me.store.load();
-
+        me.callParent(arguments);
+    },
+    afterRender: function () {
+        var me = this;
         var gioiHan = me.getUserService().checkGioiHan(me.domainKey);
         var phongBanId = me.getUserService().getCurrentUser().phongBanId;
         if (gioiHan == "phongban") {
             me.select(phongBanId);
             me.hide();
         }
-
         me.callParent(arguments);
     }
 });

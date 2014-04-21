@@ -34,6 +34,10 @@ Ext.define('sunerp.component.DonViCb', {
         });
         me.store = store;
         me.store.load();
+        me.callParent(arguments);
+    },
+    afterRender: function () {
+        var me = this;
         //check permission of current user with this component
         var gioiHan = me.getUserService().checkGioiHan(me.domainKey);
         var donViId = me.getUserService().getCurrentUser().donViId;
