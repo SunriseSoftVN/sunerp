@@ -46,7 +46,7 @@ import net.sf.dynamicreports.report.builder.DynamicReports._
 class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) extends KhoiLuongReportService {
 
   val reportDir = "report/"
-  val qlkhUrl = Play.configuration.getString("qlkh.url").getOrElse(throw new Exception("Config key 'qlkh.url' is missing"))
+  lazy val qlkhUrl = Play.configuration.getString("qlkh.url").getOrElse(throw new Exception("Config key 'qlkh.url' is missing"))
 
   override def doDonViReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] =
     WS.url(s"$qlkhUrl/rest/reportStation")
