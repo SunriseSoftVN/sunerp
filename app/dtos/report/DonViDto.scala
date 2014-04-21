@@ -1,6 +1,7 @@
 package dtos.report
 
 import dtos.report.row.DonViKhoiLuongRow
+import dtos.report.qlkh.TaskReportBean
 
 /**
  * The Class DonViDto.
@@ -9,7 +10,12 @@ import dtos.report.row.DonViKhoiLuongRow
  * @since 4/17/14 9:09 AM
  *
  */
-case class DonViDto(id: Long, name: String, override val children: List[PhongBanDto] = Nil) extends KhoiLuongContainer[DonViKhoiLuongRow] {
+case class DonViDto(
+                     id: Long,
+                     name: String,
+                     taskExternal: List[TaskReportBean],
+                     override val children: List[PhongBanDto] = Nil
+                     ) extends KhoiLuongContainer[DonViKhoiLuongRow] {
 
   val phongBanIds = children.map(_.id)
 
@@ -18,5 +24,7 @@ case class DonViDto(id: Long, name: String, override val children: List[PhongBan
    * @return
    */
   override def reportRows: List[DonViKhoiLuongRow] = tasks
-    .map(DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByChildId, sumGio, sumGioByChildId)).sortBy(_.taskCode)
+    .map(
+      DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByChildId, sumGio, sumGioByChildId, taskExternal)
+    ).sortBy(_.taskCode)
 }

@@ -19,6 +19,7 @@ import play.api.libs.ws.WS
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 import dtos.report.qlkh.TaskReportBean
+import scala.util.Failure
 
 /**
  * The Class KhoiLuongReportService.
@@ -54,11 +55,14 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
         "year" -> req.year.toString
       ).get().map {
       response =>
-        val task = response.json.as[List[TaskReportBean]]
+        val taskExternal = if (response.status == 200) {
+          response.json.as[List[TaskReportBean]]
+        } else Nil
+
         val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
         //build layout
         val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
-        val donViDto = buildDonViData(req.month, req.year, req.getDonVi)
+        val donViDto = buildDonViData(req.month, req.year, req.getDonVi, taskExternal)
         //    //build data
         val ds = new JRBeanCollectionDataSource(donViDto.javaReportRows())
         report.setDataSource(ds)
@@ -94,17 +98,18 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   }
 
   private def buildCongTyData(month: Int, year: Int)(implicit session: Session) = {
-    val donVis = for (donVi <- DonVis.all) yield buildDonViData(month, year, donVi)
+    val donVis = for (donVi <- DonVis.all) yield buildDonViData(month, year, donVi, Nil)
     CongTyDto(children = donVis)
   }
 
-  private def buildDonViData(month: Int, year: Int, donVi: DonVi)(implicit session: Session) = {
+  private def buildDonViData(month: Int, year: Int, donVi: DonVi, taskExternal: List[TaskReportBean])(implicit session: Session) = {
     val phongBans = for {
       phongBan <- PhongBans.findByDonViId(donVi.getId)
     } yield buildPhongBanData(month, year, phongBan)
     DonViDto(
       id = donVi.getId,
       name = donVi.name,
+      taskExternal = taskExternal,
       children = phongBans
     )
   }
