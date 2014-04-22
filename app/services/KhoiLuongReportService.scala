@@ -56,7 +56,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val branch = Branchs.findByName(req.phongBanName)
 
     def callWebService = if (station.isDefined && branch.isDefined) {
-      WS.url(s"$qlkhUrl/rest/reportStation")
+      WS.url(s"$qlkhUrl/rest/reportBranch")
         .withQueryString(
           "stationId" -> station.get.getId.toString,
           "branchId" -> branch.get.getId.toString,
