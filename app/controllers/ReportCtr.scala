@@ -60,7 +60,7 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
     Future {
       val req = KhoiLuongReportRequest(request)
       if (req.donVi.isDefined && req.phongBan.isDefined) {
-        val result = khoiLuongReportService.doThKhoiLuong(fileType, req)
+        val result = khoiLuongReportService.inSoPhanCong(fileType, req)
         Ok(result)
       } else {
         BadRequest

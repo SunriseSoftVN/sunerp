@@ -9,6 +9,8 @@ import net.sf.dynamicreports.report.builder.grid.ColumnTitleGroupBuilder;
 import net.sf.dynamicreports.report.constant.*;
 import utils.DateTimeUtils;
 
+import java.util.Date;
+
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
 import static services.ReportStyle.*;
 
@@ -27,13 +29,52 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> totalKL = col.column("KL", "totalKhoiLuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> totalGio = col.column("Giờ", "totalGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> dinhMuc = col.column("ĐM", "taskDinhMuc", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> soLan = col.column(" Số lần", "taskSoLan", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> quyKL = col.column(" KL", "quyKl", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> quyGio = col.column(" Giờ", "quyGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> conLaiKL = col.column(" KL", "conLaiKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> conLaiGio = col.column(" Giờ", "conLaiGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> xnKL = col.column(" KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> xnGio = col.column(" Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> soLan = col.column("Số lần", "taskSoLan", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> quyKL = col.column("KL", "quyKl", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> quyGio = col.column("Giờ", "quyGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> conLaiKL = col.column("KL", "conLaiKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> conLaiGio = col.column("Giờ", "conLaiGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> xnKL = col.column("KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> xnGio = col.column("Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> tenNV = col.column("Tên người làm", "tenNv", type.doubleType());
+    public static final TextColumnBuilder<Date> ngay = col.column("Ngày", "ngay", type.dateType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
+
+    public static JasperReportBuilder buildSoPhanCong(KhoiLuongReportRequest request) {
+        int quarter = DateTimeUtils.getQuarter(request.month());
+        JasperReportBuilder builder = report()
+                .title(
+                        cmp.verticalList(
+                                cmp.horizontalList(
+                                        cmp.verticalList(
+                                                cmp.text("Xí nghiệp: " + request.donViName()).setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
+                                                cmp.text("Cung (Trạm): " + request.phongBanName()).setStyle(SUB_TITLE_STYLE)
+                                        ),
+                                        cmp.verticalList(
+                                                cmp.text("CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
+                                                cmp.text("Độc lập - Tự do - Hạnh phúc").setStyle(stl.style(SUB_TITLE_STYLE).setUnderline(true))
+                                        )
+                                ),
+                                cmp.verticalList(
+                                        cmp.text("SỔ PHÂN CÔNG CÔNG TÁC").setStyle(stl.style(TITLE_STYLE).setBottomPadding(10)),
+                                        cmp.text("Tháng " + request.month() + " Quý " + quarter + " Năm " + request.year()).setStyle(SUB_TITLE_STYLE)
+                                )
+                        )
+                )
+                .setColumnTitleStyle(COLUMN_TITLE_STYLE)
+                .setColumnStyle(COLUMN_STYLE)
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
+                .setPageFormat(PageType.A4, PageOrientation.PORTRAIT);
+
+        builder.columns(ngay, tenNV, taskName, totalKL.setTitle("KL"), totalGio);
+
+        ColumnTitleGroupBuilder thucHien = grid.titleGroup();
+        thucHien.setTitle("Thực hiện");
+        thucHien.add(totalKL);
+        thucHien.add(totalGio);
+
+        builder.columnGrid(ngay, tenNV, taskName, thucHien);
+        return builder;
+    }
 
     public static JasperReportBuilder buildBcThKhoiLuong(KhoiLuongReportRequest request) {
         int quarter = DateTimeUtils.getQuarter(request.month());

@@ -19,7 +19,7 @@ import play.api.libs.ws.WS
 import scala.concurrent.{Promise, ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 import dtos.report.qlkh.TaskReportBean
-import scala.util.{Failure, Success}
+import scala.util.Failure
 
 /**
  * The Class KhoiLuongReportService.
@@ -37,6 +37,8 @@ trait KhoiLuongReportService {
    */
   def doThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
 
+  def inSoPhanCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
+
   def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
   def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
@@ -48,6 +50,14 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
 
   val reportDir = "report/"
   lazy val qlkhUrl = Play.configuration.getString("qlkh.url").getOrElse(throw new Exception("Config key 'qlkh.url' is missing"))
+
+
+  override def inSoPhanCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
+    val fileName = s"sophancong-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
+    val report = KhoiLuongReportColumnBuilder.buildSoPhanCong(req)
+
+    exportReport(fileType, fileName, report)
+  }
 
   override def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
     val promise = Promise[String]()
