@@ -60,6 +60,7 @@ GET           /sophancong/init/:month/:phongBanId       @controllers.SoPhanCongC
 GET           /report/doDonViReport                     @controllers.ReportCtr.doDonViReport(fileType: String ?= "pdf")
 GET           /report/doPhongBanReport                  @controllers.ReportCtr.doPhongBanReport(fileType: String ?= "pdf")
 GET           /report/doBcThKhoiLuongReport             @controllers.ReportCtr.doBcThKhoiLuongReport(fileType: String ?= "pdf")
+GET           /report/inSoPhanCong                      @controllers.ReportCtr.inSoPhanCong(fileType: String ?= "pdf")
 GET           /report/file/*file                        @controllers.ReportCtr.view(file, download: Boolean ?= false)
 
 GET           /admin/shutdown                           @controllers.AdminCtr.shutdown

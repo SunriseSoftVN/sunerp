@@ -20,6 +20,7 @@ object DomainKey {
   val thCongViecHangNgay = "thcongviechangngay"
   val bcThucHienKhoiLuong = "bcThucHienKhoiLuong"
   val thThucHienKhoiLuong = "ththuchienkhoiluong"
+  val inSoPhanCong = "insophancong"
   val task = "task"
 
   val list = List(
@@ -34,6 +35,7 @@ object DomainKey {
     thCongViecHangNgay,
     bcThucHienKhoiLuong,
     thThucHienKhoiLuong,
+    inSoPhanCong,
     task
   )
 }
@@ -138,6 +140,12 @@ class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with
         id = thThucHienKhoiLuong,
         view = "sunerp.view.report.THThucHienKhoiLuong",
         text = "TH thực hiện khối lượng",
+        leaf = true
+      ),
+      MenuItemDto(
+        id = inSoPhanCong,
+        view = "sunerp.view.report.InSoPhanCong",
+        text = "In sổ phân công",
         leaf = true
       )
     )

@@ -56,6 +56,19 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
     }
   })
 
+  def inSoPhanCong(fileType: String) = AsyncStack(AuthorityKey -> DomainKey.inSoPhanCong)(implicit request => {
+    Future {
+      val req = KhoiLuongReportRequest(request)
+      if (req.donVi.isDefined && req.phongBan.isDefined) {
+        val result = khoiLuongReportService.doThKhoiLuong(fileType, req)
+        Ok(result)
+      } else {
+        BadRequest
+      }
+    }
+  })
+
+
   def doBcThKhoiLuongReport(fileType: String) = AsyncStack(AuthorityKey -> bcThucHienKhoiLuong)(implicit request => {
     val promise = Promise[SimpleResult]()
     val req = KhoiLuongReportRequest(request)
