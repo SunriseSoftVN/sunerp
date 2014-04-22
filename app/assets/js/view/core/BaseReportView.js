@@ -10,6 +10,7 @@ Ext.define('sunerp.view.core.BaseReportView', {
         'sunerp.component.DonViCb',
         'sunerp.component.MonthCb',
         'sunerp.component.YearCb',
+        'sunerp.component.QuarterCb',
         'sunerp.component.PhongBanCb'
     ],
     layout: 'fit',
