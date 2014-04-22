@@ -42,8 +42,8 @@ public final class KhoiLuongReportColumnBuilder {
                         cmp.verticalList(
                                 cmp.horizontalList(
                                         cmp.verticalList(
-                                                cmp.text("XÍ NGHIỆP: " + request.donViName()).setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
-                                                cmp.text("CUNG (TRẠM): : " + request.phongBanName()).setStyle(SUB_TITLE_STYLE)
+                                                cmp.text("Xí nghiệp: " + request.donViName()).setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
+                                                cmp.text("Cung (Trạm): " + request.phongBanName()).setStyle(SUB_TITLE_STYLE)
                                         ),
                                         cmp.verticalList(
                                                 cmp.text("CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
