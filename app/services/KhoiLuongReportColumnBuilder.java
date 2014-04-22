@@ -35,6 +35,86 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> xnKL = col.column(" KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> xnGio = col.column(" Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
 
+    public static JasperReportBuilder buildKhSCTXQuy(KhoiLuongReportRequest request) {
+        int quarter = DateTimeUtils.getQuarter(request.month());
+        JasperReportBuilder builder = report()
+                .title(
+                        cmp.verticalList(
+                                cmp.horizontalList(
+                                        cmp.verticalList(
+                                                cmp.text("CÔNG TY THÔNG TIN TÍN HIỆU ĐƯỜNG SẮT VINH").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
+                                                cmp.text("XN: " + request.donViName()).setStyle(SUB_TITLE_STYLE)
+                                        ).setFixedWidth(300),
+                                        cmp.verticalList(
+                                                cmp.text("CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
+                                                cmp.text("Độc lập - Tự do - Hạnh phúc").setStyle(stl.style(SUB_TITLE_STYLE).setUnderline(true))
+                                        ).setFixedWidth(570)
+                                ),
+                                cmp.verticalList(
+                                        cmp.text("KẾ HOẠCH SCTXĐK KCHT TTTH ĐS " + request.month() + " QUÝ " + quarter + " NĂM " + request.year())
+                                                .setStyle(stl.style(TITLE_STYLE).setBottomPadding(10))
+                                )
+                        )
+                )
+                .setColumnTitleStyle(COLUMN_TITLE_STYLE)
+                .setColumnStyle(COLUMN_STYLE)
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
+                .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE);
+
+        builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, quyKL, quyGio, conLaiKL, conLaiGio, xnKL, xnGio);
+
+        ColumnTitleGroupBuilder khQuy = grid.titleGroup();
+        khQuy.setTitle("KH quý");
+        khQuy.add(quyKL);
+        khQuy.add(quyGio);
+
+        ColumnTitleGroupBuilder conLai = grid.titleGroup();
+        conLai.setTitle("Còn lại");
+        conLai.add(conLaiKL);
+        conLai.add(conLaiGio);
+
+        ColumnTitleGroupBuilder xn = grid.titleGroup();
+        xn.setTitle("Toàn XN");
+        xn.add(xnKL);
+        xn.add(xnGio);
+
+        ColumnTitleGroupBuilder tb = grid.titleGroup();
+        tb.setTitle("THỰC HIỆN KẾ HOẠCH THÁNG, QUÝ");
+        tb.add(xn);
+
+        for (PhongBan phongBan : request.getPhongBans()) {
+            ColumnTitleGroupBuilder phongBanGroup = grid.titleGroup();
+            phongBanGroup.setTitle(phongBan.getShortName());
+            phongBanGroup.setTitleStretchWithOverflow(false);
+
+            TextColumnBuilder<Double> klCol = col
+                    .column("KL", "khoiLuongCongViec." + phongBan.getId(), type.doubleType())
+                    .setStyle(COLUMN_NUMBER_STYLE)
+                    .setWidth(50);
+
+            TextColumnBuilder<Double> gioCol = col
+                    .column("Giờ", "gioCongViec." + phongBan.getId(), type.doubleType())
+                    .setStyle(COLUMN_NUMBER_STYLE)
+                    .setWidth(50);
+
+            phongBanGroup.add(klCol);
+            phongBanGroup.add(gioCol);
+
+            builder.addColumn(klCol);
+            builder.addColumn(gioCol);
+
+            tb.add(phongBanGroup);
+        }
+
+        builder.columnGrid(
+                maCv, taskName, taskUnit, dinhMuc, soLan,
+                khQuy, conLai, tb
+        );
+
+        return builder;
+    }
+
+
     public static JasperReportBuilder buildBcThKhoiLuong(KhoiLuongReportRequest request) {
         int quarter = DateTimeUtils.getQuarter(request.month());
         JasperReportBuilder builder = report()
@@ -94,7 +174,8 @@ public final class KhoiLuongReportColumnBuilder {
                                         ).setFixedWidth(570)
                                 ),
                                 cmp.verticalList(
-                                        cmp.text("TỔNG HỢP THỰC HIỆN KHỐI LƯỢNG SCTX KCHT TTTH ĐS THÁNG " + request.month() + " QUÝ " + quarter).setStyle(stl.style(TITLE_STYLE).setBottomPadding(10))
+                                        cmp.text("TỔNG HỢP THỰC HIỆN KHỐI LƯỢNG SCTX KCHT TTTH ĐS THÁNG " + request.month() + " QUÝ " + quarter + " NĂM " + request.year())
+                                                .setStyle(stl.style(TITLE_STYLE).setBottomPadding(10))
                                 )
                         )
                 )
