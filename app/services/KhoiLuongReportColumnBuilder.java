@@ -26,6 +26,8 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<String> maCv = col.column("Mã Cv", "taskCode", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(40);
     public static final TextColumnBuilder<String> taskName = col.column("Nội dung Cv", "taskName", type.stringType()).setFixedWidth(200);
     public static final TextColumnBuilder<String> taskUnit = col.column("Đơn vị", "taskUnit", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
+    public static final TextColumnBuilder<Double> taskKL = col.column("KL", "taskKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> taskGio = col.column("Giờ", "taskGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> totalKL = col.column("KL", "totalKhoiLuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> totalGio = col.column("Giờ", "totalGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> dinhMuc = col.column("ĐM", "taskDinhMuc", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
@@ -36,8 +38,8 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> conLaiGio = col.column("Giờ", "conLaiGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> xnKL = col.column("KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> xnGio = col.column("Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> tenNV = col.column("Tên người làm", "tenNv", type.doubleType());
-    public static final TextColumnBuilder<Date> ngay = col.column("Ngày", "ngay", type.dateType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
+    public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType());
+    public static final TextColumnBuilder<String> ngay = col.column("Ngày", "ngay", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
 
     public static JasperReportBuilder buildSoPhanCong(KhoiLuongReportRequest request) {
         int quarter = DateTimeUtils.getQuarter(request.month());
@@ -65,12 +67,12 @@ public final class KhoiLuongReportColumnBuilder {
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
                 .setPageFormat(PageType.A4, PageOrientation.PORTRAIT);
 
-        builder.columns(ngay, tenNV, taskName, totalKL.setTitle("KL"), totalGio);
+        builder.columns(ngay, tenNV, taskName, taskKL, taskGio);
 
         ColumnTitleGroupBuilder thucHien = grid.titleGroup();
         thucHien.setTitle("Thực hiện");
-        thucHien.add(totalKL);
-        thucHien.add(totalGio);
+        thucHien.add(taskKL);
+        thucHien.add(taskGio);
 
         builder.columnGrid(ngay, tenNV, taskName, thucHien);
         return builder;

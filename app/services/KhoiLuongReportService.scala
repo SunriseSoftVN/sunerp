@@ -19,7 +19,7 @@ import play.api.libs.ws.WS
 import scala.concurrent.{Promise, ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 import dtos.report.qlkh.TaskReportBean
-import scala.util.Failure
+import scala.collection.JavaConverters._
 
 /**
  * The Class KhoiLuongReportService.
@@ -55,6 +55,18 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   override def inSoPhanCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
     val fileName = s"sophancong-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
     val report = KhoiLuongReportColumnBuilder.buildSoPhanCong(req)
+
+    val query = for {
+      soPhanCong <- SoPhanCongs.soPhanCongKhoiLuongQuery(req.month, req.year, req.phongBanId)
+      nhanVien <- soPhanCong.nhanVien
+    } yield (soPhanCong, nhanVien)
+
+    val data = query
+      .list()
+      .map(SoPhanCongDto(_))
+
+    val ds = new JRBeanCollectionDataSource(data.asJavaCollection)
+    report.setDataSource(ds)
 
     exportReport(fileType, fileName, report)
   }
