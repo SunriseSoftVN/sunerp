@@ -38,7 +38,7 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> conLaiGio = col.column("Giờ", "conLaiGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> xnKL = col.column("KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> xnGio = col.column("Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType());
+    public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType()).setFixedWidth(150);
     public static final TextColumnBuilder<String> ngay = col.column("Ngày", "ngay", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
 
     public static JasperReportBuilder buildSoPhanCong(KhoiLuongReportRequest request) {
@@ -67,6 +67,7 @@ public final class KhoiLuongReportColumnBuilder {
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
                 .setPageFormat(PageType.A4, PageOrientation.PORTRAIT);
 
+        TextColumnBuilder<String> taskName = col.column("Nội dung Cv", "taskName", type.stringType()).setFixedWidth(300);
         builder.columns(ngay, tenNV, taskName, taskKL, taskGio);
 
         ColumnTitleGroupBuilder thucHien = grid.titleGroup();
