@@ -29,13 +29,13 @@ abstract class KhoiLuongContainer[R] {
     .par
     .filter(_.task.id == taskId).foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
-
   def sumKLByDay(taskId: Long, dayOfMonth: Int) = khoiLuongs
     .par
     .filter(khoiLuong => khoiLuong.task.id == taskId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
     .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
-  def sumGio(taskId: Long) = khoiLuongs.par
+  def sumGio(taskId: Long) = khoiLuongs
+    .par
     .filter(_.task.id == taskId).foldLeft(0d)((gio, dto) => dto.gio + gio)
 
   def sumKLByChildId(taskId: Long, childId: Long): Double = children

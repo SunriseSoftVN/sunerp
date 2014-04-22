@@ -38,6 +38,7 @@ object StringUtils {
     _st = _st.replaceAll("[ÔỐỒỖỔỘ]", "O")
     _st = _st.replaceAll("[ƠỚỜỠỞỢ]", "O")
     _st = _st.replaceAll("[ỹýỷỵ]", "y")
+    _st = _st.replaceAll("[ỸÝỶỴ]", "Y")
     _st = _st.replaceAll("[đ]", "d")
     _st = _st.replaceAll("[Đ]", "D")
     _st
