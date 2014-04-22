@@ -6,7 +6,7 @@ import play.api.Play
 import play.api.Play.current
 import dtos.report._
 import models.sunerp._
-import models.qlkh.{Stations, Tasks}
+import models.qlkh.{Branchs, Stations, Tasks}
 import play.api.db.slick.Config.driver.simple._
 import dtos.report.DonViDto
 import dtos.report.PhongBanDto
@@ -49,21 +49,37 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   val reportDir = "report/"
   lazy val qlkhUrl = Play.configuration.getString("qlkh.url").getOrElse(throw new Exception("Config key 'qlkh.url' is missing"))
 
-  override def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] =
-    WS.url(s"$qlkhUrl/rest/reportStation")
-      .withQueryString(
-        "stationId" -> StationIds.stationIds.get(req.getDonVi.getId).getOrElse(""),
-        "brandId" -> StationIds.stationIds.get(req.getDonVi.getId).getOrElse(""),
-        "quarter" -> req.quarter.toString,
-        "year" -> req.year.toString
-      ).get().map {
-      response =>
-        val taskExternal = if (response.status == 200) {
-          response.json.as[List[TaskReportBean]]
-        } else Nil
+  override def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
+    val promise = Promise[String]()
 
-        ""
+    val station = Stations.findByName(req.donViName)
+    val branch = Branchs.findByName(req.phongBanName)
+
+    if (station.isDefined && branch.isDefined) {
+      val f = WS.url(s"$qlkhUrl/rest/reportStation")
+        .withQueryString(
+          "stationId" -> station.get.getId.toString,
+          "branchId" -> branch.get.getId.toString,
+          "quarter" -> req.quarter.toString,
+          "year" -> req.year.toString
+        ).get().map {
+        response =>
+          if (response.status == 200) {
+            response.json.as[List[TaskReportBean]]
+          } else Nil
+      }
+
+      f.onComplete {
+        case Success(taskExternal) => promise.success("")
+        case Failure(t) => promise.failure(t)
+      }
+    } else {
+      promise.failure(new Exception("Can't find station name or branch name in 'qlkh' databse"))
     }
+
+    promise.future
+  }
+
 
   override def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
     val promise = Promise[String]()
@@ -95,7 +111,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
         case Failure(t) => promise.failure(t)
       }
     }).getOrElse {
-      promise.failure(new Exception("Can't find station nam in 'qlkh' databse"))
+      promise.failure(new Exception("Can't find station name in 'qlkh' databse"))
     }
 
     promise.future

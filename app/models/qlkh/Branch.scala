@@ -6,25 +6,25 @@ import play.api.db.slick._
 import play.api.Play.current
 
 /**
- * The Class Brand.
+ * The Class Branch.
  *
  * @author Nguyen Duc Dung
  * @since 4/22/14 9:28 AM
  *
  */
-case class Brand(
+case class Branch(
                   id: Option[Long] = None,
                   name: String
                   ) extends WithId[Long]
 
-class Brands(tag: Tag) extends AbstractTable[Brand](tag, "brand") {
+class Branchs(tag: Tag) extends AbstractTable[Branch](tag, "branch") {
 
   def name = column[String]("name", O.NotNull)
 
-  override def * = (id.?, name) <>(Brand.tupled, Brand.unapply)
+  override def * = (id.?, name) <>(Branch.tupled, Branch.unapply)
 }
 
-object Brands extends TableQuery[Brands](new Brands(_)) {
+object Branchs extends TableQuery[Branchs](new Branchs(_)) {
 
   val dbName = "qlkh"
 
