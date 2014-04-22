@@ -6,7 +6,7 @@ import play.api.Play
 import play.api.Play.current
 import dtos.report._
 import models.sunerp._
-import models.qlkh.Tasks
+import models.qlkh.{Stations, Tasks}
 import play.api.db.slick.Config.driver.simple._
 import dtos.report.DonViDto
 import dtos.report.PhongBanDto
@@ -16,10 +16,10 @@ import models.sunerp.PhongBan
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder
 import play.api.libs.ws.WS
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{Promise, ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 import dtos.report.qlkh.TaskReportBean
-import scala.util.Failure
+import scala.util.{Failure, Success}
 
 /**
  * The Class KhoiLuongReportService.
@@ -35,10 +35,11 @@ trait KhoiLuongReportService {
    * @param session
    * @return report file name
    */
-  def doPhongBanReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
+  def doThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
 
-  def doDonViReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
+  def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
+  def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 }
 
 import net.sf.dynamicreports.report.builder.DynamicReports._
@@ -48,10 +49,11 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   val reportDir = "report/"
   lazy val qlkhUrl = Play.configuration.getString("qlkh.url").getOrElse(throw new Exception("Config key 'qlkh.url' is missing"))
 
-  override def doDonViReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] =
+  override def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] =
     WS.url(s"$qlkhUrl/rest/reportStation")
       .withQueryString(
         "stationId" -> StationIds.stationIds.get(req.getDonVi.getId).getOrElse(""),
+        "brandId" -> StationIds.stationIds.get(req.getDonVi.getId).getOrElse(""),
         "quarter" -> req.quarter.toString,
         "year" -> req.year.toString
       ).get().map {
@@ -60,18 +62,46 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
           response.json.as[List[TaskReportBean]]
         } else Nil
 
-        val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
-        //build layout
-        val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
-        val donViDto = buildDonViData(req.month, req.year, req.getDonVi, taskExternal)
-        //    //build data
-        val ds = new JRBeanCollectionDataSource(donViDto.javaReportRows())
-        report.setDataSource(ds)
-        exportReport(fileType, fileName, report)
+        ""
     }
 
+  override def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
+    val promise = Promise[String]()
 
-  override def doPhongBanReport(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
+    Stations.findByName(req.donViName).map(station => {
+      val f = WS.url(s"$qlkhUrl/rest/reportStation")
+        .withQueryString(
+          "stationId" -> station.getId.toString,
+          "quarter" -> req.quarter.toString,
+          "year" -> req.year.toString
+        ).get().map {
+        response =>
+          if (response.status == 200) {
+            response.json.as[List[TaskReportBean]]
+          } else Nil
+      }
+
+      f.onComplete {
+        case Success(taskExternal) =>
+          val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
+          //build layout
+          val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
+          val donViDto = buildDonViData(req.month, req.year, req.getDonVi, taskExternal)
+          //    //build data
+          val ds = new JRBeanCollectionDataSource(donViDto.javaReportRows())
+          report.setDataSource(ds)
+
+          promise.success(exportReport(fileType, fileName, report))
+        case Failure(t) => promise.failure(t)
+      }
+    }).getOrElse {
+      promise.failure(new Exception("Can't find station nam in 'qlkh' databse"))
+    }
+
+    promise.future
+  }
+
+  override def doThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
     val fileName = s"khoiluong-${req.donViNameStrip}-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
     //build layout
     val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)

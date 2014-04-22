@@ -38,6 +38,13 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> xnKL = col.column(" KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> xnGio = col.column(" Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
 
+    public static JasperReportBuilder buildBcThKhoiLuong(KhoiLuongReportRequest request) {
+        int quarter = DateTimeUtils.getQuarter(request.month());
+        JasperReportBuilder builder = report();
+
+        return builder;
+    }
+
     public static JasperReportBuilder buildDonViLayout(KhoiLuongReportRequest request) {
         int quarter = DateTimeUtils.getQuarter(request.month());
         JasperReportBuilder builder = report()
