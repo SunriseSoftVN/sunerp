@@ -42,7 +42,7 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType()).setFixedWidth(150);
     public static final TextColumnBuilder<String> ngay = col.column("Ngày", "ngay", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Integer> stt = col.column("TT", "stt", type.integerType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
-    public static final TextColumnBuilder<Double> hsl = col.column("HSL", "hsl", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(50);
+    public static final TextColumnBuilder<Double> hsl = col.column("HSL", "hsl", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Double> sanPham = col.column("Sản phẩm", "sanPham", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> hop = col.column("Họp", "hop", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> hocNH = col.column("Học NH", "hocNH", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
@@ -63,7 +63,7 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> tongGioCong = col.column("Tổng giờ công", "tongGioCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> diemHeSo = col.column("Điểm hệ số", "diemHeSo", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<String> xepLoai = col.column("Xếp loại ABC", "xepLoai", type.stringType());
-    public static final TextColumnBuilder<String> ghiChu = col.column("Ghi chú", "ghiChu", type.stringType());
+    public static final TextColumnBuilder<String> ghiChu = col.column("Ghi chú", "ghiChu", type.stringType()).setFixedWidth(100);
 
     public static JasperReportBuilder buildBangChamCong(KhoiLuongReportRequest request) {
         JasperReportBuilder builder = report()
@@ -78,7 +78,7 @@ public final class KhoiLuongReportColumnBuilder {
                                         cmp.verticalList(
                                                 cmp.text("BẢNG CHẤM CÔNG").setStyle(stl.style(TITLE_STYLE).setBottomPadding(0).setTopPadding(0)),
                                                 cmp.text("Tháng " + request.month() + " năm " + request.year()).setStyle(SUB_TITLE_STYLE)
-                                        ).setFixedWidth(570)
+                                        ).setFixedWidth(1100)
                                 )
                         )
                 )
@@ -109,13 +109,16 @@ public final class KhoiLuongReportColumnBuilder {
 
         ColumnTitleGroupBuilder tg3 = grid.titleGroup();
         tg3.setTitle("Số công làm việc và nghỉ chế độ");
-        tg3.add(sanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet);
+        tg3.add(sanPham.setTitleHeight(40), hop, hocNH, hocDH, gianTiep, nghiPhep, leTet);
+        tg3.setTitleHeight(20);
 
         ColumnTitleGroupBuilder tg4 = grid.titleGroup();
         tg4.setTitle("Số công nghỉ BHXH");
-        tg4.add(omDau, thaiSan, conOm, taiNanLaoDong);
+        tg4.add(omDau.setTitleHeight(40), thaiSan, conOm, taiNanLaoDong);
+        tg4.setTitleHeight(20);
 
         tg2.add(tg3, tongCacKhoanCong, tg4, tongCacKhoanTru, phuCapLamDem, trucBHLD, phuCapDocHai, giuaCa);
+        tg2.setTitleHeight(20);
 
         builder.columnGrid(stt, tenNV, hsl, tg1, tg2, tongGioCong, diemHeSo, xepLoai, ghiChu);
         return builder;
