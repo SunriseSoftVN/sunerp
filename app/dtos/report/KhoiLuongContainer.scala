@@ -99,7 +99,7 @@ abstract class KhoiLuongContainer[R] {
    * Tranfrom data to report row.
    * @return
    */
-  def reportRows: List[R]
+  def khoiLuongRows: List[R]
 
-  def javaReportRows() = reportRows.asJavaCollection
+  def javaKLRows() = khoiLuongRows.asJavaCollection
 }

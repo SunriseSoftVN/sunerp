@@ -108,7 +108,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
       val report = KhoiLuongReportColumnBuilder.buildBcThKhoiLuong(req)
       val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan, taskExternal)
       //build data
-      val ds = new JRBeanCollectionDataSource(phongBanDto.javaReportRows())
+      val ds = new JRBeanCollectionDataSource(phongBanDto.javaKLRows())
       report.setDataSource(ds)
 
       exportReport(fileType, fileName, report)
@@ -149,7 +149,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
       val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
       val donViDto = buildDonViData(req.month, req.year, req.getDonVi, taskExternal)
       //    //build data
-      val ds = new JRBeanCollectionDataSource(donViDto.javaReportRows())
+      val ds = new JRBeanCollectionDataSource(donViDto.javaKLRows())
       report.setDataSource(ds)
 
       exportReport(fileType, fileName, report)
@@ -171,7 +171,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
     val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan, Nil)
     //build data
-    val ds = new JRBeanCollectionDataSource(phongBanDto.javaReportRows())
+    val ds = new JRBeanCollectionDataSource(phongBanDto.javaKLRows())
     report.setDataSource(ds)
     exportReport(fileType, fileName, report)
   }

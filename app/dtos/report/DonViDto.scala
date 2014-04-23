@@ -23,7 +23,7 @@ case class DonViDto(
    * Tranfrom data to report row.
    * @return
    */
-  override def reportRows: List[DonViKhoiLuongRow] = tasks
+  override def khoiLuongRows: List[DonViKhoiLuongRow] = tasks
     .map(
       DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByChildId, sumGio, sumGioByChildId, taskExternal)
     ).sortBy(_.taskCode)

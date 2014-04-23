@@ -18,6 +18,6 @@ case class CongTyDto(override val children: List[DonViDto] = Nil) extends KhoiLu
    * Tranfrom data to report row.
    * @return
    */
-  override def reportRows: List[CongTyKhoiLuongRow] = ???
+  override def khoiLuongRows: List[CongTyKhoiLuongRow] = ???
 
 }
