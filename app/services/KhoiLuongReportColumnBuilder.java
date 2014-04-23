@@ -43,7 +43,7 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<String> ngay = col.column("Ngày", "ngay", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Integer> stt = col.column("TT", "stt", type.integerType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Double> hsl = col.column("HSL", "hsl", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(30);
-    public static final TextColumnBuilder<Double> sanPham = col.column("Sản phẩm", "sanPham", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> congSanPham = col.column("Công sản phẩm", "congSanPham", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> hop = col.column("Họp", "hop", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> hocNH = col.column("Học NH", "hocNH", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> hocDH = col.column("Học DH", "hocDH", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
@@ -88,7 +88,7 @@ public final class KhoiLuongReportColumnBuilder {
                 .setPageFormat(PageType.A2, PageOrientation.LANDSCAPE);
 
         builder.columns(
-                stt, tenNV, hsl, sanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet, tongCacKhoanCong,
+                stt, tenNV, hsl, congSanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet, tongCacKhoanCong,
                 omDau, thaiSan, conOm, taiNanLaoDong, tongCacKhoanTru,
                 phuCapLamDem, trucBHLD, phuCapDocHai, giuaCa, tongGioCong, diemHeSo, xepLoai, ghiChu
         );
@@ -109,7 +109,7 @@ public final class KhoiLuongReportColumnBuilder {
 
         ColumnTitleGroupBuilder tg3 = grid.titleGroup();
         tg3.setTitle("Số công làm việc và nghỉ chế độ");
-        tg3.add(sanPham.setTitleHeight(40), hop, hocNH, hocDH, gianTiep, nghiPhep, leTet);
+        tg3.add(congSanPham.setTitleHeight(40), hop, hocNH, hocDH, gianTiep, nghiPhep, leTet);
         tg3.setTitleHeight(20);
 
         ColumnTitleGroupBuilder tg4 = grid.titleGroup();

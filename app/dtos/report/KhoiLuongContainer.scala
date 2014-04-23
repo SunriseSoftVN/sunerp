@@ -77,6 +77,9 @@ abstract class KhoiLuongContainer[R] {
   def sumBHLD(nhanVienId: Long) = khoiLuongs
     .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.baoHoLaoDong)
 
+  def sumPhep(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.phep)
+
   def sumPhuCapDH(nhanVienId: Long) = khoiLuongs
     .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.docHai)
 

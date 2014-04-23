@@ -243,7 +243,8 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
         hocDaiHan = soPhanCongEx.hocDaiHan,
         hocDotXuat = soPhanCongEx.hocDotXuat,
         viecRieng = soPhanCongEx.viecRieng,
-        chuNhat = soPhanCongEx.chuNhat
+        chuNhat = soPhanCongEx.chuNhat,
+        phep = soPhanCongEx.phep
       )
     }
 

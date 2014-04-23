@@ -21,5 +21,4 @@ case class PhongBanDto(
    * @return
    */
   override def reportRows = tasks.map(PhongBanKhoiLuongRow(_, sumKL, sumGio, sumKLByDay, taskExternal)).sortBy(_.taskCode)
-
 }

@@ -28,5 +28,6 @@ case class KhoiLuongDto(
                          hocDotXuat: Boolean = false,
                          viecRieng: Boolean = false,
                          chuNhat: Boolean = false,
+                         phep: Boolean = false,
                          ngayPhanCong: LocalDate
                          )
