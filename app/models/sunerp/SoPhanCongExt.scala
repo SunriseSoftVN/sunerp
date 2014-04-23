@@ -29,7 +29,8 @@ case class SoPhanCongExt(
                           hocDaiHan: Boolean = false,
                           hocDotXuat: Boolean = false,
                           viecRieng: Boolean = false,
-                          chuNhat: Boolean = false
+                          chuNhat: Boolean = false,
+                          phep: Boolean = false
                           ) extends WithId[Long]
 
 
@@ -63,7 +64,9 @@ class SoPhanCongExts(tag: Tag) extends AbstractTable[SoPhanCongExt](tag, "soPhan
 
   def chuNhat = column[Boolean]("chuNhat", O.NotNull, O.Default(false))
 
-  def * = (id.?, lamDem, baoHoLaoDong, docHai, le, tet, thaiSan, dauOm, conOm, taiNanLd, hop, hocDaiHan, hocDotXuat, viecRieng, chuNhat) <>(SoPhanCongExt.tupled, SoPhanCongExt.unapply)
+  def phep = column[Boolean]("phep", O.NotNull, O.Default(false))
+
+  def * = (id.?, lamDem, baoHoLaoDong, docHai, le, tet, thaiSan, dauOm, conOm, taiNanLd, hop, hocDaiHan, hocDotXuat, viecRieng, chuNhat, phep) <>(SoPhanCongExt.tupled, SoPhanCongExt.unapply)
 }
 
 object SoPhanCongExts extends AbstractQuery[SoPhanCongExt, SoPhanCongExts](new SoPhanCongExts(_)) {
@@ -84,7 +87,8 @@ object SoPhanCongExts extends AbstractQuery[SoPhanCongExt, SoPhanCongExts](new S
       "hocDaiHan" -> boolean,
       "hocDotXuat" -> boolean,
       "viecRieng" -> boolean,
-      "chuNhat" -> boolean
+      "chuNhat" -> boolean,
+      "phep" -> boolean
     )(SoPhanCongExt.apply)(SoPhanCongExt.unapply)
   )
 

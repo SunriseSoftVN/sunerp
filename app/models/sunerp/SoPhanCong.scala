@@ -163,6 +163,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
           case "ngayPhanCong" => orderColumn(sort.direction, soPhanCong.ngayPhanCong)
           case "nhanVien.maNv" => orderColumn(sort.direction, nhanVien.maNv)
           case "soPhanCongExt.chuNhat" => orderColumn(sort.direction, soPhanCongExt.chuNhat)
+          case "soPhanCongExt.phep" => orderColumn(sort.direction, soPhanCongExt.phep)
           case "soPhanCongExt.viecRieng" => orderColumn(sort.direction, soPhanCongExt.viecRieng)
           case "soPhanCongExt.lamDem" => orderColumn(sort.direction, soPhanCongExt.lamDem)
           case "soPhanCongExt.baoHoLaoDong" => orderColumn(sort.direction, soPhanCongExt.baoHoLaoDong)

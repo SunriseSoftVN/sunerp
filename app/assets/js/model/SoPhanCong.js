@@ -35,6 +35,7 @@ Ext.define('sunerp.model.SoPhanCong', {
         {name: 'soPhanCongExt.hocDotXuat', mapping: 'soPhanCongExt.hocDotXuat', type: 'boolean'},
         {name: 'soPhanCongExt.viecRieng', mapping: 'soPhanCongExt.viecRieng', type: 'boolean'},
         {name: 'soPhanCongExt.chuNhat', mapping: 'soPhanCongExt.chuNhat', type: 'boolean'},
+        {name: 'soPhanCongExt.phep', mapping: 'soPhanCongExt.phep', type: 'boolean'},
         {name: 'ngayPhanCong', type: 'date'}
     ],
     associations: [
