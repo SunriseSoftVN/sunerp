@@ -57,6 +57,9 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val fileName = s"sophancong-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
     val report = KhoiLuongReportColumnBuilder.buildBangChamCong(req)
     val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan, Nil)
+    //build data
+    val ds = new JRBeanCollectionDataSource(phongBanDto.bangChamCongs)
+    report.setDataSource(ds)
     exportReport(fileType, fileName, report)
   }
 
@@ -148,7 +151,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
       //build layout
       val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
       val donViDto = buildDonViData(req.month, req.year, req.getDonVi, taskExternal)
-      //    //build data
+      //build data
       val ds = new JRBeanCollectionDataSource(donViDto.javaKLRows())
       report.setDataSource(ds)
 

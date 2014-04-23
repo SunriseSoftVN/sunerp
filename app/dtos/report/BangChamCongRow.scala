@@ -15,7 +15,7 @@ class BangChamCongRow {
   var stt: Int = _
 
   @BeanProperty
-  var tenNv: Int = _
+  var tenNV: Int = _
 
   @BeanProperty
   var hsl: Double = _

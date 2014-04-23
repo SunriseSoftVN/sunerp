@@ -21,6 +21,8 @@ abstract class KhoiLuongContainer[R] {
   //unique task list
   lazy val tasks: List[TaskDto] = khoiLuongs.map(_.task).distinct
 
+  lazy val nhanViens: List[NhanVienDto] = khoiLuongs.map(_.nhanVien).distinct
+
   /**
    * do sum "khoiluong" of the task.
    * @param taskId
