@@ -56,6 +56,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   override def inBangChamCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
     val fileName = s"sophancong-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
     val report = KhoiLuongReportColumnBuilder.buildBangChamCong(req)
+    val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan, Nil)
     exportReport(fileType, fileName, report)
   }
 
@@ -214,12 +215,13 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val query = for {
       soPhanCong <- SoPhanCongs.soPhanCongKhoiLuongQuery(month, year, phongBan.getId)
       nhanVien <- soPhanCong.nhanVien
-    } yield (soPhanCong, nhanVien)
+      soPhanCongEx <- soPhanCong.soPhanCongExt
+    } yield (soPhanCong, soPhanCongEx, nhanVien)
 
     val result = query.list()
 
     val khoiLuongs = for (tuple <- result) yield {
-      val (soPhanCong, nhanVien) = tuple
+      val (soPhanCong, soPhanCongEx, nhanVien) = tuple
       //make sure every task in so phan cong always exits.
       val task = tasks.find(_.id == soPhanCong.taskId).get
       KhoiLuongDto(
@@ -227,7 +229,21 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
         nhanVien = dtos.report.NhanVienDto(nhanVien),
         khoiLuong = soPhanCong.khoiLuong,
         gio = soPhanCong.gio,
-        ngayPhanCong = soPhanCong.ngayPhanCong
+        ngayPhanCong = soPhanCong.ngayPhanCong,
+        lamDem = soPhanCongEx.lamDem,
+        baoHoLaoDong = soPhanCongEx.baoHoLaoDong,
+        docHai = soPhanCongEx.docHai,
+        le = soPhanCongEx.le,
+        tet = soPhanCongEx.tet,
+        thaiSan = soPhanCongEx.thaiSan,
+        dauOm = soPhanCongEx.dauOm,
+        conOm = soPhanCongEx.conOm,
+        taiNanLd = soPhanCongEx.taiNanLd,
+        hop = soPhanCongEx.hop,
+        hocDaiHan = soPhanCongEx.hocDaiHan,
+        hocDotXuat = soPhanCongEx.hocDotXuat,
+        viecRieng = soPhanCongEx.viecRieng,
+        chuNhat = soPhanCongEx.chuNhat
       )
     }
 

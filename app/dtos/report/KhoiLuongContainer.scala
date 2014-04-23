@@ -16,7 +16,7 @@ abstract class KhoiLuongContainer[R] {
   val children: List[_ <: KhoiLuongContainer[_]] = List.empty
   protected val _khoiLuongs: List[KhoiLuongDto] = List.empty
 
-  lazy final val khoiLuongs : List[KhoiLuongDto] = if(children.isEmpty) _khoiLuongs else children.flatMap(_.khoiLuongs)
+  lazy final val khoiLuongs: List[KhoiLuongDto] = if (children.isEmpty) _khoiLuongs else children.flatMap(_.khoiLuongs)
 
   //unique task list
   lazy val tasks: List[TaskDto] = khoiLuongs.map(_.task).distinct
@@ -33,6 +33,52 @@ abstract class KhoiLuongContainer[R] {
     .par
     .filter(khoiLuong => khoiLuong.task.id == taskId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
     .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
+
+  def sumByNv(nhanVienId: Long) = khoiLuongs
+    .par
+    .filter(_.nhanVien.id == nhanVienId)
+    .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
+
+  def sumByNvAndDay(nhanVienId: Long, dayOfMonth: Int) = khoiLuongs
+    .par
+    .filter(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
+    .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
+
+  def sumHop(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.hop)
+
+  def sumHocNH(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.hocDotXuat)
+
+  def sumHocDH(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.hocDaiHan)
+
+  def sumViecRieng(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.viecRieng)
+
+  def sumLeTet(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && (khoiLuong.le || khoiLuong.tet))
+
+  def sumOmDau(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.dauOm)
+
+  def sumThaiSan(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.thaiSan)
+
+  def sumConOm(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.conOm)
+
+  def sumTNLD(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.taiNanLd)
+
+  def sumLamDem(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.lamDem)
+
+  def sumBHLD(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.baoHoLaoDong)
+
+  def sumPhuCapDH(nhanVienId: Long) = khoiLuongs
+    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.docHai)
 
   def sumGio(taskId: Long) = khoiLuongs
     .par
