@@ -1,6 +1,7 @@
 package services;
 
 
+import controllers.DomainKey;
 import dtos.report.KhoiLuongReportRequest;
 import models.sunerp.PhongBan;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
@@ -40,6 +41,85 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> xnGio = col.column("Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType()).setFixedWidth(150);
     public static final TextColumnBuilder<String> ngay = col.column("Ngày", "ngay", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
+    public static final TextColumnBuilder<Integer> stt = col.column("TT", "stt", type.integerType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
+    public static final TextColumnBuilder<Double> hsl = col.column("HSL", "hsl", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(50);
+    public static final TextColumnBuilder<Double> sanPham = col.column("Sản phẩm", "sanPham", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> hop = col.column("Họp", "hop", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> hocNH = col.column("Học NH", "hocNH", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> hocDH = col.column("Học DH", "hocDH", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> gianTiep = col.column("Gián tiếp", "gianTiep", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> nghiPhep = col.column("Nghỉ phép", "nghiPhep", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> leTet = col.column("Lễ tết", "leTet", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> tongCacKhoanCong = col.column("Tổng cộng", "tongCacKhoanCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> tongCacKhoanTru = col.column("Tổng cộng", "tongCacKhoanTru", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> omDau = col.column("Ốm đau", "tongCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> thaiSan = col.column("Thai sản", "tongCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> conOm = col.column("Con ốm", "tongCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> taiNanLaoDong = col.column("TNLĐ bệnh NN", "taiNanLaoDong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> phuCapLamDem = col.column("Phụ cấp làm đêm", "phuCapLamDem", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> trucBHLD = col.column("Trực bảo hộ LĐ", "trucBHLD", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> phuCapDocHai = col.column("Phụ cấp độc hại", "phuCapDocHai", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> giuaCa = col.column("Giữa ca", "giuaCa", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> tongGioCong = col.column("Tổng giờ công", "tongGioCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> diemHeSo = col.column("Điểm hệ số", "diemHeSo", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<String> xepLoai = col.column("Xếp loại ABC", "xepLoai", type.stringType());
+    public static final TextColumnBuilder<String> ghiChu = col.column("Ghi chú", "ghiChu", type.stringType());
+
+    public static JasperReportBuilder buildBangChamCong(KhoiLuongReportRequest request) {
+        JasperReportBuilder builder = report()
+                .title(
+                        cmp.verticalList(
+                                cmp.horizontalList(
+                                        cmp.verticalList(
+                                                cmp.text("Đơn vị: " + request.donViName()).setStyle(stl.style(LEFT_SUB_TITLE_STYLE)
+                                                        .setBottomPadding(0).setTopPadding(0)),
+                                                cmp.text("Bộ phận: " + request.phongBanName()).setStyle(stl.style(LEFT_SUB_TITLE_STYLE))
+                                        ).setFixedWidth(300),
+                                        cmp.verticalList(
+                                                cmp.text("BẢNG CHẤM CÔNG").setStyle(stl.style(TITLE_STYLE).setBottomPadding(0).setTopPadding(0)),
+                                                cmp.text("Tháng " + request.month() + " năm " + request.year()).setStyle(SUB_TITLE_STYLE)
+                                        ).setFixedWidth(570)
+                                )
+                        )
+                )
+                .setColumnTitleStyle(COLUMN_TITLE_STYLE)
+                .setColumnStyle(COLUMN_STYLE)
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
+                .setPageFormat(PageType.A2, PageOrientation.LANDSCAPE);
+
+        builder.columns(
+                stt, tenNV, hsl, sanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet, tongCacKhoanCong,
+                omDau, thaiSan, conOm, taiNanLaoDong, tongCacKhoanTru,
+                phuCapLamDem, trucBHLD, phuCapDocHai, giuaCa, tongGioCong, diemHeSo, xepLoai, ghiChu
+        );
+
+        ColumnTitleGroupBuilder tg1 = grid.titleGroup();
+        tg1.setTitle("Ngày trong tháng");
+        for (Integer i = 1; i <= 31; i++) {
+            TextColumnBuilder<Double> _col = col
+                    .column(i.toString(), "khoiLuongCongViec." + i, type.doubleType())
+                    .setStyle(COLUMN_NUMBER_STYLE)
+                    .setWidth(50);
+            builder.addColumn(_col);
+            tg1.add(_col);
+        }
+
+        ColumnTitleGroupBuilder tg2 = grid.titleGroup();
+        tg2.setTitle("Tổng hợp các loại công");
+
+        ColumnTitleGroupBuilder tg3 = grid.titleGroup();
+        tg3.setTitle("Số công làm việc và nghỉ chế độ");
+        tg3.add(sanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet);
+
+        ColumnTitleGroupBuilder tg4 = grid.titleGroup();
+        tg4.setTitle("Số công nghỉ BHXH");
+        tg4.add(omDau, thaiSan, conOm, taiNanLaoDong);
+
+        tg2.add(tg3, tongCacKhoanCong, tg4, tongCacKhoanTru, phuCapLamDem, trucBHLD, phuCapDocHai, giuaCa);
+
+        builder.columnGrid(stt, tenNV, hsl, tg1, tg2, tongGioCong, diemHeSo, xepLoai, ghiChu);
+        return builder;
+    }
 
     public static JasperReportBuilder buildSoPhanCong(KhoiLuongReportRequest request) {
         int quarter = DateTimeUtils.getQuarter(request.month());

@@ -39,6 +39,8 @@ trait KhoiLuongReportService {
 
   def inSoPhanCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
 
+  def inBangChamCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
+
   def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
   def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
@@ -51,6 +53,11 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   val reportDir = "report/"
   lazy val qlkhUrl = Play.configuration.getString("qlkh.url").getOrElse(throw new Exception("Config key 'qlkh.url' is missing"))
 
+  override def inBangChamCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
+    val fileName = s"sophancong-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
+    val report = KhoiLuongReportColumnBuilder.buildBangChamCong(req)
+    exportReport(fileType, fileName, report)
+  }
 
   override def inSoPhanCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String = {
     val fileName = s"sophancong-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
