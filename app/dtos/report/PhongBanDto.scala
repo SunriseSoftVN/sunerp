@@ -72,7 +72,7 @@ case class PhongBanDto(
 
       for (i <- 1 to 31) {
         val daily = sumByNvAndDay(nhanVien.id, i)
-        if (daily > 0) row.getKhoiLuongCongViec.put(i.toString, daily.toString)
+        if (daily > 0) row.getKhoiLuongCongViec.put(i.toString, formater.format(daily))
       }
 
       row.congSanPham = sumByNv(nhanVien.id).asJava

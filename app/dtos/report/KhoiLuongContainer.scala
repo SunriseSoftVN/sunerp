@@ -1,6 +1,7 @@
 package dtos.report
 
 import scala.collection.JavaConverters._
+import java.text.DecimalFormat
 
 /**
  * The Class KhoiLuongContainer.
@@ -15,6 +16,8 @@ abstract class KhoiLuongContainer[R] {
   val name: String
   val children: List[_ <: KhoiLuongContainer[_]] = List.empty
   protected val _khoiLuongs: List[KhoiLuongDto] = List.empty
+
+  lazy val formater = new DecimalFormat("0.##")
 
   lazy final val khoiLuongs: List[KhoiLuongDto] = if (children.isEmpty) _khoiLuongs else children.flatMap(_.khoiLuongs)
 
