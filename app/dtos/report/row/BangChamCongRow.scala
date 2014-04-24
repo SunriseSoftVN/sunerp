@@ -13,70 +13,70 @@ import java.util
 class BangChamCongRow {
 
   @BeanProperty
-  var stt: Int = _
+  var stt: java.lang.Integer = null
 
   @BeanProperty
   var tenNV: String = _
 
   @BeanProperty
-  var hsl: Double = _
+  var hsl: java.lang.Double = null
 
   @BeanProperty
-  var congSp: Double = _
+  var congSp: java.lang.Double = null
 
   @BeanProperty
-  var hop: Double = _
+  var hop: java.lang.Double = null
 
   @BeanProperty
-  var hocNH: Double = _
+  var hocNH: java.lang.Double = null
 
   @BeanProperty
-  var hocDH: Double = _
+  var hocDH: java.lang.Double = null
 
   @BeanProperty
-  var gianTiep: Double = _
+  var gianTiep: java.lang.Double = null
 
   @BeanProperty
-  var phep: Int = _
+  var phep: java.lang.Integer = null
 
   @BeanProperty
-  var leTet: Int = _
+  var leTet: java.lang.Integer = null
 
   @BeanProperty
-  var tongCacKhoanCong: Double = _
+  var tongCacKhoanCong: java.lang.Double = null
 
   @BeanProperty
-  var omDau: Int = _
+  var omDau: java.lang.Integer = null
 
   @BeanProperty
-  var thaiSan: Int = _
+  var thaiSan: java.lang.Integer = null
 
   @BeanProperty
-  var conOm: Int = _
+  var conOm: java.lang.Integer = null
 
   @BeanProperty
-  var taiNanLaoDong: Int = _
+  var taiNanLaoDong: java.lang.Integer = null
 
   @BeanProperty
-  var tongCacKhoanTru: Double = _
+  var tongCacKhoanTru: java.lang.Integer = null
 
   @BeanProperty
-  var phuCapLamDem: Int = _
+  var phuCapLamDem: java.lang.Integer = null
 
   @BeanProperty
-  var trucBHLD: Int = _
+  var trucBHLD: java.lang.Integer = null
 
   @BeanProperty
-  var phuCapDocHai: Int = _
+  var phuCapDocHai: java.lang.Integer = null
 
   @BeanProperty
-  var giuaCa: Int = _
+  var giuaCa: java.lang.Integer = null
 
   @BeanProperty
-  var tongGioCong: Double = _
+  var tongGioCong: java.lang.Double = null
 
   @BeanProperty
-  var diemHeSo: Double = _
+  var diemHeSo: java.lang.Double = null
 
   @BeanProperty
   var xepLoai: String = _
@@ -85,7 +85,7 @@ class BangChamCongRow {
   var ghiChu: String = _
 
   @BeanProperty
-  var congSanPham: Double = _
+  var congSanPham: java.lang.Double = null
 
   @BeanProperty
   var khoiLuongCongViec = new util.HashMap[String, String]()

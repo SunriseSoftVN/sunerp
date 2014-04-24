@@ -46,13 +46,13 @@ abstract class KhoiLuongContainer[R] {
     .filter(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
     .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
-  def sumHop(nhanVienId: Long) = khoiLuongs
+  def sumHop(nhanVienId: Long): Double = khoiLuongs
     .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.hop)
 
-  def sumHocNH(nhanVienId: Long) = khoiLuongs
+  def sumHocNH(nhanVienId: Long): Double = khoiLuongs
     .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.hocDotXuat)
 
-  def sumHocDH(nhanVienId: Long) = khoiLuongs
+  def sumHocDH(nhanVienId: Long): Double = khoiLuongs
     .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.hocDaiHan)
 
   def sumViecRieng(nhanVienId: Long) = khoiLuongs

@@ -23,6 +23,14 @@ case class PhongBanDto(
    */
   override def khoiLuongRows = tasks.map(PhongBanKhoiLuongRow(_, sumKL, sumGio, sumKLByDay, taskExternal)).sortBy(_.taskCode)
 
+  implicit class ReportDouble(d: Double) {
+    def asJava: java.lang.Double = if (d > 0) d else null
+  }
+
+  implicit class ReportInt(i: Int) {
+    def asJava: java.lang.Integer = if (i > 0) i else null
+  }
+
   def bangChamCongs = {
     var stt = 0
     nhanViens.map(nhanVien => {
@@ -30,18 +38,45 @@ case class PhongBanDto(
       val row = new BangChamCongRow
       row.stt = stt
       row.tenNV = nhanVien.name
-      row.hsl = nhanVien.heSoLuong
-      row.hop = sumHop(nhanVien.id)
-      row.hocNH = sumHocNH(nhanVien.id)
-      row.hocDH = sumHocDH(nhanVien.id)
-      row.phep = sumPhep(nhanVien.id)
-      row.leTet = sumLeTet(nhanVien.id)
-      row.omDau = sumOmDau(nhanVien.id)
-      row.conOm = sumConOm(nhanVien.id)
-      row.taiNanLaoDong = sumTNLD(nhanVien.id)
-      row.phuCapLamDem = sumLamDem(nhanVien.id)
-      row.trucBHLD = sumBHLD(nhanVien.id)
-      row.phuCapDocHai = sumPhuCapDH(nhanVien.id)
+      row.hsl = nhanVien.heSoLuong.asJava
+
+      val hop = sumHop(nhanVien.id)
+      val hocNH = sumHocNH(nhanVien.id)
+      val hocDH = sumHocDH(nhanVien.id)
+      val phep = sumPhep(nhanVien.id)
+      val leTet = sumLeTet(nhanVien.id)
+      val tongCacKhoanCong = hop + hocDH + hocDH + phep + leTet
+
+      row.hop = hop.asJava
+      row.hocNH = hocNH.asJava
+      row.hocDH = hocDH.asJava
+      row.phep = phep.asJava
+      row.leTet = leTet.asJava
+      row.tongCacKhoanCong = tongCacKhoanCong.asJava
+
+      val omDau = sumOmDau(nhanVien.id)
+      val conOm = sumConOm(nhanVien.id)
+      val taiNanLaoDong = sumTNLD(nhanVien.id)
+      val phuCapLamDem = sumLamDem(nhanVien.id)
+      val trucBHLD = sumBHLD(nhanVien.id)
+      val phuCapDocHai = sumPhuCapDH(nhanVien.id)
+      val tongCacKhoanTru = omDau + conOm + taiNanLaoDong + phuCapLamDem + trucBHLD + phuCapDocHai
+
+      row.omDau = omDau.asJava
+      row.conOm = conOm.asJava
+      row.taiNanLaoDong = taiNanLaoDong.asJava
+      row.phuCapLamDem = phuCapLamDem.asJava
+      row.trucBHLD = trucBHLD.asJava
+      row.phuCapDocHai = phuCapDocHai.asJava
+      row.tongCacKhoanTru = tongCacKhoanTru.asJava
+
+      for (i <- 1 to 31) {
+        val daily = sumByNvAndDay(nhanVien.id, i)
+        if (daily > 0) row.getKhoiLuongCongViec.put(i.toString, daily.toString)
+      }
+
+      row.congSanPham = sumByNv(nhanVien.id).asJava
+
       row
     }).asJavaCollection
   }
