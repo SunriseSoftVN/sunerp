@@ -1,6 +1,7 @@
-package dtos.report
+package dtos.report.row
 
 import scala.beans.BeanProperty
+import java.util
 
 /**
  * The Class BangChamCongRow.
@@ -15,7 +16,7 @@ class BangChamCongRow {
   var stt: Int = _
 
   @BeanProperty
-  var tenNV: Int = _
+  var tenNV: String = _
 
   @BeanProperty
   var hsl: Double = _
@@ -24,16 +25,16 @@ class BangChamCongRow {
   var congSp: Double = _
 
   @BeanProperty
-  var hop: Int = _
+  var hop: Double = _
 
   @BeanProperty
-  var hocNH: Int = _
+  var hocNH: Double = _
 
   @BeanProperty
-  var hocDH: Int = _
+  var hocDH: Double = _
 
   @BeanProperty
-  var gianTiep: Int = _
+  var gianTiep: Double = _
 
   @BeanProperty
   var phep: Int = _
@@ -42,7 +43,7 @@ class BangChamCongRow {
   var leTet: Int = _
 
   @BeanProperty
-  var tongCacKhoanCong: Int = _
+  var tongCacKhoanCong: Double = _
 
   @BeanProperty
   var omDau: Int = _
@@ -54,10 +55,10 @@ class BangChamCongRow {
   var conOm: Int = _
 
   @BeanProperty
-  var tnld: Int = _
+  var taiNanLaoDong: Int = _
 
   @BeanProperty
-  var tongCacKhoanTru: Int = _
+  var tongCacKhoanTru: Double = _
 
   @BeanProperty
   var phuCapLamDem: Int = _
@@ -72,7 +73,7 @@ class BangChamCongRow {
   var giuaCa: Int = _
 
   @BeanProperty
-  var tongGioCong: Int = _
+  var tongGioCong: Double = _
 
   @BeanProperty
   var diemHeSo: Double = _
@@ -82,5 +83,11 @@ class BangChamCongRow {
 
   @BeanProperty
   var ghiChu: String = _
+
+  @BeanProperty
+  var congSanPham: Double = _
+
+  @BeanProperty
+  var khoiLuongCongViec = new util.HashMap[String, String]()
 
 }

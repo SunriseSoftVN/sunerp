@@ -39,7 +39,7 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> conLaiGio = col.column("Giờ", "conLaiGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> xnKL = col.column("KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> xnGio = col.column("Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType()).setFixedWidth(150);
+    public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType()).setFixedWidth(100);
     public static final TextColumnBuilder<String> ngay = col.column("Ngày", "ngay", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Integer> stt = col.column("TT", "stt", type.integerType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Double> hsl = col.column("HSL", "hsl", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(30);
@@ -48,18 +48,18 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> hocNH = col.column("Học NH", "hocNH", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> hocDH = col.column("Học DH", "hocDH", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> gianTiep = col.column("Gián tiếp", "gianTiep", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> nghiPhep = col.column("Nghỉ phép", "nghiPhep", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> leTet = col.column("Lễ tết", "leTet", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Integer> nghiPhep = col.column("Nghỉ phép", "phep", type.integerType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Integer> leTet = col.column("Lễ tết", "leTet", type.integerType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> tongCacKhoanCong = col.column("Tổng cộng", "tongCacKhoanCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> tongCacKhoanTru = col.column("Tổng cộng", "tongCacKhoanTru", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> omDau = col.column("Ốm đau", "tongCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> thaiSan = col.column("Thai sản", "tongCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> conOm = col.column("Con ốm", "tongCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> taiNanLaoDong = col.column("TNLĐ bệnh NN", "taiNanLaoDong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> phuCapLamDem = col.column("Phụ cấp làm đêm", "phuCapLamDem", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> trucBHLD = col.column("Trực bảo hộ LĐ", "trucBHLD", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> phuCapDocHai = col.column("Phụ cấp độc hại", "phuCapDocHai", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> giuaCa = col.column("Giữa ca", "giuaCa", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Integer> omDau = col.column("Ốm đau", "omDau", type.integerType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Integer> thaiSan = col.column("Thai sản", "thaiSan", type.integerType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Integer> conOm = col.column("Con ốm", "conOm", type.integerType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Integer> taiNanLaoDong = col.column("TNLĐ bệnh NN", "taiNanLaoDong", type.integerType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Integer> phuCapLamDem = col.column("Phụ cấp làm đêm", "phuCapLamDem", type.integerType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Integer> trucBHLD = col.column("Trực bảo hộ LĐ", "trucBHLD", type.integerType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Integer> phuCapDocHai = col.column("Phụ cấp độc hại", "phuCapDocHai", type.integerType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Integer> giuaCa = col.column("Giữa ca", "giuaCa", type.integerType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> tongGioCong = col.column("Tổng giờ công", "tongGioCong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> diemHeSo = col.column("Điểm hệ số", "diemHeSo", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<String> xepLoai = col.column("Xếp loại ABC", "xepLoai", type.stringType());
@@ -96,8 +96,8 @@ public final class KhoiLuongReportColumnBuilder {
         ColumnTitleGroupBuilder tg1 = grid.titleGroup();
         tg1.setTitle("Ngày trong tháng");
         for (Integer i = 1; i <= 31; i++) {
-            TextColumnBuilder<Double> _col = col
-                    .column(i.toString(), "khoiLuongCongViec." + i, type.doubleType())
+            TextColumnBuilder<String> _col = col
+                    .column(i.toString(), "khoiLuongCongViec." + i, type.stringType())
                     .setStyle(COLUMN_NUMBER_STYLE)
                     .setWidth(50);
             builder.addColumn(_col);
