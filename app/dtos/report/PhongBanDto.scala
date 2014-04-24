@@ -55,20 +55,21 @@ case class PhongBanDto(
       row.tongCacKhoanCong = tongCacKhoanCong.asJava
 
       val omDau = sumOmDau(nhanVien.id)
+      val thaiSan = sumThaiSan(nhanVien.id)
       val conOm = sumConOm(nhanVien.id)
       val taiNanLaoDong = sumTNLD(nhanVien.id)
-      val phuCapLamDem = sumLamDem(nhanVien.id)
-      val trucBHLD = sumBHLD(nhanVien.id)
-      val phuCapDocHai = sumPhuCapDH(nhanVien.id)
-      val tongCacKhoanTru = omDau + conOm + taiNanLaoDong + phuCapLamDem + trucBHLD + phuCapDocHai
+
+      val tongCacKhoanTru = omDau + conOm + thaiSan + taiNanLaoDong
 
       row.omDau = omDau.asJava
+      row.thaiSan = thaiSan.asJava
       row.conOm = conOm.asJava
       row.taiNanLaoDong = taiNanLaoDong.asJava
-      row.phuCapLamDem = phuCapLamDem.asJava
-      row.trucBHLD = trucBHLD.asJava
-      row.phuCapDocHai = phuCapDocHai.asJava
       row.tongCacKhoanTru = tongCacKhoanTru.asJava
+
+      row.phuCapLamDem = sumLamDem(nhanVien.id).asJava
+      row.trucBHLD = sumBHLD(nhanVien.id).asJava
+      row.phuCapDocHai = sumPhuCapDH(nhanVien.id).asJava
 
       for (i <- 1 to 31) {
         val daily = sumByNvAndDay(nhanVien.id, i)
