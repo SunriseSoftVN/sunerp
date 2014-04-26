@@ -36,4 +36,7 @@ public final class ReportStyle {
     public static final StyleBuilder COLUMN_NUMBER_STYLE = stl.style(COLUMN_STYLE)
             .setHorizontalAlignment(HorizontalAlignment.RIGHT).setRightPadding(3);
 
+    public static final StyleBuilder COLUMN_NUMBER_CENTER_STYLE = stl.style(COLUMN_NUMBER_STYLE)
+            .setHorizontalAlignment(HorizontalAlignment.CENTER);
+
 }
