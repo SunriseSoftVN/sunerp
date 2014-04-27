@@ -84,6 +84,7 @@ public final class KhoiLuongReportColumnBuilder {
                 )
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
+                .setSubtotalStyle(COLUMN_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
                 .setPageFormat(PageType.A1, PageOrientation.LANDSCAPE);
 
@@ -101,6 +102,7 @@ public final class KhoiLuongReportColumnBuilder {
                     .setStyle(COLUMN_NUMBER_CENTER_STYLE)
                     .setFixedWidth(40);
             builder.addColumn(_col);
+            builder.addSubtotalAtSummary(sbt.text("", _col));
             tg1.add(_col);
         }
 
@@ -121,6 +123,36 @@ public final class KhoiLuongReportColumnBuilder {
         tg2.setTitleHeight(20);
 
         builder.columnGrid(stt, tenNV, hsl, tg1, tg2, tongGioCong, diemHeSo, xepLoai, ghiChu);
+
+
+        builder.subtotalsAtSummary(
+                sbt.text("", stt),
+                sbt.text("Tổng cộng", tenNV),
+                sbt.text("", hsl),
+                sbt.sum(congSanPham).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(hop).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(hocDH).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(hocNH).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(gianTiep).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(nghiPhep).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(leTet).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(tongCacKhoanCong).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(omDau).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(thaiSan).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(conOm).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(taiNanLaoDong).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(tongCacKhoanTru).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(phuCapLamDem).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(trucBHLD).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(phuCapDocHai).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(giuaCa).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.sum(tongGioCong).setStyle(COLUMN_NUMBER_CENTER_STYLE),
+                sbt.text("", diemHeSo),
+                sbt.text("", xepLoai),
+                sbt.text("", ghiChu)
+        );
+
+
         return builder;
     }
 
