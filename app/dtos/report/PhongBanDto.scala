@@ -3,6 +3,8 @@ package dtos.report
 import dtos.report.row.{BangChamCongRow, PhongBanKhoiLuongRow}
 import dtos.report.qlkh.TaskReportBean
 import scala.collection.JavaConverters._
+import org.joda.time.LocalDate
+import utils.DateTimeUtils
 
 /**
  * The Class PhongBanDto.
@@ -56,12 +58,14 @@ case class PhongBanDto(
 
       val omDau = sumOmDau(nhanVien.id)
       val thaiSan = sumThaiSan(nhanVien.id)
+      val gianTiep = sumViecRieng(nhanVien.id)
       val conOm = sumConOm(nhanVien.id)
       val taiNanLaoDong = sumTNLD(nhanVien.id)
 
-      val tongCacKhoanTru = omDau + conOm + thaiSan + taiNanLaoDong
+      val tongCacKhoanTru = omDau + conOm + gianTiep + thaiSan + taiNanLaoDong
 
       row.omDau = omDau.asJava
+      row.gianTiep = gianTiep.asJava
       row.thaiSan = thaiSan.asJava
       row.conOm = conOm.asJava
       row.taiNanLaoDong = taiNanLaoDong.asJava
@@ -80,7 +84,14 @@ case class PhongBanDto(
         }
       }
 
-      row.congSanPham = sumByNv(nhanVien.id).asJava
+      row.tongGioCong = sumByNv(nhanVien.id).asJava
+      row.congSanPham = row.tongGioCong / 8
+
+      val now = LocalDate.now()
+      val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
+      val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
+
+      row.giuaCa = workingDay - hocDH - phep - leTet - tongCacKhoanTru
 
       row
     }).asJavaCollection

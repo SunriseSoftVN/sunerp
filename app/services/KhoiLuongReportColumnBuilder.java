@@ -46,8 +46,8 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> congSanPham = col.column("Công sản phẩm", "congSanPham", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> hop = col.column("Họp", "hop", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> hocNH = col.column("Học NH", "hocNH", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
-    public static final TextColumnBuilder<Double> hocDH = col.column("Học DH", "hocDH", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
-    public static final TextColumnBuilder<Double> gianTiep = col.column("Gián tiếp", "gianTiep", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
+    public static final TextColumnBuilder<Integer> hocDH = col.column("Học DH", "hocDH", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
+    public static final TextColumnBuilder<Integer> gianTiep = col.column("Gián tiếp", "gianTiep", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Integer> nghiPhep = col.column("Nghỉ phép", "phep", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Integer> leTet = col.column("Lễ tết", "leTet", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> tongCacKhoanCong = col.column("Tổng cộng", "tongCacKhoanCong", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
@@ -85,7 +85,7 @@ public final class KhoiLuongReportColumnBuilder {
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
-                .setPageFormat(PageType.A2, PageOrientation.LANDSCAPE);
+                .setPageFormat(PageType.A1, PageOrientation.LANDSCAPE);
 
         builder.columns(
                 stt, tenNV, hsl, congSanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet, tongCacKhoanCong,
@@ -99,7 +99,7 @@ public final class KhoiLuongReportColumnBuilder {
             TextColumnBuilder<String> _col = col
                     .column(i.toString(), "khoiLuongCongViec." + i, type.stringType())
                     .setStyle(COLUMN_NUMBER_CENTER_STYLE)
-                    .setFixedWidth(25);
+                    .setFixedWidth(40);
             builder.addColumn(_col);
             tg1.add(_col);
         }

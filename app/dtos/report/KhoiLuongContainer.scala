@@ -77,7 +77,7 @@ abstract class KhoiLuongContainer[R] {
     hocNH
   }
 
-  def sumHocDH(nhanVienId: Long): Double = khoiLuongs
+  def sumHocDH(nhanVienId: Long): Int = khoiLuongs
     .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.hocDaiHan)
 
   def sumViecRieng(nhanVienId: Long) = khoiLuongs

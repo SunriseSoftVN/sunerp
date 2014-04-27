@@ -22,19 +22,16 @@ class BangChamCongRow {
   var hsl: java.lang.Double = null
 
   @BeanProperty
-  var congSp: java.lang.Double = null
-
-  @BeanProperty
   var hop: java.lang.Double = null
 
   @BeanProperty
   var hocNH: java.lang.Double = null
 
   @BeanProperty
-  var hocDH: java.lang.Double = null
+  var hocDH: java.lang.Integer = null
 
   @BeanProperty
-  var gianTiep: java.lang.Double = null
+  var gianTiep: java.lang.Integer = null
 
   @BeanProperty
   var phep: java.lang.Integer = null
