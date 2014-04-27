@@ -49,11 +49,33 @@ abstract class KhoiLuongContainer[R] {
     .filter(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
     .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
-  def sumHop(nhanVienId: Long): Double = khoiLuongs
-    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.hop)
+  def sumHop(nhanVienId: Long): Double = {
+    var hop = 0d
+    for (khoiLuong <- khoiLuongs if khoiLuong.nhanVien.id == nhanVienId) {
+      if (khoiLuong.hop) {
+        if (khoiLuong.khoiLuong > 0) {
+          hop += 0.5
+        } else {
+          hop += 1
+        }
+      }
+    }
+    hop
+  }
 
-  def sumHocNH(nhanVienId: Long): Double = khoiLuongs
-    .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.hocDotXuat)
+  def sumHocNH(nhanVienId: Long): Double = {
+    var hocNH = 0d
+    for (khoiLuong <- khoiLuongs if khoiLuong.nhanVien.id == nhanVienId) {
+      if (khoiLuong.hocDotXuat) {
+        if (khoiLuong.khoiLuong > 0) {
+          hocNH += 0.5
+        } else {
+          hocNH += 1
+        }
+      }
+    }
+    hocNH
+  }
 
   def sumHocDH(nhanVienId: Long): Double = khoiLuongs
     .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.hocDaiHan)
