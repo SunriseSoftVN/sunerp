@@ -48,7 +48,7 @@ abstract class KhoiLuongContainer[R] {
   def sumGioByNv(nhanVienId: Long) = khoiLuongs
     .par
     .filter(_.nhanVien.id == nhanVienId)
-    .foldLeft(0d)((kl, dto) => dto.gio + kl)
+    .foldLeft(0d)((gio, dto) => dto.gio + gio)
 
   def sumByNvAndDay(nhanVienId: Long, dayOfMonth: Int) = khoiLuongs
     .par
