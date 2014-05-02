@@ -162,7 +162,7 @@ case class PhongBanDto(
         code = "HT/" + code
       }
       if (khoiLuong.viecRieng) {
-        code = "VR/"
+        code = "VR"
       }
       if (khoiLuong.chuNhat) {
         code = "CN"
