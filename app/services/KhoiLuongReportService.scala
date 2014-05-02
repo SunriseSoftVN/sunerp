@@ -68,11 +68,13 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val report = KhoiLuongReportColumnBuilder.buildSoPhanCong(req)
 
     val query = for {
-      soPhanCong <- SoPhanCongs.soPhanCongKhoiLuongQuery(req.month, req.year, req.phongBanId)
+      soPhanCong <- SoPhanCongs.khoiLuongQuery(req.month, req.year, req.phongBanId)
       nhanVien <- soPhanCong.nhanVien
     } yield (soPhanCong, nhanVien)
 
     val data = query
+      .sortBy(_._2.firstName.asc)
+      .sortBy(_._1.ngayPhanCong.asc)
       .list()
       .map(SoPhanCongDto(_))
 
@@ -216,7 +218,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val tasks = Tasks.all
 
     val query = for {
-      soPhanCong <- SoPhanCongs.soPhanCongKhoiLuongQuery(month, year, phongBan.getId)
+      soPhanCong <- SoPhanCongs.khoiLuongQuery(month, year, phongBan.getId)
       nhanVien <- soPhanCong.nhanVien
       soPhanCongEx <- soPhanCong.soPhanCongExt
     } yield (soPhanCong, soPhanCongEx, nhanVien)
@@ -226,9 +228,9 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val khoiLuongs = for (tuple <- result) yield {
       val (soPhanCong, soPhanCongEx, nhanVien) = tuple
       //make sure every task in so phan cong always exits.
-      val task = tasks.find(_.id == soPhanCong.taskId).get
+      val task = tasks.find(_.id == soPhanCong.taskId).map(TaskDto(_))
       KhoiLuongDto(
-        task = TaskDto(task),
+        task = task,
         nhanVien = dtos.report.NhanVienDto(nhanVien),
         khoiLuong = soPhanCong.khoiLuong,
         gio = soPhanCong.gio,

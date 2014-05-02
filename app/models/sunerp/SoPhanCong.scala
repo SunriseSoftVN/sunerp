@@ -112,12 +112,12 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
     )
   )
 
-  def soPhanCongKhoiLuongQuery(month: Int, year: Int, phongBanId: Long) = for (
-    soPhanCong <- SoPhanCongs.soPhanCongQueryRange(month, year)
-    if soPhanCong.phongBanId === phongBanId && soPhanCong.taskId.isNotNull && soPhanCong.khoiLuong > 0d
+  def khoiLuongQuery(month: Int, year: Int, phongBanId: Long) = for (
+    soPhanCong <- SoPhanCongs.khoiLuongQueryRange(month, year)
+    if soPhanCong.phongBanId === phongBanId
   ) yield soPhanCong
 
-  def soPhanCongQueryRange(month: Int, year: Int) = {
+  def khoiLuongQueryRange(month: Int, year: Int) = {
     val date = new LocalDate().withYear(year).withMonth(month)
     val firstDayOfMonth = date.dayOfMonth().withMinimumValue()
     val lastDayOfMonth = date.dayOfMonth().withMaximumValue()

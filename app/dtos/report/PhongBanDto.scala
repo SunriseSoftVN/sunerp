@@ -79,9 +79,7 @@ case class PhongBanDto(
         val daily = khoiLuongs
           .filter(khoiLuong => khoiLuong.nhanVien.id == nhanVien.id && khoiLuong.ngayPhanCong.getDayOfMonth == i)
         val gio = daily.foldLeft(0d)((kl, dto) => dto.gio + kl)
-        if (gio > 0) {
-          row.getGioCongViec.put(i.toString, khoiLuongCode(gio, daily))
-        }
+        row.getGioCongViec.put(i.toString, khoiLuongCode(gio, daily))
       }
 
       row.tongGioCong = sumGioByNv(nhanVien.id).asJava

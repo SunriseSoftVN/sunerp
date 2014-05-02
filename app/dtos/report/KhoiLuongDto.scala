@@ -10,7 +10,7 @@ import org.joda.time.LocalDate
  *
  */
 case class KhoiLuongDto(
-                         task: TaskDto,
+                         task: Option[TaskDto] = None,
                          nhanVien: NhanVienDto,
                          khoiLuong: Double,
                          gio: Double,

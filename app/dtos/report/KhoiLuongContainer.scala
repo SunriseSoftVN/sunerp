@@ -23,7 +23,7 @@ abstract class KhoiLuongContainer[R] {
   lazy final val khoiLuongs: List[KhoiLuongDto] = if (children.isEmpty) _khoiLuongs else children.flatMap(_.khoiLuongs)
 
   //unique task list
-  lazy val tasks: List[TaskDto] = khoiLuongs.map(_.task).distinct
+  lazy val tasks: List[TaskDto] = khoiLuongs.filter(_.task.isDefined).map(_.task.get).distinct
 
   lazy val nhanViens: List[NhanVienDto] = khoiLuongs.map(_.nhanVien).distinct
 
@@ -33,11 +33,11 @@ abstract class KhoiLuongContainer[R] {
    */
   def sumKL(taskId: Long) = khoiLuongs
     .par
-    .filter(_.task.id == taskId).foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
+    .filter(kl => kl.task.isDefined && kl.task.get.id == taskId).foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
   def sumKLByDay(taskId: Long, dayOfMonth: Int) = khoiLuongs
     .par
-    .filter(khoiLuong => khoiLuong.task.id == taskId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
+    .filter(khoiLuong => khoiLuong.task.isDefined && khoiLuong.task.get.id == taskId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
     .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
   def sumByNv(nhanVienId: Long) = khoiLuongs
@@ -118,7 +118,7 @@ abstract class KhoiLuongContainer[R] {
 
   def sumGio(taskId: Long) = khoiLuongs
     .par
-    .filter(_.task.id == taskId).foldLeft(0d)((gio, dto) => dto.gio + gio)
+    .filter(kl => kl.task.isDefined && kl.task.get.id == taskId).foldLeft(0d)((gio, dto) => dto.gio + gio)
 
   def sumKLByChildId(taskId: Long, childId: Long): Double = children
     .par
