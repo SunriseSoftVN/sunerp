@@ -98,7 +98,7 @@ public final class KhoiLuongReportColumnBuilder {
         tg1.setTitle("Ngày trong tháng");
         for (Integer i = 1; i <= 31; i++) {
             TextColumnBuilder<String> _col = col
-                    .column(i.toString(), "khoiLuongCongViec." + i, type.stringType())
+                    .column(i.toString(), "gioCongViec." + i, type.stringType())
                     .setStyle(COLUMN_NUMBER_CENTER_STYLE)
                     .setFixedWidth(40);
             builder.addColumn(_col);

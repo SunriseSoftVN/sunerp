@@ -85,6 +85,6 @@ class BangChamCongRow {
   var congSanPham: java.lang.Double = null
 
   @BeanProperty
-  var khoiLuongCongViec = new util.HashMap[String, String]()
+  var gioCongViec = new util.HashMap[String, String]()
 
 }

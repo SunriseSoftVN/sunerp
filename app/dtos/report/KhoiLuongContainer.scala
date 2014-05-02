@@ -17,7 +17,8 @@ abstract class KhoiLuongContainer[R] {
   val children: List[_ <: KhoiLuongContainer[_]] = List.empty
   protected val _khoiLuongs: List[KhoiLuongDto] = List.empty
 
-  lazy val formater = new DecimalFormat("0.##")
+  lazy val klFormater = new DecimalFormat("0.##")
+  lazy val gioFormater = new DecimalFormat("0")
 
   lazy final val khoiLuongs: List[KhoiLuongDto] = if (children.isEmpty) _khoiLuongs else children.flatMap(_.khoiLuongs)
 
@@ -43,6 +44,11 @@ abstract class KhoiLuongContainer[R] {
     .par
     .filter(_.nhanVien.id == nhanVienId)
     .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
+
+  def sumGioByNv(nhanVienId: Long) = khoiLuongs
+    .par
+    .filter(_.nhanVien.id == nhanVienId)
+    .foldLeft(0d)((kl, dto) => dto.gio + kl)
 
   def sumByNvAndDay(nhanVienId: Long, dayOfMonth: Int) = khoiLuongs
     .par

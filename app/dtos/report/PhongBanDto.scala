@@ -78,13 +78,13 @@ case class PhongBanDto(
       for (i <- 1 to 31) {
         val daily = khoiLuongs
           .filter(khoiLuong => khoiLuong.nhanVien.id == nhanVien.id && khoiLuong.ngayPhanCong.getDayOfMonth == i)
-        val khoiLuong = daily.foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
-        if (khoiLuong > 0) {
-          row.getKhoiLuongCongViec.put(i.toString, khoiLuongCode(khoiLuong, daily))
+        val gio = daily.foldLeft(0d)((kl, dto) => dto.gio + kl)
+        if (gio > 0) {
+          row.getGioCongViec.put(i.toString, khoiLuongCode(gio, daily))
         }
       }
 
-      row.tongGioCong = sumByNv(nhanVien.id).asJava
+      row.tongGioCong = sumGioByNv(nhanVien.id).asJava
       row.congSanPham = row.tongGioCong / 8
 
       val now = LocalDate.now()
@@ -126,7 +126,7 @@ case class PhongBanDto(
    * @param khoiLuongs
    */
   private def khoiLuongCode(dailyKhoiLuong: Double, khoiLuongs: List[KhoiLuongDto]) = {
-    var code = formater.format(dailyKhoiLuong)
+    var code = gioFormater.format(dailyKhoiLuong)
     for (khoiLuong <- khoiLuongs) {
       if (khoiLuong.lamDem) {
         code = code + "+"
