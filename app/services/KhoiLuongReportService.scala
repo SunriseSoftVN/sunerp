@@ -257,7 +257,8 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
       id = phongBan.getId,
       name = phongBan.name,
       taskExternal = taskExternal,
-      _khoiLuongs = khoiLuongs
+      _khoiLuongs = khoiLuongs,
+      month = month
     )
   }
 

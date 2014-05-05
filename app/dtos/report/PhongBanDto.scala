@@ -16,7 +16,8 @@ import utils.DateTimeUtils
 case class PhongBanDto(
                         id: Long, name: String,
                         override val _khoiLuongs: List[KhoiLuongDto] = Nil,
-                        taskExternal: List[TaskReportBean]
+                        taskExternal: List[TaskReportBean],
+                        month: Int
                         ) extends KhoiLuongContainer[PhongBanKhoiLuongRow] {
 
   /**
@@ -47,7 +48,9 @@ case class PhongBanDto(
       val hocDH = sumHocDH(nhanVien.id)
       val phep = sumPhep(nhanVien.id)
       val leTet = sumLeTet(nhanVien.id)
-      val tongCacKhoanCong = hop + hocDH + hocDH + phep + leTet
+      val tongGioCong = sumGioByNv(nhanVien.id)
+      val congSanPham = tongGioCong / 8
+      val tongCacKhoanCong = congSanPham + hop + hocDH + hocDH + phep + leTet
 
       row.hop = hop.asJava
       row.hocNH = hocNH.asJava
@@ -55,6 +58,8 @@ case class PhongBanDto(
       row.phep = phep.asJava
       row.leTet = leTet.asJava
       row.tongCacKhoanCong = tongCacKhoanCong.asJava
+      row.congSanPham = congSanPham
+      row.tongGioCong = tongGioCong
 
       val omDau = sumOmDau(nhanVien.id)
       val thaiSan = sumThaiSan(nhanVien.id)
@@ -82,10 +87,7 @@ case class PhongBanDto(
         row.getGioCongViec.put(i.toString, khoiLuongCode(gio, daily))
       }
 
-      row.tongGioCong = sumGioByNv(nhanVien.id).asJava
-      row.congSanPham = row.tongGioCong / 8
-
-      val now = LocalDate.now()
+      val now = LocalDate.now().withMonthOfYear(month)
       val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
       val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
 

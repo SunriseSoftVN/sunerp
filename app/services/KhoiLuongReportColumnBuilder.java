@@ -74,7 +74,7 @@ public final class KhoiLuongReportColumnBuilder {
                                                 cmp.text("Đơn vị: " + request.donViName()).setStyle(stl.style(LEFT_SUB_TITLE_STYLE)
                                                         .setBottomPadding(0).setTopPadding(0)),
                                                 cmp.text("Bộ phận: " + request.phongBanName()).setStyle(stl.style(LEFT_SUB_TITLE_STYLE))
-                                        ).setFixedWidth(300),
+                                        ).setFixedWidth(600),
                                         cmp.verticalList(
                                                 cmp.text("BẢNG CHẤM CÔNG").setStyle(stl.style(TITLE_STYLE).setBottomPadding(0).setTopPadding(0)),
                                                 cmp.text("Tháng " + request.month() + " năm " + request.year()).setStyle(SUB_TITLE_STYLE)
