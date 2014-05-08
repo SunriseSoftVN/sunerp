@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
   )
 
   val templateEngine = Seq(
-    "com.mohiva" %% "play-html-compressor" % "0.2-SNAPSHOT",
+    "com.mohiva" %% "play-html-compressor" % "0.2.1",
     "org.ocpsoft.prettytime" % "prettytime" % "3.2.4.Final",
     "com.scalatags" %% "scalatags" % "0.2.2"
   )
