@@ -13,6 +13,11 @@ POST          /chucvu                                   @controllers.ChucVuCtr.s
 PUT           /chucvu/:id                               @controllers.ChucVuCtr.update(id: Long)
 DELETE        /chucvu/:id                               @controllers.ChucVuCtr.delete(id: Long)
 
+GET           /xeploai                                  @controllers.XepLoaiCtr.index
+POST          /xeploai                                  @controllers.XepLoaiCtr.save
+PUT           /xeploai/:id                              @controllers.XepLoaiCtr.update(id: Long)
+DELETE        /xeploai/:id                              @controllers.XepLoaiCtr.delete(id: Long)
+
 GET           /company                                  @controllers.CompanyCtr.index
 POST          /company                                  @controllers.CompanyCtr.save
 PUT           /company/:id                              @controllers.CompanyCtr.update(id: Long)

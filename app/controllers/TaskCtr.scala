@@ -16,10 +16,9 @@ import com.escalatesoft.subcut.inject.BindingModule
  *
  */
 class TaskCtr(implicit val bindingModule: BindingModule) extends Controller with AuthElement with AuthConfigImpl {
-  val domainName = DomainKey.task
   implicit val jsonWrite: Writes[Task] = Tasks.taskJsonFormat
 
-  def index = StackAction(AuthorityKey -> domainName)(implicit request => {
+  def index = StackAction(AuthorityKey -> DomainKey.task)(implicit request => {
     val paging = PagingDto(request)
     Ok(Json.toJson(Tasks.load(paging)))
   })

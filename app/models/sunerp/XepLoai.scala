@@ -1,10 +1,11 @@
 package models.sunerp
 
-import models.core.{AbstractQuery, AbstractTable}
+import models.core.{WithId, AbstractQuery, AbstractTable}
 import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
+import dtos.{XepLoaiDto, ExtGirdDto, PagingDto}
 
 /**
  * The Class XepLoai.
@@ -19,7 +20,7 @@ case class XepLoai(
                     month: Int,
                     year: Int,
                     xepLoai: String
-                    )
+                    ) extends WithId[Long]
 
 object XepLoaiType {
   val A = "A"
@@ -54,6 +55,45 @@ object XepLoais extends AbstractQuery[XepLoai, XepLoais](new XepLoais(_)) {
       "xepLoai" -> nonEmptyText
     )(XepLoai.apply)(XepLoai.unapply)
   )
+
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[XepLoaiDto] = {
+    var query = for (xepLoai <- this; nhanVien <- xepLoai.nhanVien) yield (xepLoai, nhanVien)
+
+    pagingDto.getFilters.foreach(filter => {
+      query = query.where(tuple => {
+        val (xepLoai, nhanVien) = tuple
+        filter.property match {
+          case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
+      })
+    })
+
+    pagingDto.sorts.foreach(sort => {
+      query = query.sortBy(tuple => {
+        val (xepLoai, nhanVien) = tuple
+        sort.property match {
+          case "nhanVien.firstName" => orderColumn(sort.direction, nhanVien.firstName)
+          case "month" => orderColumn(sort.direction, xepLoai.month)
+          case "xepLoai" => orderColumn(sort.direction, xepLoai.xepLoai)
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
+        }
+      })
+    })
+
+    val totalRow = Query(query.length).first()
+
+    val rows = query
+      .drop(pagingDto.start)
+      .take(pagingDto.limit)
+      .list
+      .map(XepLoaiDto(_))
+
+    ExtGirdDto[XepLoaiDto](
+      total = totalRow,
+      data = rows
+    )
+  }
 
   implicit val xepLoaiJsonFormat = Json.format[XepLoai]
 }

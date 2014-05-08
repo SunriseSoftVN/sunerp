@@ -21,22 +21,21 @@ import ExecutionContext.Implicits.global
 class SoPhanCongCtr(implicit val bindingModule: BindingModule) extends Controller with AuthElement with AuthConfigImpl
 with TransactionElement with MainTemplate with Injectable {
 
-  val domainName = DomainKey.soPhanCong
 
   val soPhanCongService = inject[SoPhanCongService]
 
-  def index = StackAction(AuthorityKey -> domainName)(implicit request => {
+  def index = StackAction(AuthorityKey -> DomainKey.soPhanCong)(implicit request => {
     val paging = PagingDto(request)
     val result = SoPhanCongs.load(paging)
     Ok(Json.toJson(result))
   })
 
-  def delete(id: Long) = StackAction(AuthorityKey -> domainName)(implicit request => {
+  def delete(id: Long) = StackAction(AuthorityKey -> DomainKey.soPhanCong)(implicit request => {
     SoPhanCongs.deleteById(id)
     Ok
   })
 
-  def save = StackAction(AuthorityKey -> domainName)(implicit request => {
+  def save = StackAction(AuthorityKey -> DomainKey.soPhanCong)(implicit request => {
     SoPhanCongs.editForm.bindFromRequest.fold(
       formError => {
         val errors = formError.errors.map(FormErrorDto.apply)
@@ -67,7 +66,7 @@ with TransactionElement with MainTemplate with Injectable {
     )
   })
 
-  def update(id: Long) = StackAction(AuthorityKey -> domainName)(implicit request => {
+  def update(id: Long) = StackAction(AuthorityKey -> DomainKey.soPhanCong)(implicit request => {
     SoPhanCongs.editForm.bindFromRequest.fold(
       formError => {
         val errors = formError.errors.map(FormErrorDto.apply)
@@ -99,7 +98,7 @@ with TransactionElement with MainTemplate with Injectable {
     )
   })
 
-  def init(month: Int, phongBanId: Long) = AsyncStack(AuthorityKey -> domainName)(implicit request => {
+  def init(month: Int, phongBanId: Long) = AsyncStack(AuthorityKey -> DomainKey.soPhanCong)(implicit request => {
     Future {
       soPhanCongService.initData(month, phongBanId)
       Ok
