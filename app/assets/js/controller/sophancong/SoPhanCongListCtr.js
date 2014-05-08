@@ -40,6 +40,8 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         var rec = Ext.create(this.modelClass);
         var lastModel = this.getView().getStore().last();
         rec.set('phongBanId', this.getPhongBanId());
+        rec.set('gio', 0);
+        rec.set('khoiLuong', 0);
         if (lastModel != null) {
             rec.set('ngayPhanCong', lastModel.get('ngayPhanCong'));
         } else {

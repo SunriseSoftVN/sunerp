@@ -48,13 +48,15 @@ case class PhongBanDto(
       val hocDH = sumHocDH(nhanVien.id)
       val phep = sumPhep(nhanVien.id)
       val leTet = sumLeTet(nhanVien.id)
+      val gianTiep = sumViecRieng(nhanVien.id)
       val tongGioCong = sumGioByNv(nhanVien.id)
       val congSanPham = tongGioCong / 8
-      val tongCacKhoanCong = congSanPham + hop + hocDH + hocDH + phep + leTet
+      val tongCacKhoanCong = congSanPham + hop + hocDH + hocDH + gianTiep + phep + leTet
 
       row.hop = hop.asJava
       row.hocNH = hocNH.asJava
       row.hocDH = hocDH.asJava
+      row.gianTiep = gianTiep.asJava
       row.phep = phep.asJava
       row.leTet = leTet.asJava
       row.tongCacKhoanCong = tongCacKhoanCong.asJava
@@ -63,14 +65,11 @@ case class PhongBanDto(
 
       val omDau = sumOmDau(nhanVien.id)
       val thaiSan = sumThaiSan(nhanVien.id)
-      val gianTiep = sumViecRieng(nhanVien.id)
       val conOm = sumConOm(nhanVien.id)
       val taiNanLaoDong = sumTNLD(nhanVien.id)
-
-      val tongCacKhoanTru = omDau + conOm + gianTiep + thaiSan + taiNanLaoDong
+      val tongCacKhoanTru = omDau + conOm  + thaiSan + taiNanLaoDong
 
       row.omDau = omDau.asJava
-      row.gianTiep = gianTiep.asJava
       row.thaiSan = thaiSan.asJava
       row.conOm = conOm.asJava
       row.taiNanLaoDong = taiNanLaoDong.asJava
