@@ -2,6 +2,7 @@ package config
 
 import com.escalatesoft.subcut.inject.Injectable
 import controllers._
+import play.api.PlayException
 
 /**
  * The Class ApplicationContext.
@@ -38,6 +39,8 @@ object ApplicationContext extends Injectable {
   val soPhanCongCtrClass = classOf[SoPhanCongCtr]
   val taskCtr = inject[TaskCtr]
   val taskCtrClass = classOf[TaskCtr]
+  val xepLoaiCtr = inject[XepLoaiCtr]
+  val xepLoaiCtrClass = classOf[XepLoaiCtr]
 
   def getControllerInstance[A](controllerClass: Class[A]): A = {
     controllerClass match {
@@ -54,7 +57,8 @@ object ApplicationContext extends Injectable {
       case `soPhanCongCtrClass` => soPhanCongCtr.asInstanceOf[A]
       case `taskCtrClass` => taskCtr.asInstanceOf[A]
       case `nhanVienCtrClass` => nhanVienCtr.asInstanceOf[A]
-      case _ => throw new IllegalArgumentException
+      case `xepLoaiCtrClass` => xepLoaiCtr.asInstanceOf[A]
+      case _ => throw new PlayException("Binding error", s"Controller class ${controllerClass.getName} is not bind yet")
     }
   }
 

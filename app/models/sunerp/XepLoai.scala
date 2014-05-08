@@ -64,6 +64,7 @@ object XepLoais extends AbstractQuery[XepLoai, XepLoais](new XepLoais(_)) {
         val (xepLoai, nhanVien) = tuple
         filter.property match {
           case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
+          case "month" => xepLoai.month === filter.asInt
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
