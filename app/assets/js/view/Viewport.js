@@ -45,7 +45,7 @@ Ext.define('sunerp.view.Viewport', {
                 {
                     border: false,
                     width: 200,
-                    height: '30%', // assign 90% of the container height to the item
+                    height: '35%', // assign 90% of the container height to the item
                     html: '<div style="text-align: center">' +
                         '<img src="/assets/companylogo.png">' +
                         '<h4>Công ty TNHH SunriseSoft</h4>' +
