@@ -44,7 +44,7 @@ Ext.define('sunerp.controller.core.BaseEditController', {
             record.set(values);
 
             form.getForm().getFields().each(function (field) {
-                if (field.getXType() == "comboboxx") {
+                if (field.getXType() == "comboboxx" || field.superclass.xtype == "comboboxx") {
                     var data = field.getSelectedData();
                     if (data) {
                         record.set(field.getModelName() + "Id", data.id);

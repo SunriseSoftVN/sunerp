@@ -7,9 +7,22 @@ Ext.define('sunerp.controller.xeploai.XepLoaiListCtr', {
     config: {
         xepLoaiStore: null
     },
+    control: {
+        monthCb: {
+            selector: 'monthcb'
+        }
+    },
     editView: 'sunerp.view.xeploai.XepLoaiEdit',
     init: function () {
         this.mainStore = this.getXepLoaiStore();
         this.callParent(arguments);
+    },
+    showAddPanel: function () {
+        var year = new Date().getFullYear();
+        var month = this.getMonthCb().getValue();
+        var view = Ext.create(this.editView, {
+            year: year,
+            month: month
+        });
     }
 });

@@ -19,7 +19,7 @@ case class XepLoai(
                     nhanVienId: Long,
                     month: Int,
                     year: Int,
-                    xepLoai: String
+                    xepLoai: String = XepLoaiType.A
                     ) extends WithId[Long]
 
 object XepLoaiType {
