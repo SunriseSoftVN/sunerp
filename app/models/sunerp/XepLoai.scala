@@ -74,7 +74,7 @@ object XepLoais extends AbstractQuery[XepLoai, XepLoais](new XepLoais(_)) {
       query = query.sortBy(tuple => {
         val (xepLoai, nhanVien) = tuple
         sort.property match {
-          case "nhanVien.firstName" => orderColumn(sort.direction, nhanVien.firstName)
+          case "nhanVien.fullName" => orderColumn(sort.direction, nhanVien.firstName)
           case "month" => orderColumn(sort.direction, xepLoai.month)
           case "xepLoai" => orderColumn(sort.direction, xepLoai.xepLoai)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
