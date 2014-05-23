@@ -37,7 +37,7 @@ Ext.define('sunerp.view.xeploai.XepLoaiEdit', {
                             ]
                         }),
                         valueField: 'id',
-                        displayField: 'firstName'
+                        displayField: 'fullName'
                     },
                     {
                         xtype: 'comboboxx',

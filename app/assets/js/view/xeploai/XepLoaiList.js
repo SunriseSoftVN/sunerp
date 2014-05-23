@@ -18,7 +18,11 @@ Ext.define('sunerp.view.xeploai.XepLoaiList', {
         me.store = this.getXepLoaiStore();
         me.columns = [
             {xtype: 'rownumberer', width: 30},
-            {header: 'Họ tên', dataIndex: 'nhanVien.firstName', flex: 1},
+            {
+                header: 'Họ tên',
+                dataIndex: 'nhanVien.fullName',
+                flex: 1
+            },
             {header: 'Xếp loại', dataIndex: 'xepLoai', flex: 1},
             {
                 xtype: 'actioncolumn',

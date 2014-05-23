@@ -3,10 +3,11 @@ Ext.define('sunerp.model.XepLoai', {
     fields: [
         'id',
         'nhanVienId',
+        'nhanVien',
         'month',
         'year',
         'xepLoai',
-        {name: 'nhanVien.firstName', mapping: 'nhanVien.firstName'}
+        {name: 'nhanVien.fullName', mapping: 'nhanVien.fullName'}
     ],
     associations: [
         {type: 'belongsTo', model: 'sunerp.model.NhanVien', name: 'nhanVien'}

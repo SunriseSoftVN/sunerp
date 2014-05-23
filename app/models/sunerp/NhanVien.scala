@@ -40,7 +40,7 @@ case class NhanVien(
     _quyenHanhs.get
   }
 
-  def phongBan(implicit session: Session) : PhongBan = _phongBan.getOrElse {
+  def phongBan(implicit session: Session): PhongBan = _phongBan.getOrElse {
     _phongBan = PhongBans.findById(phongBanId)
     _phongBan.get
   }
@@ -103,7 +103,18 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
     )(NhanVien.apply)(NhanVien.unapply)
   )
 
-  implicit val nhanVienJsonFormat = Json.format[NhanVien]
+  implicit val nhanVienJsonFormat = new Writes[NhanVien] {
+    def writes(nhanVien: NhanVien) = Json.obj(
+      "id" -> nhanVien.id,
+      "maNv" -> nhanVien.maNv,
+      "firstName" -> nhanVien.firstName,
+      "lastName" -> nhanVien.lastName,
+      "heSoLuong" -> nhanVien.heSoLuong,
+      "chucVuId" -> nhanVien.chucVuId,
+      "phongBanId" -> nhanVien.phongBanId,
+      "fullName" -> (nhanVien.firstName + " " + nhanVien.lastName)
+    )
+  }
 
   def nhanVienJsonFormatWithQuyenHanh(implicit session: Session) = new Writes[NhanVien] {
     import QuyenHanhs.jsonFormat
@@ -116,6 +127,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       "chucVuId" -> nhanVien.chucVuId,
       "phongBanId" -> nhanVien.phongBanId,
       "donViId" -> nhanVien.phongBan.donViId,
+      "fullName" -> (nhanVien.lastName + " " + nhanVien.firstName),
       "quyenHanhs" -> nhanVien.quyenHanhs
     )
   }
