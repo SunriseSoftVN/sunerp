@@ -65,7 +65,7 @@ object PhongBanKhoiLuongRow {
     row.setTotalGio(sumGio(task.id))
 
     taskExternal.find(_.id == task.id).map(data => {
-      row.quyKl = data.khoiLuong
+      row.quyKl = data.khoiLuong.getOrElse(0)
       row.quyGio = data.gio
     })
 

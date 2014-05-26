@@ -11,7 +11,7 @@ import play.api.libs.json.Json
  */
 case class TaskReportBean(
                            id: Long,
-                           khoiLuong: Double,
+                           khoiLuong: Option[Double],
                            gio: Double
                            )
 
