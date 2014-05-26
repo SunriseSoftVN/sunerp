@@ -51,14 +51,12 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                         emptyText: 'Chọn một chức vụ...'
                     },
                     {
-                        xtype: 'comboboxx',
+                        xtype: 'phongbancb',
                         fieldLabel: 'Đơn vị',
                         name: 'phongBanId',
                         modelName: 'phongBan',
-                        store: Ext.create('sunerp.store.PhongBanStore'),
-                        valueField: 'id',
-                        displayField: 'name',
                         allowBlank: false,
+                        addShowAll: false,
                         emptyText: 'Chọn một đơn vị...'
                     },
                     {
