@@ -9,8 +9,8 @@ Ext.define('sunerp.view.report.BCThucHienKhoiLuong', {
         var me = this;
         me.callParent(arguments);
         me.tbar.insert(0, [
-            {xtype: 'donvicb', addShowAll: false, domainKey: me.domainKey},
-            {xtype: 'phongbancb', addShowAll: false, emptyText: 'Phòng ban', domainKey: me.domainKey},
+            {xtype: 'donvicb', addShowAll: false},
+            {xtype: 'phongbancb', addShowAll: false, emptyText: 'Phòng ban'},
             {xtype: 'monthcb', width: 100},
             {xtype: 'yearcb', width: 100}
         ]);

@@ -11,7 +11,7 @@ Ext.define('sunerp.component.DonViCb', {
     donViId: null,
     emptyText: "Đơn vị",
     addShowAll: true,
-    domainKey: null,
+    domainKey: "donvi",
     inject: ['userService'],
     config: {
         userService: null

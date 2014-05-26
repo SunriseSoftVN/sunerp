@@ -11,7 +11,7 @@ Ext.define('sunerp.component.PhongBanCb', {
     donViId: null,
     emptyText: "Đơn vị",
     addShowAll: true,
-    domainKey: null,
+    domainKey: "phongban",
     inject: ['userService'],
     config: {
         userService: null,
@@ -46,9 +46,13 @@ Ext.define('sunerp.component.PhongBanCb', {
         var me = this;
         var gioiHan = me.getUserService().checkGioiHan(me.domainKey);
         var phongBanId = me.getUserService().getCurrentUser().phongBanId;
+        var donViId = me.getUserService().getCurrentUser().donViId;
         if (gioiHan == "phongban") {
             me.select(phongBanId);
             me.hide();
+        } else if (gioiHan == "donvi") {
+            me.getDonViFilter().setValue(sunerp.Utils.toString(donViId));
+            me.store.load();
         }
         me.callParent(arguments);
     }
