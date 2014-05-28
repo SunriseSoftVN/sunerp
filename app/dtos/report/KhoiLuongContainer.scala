@@ -15,16 +15,13 @@ abstract class KhoiLuongContainer[R] {
   val id: Long
   val name: String
   val children: List[_ <: KhoiLuongContainer[_]] = List.empty
+  val tasks: List[TaskDto]
   protected val _khoiLuongs: List[KhoiLuongDto] = List.empty
 
   lazy val klFormater = new DecimalFormat("0.##")
   lazy val gioFormater = new DecimalFormat("0")
 
   lazy final val khoiLuongs: List[KhoiLuongDto] = if (children.isEmpty) _khoiLuongs else children.flatMap(_.khoiLuongs)
-
-  //unique task list
-  lazy val tasks: List[TaskDto] = khoiLuongs.filter(_.task.isDefined).map(_.task.get).distinct
-
   lazy val nhanViens: List[NhanVienDto] = khoiLuongs.map(_.nhanVien).distinct
 
   /**
@@ -33,7 +30,8 @@ abstract class KhoiLuongContainer[R] {
    */
   def sumKL(taskId: Long) = khoiLuongs
     .par
-    .filter(kl => kl.task.isDefined && kl.task.get.id == taskId).foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
+    .filter(kl => kl.task.isDefined && kl.task.get.id == taskId)
+    .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
   def sumKLByDay(taskId: Long, dayOfMonth: Int) = khoiLuongs
     .par
@@ -118,15 +116,18 @@ abstract class KhoiLuongContainer[R] {
 
   def sumGio(taskId: Long) = khoiLuongs
     .par
-    .filter(kl => kl.task.isDefined && kl.task.get.id == taskId).foldLeft(0d)((gio, dto) => dto.gio + gio)
+    .filter(kl => kl.task.isDefined && kl.task.get.id == taskId)
+    .foldLeft(0d)((gio, dto) => dto.gio + gio)
 
   def sumKLByChildId(taskId: Long, childId: Long): Double = children
     .par
-    .filter(_.id == childId).foldLeft(0d)((kl, child) => child.sumKL(taskId) + kl)
+    .filter(_.id == childId)
+    .foldLeft(0d)((kl, child) => child.sumKL(taskId) + kl)
 
   def sumGioByChildId(taskId: Long, childId: Long): Double = children
     .par
-    .filter(_.id == childId).foldLeft(0d)((gio, child) => child.sumGio(taskId) + gio)
+    .filter(_.id == childId)
+    .foldLeft(0d)((gio, child) => child.sumGio(taskId) + gio)
 
   /**
    * Tranfrom data to report row.

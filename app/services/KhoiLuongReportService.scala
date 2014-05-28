@@ -234,6 +234,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     DonViDto(
       id = donVi.getId,
       name = donVi.name,
+      tasks = tasks,
       taskExternal = taskExternal,
       children = phongBans
     )
@@ -281,6 +282,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     PhongBanDto(
       id = phongBan.getId,
       name = phongBan.name,
+      tasks = tasks,
       taskExternal = taskExternal,
       _khoiLuongs = khoiLuongs,
       month = month

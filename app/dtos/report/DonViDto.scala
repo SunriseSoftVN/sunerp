@@ -13,6 +13,7 @@ import dtos.report.qlkh.TaskReportBean
 case class DonViDto(
                      id: Long,
                      name: String,
+                     tasks: List[TaskDto],
                      taskExternal: List[TaskReportBean],
                      override val children: List[PhongBanDto] = Nil
                      ) extends KhoiLuongContainer[DonViKhoiLuongRow] {
@@ -24,7 +25,5 @@ case class DonViDto(
    * @return
    */
   override def khoiLuongRows: List[DonViKhoiLuongRow] = tasks
-    .map(
-      DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByChildId, sumGio, sumGioByChildId, taskExternal)
-    ).sortBy(_.taskCode)
+    .map(DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByChildId, sumGio, sumGioByChildId, taskExternal))
 }

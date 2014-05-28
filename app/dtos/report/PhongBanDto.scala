@@ -16,6 +16,7 @@ import utils.DateTimeUtils
 case class PhongBanDto(
                         id: Long, name: String,
                         override val _khoiLuongs: List[KhoiLuongDto] = Nil,
+                        tasks: List[TaskDto],
                         taskExternal: List[TaskReportBean],
                         month: Int
                         ) extends KhoiLuongContainer[PhongBanKhoiLuongRow] {
@@ -24,7 +25,7 @@ case class PhongBanDto(
    * Tranfrom data to report row.
    * @return
    */
-  override def khoiLuongRows = tasks.map(PhongBanKhoiLuongRow(_, sumKL, sumGio, sumKLByDay, taskExternal)).sortBy(_.taskCode)
+  override def khoiLuongRows = tasks.map(PhongBanKhoiLuongRow(_, sumKL, sumGio, sumKLByDay, taskExternal))
 
   implicit class ReportDouble(d: Double) {
     def asJava: java.lang.Double = if (d > 0) d else null
@@ -67,7 +68,7 @@ case class PhongBanDto(
       val thaiSan = sumThaiSan(nhanVien.id)
       val conOm = sumConOm(nhanVien.id)
       val taiNanLaoDong = sumTNLD(nhanVien.id)
-      val tongCacKhoanTru = omDau + conOm  + thaiSan + taiNanLaoDong
+      val tongCacKhoanTru = omDau + conOm + thaiSan + taiNanLaoDong
 
       row.omDau = omDau.asJava
       row.thaiSan = thaiSan.asJava
