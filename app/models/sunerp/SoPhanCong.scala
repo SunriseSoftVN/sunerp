@@ -113,7 +113,7 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
   )
 
   def khoiLuongQuery(month: Int, year: Int, phongBanId: Long) = for (
-    soPhanCong <- SoPhanCongs.khoiLuongQueryRange(month, year)
+    soPhanCong <- khoiLuongQueryRange(month, year)
     if soPhanCong.phongBanId === phongBanId
   ) yield soPhanCong
 

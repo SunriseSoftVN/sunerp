@@ -147,7 +147,8 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   override def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
     val promise = Promise[String]()
 
-    def callWebService = Stations.findByName(req.donViName).map(station => {
+    def callWebService = Stations.findByName(req.donViName)
+      .fold(Future.successful(List.empty[TaskReportBean])) { station =>
       WS.url(s"$qlkhUrl/rest/reportStation")
         .withQueryString(
           "stationId" -> station.getId.toString,
@@ -159,7 +160,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
             response.json.as[List[TaskReportBean]]
           } else Nil
       }
-    }).getOrElse(Future.successful(List.empty[TaskReportBean]))
+    }
 
 
     def buildReport(tasks: List[TaskDto], taskExternal: List[TaskReportBean]) = Future {
@@ -250,7 +251,9 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val khoiLuongs = for (tuple <- result) yield {
       val (soPhanCong, soPhanCongEx, nhanVien) = tuple
       //make sure every task in so phan cong always exits.
-      val task = tasks.find(_.id == soPhanCong.taskId)
+      val task = tasks.find {
+        task => soPhanCong.taskId.isDefined && task.id == soPhanCong.taskId.get
+      }
       KhoiLuongDto(
         task = task,
         nhanVien = dtos.report.NhanVienDto(nhanVien),
