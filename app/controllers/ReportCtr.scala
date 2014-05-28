@@ -45,15 +45,18 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
   })
 
   def doPhongBanReport(fileType: String) = AsyncStack(AuthorityKey -> thCongViecHangNgay)(implicit request => {
-    Future {
-      val req = KhoiLuongReportRequest(request)
-      if (req.donVi.isDefined && req.phongBan.isDefined) {
-        val result = khoiLuongReportService.doThKhoiLuong(fileType, req)
-        Ok(result)
-      } else {
-        BadRequest
+    val promise = Promise[SimpleResult]()
+    val req = KhoiLuongReportRequest(request)
+    if (req.donVi.isDefined && req.phongBan.isDefined) {
+      val f = khoiLuongReportService.doThKhoiLuong(fileType, req)
+      f.onComplete {
+        case Success(fileName) => promise.success(Ok(fileName))
+        case Failure(t) => promise.failure(t)
       }
+    } else {
+      promise.success(BadRequest)
     }
+    promise.future
   })
 
   def inSoPhanCong(fileType: String) = AsyncStack(AuthorityKey -> DomainKey.inSoPhanCong)(implicit request => {
@@ -69,15 +72,18 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
   })
 
   def inBangChamCong(fileType: String) = AsyncStack(AuthorityKey -> DomainKey.bangChamCong)(implicit request => {
-    Future {
-      val req = KhoiLuongReportRequest(request)
-      if (req.donVi.isDefined && req.phongBan.isDefined) {
-        val result = khoiLuongReportService.inBangChamCong(fileType, req)
-        Ok(result)
-      } else {
-        BadRequest
+    val promise = Promise[SimpleResult]()
+    val req = KhoiLuongReportRequest(request)
+    if (req.donVi.isDefined && req.phongBan.isDefined) {
+      val f = khoiLuongReportService.inBangChamCong(fileType, req)
+      f.onComplete {
+        case Success(fileName) => promise.success(Ok(fileName))
+        case Failure(t) => promise.failure(t)
       }
+    } else {
+      promise.success(BadRequest)
     }
+    promise.future
   })
 
   def doBcThKhoiLuongReport(fileType: String) = AsyncStack(AuthorityKey -> bcThucHienKhoiLuong)(implicit request => {

@@ -71,7 +71,7 @@ object DonViKhoiLuongRow {
     row.taskId = task.id
     row.taskName = task.name
     row.taskCode = task.code
-    row.taskUnit = task.unit
+    row.taskUnit = task.donVi
     row.taskDinhMuc = task.dinhMuc
     row.taskSoLan = task.soLan.getOrElse(0d)
     row.xnKL = sumKL(task.id)

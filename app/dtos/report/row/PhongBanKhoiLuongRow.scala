@@ -57,7 +57,7 @@ object PhongBanKhoiLuongRow {
     val row = new PhongBanKhoiLuongRow
     row.setTaskId(task.id)
     row.setTaskName(task.name)
-    row.setTaskUnit(task.unit)
+    row.setTaskUnit(task.donVi)
     row.setTaskCode(task.code)
     row.setTaskDinhMuc(task.dinhMuc)
     row.setTaskSoLan(task.soLan.getOrElse(0d))

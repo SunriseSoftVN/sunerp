@@ -1,6 +1,7 @@
 package dtos.report
 
 import models.qlkh.Task
+import play.api.libs.json.Json
 
 /**
  * The Class TaskDto.
@@ -13,20 +14,14 @@ case class TaskDto(
                     id: Long,
                     name: String,
                     code: String,
-                    unit: String,
+                    donVi: String,
                     soLan: Option[Double] = None,
-                    dinhMuc: Double
+                    dinhMuc: Double,
+                    children: List[TaskDto] = Nil
                     )
 
 object TaskDto {
 
-  def apply(task: Task) = new TaskDto(
-    id = task.id.get,
-    name = task.name,
-    code = task.code,
-    unit = task.unit,
-    soLan = if (task.dynamicQuota) None else task.quota,
-    dinhMuc = task.defaultValue
-  )
+  implicit val jsonFormat = Json.format[TaskDto]
 
 }
