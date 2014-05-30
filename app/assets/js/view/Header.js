@@ -22,6 +22,13 @@ Ext.define('sunerp.view.Header', {
                 xtype: 'button',
                 menu: [
                     {
+                        text: 'Đổi mật khẩu',
+                        handler: function() {
+                            var window = Ext.create('sunerp.view.ChangePassword');
+                            window.show();
+                        }
+                    },
+                    {
                         text: 'Logout',
                         href: "/user/logout"
                     }

@@ -148,13 +148,13 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
 
   override def beforeUpdate(entity: NhanVien)(implicit session: Session) = {
     val oldUser = findById(entity.id.get)
-    oldUser.map(user => {
+    oldUser.fold(entity)(user => {
       if (user.password == entity.password) {
         entity
       } else {
         entity.copy(password = Hash.createPassword(entity.password))
       }
-    }).getOrElse(entity)
+    })
   }
 
   def load(pagingDto: PagingDto, currentUser: NhanVien)(implicit session: Session): ExtGirdDto[NhanVienDto] = {

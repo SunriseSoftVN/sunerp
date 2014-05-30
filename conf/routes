@@ -53,6 +53,7 @@ GET           /task                                     @controllers.TaskCtr.ind
 
 GET           /user/login                               @controllers.AuthCtr.login
 POST          /user/auth                                @controllers.AuthCtr.auth
+POST          /user/changePassword                      @controllers.HomeCtr.changePassword
 GET           /user/logout                              @controllers.AuthCtr.logout
 
 GET           /sophancong                               @controllers.SoPhanCongCtr.index

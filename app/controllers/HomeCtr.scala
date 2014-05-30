@@ -7,6 +7,8 @@ import dtos.MenuItemDto
 import play.api.libs.json.Json
 import models.sunerp.NhanViens
 import com.escalatesoft.subcut.inject.BindingModule
+import play.api.data.Form
+import play.api.data.Forms._
 
 object DomainKey {
   val soPhanCong = "sophancong"
@@ -210,5 +212,16 @@ class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with
     ))
     Ok(Json.toJson(data))
   })
+
+  def changePassword = StackAction { implicit request =>
+    val form = Form("password" -> nonEmptyText)
+    form.bindFromRequest.fold(
+      error => BadRequest,
+      password => {
+        NhanViens.update(loggedIn.copy(password = password), loggedIn.id)
+        Ok
+      }
+    )
+  }
 
 }
