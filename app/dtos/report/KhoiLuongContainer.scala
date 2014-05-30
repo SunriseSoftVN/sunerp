@@ -3,6 +3,9 @@ package dtos.report
 import scala.collection.JavaConverters._
 import java.text.DecimalFormat
 
+import scalaz._
+import Scalaz._
+
 /**
  * The Class KhoiLuongContainer.
  *
@@ -29,27 +32,22 @@ abstract class KhoiLuongContainer[R] {
    * @param taskId
    */
   def sumKL(taskId: Long) = khoiLuongs
-    .par
     .filter(kl => kl.task.isDefined && kl.task.get.id == taskId)
     .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
   def sumKLByDay(taskId: Long, dayOfMonth: Int) = khoiLuongs
-    .par
     .filter(khoiLuong => khoiLuong.task.isDefined && khoiLuong.task.get.id == taskId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
     .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
   def sumByNv(nhanVienId: Long) = khoiLuongs
-    .par
     .filter(_.nhanVien.id == nhanVienId)
     .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
   def sumGioByNv(nhanVienId: Long) = khoiLuongs
-    .par
     .filter(_.nhanVien.id == nhanVienId)
     .foldLeft(0d)((gio, dto) => dto.gio + gio)
 
   def sumByNvAndDay(nhanVienId: Long, dayOfMonth: Int) = khoiLuongs
-    .par
     .filter(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
     .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
 
@@ -114,18 +112,24 @@ abstract class KhoiLuongContainer[R] {
   def sumPhuCapDH(nhanVienId: Long) = khoiLuongs
     .count(khoiLuong => khoiLuong.nhanVien.id == nhanVienId && khoiLuong.docHai)
 
-  def sumGio(taskId: Long) = khoiLuongs
-    .par
-    .filter(kl => kl.task.isDefined && kl.task.get.id == taskId)
-    .foldLeft(0d)((gio, dto) => dto.gio + gio)
+  def sumGio(taskId: Long): Double = {
+    def _sum(taskId: Long) = khoiLuongs
+      .filter(kl => kl.task.isDefined && kl.task.get.id == taskId)
+      .foldLeft(0d)((gio, dto) => dto.gio + gio)
+
+    val task = tasks.find(_.id == taskId).getOrElse(throw new Exception("Something go wrong!"))
+    if (task.children.isEmpty) {
+      _sum(taskId)
+    } else {
+      task.children.foldLeft(0d)((gio, child) => gio + sumGio(child.id))
+    }
+  }
 
   def sumKLByChildId(taskId: Long, childId: Long): Double = children
-    .par
     .filter(_.id == childId)
     .foldLeft(0d)((kl, child) => child.sumKL(taskId) + kl)
 
   def sumGioByChildId(taskId: Long, childId: Long): Double = children
-    .par
     .filter(_.id == childId)
     .foldLeft(0d)((gio, child) => child.sumGio(taskId) + gio)
 
