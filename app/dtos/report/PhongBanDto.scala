@@ -25,7 +25,8 @@ case class PhongBanDto(
    * Tranfrom data to report row.
    * @return
    */
-  override def khoiLuongRows = tasks.map(PhongBanKhoiLuongRow(_, sumKL, sumGio, sumKLByDay, taskExternal))
+  override def khoiLuongRows = tasks
+    .map(PhongBanKhoiLuongRow(_, sumKL, sumGio, sumKLByDay, taskExternal))
 
   implicit class ReportDouble(d: Double) {
     def asJava: java.lang.Double = if (d > 0) d else null

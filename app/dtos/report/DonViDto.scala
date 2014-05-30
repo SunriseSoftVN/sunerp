@@ -26,4 +26,5 @@ case class DonViDto(
    */
   override def khoiLuongRows: List[DonViKhoiLuongRow] = tasks
     .map(DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByChildId, sumGio, sumGioByChildId, taskExternal))
+    .filter(kl => kl.xnKL > 0 || kl.quyGio > 0)
 }
