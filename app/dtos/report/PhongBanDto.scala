@@ -54,7 +54,7 @@ case class PhongBanDto(
       val gianTiep = sumViecRieng(nhanVien.id)
       val tongGioCong = sumGioByNv(nhanVien.id)
       val congSanPham = tongGioCong / 8
-      val tongCacKhoanCong = congSanPham + hop + hocDH + hocDH + gianTiep + phep + leTet
+      val tongCacKhoanCong = congSanPham + hop + hocNH + hocDH + gianTiep + phep + leTet
 
       row.hop = hop.asJava
       row.hocNH = hocNH.asJava
