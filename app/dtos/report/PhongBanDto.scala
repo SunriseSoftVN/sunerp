@@ -27,6 +27,7 @@ case class PhongBanDto(
    */
   override def khoiLuongRows = tasks
     .map(PhongBanKhoiLuongRow(_, sumKL, sumGio, sumKLByDay, taskExternal))
+    .filter(kl => kl.totalKhoiLuong > 0 || kl.quyGio > 0)
 
   implicit class ReportDouble(d: Double) {
     def asJava: java.lang.Double = if (d > 0) d else null
