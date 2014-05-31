@@ -8,8 +8,11 @@ import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.grid.ColumnTitleGroupBuilder;
 import net.sf.dynamicreports.report.constant.*;
+import net.sf.dynamicreports.report.exception.DRException;
+import play.Play;
 import utils.DateTimeUtils;
 
+import java.io.InputStream;
 import java.util.Date;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
@@ -65,28 +68,19 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<String> xepLoai = col.column("Xếp loại ABC", "xepLoai", type.stringType());
     public static final TextColumnBuilder<String> ghiChu = col.column("Ghi chú", "ghiChu", type.stringType()).setFixedWidth(100);
 
-    public static JasperReportBuilder buildBangChamCong(KhoiLuongReportRequest request) {
+    public static JasperReportBuilder buildBangChamCong(KhoiLuongReportRequest request) throws DRException {
+        InputStream is = Play.application().resourceAsStream("report/bangchamcong.jrxml");
         JasperReportBuilder builder = report()
-                .title(
-                        cmp.verticalList(
-                                cmp.horizontalList(
-                                        cmp.verticalList(
-                                                cmp.text("Đơn vị: " + request.donViName()).setStyle(stl.style(LEFT_SUB_TITLE_STYLE)
-                                                        .setBottomPadding(0).setTopPadding(0)),
-                                                cmp.text("Bộ phận: " + request.phongBanName()).setStyle(stl.style(LEFT_SUB_TITLE_STYLE))
-                                        ).setFixedWidth(600),
-                                        cmp.verticalList(
-                                                cmp.text("BẢNG CHẤM CÔNG").setStyle(stl.style(TITLE_STYLE).setBottomPadding(0).setTopPadding(0)),
-                                                cmp.text("Tháng " + request.month() + " năm " + request.year()).setStyle(SUB_TITLE_STYLE)
-                                        ).setFixedWidth(1100)
-                                )
-                        )
-                )
+                .setTemplateDesign(is)
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setSubtotalStyle(COLUMN_STYLE)
-                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
-                .setPageFormat(PageType.A1, PageOrientation.LANDSCAPE);
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL);
+
+        builder.setParameter("donVi", request.donViName());
+        builder.setParameter("phongBang", request.phongBanName());
+        builder.setParameter("month", request.month());
+        builder.setParameter("year", request.year());
 
         builder.columns(
                 stt, tenNV, hsl, congSanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet, tongCacKhoanCong,

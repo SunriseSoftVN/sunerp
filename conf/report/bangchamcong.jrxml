@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="2340" pageHeight="1644" orientation="Landscape" columnWidth="2320" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" isIgnorePagination="true" uuid="fa1809d9-8507-4628-a2c1-3ab595d80794">
+	<property name="ireport.zoom" value="0.5644739300537782"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="donVi" class="java.lang.String"/>
+	<parameter name="phongBang" class="java.lang.String"/>
+	<parameter name="month" class="java.lang.Integer"/>
+	<parameter name="year" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="1035" y="10" width="234" height="28" uuid="654f6600-bd30-4b7b-b3ac-f7c6e85a11b8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BẢNG CHẤM CÔNG]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1124" y="38" width="12" height="20" uuid="145c2b1d-c118-402c-8c69-098c45c3fb33"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1035" y="38" width="89" height="20" uuid="3d95c47e-f1ad-4d20-a138-38b0d4750418"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tháng:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1136" y="38" width="41" height="20" uuid="e3fc3c0e-064e-4a3a-a11b-0ae9dd7e8a1c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[năm:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1177" y="38" width="92" height="20" uuid="dc41c4a4-fa19-4ffb-abee-ccc795a477c8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{year}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="18" width="54" height="20" uuid="2dae0b79-8e25-4a03-94c9-6c48fa7eec50"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Đơn vị:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="54" height="20" uuid="4d594cb9-ce07-41ed-b653-0d97962f8023"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Bộ phận:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="54" y="18" width="290" height="20" uuid="e7cd5d32-2263-42fa-b7e9-cba38b2c1700"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{donVi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="38" width="290" height="20" uuid="8e191a0f-5051-469f-abad-459a864ca0af"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{phongBang}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="86" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="11" width="344" height="75" uuid="4dae03a6-c57c-4ea4-ba7a-0f3dab774eb4"/>
+				<imageExpression><![CDATA["C:\\Users\\dungvn3000\\Desktop\\1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="1096" y="11" width="112" height="20" uuid="d354c897-e1fa-478d-aa89-99404d0ca6d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NGƯỜI CHẤM CÔNG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1629" y="11" width="112" height="20" uuid="01169509-17ed-4058-a818-98a8029c674d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PHỤ TRÁCH BỘ PHẬN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2082" y="11" width="112" height="20" uuid="2970a798-778e-4c58-ac08-cd21e3cb2b18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NGƯỜI DUYỆT]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
