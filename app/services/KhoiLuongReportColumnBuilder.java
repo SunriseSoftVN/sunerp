@@ -325,6 +325,9 @@ public final class KhoiLuongReportColumnBuilder {
                                 )
                         )
                 )
+                .columnFooter(
+                        cmp.text("CUNG (TRẠM) TRƯỞNG").setStyle(stl.style(RIGHT_TITLE_STYLE).setRightPadding(50)).setHeight(50)
+                )
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
