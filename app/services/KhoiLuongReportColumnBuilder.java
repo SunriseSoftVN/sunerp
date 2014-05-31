@@ -30,19 +30,19 @@ public final class KhoiLuongReportColumnBuilder {
 
     public static final TextColumnBuilder<String> maCv = col.column("Mã Cv", "taskCode", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(40);
     public static final TextColumnBuilder<String> taskName = col.column("Nội dung Cv", "taskName", type.stringType()).setFixedWidth(200);
-    public static final TextColumnBuilder<String> taskUnit = col.column("Đơn vị", "taskUnit", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
+    public static final TextColumnBuilder<String> taskUnit = col.column("Đơn vị", "taskUnit", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(40);
     public static final TextColumnBuilder<Double> taskKL = col.column("KL", "taskKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> taskGio = col.column("Giờ", "taskGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> totalKL = col.column("KL", "totalKhoiLuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
     public static final TextColumnBuilder<Double> totalGio = col.column("Giờ", "totalGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> dinhMuc = col.column("ĐM", "taskDinhMuc", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> soLan = col.column("Số lần", "taskSoLan", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> quyKL = col.column("KL", "quyKl", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> quyGio = col.column("Giờ", "quyGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> conLaiKL = col.column("KL", "conLaiKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> conLaiGio = col.column("Giờ", "conLaiGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> xnKL = col.column("KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
-    public static final TextColumnBuilder<Double> xnGio = col.column("Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE);
+    public static final TextColumnBuilder<Double> dinhMuc = col.column("ĐM", "taskDinhMuc", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(30);
+    public static final TextColumnBuilder<Double> soLan = col.column("Số lần", "taskSoLan", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(35);
+    public static final TextColumnBuilder<Double> quyKL = col.column("KL", "quyKl", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setWidth(70);
+    public static final TextColumnBuilder<Double> quyGio = col.column("Giờ", "quyGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setWidth(80);
+    public static final TextColumnBuilder<Double> conLaiKL = col.column("KL", "conLaiKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setWidth(70);
+    public static final TextColumnBuilder<Double> conLaiGio = col.column("Giờ", "conLaiGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setWidth(70);
+    public static final TextColumnBuilder<Double> xnKL = col.column("KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(30);
+    public static final TextColumnBuilder<Double> xnGio = col.column("Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType()).setFixedWidth(120);
     public static final TextColumnBuilder<String> ngay = col.column("Ngày", "ngay", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Integer> stt = col.column("TT", "stt", type.integerType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
@@ -242,6 +242,9 @@ public final class KhoiLuongReportColumnBuilder {
                                 )
                         )
                 )
+                .summary(
+                        cmp.text("GIÁM ĐỐC XN").setStyle(stl.style(RIGHT_TITLE_STYLE).setRightPadding(50))
+                )
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
@@ -316,7 +319,7 @@ public final class KhoiLuongReportColumnBuilder {
                         )
                 )
                 .summary(
-                        cmp.text("CUNG (TRẠM) TRƯỞNG").setStyle(stl.style(RIGHT_TITLE_STYLE).setRightPadding(50)).setHeight(50)
+                        cmp.text("CUNG (TRẠM) TRƯỞNG").setStyle(stl.style(RIGHT_TITLE_STYLE).setRightPadding(50))
                 )
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
