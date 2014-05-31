@@ -29,11 +29,6 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
 
   val khoiLuongReportService = inject[KhoiLuongReportService]
 
-  /**
-   * BIỂU TỔNG HỢP CÔNG VIỆC HÀNG NGÀY
-   * @param fileType
-   * @return
-   */
   def doDonViReport(fileType: String) = AsyncStack(AuthorityKey -> thThucHienKhoiLuong)(implicit request => {
     val promise = Promise[SimpleResult]()
     val req = KhoiLuongReportRequest(request)
@@ -49,6 +44,11 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
     promise.future
   })
 
+  /**
+   * BIỂU TỔNG HỢP CÔNG VIỆC HÀNG NGÀY
+   * @param fileType
+   * @return
+   */
   def doPhongBanReport(fileType: String) = AsyncStack(AuthorityKey -> thCongViecHangNgay)(implicit request => {
     val promise = Promise[SimpleResult]()
     val req = KhoiLuongReportRequest(request)
