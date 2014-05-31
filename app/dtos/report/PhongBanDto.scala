@@ -5,6 +5,8 @@ import dtos.report.qlkh.TaskReportBean
 import scala.collection.JavaConverters._
 import org.joda.time.LocalDate
 import utils.DateTimeUtils
+import play.api.db.slick._
+import models.sunerp.XepLoais
 
 /**
  * The Class PhongBanDto.
@@ -18,7 +20,8 @@ case class PhongBanDto(
                         override val _khoiLuongs: List[KhoiLuongDto] = Nil,
                         tasks: List[TaskDto],
                         taskExternal: List[TaskReportBean],
-                        month: Int
+                        month: Int,
+                        year: Int
                         ) extends KhoiLuongContainer[PhongBanKhoiLuongRow] {
 
   /**
@@ -37,7 +40,7 @@ case class PhongBanDto(
     def asJava: java.lang.Integer = if (i > 0) i else null
   }
 
-  def bangChamCongs = {
+  def bangChamCongs(implicit session: Session) = {
     var stt = 0
     nhanViens.map(nhanVien => {
       stt += 1
@@ -45,6 +48,7 @@ case class PhongBanDto(
       row.stt = stt
       row.tenNV = nhanVien.name
       row.hsl = nhanVien.heSoLuong.asJava
+      row.xepLoai = XepLoais.findByNhanVienId(nhanVien.id, month, year).fold("")(_.xepLoai)
 
       val hop = sumHop(nhanVien.id)
       val hocNH = sumHocNH(nhanVien.id)
@@ -89,7 +93,7 @@ case class PhongBanDto(
         row.getGioCongViec.put(i.toString, khoiLuongCode(gio, daily))
       }
 
-      val now = LocalDate.now().withMonthOfYear(month)
+      val now = LocalDate.now().withMonthOfYear(month).withYear(year)
       val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
       val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
 

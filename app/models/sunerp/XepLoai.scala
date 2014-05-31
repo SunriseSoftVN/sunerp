@@ -56,6 +56,10 @@ object XepLoais extends AbstractQuery[XepLoai, XepLoais](new XepLoais(_)) {
     )(XepLoai.apply)(XepLoai.unapply)
   )
 
+  def findByNhanVienId(nhanVienId: Long, month: Int, year: Int)(implicit session: Session) =
+    where(xl => xl.nhanVienId === nhanVienId && xl.month === month && xl.year === year).firstOption()
+
+
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[XepLoaiDto] = {
     var query = for (xepLoai <- this; nhanVien <- xepLoai.nhanVien) yield (xepLoai, nhanVien)
 

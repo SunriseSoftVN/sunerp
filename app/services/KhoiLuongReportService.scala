@@ -285,7 +285,8 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
       tasks = tasks,
       taskExternal = taskExternal,
       _khoiLuongs = khoiLuongs,
-      month = month
+      month = month,
+      year = year
     )
   }
 

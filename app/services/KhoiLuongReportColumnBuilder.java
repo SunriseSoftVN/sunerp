@@ -66,7 +66,7 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Integer> giuaCa = col.column("Giữa ca", "giuaCa", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> tongGioCong = col.column("Tổng giờ công", "tongGioCong", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> diemHeSo = col.column("Điểm hệ số", "diemHeSo", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
-    public static final TextColumnBuilder<String> xepLoai = col.column("Xếp loại ABC", "xepLoai", type.stringType());
+    public static final TextColumnBuilder<String> xepLoai = col.column("Xếp loại ABC", "xepLoai", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
     public static final TextColumnBuilder<String> ghiChu = col.column("Ghi chú", "ghiChu", type.stringType()).setFixedWidth(100);
 
     public static JasperReportBuilder buildBangChamCong(KhoiLuongReportRequest request) throws DRException {
