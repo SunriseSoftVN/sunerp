@@ -9,6 +9,7 @@ import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.grid.ColumnTitleGroupBuilder;
 import net.sf.dynamicreports.report.constant.*;
 import net.sf.dynamicreports.report.exception.DRException;
+import org.joda.time.LocalDate;
 import play.Play;
 import utils.DateTimeUtils;
 
@@ -188,32 +189,21 @@ public final class KhoiLuongReportColumnBuilder {
         return builder;
     }
 
-    public static JasperReportBuilder buildBcThKhoiLuong(KhoiLuongReportRequest request) {
+    public static JasperReportBuilder buildBcThKhoiLuong(KhoiLuongReportRequest request) throws DRException {
+        InputStream is = Play.application().resourceAsStream("report/baocaothkhoiluong.jrxml");
         int quarter = DateTimeUtils.getQuarter(request.month());
         JasperReportBuilder builder = report()
-                .title(
-                        cmp.verticalList(
-                                cmp.horizontalList(
-                                        cmp.verticalList(
-                                                cmp.text("Xí nghiệp: " + request.donViName()).setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
-                                                cmp.text("Cung (Trạm): " + request.phongBanName()).setStyle(SUB_TITLE_STYLE)
-                                        ),
-                                        cmp.verticalList(
-                                                cmp.text("CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
-                                                cmp.text("Độc lập - Tự do - Hạnh phúc").setStyle(stl.style(SUB_TITLE_STYLE).setUnderline(true))
-                                        )
-                                ),
-                                cmp.verticalList(
-                                        cmp.text("BÁO CÁO THỰC HIỆN KHỐI LƯỢNG \n" +
-                                                "SCTX - KCHT TTTH ĐƯỜNG SẮT").setStyle(stl.style(TITLE_STYLE).setBottomPadding(10)),
-                                        cmp.text("Tháng " + request.month() + " Quý " + quarter + " Năm " + request.year()).setStyle(SUB_TITLE_STYLE)
-                                )
-                        )
-                )
+                .setTemplateDesign(is)
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
-                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
-                .setPageFormat(PageType.A4, PageOrientation.PORTRAIT);
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL);
+
+        builder.setParameter("month", request.month());
+        builder.setParameter("year", request.year());
+        builder.setParameter("quarter", quarter);
+        builder.setParameter("phongBang", request.phongBanName());
+        builder.setParameter("donVi", request.donViName());
+        builder.setParameter("hoangThanh", "100%");
 
         builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, quyKL, quyGio, totalKL.setTitle("KL"), totalGio);
 

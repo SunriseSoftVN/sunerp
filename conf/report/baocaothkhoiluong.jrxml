@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="baocaothkhoiluong" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="9864761e-2e1c-411d-89aa-ceafe0b17b19">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="2"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="donVi" class="java.lang.String"/>
+	<parameter name="phongBang" class="java.lang.String"/>
+	<parameter name="month" class="java.lang.Integer"/>
+	<parameter name="year" class="java.lang.Integer"/>
+	<parameter name="quarter" class="java.lang.Integer"/>
+	<parameter name="hoangThanh" class="java.lang.String"/>
+	<title>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="0" width="75" height="13" uuid="a5325760-3261-47ec-a9b9-b98eb38d0075"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[XÍ NGHIỆP:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="13" width="75" height="13" uuid="a9280040-bee5-429a-8ffe-8fc4c4a63d54"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[CUNG (TRẠM):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="0" width="211" height="13" uuid="d673d117-e1d4-430f-9579-76aae5311744"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="13" width="211" height="13" uuid="76784816-86e8-4c3f-9eb6-d78b8880dee7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Độc lập - Tự do - Hạnh phú]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="26" width="33" height="13" uuid="d86a6709-e73e-42b5-b104-623c6d86be12"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Tháng:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="433" y="26" width="30" height="13" uuid="872a0439-483a-4f1b-9542-89b5ab636efa"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Năm:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="39" width="188" height="29" uuid="9bf361e0-ce8d-46db-b7e8-aa98ec0108e3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BÁO CÁO THỰC HIỆN KHỐI LƯỢNG
+SCTX - KCHT TTTH ĐƯỜNG SẮT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="68" width="35" height="13" uuid="26b4f641-ea36-40bd-9ca5-85d43a70746d"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Tháng:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="68" width="23" height="13" uuid="a48865b7-4f10-4094-879f-0a5036c87886"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Quý:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="68" width="25" height="13" uuid="6127a914-f867-4dec-82b6-72f9aa18cf8c"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Năm:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="94" width="107" height="13" uuid="5dd3de4f-2863-4666-845d-96cff81020e9"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Đơn vị (Cung, Trạm) :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="94" width="53" height="13" uuid="0fc369e7-b4ca-4f78-bba8-cc0116ecb7d6"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Xí nghiệp:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="91" y="0" width="163" height="13" uuid="a43a7593-e899-42c5-aea5-306937def1dd"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{donVi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="91" y="13" width="163" height="13" uuid="23a1e442-2955-4506-8f04-6dcc46e24d10"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{phongBang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="243" y="68" width="15" height="13" uuid="7674f011-9430-464f-870d-4066747f283c"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="68" width="13" height="13" uuid="e0049e7f-19b5-4d21-bbee-31e97358f44b"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{quarter}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="68" width="23" height="13" uuid="cdb0da1e-6294-470b-bdc8-f7f146c616ec"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{year}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="94" width="165" height="13" uuid="46d42448-faee-4559-80a1-61cf85797c6b"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{phongBang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="94" width="153" height="13" uuid="18dd77a0-bddb-4dd2-9b71-17b5b0767693"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{donVi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="26" width="14" height="13" uuid="c107461f-9e9b-4419-8a99-0e7028181bcf"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="26" width="23" height="13" uuid="16e8260f-62c3-4785-a77b-4044a9fb237c"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{year}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<lastPageFooter>
+		<band height="62">
+			<staticText>
+				<reportElement x="16" y="11" width="127" height="13" uuid="2d5cb53e-703a-4647-aee5-12c1f4e848d0"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tỷ lệ hoàn thành kế hoạch]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="11" width="193" height="13" uuid="030a2e40-384d-48af-9dc5-09608a1152f1"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(tổng giờ thực hiện/tổng giờ KH quý giao): ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="336" y="11" width="79" height="13" uuid="be3c11f9-df96-40ce-82c6-df8525ae05be"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hoangThanh}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="419" y="36" width="127" height="13" uuid="af1ec687-a0a3-4372-b8ab-78854b0a75bc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUNG (TRẠM) TRƯỞNG]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>
