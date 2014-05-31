@@ -81,7 +81,7 @@
 		<band height="86" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="11" width="344" height="75" uuid="4dae03a6-c57c-4ea4-ba7a-0f3dab774eb4"/>
-				<imageExpression><![CDATA["C:\\Users\\dungvn3000\\Desktop\\1.png"]]></imageExpression>
+				<imageExpression><![CDATA["report/ghichu.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="1096" y="11" width="112" height="20" uuid="d354c897-e1fa-478d-aa89-99404d0ca6d7"/>
