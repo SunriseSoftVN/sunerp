@@ -12,9 +12,9 @@ object ApplicationBuild extends Build {
   )
 
   val reportDependencies = Seq(
-    "net.sourceforge.dynamicreports" % "dynamicreports-core" % "3.2.0",
-    "net.sourceforge.dynamicreports" % "dynamicreports-adhoc" % "3.2.0",
-    "net.sourceforge.dynamicreports" % "dynamicreports-googlecharts" % "3.2.0",
+    "net.sourceforge.dynamicreports" % "dynamicreports-core" % "3.2.1",
+    "net.sourceforge.dynamicreports" % "dynamicreports-adhoc" % "3.2.1",
+    "net.sourceforge.dynamicreports" % "dynamicreports-googlecharts" % "3.2.1",
     "org.apache.poi" % "poi" % "3.10-FINAL",
     "net.sourceforge.jexcelapi" % "jxl" % "2.6.12"
   )
