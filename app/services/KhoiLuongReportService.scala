@@ -256,7 +256,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
 
   private def buildDonViData(month: Int, quarter: Option[Int], year: Int, donVi: DonVi, tasks: List[TaskDto], taskExternal: List[TaskReportBean])(implicit session: Session) = {
     val phongBans = for {
-      phongBan <- PhongBans.findByDonViId(donVi.getId)
+      phongBan <- PhongBans.findByDonViId(donVi.getId, report = true)
     } yield buildPhongBanData(month, quarter, year, phongBan, tasks, Nil)
     DonViDto(
       id = donVi.getId,

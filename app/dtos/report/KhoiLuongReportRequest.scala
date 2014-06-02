@@ -83,7 +83,7 @@ object KhoiLuongReportRequest {
       donVi = donVi,
       phongBan = phongBan,
       phongBans = if(phongBan.isEmpty && donVi.isDefined) {
-        PhongBans.findByDonViId(donVi.get.getId)
+        PhongBans.findByDonViId(donVi.get.getId, report = true)
       } else Nil
     )
   }

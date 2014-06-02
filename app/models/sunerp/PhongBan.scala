@@ -96,5 +96,10 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
     )
   }
 
-  def findByDonViId(donViId: Long)(implicit session: Session) = where(_.donViId === donViId).sortBy(_.name).list()
+  def findByDonViId(donViId: Long, report: Boolean = false)(implicit session: Session) = if(!report) {
+    where(_.donViId === donViId).sortBy(_.name).list()
+  } else {
+    where(pb => pb.donViId === donViId && pb.showOnReport).sortBy(_.name).list()
+  }
+
 }
