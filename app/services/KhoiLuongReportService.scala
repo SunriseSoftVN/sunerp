@@ -122,10 +122,10 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
 
     def buildReport(tasks: List[TaskDto], taskExternal: List[TaskReportBean]) = Future {
       val fileName = s"bcthkhoiluong-${req.donViNameStrip}-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
-      //build layout
-      val report = KhoiLuongReportColumnBuilder.buildBcThKhoiLuong(req)
-      val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan, tasks, taskExternal)
       //build data
+      val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan, tasks, taskExternal)
+      //build layout
+      val report = KhoiLuongReportColumnBuilder.buildBcThKhoiLuong(req, phongBanDto.tyLeHoanThanhCongViec)
       val ds = new JRBeanCollectionDataSource(phongBanDto.javaKLRows())
       report.setDataSource(ds)
 

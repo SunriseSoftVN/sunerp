@@ -8,7 +8,7 @@
 	<parameter name="month" class="java.lang.Integer"/>
 	<parameter name="year" class="java.lang.Integer"/>
 	<parameter name="quarter" class="java.lang.Integer"/>
-	<parameter name="hoangThanh" class="java.lang.String"/>
+	<parameter name="hoanThanh" class="java.lang.String"/>
 	<title>
 		<band height="113" splitType="Stretch">
 			<staticText>
@@ -189,7 +189,7 @@ SCTX - KCHT TTTH ĐƯỜNG SẮT]]></text>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{hoangThanh}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{hoanThanh}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

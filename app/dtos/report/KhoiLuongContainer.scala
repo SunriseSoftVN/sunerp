@@ -137,7 +137,7 @@ abstract class KhoiLuongContainer[R] {
    * Tranfrom data to report row.
    * @return
    */
-  def khoiLuongRows: List[R]
+  val khoiLuongRows: List[R]
 
   def javaKLRows() = khoiLuongRows.asJavaCollection
 }

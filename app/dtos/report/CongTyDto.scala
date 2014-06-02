@@ -14,13 +14,14 @@ case class CongTyDto(
                       tasks: List[TaskDto]
                       ) extends KhoiLuongContainer[CongTyKhoiLuongRow] {
 
-  override val id: Long = -1 //fake id
+  override val id: Long = -1
+  //fake id
   override val name: String = "Công ty"
 
   /**
    * Tranfrom data to report row.
    * @return
    */
-  override def khoiLuongRows: List[CongTyKhoiLuongRow] = ???
+  lazy val khoiLuongRows: List[CongTyKhoiLuongRow] = ???
 
 }

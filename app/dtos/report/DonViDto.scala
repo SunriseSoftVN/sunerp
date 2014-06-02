@@ -24,7 +24,7 @@ case class DonViDto(
    * Tranfrom data to report row.
    * @return
    */
-  override def khoiLuongRows: List[DonViKhoiLuongRow] = tasks
+  lazy val khoiLuongRows: List[DonViKhoiLuongRow] = tasks
     .map(DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByChildId, sumGio, sumGioByChildId, taskExternal))
     .filter(kl => kl.xnKL > 0 || kl.quyGio > 0)
 

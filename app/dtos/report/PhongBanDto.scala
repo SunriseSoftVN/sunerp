@@ -28,9 +28,11 @@ case class PhongBanDto(
    * Tranfrom data to report row.
    * @return
    */
-  override def khoiLuongRows = tasks
+  lazy val khoiLuongRows = tasks
     .map(PhongBanKhoiLuongRow(_, sumKL, sumGio, sumKLByDay, taskExternal))
     .filter(kl => kl.totalKhoiLuong > 0 || kl.quyGio > 0)
+
+  def tyLeHoanThanhCongViec = khoiLuongRows.headOption.fold(0d)(kl => kl.totalGio / kl.quyGio * 100)
 
   implicit class ReportDouble(d: Double) {
     def asJava: java.lang.Double = if (d > 0) d else null

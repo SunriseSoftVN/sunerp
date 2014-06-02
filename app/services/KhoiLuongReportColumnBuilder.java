@@ -14,6 +14,7 @@ import play.Play;
 import utils.DateTimeUtils;
 
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
@@ -189,7 +190,7 @@ public final class KhoiLuongReportColumnBuilder {
         return builder;
     }
 
-    public static JasperReportBuilder buildBcThKhoiLuong(KhoiLuongReportRequest request) throws DRException {
+    public static JasperReportBuilder buildBcThKhoiLuong(KhoiLuongReportRequest request, Double hoanThanh) throws DRException {
         InputStream is = Play.application().resourceAsStream("report/baocaothkhoiluong.jrxml");
         int quarter = DateTimeUtils.getQuarter(request.month());
         JasperReportBuilder builder = report()
@@ -203,7 +204,8 @@ public final class KhoiLuongReportColumnBuilder {
         builder.setParameter("quarter", quarter);
         builder.setParameter("phongBang", request.phongBanName());
         builder.setParameter("donVi", request.donViName());
-        builder.setParameter("hoangThanh", "100%");
+        DecimalFormat formater = new DecimalFormat("0.#");
+        builder.setParameter("hoanThanh", formater.format(hoanThanh) + "%");
 
         builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, quyKL, quyGio, totalKL.setTitle("KL"), totalGio);
 
