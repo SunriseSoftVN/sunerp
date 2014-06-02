@@ -44,6 +44,8 @@ trait KhoiLuongReportService {
   def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
   def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
+
+  def doBcThKhoiLuongQuy(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 }
 
 import net.sf.dynamicreports.report.builder.DynamicReports._
@@ -205,6 +207,48 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
       for {
         tasks <- getTasks
         fileName <- buildReport(tasks)
+      } yield fileName
+    }
+
+    promise.future
+  }
+
+  override def doBcThKhoiLuongQuy(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
+    val promise = Promise[String]()
+
+    def callWebService = Stations.findByName(req.donViName)
+      .fold(Future.successful(List.empty[TaskReportBean])) { station =>
+      WS.url(s"$qlkhUrl/rest/reportStation")
+        .withQueryString(
+          "stationId" -> station.getId.toString,
+          "quarter" -> req.quarter.toString,
+          "year" -> req.year.toString
+        ).get().map {
+        response =>
+          if (response.status == 200) {
+            response.json.as[List[TaskReportBean]]
+          } else Nil
+      }
+    }
+
+
+    def buildReport(tasks: List[TaskDto], taskExternal: List[TaskReportBean]) = Future {
+      val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
+      //build layout
+      val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
+      val donViDto = buildDonViData(req.month, req.year, req.getDonVi, tasks, taskExternal)
+      //build data
+      val ds = new JRBeanCollectionDataSource(donViDto.javaKLRows())
+      report.setDataSource(ds)
+
+      exportReport(fileType, fileName, report)
+    }
+
+    promise.completeWith {
+      for {
+        tasks <- getTasks
+        taskExternal <- callWebService
+        fileName <- buildReport(tasks, taskExternal)
       } yield fileName
     }
 
