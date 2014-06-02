@@ -2,6 +2,7 @@ package dtos.report.row
 
 import scala.beans.BeanProperty
 import java.util
+import java.lang.Double
 import dtos.report.TaskDto
 import dtos.report.qlkh.TaskReportBean
 
@@ -27,26 +28,24 @@ class DonViKhoiLuongRow {
   var taskUnit: String = _
 
   @BeanProperty
-  var taskDinhMuc: Double = _
+  var taskDinhMuc: Double = null
 
   @BeanProperty
-  var taskSoLan: Double = _
+  var taskSoLan: Double = null
 
   @BeanProperty
-  var quyKl: Double = _
+  var quyKl: Double = null
 
   @BeanProperty
-  var quyGio: Double = _
+  var quyGio: Double = null
 
-  @BeanProperty
-  lazy val conLaiKL: Double = if (quyKl > xnKL) {
+  def getConLaiKL: Double = if (quyKl != null && quyKl != null && quyKl > quyKl) {
     quyKl - xnKL
-  } else 0d
+  } else null
 
-  @BeanProperty
-  lazy val conLaiGio: Double = if (quyGio > xnGio) {
+  def getConLaiGio: Double = if (quyGio != null && xnGio != null && quyGio > xnGio) {
     quyGio - xnGio
-  } else 0d
+  } else null
 
   @BeanProperty
   var xnKL: Double = _
@@ -75,13 +74,20 @@ object DonViKhoiLuongRow {
     row.taskName = task.name
     row.taskCode = task.code
     row.taskUnit = task.donVi
-    row.taskDinhMuc = task.dinhMuc
-    row.taskSoLan = task.soLan.getOrElse(0d)
-    row.xnKL = sumKL(task.id)
-    row.xnGio = sumGio(task.id)
-
+    if (task.dinhMuc > 0) {
+      row.taskDinhMuc = task.dinhMuc
+    }
+    task.soLan.map(soLan => if (soLan > 0) row.taskSoLan = soLan)
+    val xnKL = sumKL(task.id)
+    val xnGio = sumGio(task.id)
+    if (xnKL > 0) {
+      row.xnKL = xnKL
+    }
+    if (xnGio > 0) {
+      row.xnGio = xnGio
+    }
     taskExternal.find(_.id == task.id).map(data => {
-      row.quyKl = data.khoiLuong.getOrElse(0)
+      data.khoiLuong.map(quyKl => row.quyKl = quyKl)
       row.quyGio = data.gio
     })
 

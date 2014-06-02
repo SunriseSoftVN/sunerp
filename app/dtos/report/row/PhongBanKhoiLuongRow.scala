@@ -2,6 +2,7 @@ package dtos.report.row
 
 import scala.beans.BeanProperty
 import java.util
+import java.lang.Double
 import dtos.report.TaskDto
 import dtos.report.qlkh.TaskReportBean
 
@@ -26,22 +27,22 @@ class PhongBanKhoiLuongRow {
   var taskUnit: String = _
 
   @BeanProperty
-  var taskDinhMuc: Double = _
+  var taskDinhMuc: Double = null
 
   @BeanProperty
-  var taskSoLan: Double = _
+  var taskSoLan: Double = null
 
   @BeanProperty
-  var totalKhoiLuong: Double = _
+  var totalKhoiLuong: Double = null
 
   @BeanProperty
-  var totalGio: Double = _
+  var totalGio: Double = null
 
   @BeanProperty
-  var quyKl: Double = _
+  var quyKl: Double = null
 
   @BeanProperty
-  var quyGio: Double = _
+  var quyGio: Double = null
 
   @BeanProperty
   var khoiLuongCongViec = new util.HashMap[String, Double]()
@@ -62,13 +63,17 @@ object PhongBanKhoiLuongRow {
     row.setTaskName(task.name)
     row.setTaskUnit(task.donVi)
     row.setTaskCode(task.code)
-    row.setTaskDinhMuc(task.dinhMuc)
-    row.setTaskSoLan(task.soLan.getOrElse(0d))
+
+    if (task.dinhMuc > 0) {
+      row.setTaskDinhMuc(task.dinhMuc)
+    }
+    task.soLan.map(soLan => if (soLan > 0) row.setTaskSoLan(soLan))
+
     row.setTotalKhoiLuong(sumKL(task.id))
     row.setTotalGio(sumGio(task.id))
 
     taskExternal.find(_.id == task.id).map(data => {
-      row.quyKl = data.khoiLuong.getOrElse(0)
+      data.khoiLuong.map(quyKl => row.quyKl = quyKl)
       row.quyGio = data.gio
     })
 

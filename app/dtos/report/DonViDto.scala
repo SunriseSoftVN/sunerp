@@ -26,6 +26,6 @@ case class DonViDto(
    */
   lazy val khoiLuongRows: List[DonViKhoiLuongRow] = tasks
     .map(DonViKhoiLuongRow(_, phongBanIds, sumKL, sumKLByChildId, sumGio, sumGioByChildId, taskExternal))
-    .filter(kl => kl.xnKL > 0 || kl.quyGio > 0 || !kl.task.children.isEmpty)
+    .filter(kl => (kl.xnKL != null && kl.xnKL > 0) || (kl.quyGio != null && kl.quyGio > 0) || !kl.task.children.isEmpty)
 
 }
