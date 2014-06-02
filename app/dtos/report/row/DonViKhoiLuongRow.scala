@@ -59,6 +59,8 @@ class DonViKhoiLuongRow {
 
   @BeanProperty
   var gioCongViec = new util.HashMap[String, Double]()
+
+  var task: TaskDto = _
 }
 
 object DonViKhoiLuongRow {
@@ -68,6 +70,7 @@ object DonViKhoiLuongRow {
             sumGio: Long => Double, sumGioByPhongBang: (Long, Long) => Double,
             taskExternal: List[TaskReportBean]) = {
     val row = new DonViKhoiLuongRow
+    row.task = task
     row.taskId = task.id
     row.taskName = task.name
     row.taskCode = task.code

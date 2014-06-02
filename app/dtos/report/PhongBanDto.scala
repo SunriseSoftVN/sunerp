@@ -30,7 +30,7 @@ case class PhongBanDto(
    */
   lazy val khoiLuongRows = tasks
     .map(PhongBanKhoiLuongRow(_, sumKL, sumGio, sumKLByDay, taskExternal))
-    .filter(kl => kl.totalKhoiLuong > 0 || kl.quyGio > 0)
+    .filter(kl => kl.totalKhoiLuong > 0 || kl.quyGio > 0 || !kl.task.children.isEmpty)
 
   def tyLeHoanThanhCongViec = khoiLuongRows.headOption.fold(0d)(kl => kl.totalGio / kl.quyGio * 100)
 

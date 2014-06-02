@@ -45,6 +45,8 @@ class PhongBanKhoiLuongRow {
 
   @BeanProperty
   var khoiLuongCongViec = new util.HashMap[String, Double]()
+
+  var task: TaskDto = _
 }
 
 object PhongBanKhoiLuongRow {
@@ -55,6 +57,7 @@ object PhongBanKhoiLuongRow {
             sumByDay: (Long, Int) => Double,
             taskExternal: List[TaskReportBean]) = {
     val row = new PhongBanKhoiLuongRow
+    row.task = task
     row.setTaskId(task.id)
     row.setTaskName(task.name)
     row.setTaskUnit(task.donVi)
