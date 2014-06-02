@@ -31,9 +31,18 @@ abstract class KhoiLuongContainer[R] {
    * do sum "khoiluong" of the task.
    * @param taskId
    */
-  def sumKL(taskId: Long) = khoiLuongs
-    .filter(kl => kl.task.isDefined && kl.task.get.id == taskId)
-    .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
+  def sumKL(taskId: Long): Double = {
+    def _sum(taskId: Long) = khoiLuongs
+      .filter(kl => kl.task.isDefined && kl.task.get.id == taskId)
+      .foldLeft(0d)((kl, dto) => dto.khoiLuong + kl)
+
+    val task = tasks.find(_.id == taskId).getOrElse(throw new Exception("Something go wrong!"))
+    if (task.children.isEmpty) {
+      _sum(taskId)
+    } else {
+      task.children.foldLeft(0d)((kl, child) => kl + sumKL(child.id))
+    }
+  }
 
   def sumKLByDay(taskId: Long, dayOfMonth: Int) = khoiLuongs
     .filter(khoiLuong => khoiLuong.task.isDefined && khoiLuong.task.get.id == taskId && khoiLuong.ngayPhanCong.getDayOfMonth == dayOfMonth)
