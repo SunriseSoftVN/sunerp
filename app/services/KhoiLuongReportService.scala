@@ -35,17 +35,17 @@ trait KhoiLuongReportService {
    * @param session
    * @return report file name
    */
-  def doThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
+  def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
   def inSoPhanCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
 
   def inBangChamCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
-  def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
+  def doThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
   def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
-  def doBcThKhoiLuongQuy(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
+  def doThKhoiLuongQuy(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 }
 
 import net.sf.dynamicreports.report.builder.DynamicReports._
@@ -61,7 +61,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     def buildReport(tasks: List[TaskDto]) = Future {
       val fileName = s"sophancong-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
       val report = KhoiLuongReportColumnBuilder.buildBangChamCong(req)
-      val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan, tasks, Nil)
+      val phongBanDto = buildPhongBanData(req.month, req._quarter, req.year, req.getPhongBan, tasks, Nil)
       //build data
       val ds = new JRBeanCollectionDataSource(phongBanDto.bangChamCongs)
       report.setDataSource(ds)
@@ -83,7 +83,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val report = KhoiLuongReportColumnBuilder.buildSoPhanCong(req)
 
     val query = for {
-      soPhanCong <- SoPhanCongs.khoiLuongQuery(req.month, req.year, req.phongBanId)
+      soPhanCong <- SoPhanCongs.khoiLuongMonthQuery(req.month, req.year, req.phongBanId)
       nhanVien <- soPhanCong.nhanVien
     } yield (soPhanCong, nhanVien)
 
@@ -125,7 +125,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     def buildReport(tasks: List[TaskDto], taskExternal: List[TaskReportBean]) = Future {
       val fileName = s"bcthkhoiluong-${req.donViNameStrip}-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
       //build data
-      val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan, tasks, taskExternal)
+      val phongBanDto = buildPhongBanData(req.month, req._quarter, req.year, req.getPhongBan, tasks, taskExternal)
       //build layout
       val report = KhoiLuongReportColumnBuilder.buildBcThKhoiLuong(req, phongBanDto.tyLeHoanThanhCongViec)
       val ds = new JRBeanCollectionDataSource(phongBanDto.javaKLRows())
@@ -146,7 +146,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   }
 
 
-  override def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
+  override def doThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
     val promise = Promise[String]()
 
     def callWebService = Stations.findByName(req.donViName)
@@ -169,7 +169,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
       val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
       //build layout
       val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
-      val donViDto = buildDonViData(req.month, req.year, req.getDonVi, tasks, taskExternal)
+      val donViDto = buildDonViData(req.month, req._quarter, req.year, req.getDonVi, tasks, taskExternal)
       //build data
       val ds = new JRBeanCollectionDataSource(donViDto.javaKLRows())
       report.setDataSource(ds)
@@ -188,7 +188,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     promise.future
   }
 
-  override def doThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
+  override def doThCongViecHangNgay(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
     val promise = Promise[String]()
 
     val fileName = s"khoiluong-${req.donViNameStrip}-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
@@ -196,7 +196,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val report = KhoiLuongReportColumnBuilder.buildPhongBanLayout(req)
 
     def buildReport(tasks: List[TaskDto]) = Future {
-      val phongBanDto = buildPhongBanData(req.month, req.year, req.getPhongBan, tasks, Nil)
+      val phongBanDto = buildPhongBanData(req.month, req._quarter, req.year, req.getPhongBan, tasks, Nil)
       //build data
       val ds = new JRBeanCollectionDataSource(phongBanDto.javaKLRows())
       report.setDataSource(ds)
@@ -213,30 +213,14 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     promise.future
   }
 
-  override def doBcThKhoiLuongQuy(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
+  override def doThKhoiLuongQuy(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
     val promise = Promise[String]()
 
-    def callWebService = Stations.findByName(req.donViName)
-      .fold(Future.successful(List.empty[TaskReportBean])) { station =>
-      WS.url(s"$qlkhUrl/rest/reportStation")
-        .withQueryString(
-          "stationId" -> station.getId.toString,
-          "quarter" -> req.quarter.toString,
-          "year" -> req.year.toString
-        ).get().map {
-        response =>
-          if (response.status == 200) {
-            response.json.as[List[TaskReportBean]]
-          } else Nil
-      }
-    }
-
-
-    def buildReport(tasks: List[TaskDto], taskExternal: List[TaskReportBean]) = Future {
-      val fileName = s"khoiluong-${req.donViNameStrip}-thang${req.month}-nam${req.year}"
+    def buildReport(tasks: List[TaskDto]) = Future {
+      val fileName = s"khoiluong-${req.donViNameStrip}-quy${req.quarter}-nam${req.year}"
       //build layout
-      val report = KhoiLuongReportColumnBuilder.buildDonViLayout(req)
-      val donViDto = buildDonViData(req.month, req.year, req.getDonVi, tasks, taskExternal)
+      val report = KhoiLuongReportColumnBuilder.buildThKhoiLuongQuyLayout(req)
+      val donViDto = buildDonViData(req.month, req._quarter, req.year, req.getDonVi, tasks, Nil)
       //build data
       val ds = new JRBeanCollectionDataSource(donViDto.javaKLRows())
       report.setDataSource(ds)
@@ -247,8 +231,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     promise.completeWith {
       for {
         tasks <- getTasks
-        taskExternal <- callWebService
-        fileName <- buildReport(tasks, taskExternal)
+        fileName <- buildReport(tasks)
       } yield fileName
     }
 
@@ -271,10 +254,10 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     }
   }
 
-  private def buildDonViData(month: Int, year: Int, donVi: DonVi, tasks: List[TaskDto], taskExternal: List[TaskReportBean])(implicit session: Session) = {
+  private def buildDonViData(month: Int, quarter: Option[Int], year: Int, donVi: DonVi, tasks: List[TaskDto], taskExternal: List[TaskReportBean])(implicit session: Session) = {
     val phongBans = for {
       phongBan <- PhongBans.findByDonViId(donVi.getId)
-    } yield buildPhongBanData(month, year, phongBan, tasks, Nil)
+    } yield buildPhongBanData(month, quarter, year, phongBan, tasks, Nil)
     DonViDto(
       id = donVi.getId,
       name = donVi.name,
@@ -284,9 +267,14 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     )
   }
 
-  private def buildPhongBanData(month: Int, year: Int, phongBan: PhongBan, tasks: List[TaskDto], taskExternal: List[TaskReportBean])(implicit session: Session) = {
+  private def buildPhongBanData(month: Int, quarter: Option[Int], year: Int, phongBan: PhongBan, tasks: List[TaskDto], taskExternal: List[TaskReportBean])(implicit session: Session) = {
+
+    val soPhanCongQuery = quarter
+      .map(SoPhanCongs.khoiLuongQuarterQuery(_, year, phongBan.getId))
+      .getOrElse(SoPhanCongs.khoiLuongMonthQuery(month, year, phongBan.getId))
+
     val query = for {
-      soPhanCong <- SoPhanCongs.khoiLuongQuery(month, year, phongBan.getId)
+      soPhanCong <- soPhanCongQuery
       nhanVien <- soPhanCong.nhanVien
       soPhanCongEx <- soPhanCong.soPhanCongExt
     } yield (soPhanCong, soPhanCongEx, nhanVien)

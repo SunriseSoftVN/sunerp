@@ -26,7 +26,7 @@ class SoPhanCongServiceImpl(implicit val bindingModule: BindingModule) extends S
     val firstDayOfMonth = date.dayOfMonth().withMinimumValue()
     val lastDayOfMonth = date.dayOfMonth().withMaximumValue()
     val nhanViens = NhanViens.findByPhongBanId(phongBanId)
-    val query = for (soPhanCong <- SoPhanCongs.khoiLuongQueryRange(month, date.getYear)
+    val query = for (soPhanCong <- SoPhanCongs.khoiLuongMonthQueryRange(month, date.getYear)
                      if soPhanCong.phongBanId === phongBanId) yield soPhanCong
     val soPhanCongs = query.list()
 

@@ -15,8 +15,6 @@ import exception.ForeignKeyNotFound
 import models.qlkh.Task
 import com.github.nscala_time.time.TypeImports.LocalDate
 import com.github.nscala_time.time.StaticForwarderImports.LocalDate
-import play.api.Logger
-import org.joda.time.IllegalFieldValueException
 import utils.DateTimeUtils
 
 
@@ -112,12 +110,30 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
     )
   )
 
-  def khoiLuongQuery(month: Int, year: Int, phongBanId: Long) = for (
-    soPhanCong <- khoiLuongQueryRange(month, year)
+  def khoiLuongMonthQuery(month: Int, year: Int, phongBanId: Long) = for (
+    soPhanCong <- khoiLuongMonthQueryRange(month, year)
     if soPhanCong.phongBanId === phongBanId
   ) yield soPhanCong
 
-  def khoiLuongQueryRange(month: Int, year: Int) = {
+  def khoiLuongQuarterQuery(quarter: Int, year: Int, phongBanId: Long) = for (
+    soPhanCong <- khoiLuongQuarterQueryRange(quarter, year)
+    if soPhanCong.phongBanId === phongBanId
+  ) yield soPhanCong
+
+  def khoiLuongQuarterQueryRange(quarter: Int, year: Int) = {
+    assert(quarter > 0 && quarter < 5)
+    val firstMonthOfQuarter = new LocalDate().withYear(year).withMonth(DateTimeUtils.quarters(quarter).head)
+    val lastMonthOfQuarter = new LocalDate().withYear(year).withMonth(DateTimeUtils.quarters(quarter).last)
+    
+    val firstDayOfQuarter = firstMonthOfQuarter.dayOfMonth().withMinimumValue()
+    val lastDayOfQuarter = lastMonthOfQuarter.dayOfMonth().withMaximumValue()
+    for (
+      soPhanCong <- SoPhanCongs
+      if soPhanCong.ngayPhanCong >= firstDayOfQuarter && soPhanCong.ngayPhanCong <= lastDayOfQuarter
+    ) yield soPhanCong
+  }
+
+  def khoiLuongMonthQueryRange(month: Int, year: Int) = {
     val date = new LocalDate().withYear(year).withMonth(month)
     val firstDayOfMonth = date.dayOfMonth().withMinimumValue()
     val lastDayOfMonth = date.dayOfMonth().withMaximumValue()

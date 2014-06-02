@@ -7,6 +7,8 @@ import models.sunerp.PhongBan;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.grid.ColumnTitleGroupBuilder;
+import net.sf.dynamicreports.report.builder.grid.HorizontalColumnGridListBuilder;
+import net.sf.dynamicreports.report.builder.grid.VerticalColumnGridListBuilder;
 import net.sf.dynamicreports.report.constant.*;
 import net.sf.dynamicreports.report.exception.DRException;
 import org.joda.time.LocalDate;
@@ -15,7 +17,9 @@ import utils.DateTimeUtils;
 
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
 import static services.ReportStyle.*;
@@ -301,6 +305,74 @@ public final class KhoiLuongReportColumnBuilder {
                 maCv, taskName, taskUnit, dinhMuc, soLan,
                 khQuy, conLai, tb
         );
+
+        return builder;
+    }
+
+    public static JasperReportBuilder buildThKhoiLuongQuyLayout(KhoiLuongReportRequest request) {
+        int quarter = DateTimeUtils.getQuarter(request.month());
+        HorizontalColumnGridListBuilder tb = grid.horizontalColumnGridList();
+
+        JasperReportBuilder builder = report()
+                .title(
+                        cmp.verticalList(
+                                cmp.horizontalList(
+                                        cmp.verticalList(
+                                                cmp.text("CÔNG TY THÔNG TIN TÍN HIỆU ĐƯỜNG SẮT VINH").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
+                                                cmp.text("XN: " + request.donViName()).setStyle(SUB_TITLE_STYLE)
+                                        ).setFixedWidth(300),
+                                        cmp.verticalList(
+                                                cmp.text("CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM").setStyle(stl.style(SUB_TITLE_STYLE).setBottomPadding(0)),
+                                                cmp.text("Độc lập - Tự do - Hạnh phúc").setStyle(stl.style(SUB_TITLE_STYLE).setUnderline(true))
+                                        ).setFixedWidth(570)
+                                ),
+                                cmp.verticalList(
+                                        cmp.text("KẾ HOẠCH SCTX KCHT TTTH ĐS QUÝ " + quarter + " NĂM " + request.year())
+                                                .setStyle(stl.style(TITLE_STYLE).setBottomPadding(10))
+                                )
+                        )
+                )
+                .summary(
+                        cmp.text("GIÁM ĐỐC XN").setStyle(stl.style(RIGHT_TITLE_STYLE).setRightPadding(50))
+                )
+                .setColumnTitleStyle(COLUMN_TITLE_STYLE)
+                .setColumnStyle(COLUMN_STYLE)
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
+                .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE);
+
+        builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, xnKL, xnGio);
+        tb.add(maCv, taskName, taskUnit, dinhMuc, soLan);
+
+        ColumnTitleGroupBuilder xn = grid.titleGroup();
+        xn.setTitle("Toàn XN");
+        xn.add(xnKL);
+        xn.add(xnGio);
+        tb.add(xn);
+
+        for (PhongBan phongBan : request.getPhongBans()) {
+            ColumnTitleGroupBuilder phongBanGroup = grid.titleGroup();
+            phongBanGroup.setTitle(phongBan.getShortName());
+            phongBanGroup.setTitleStretchWithOverflow(false);
+
+            TextColumnBuilder<Double> klCol = col
+                    .column("KL", "khoiLuongCongViec." + phongBan.getId(), type.doubleType())
+                    .setStyle(COLUMN_NUMBER_STYLE)
+                    .setWidth(50);
+
+            TextColumnBuilder<Double> gioCol = col
+                    .column("Giờ", "gioCongViec." + phongBan.getId(), type.doubleType())
+                    .setStyle(COLUMN_NUMBER_STYLE)
+                    .setWidth(50);
+
+            phongBanGroup.add(klCol);
+            phongBanGroup.add(gioCol);
+
+            builder.addColumn(klCol);
+            builder.addColumn(gioCol);
+            tb.add(phongBanGroup);
+        }
+
+        builder.columnGrid(tb);
 
         return builder;
     }

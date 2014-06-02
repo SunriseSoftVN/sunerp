@@ -16,13 +16,14 @@ import scala.collection.JavaConverters._
  */
 case class KhoiLuongReportRequest(
                                    month: Int,
+                                   _quarter: Option[Int] = None,
                                    year: Int,
                                    donVi: Option[DonVi] = None,
                                    phongBan: Option[PhongBan] = None,
                                    phongBans: List[PhongBan] = Nil
                                    ) {
 
-  lazy val quarter = DateTimeUtils.getQuarter(month)
+  lazy val quarter = _quarter.getOrElse(DateTimeUtils.getQuarter(month))
 
   def getPhongBans = phongBans.asJava
 
@@ -54,6 +55,10 @@ object KhoiLuongReportRequest {
       LocalDate.now.getMonthOfYear
     }
 
+    val quarter = request.getQueryString("quarter").collect {
+      case String2Int(_quarter) => _quarter
+    }
+
     val year = request.getQueryString("year").collect {
       case String2Int(_year) => _year
     }.getOrElse {
@@ -73,6 +78,7 @@ object KhoiLuongReportRequest {
 
     new KhoiLuongReportRequest(
       month = month,
+      _quarter = quarter,
       year = year,
       donVi = donVi,
       phongBan = phongBan,

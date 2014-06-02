@@ -33,7 +33,22 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
     val promise = Promise[SimpleResult]()
     val req = KhoiLuongReportRequest(request)
     if (req.donVi.isDefined && req.phongBan.isEmpty) {
-      val f = khoiLuongReportService.doThCongViecHangNgay(fileType, req)
+      val f = khoiLuongReportService.doThKhoiLuong(fileType, req)
+      f.onComplete {
+        case Success(fileName) => promise.success(Ok(fileName))
+        case Failure(t) => promise.failure(t)
+      }
+    } else {
+      promise.success(BadRequest)
+    }
+    promise.future
+  })
+
+  def doThKhoiLuongQuyReport(fileType: String) = AsyncStack(AuthorityKey -> thThucHienKhoiLuong)(implicit request => {
+    val promise = Promise[SimpleResult]()
+    val req = KhoiLuongReportRequest(request)
+    if (req.donVi.isDefined && req.phongBan.isEmpty) {
+      val f = khoiLuongReportService.doThKhoiLuongQuy(fileType, req)
       f.onComplete {
         case Success(fileName) => promise.success(Ok(fileName))
         case Failure(t) => promise.failure(t)
@@ -53,7 +68,7 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
     val promise = Promise[SimpleResult]()
     val req = KhoiLuongReportRequest(request)
     if (req.donVi.isDefined && req.phongBan.isDefined) {
-      val f = khoiLuongReportService.doThKhoiLuong(fileType, req)
+      val f = khoiLuongReportService.doThCongViecHangNgay(fileType, req)
       f.onComplete {
         case Success(fileName) => promise.success(Ok(fileName))
         case Failure(t) => promise.failure(t)
