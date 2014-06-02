@@ -44,7 +44,7 @@ Ext.onReady(function() {
             "Tháng 9": 8,
             "Tháng 10": 9,
             "Tháng 11": 10,
-            "Tháng 12": 11,
+            "Tháng 12": 11
         };
         
         Ext.Date.getShortMonthName = function(month){
