@@ -17,6 +17,7 @@ case class TaskDto(
                     donVi: String,
                     soLan: Option[Double] = None,
                     dinhMuc: Double,
+                    hidden: Boolean,
                     children: List[TaskDto] = Nil
                     )
 

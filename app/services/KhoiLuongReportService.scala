@@ -284,9 +284,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val khoiLuongs = for (tuple <- result) yield {
       val (soPhanCong, soPhanCongEx, nhanVien) = tuple
       //make sure every task in so phan cong always exits.
-      val task = tasks.find {
-        task => soPhanCong.taskId.isDefined && task.id == soPhanCong.taskId.get
-      }
+      val task = tasks.find {task => soPhanCong.taskId.isDefined && task.id == soPhanCong.taskId.get}
       KhoiLuongDto(
         task = task,
         nhanVien = dtos.report.NhanVienDto(nhanVien),
