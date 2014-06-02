@@ -69,6 +69,7 @@ object XepLoais extends AbstractQuery[XepLoai, XepLoais](new XepLoais(_)) {
         filter.property match {
           case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
           case "month" => xepLoai.month === filter.asInt
+          case "phongBanId" => nhanVien.phongBanId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
