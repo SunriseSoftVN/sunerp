@@ -23,6 +23,11 @@ Ext.define('sunerp.view.phongban.PhongBanList', {
                 flex: 1
             },
             {
+                header: 'Báo cáo',
+                dataIndex: 'showOnReport',
+                flex: 1
+            },
+            {
                 xtype: 'actioncolumn',
                 header: 'Option',
                 sortable: false,

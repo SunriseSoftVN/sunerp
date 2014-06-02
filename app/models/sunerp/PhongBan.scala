@@ -18,7 +18,8 @@ case class PhongBan(
                      id: Option[Long] = None,
                      donViId: Long,
                      name: String,
-                     shortName: Option[String] = None
+                     shortName: Option[String] = None,
+                     showOnReport: Boolean = true
                      ) extends WithId[Long] {
 
   def getShortName = shortName.getOrElse(name)
@@ -35,7 +36,9 @@ class PhongBans(tag: Tag) extends AbstractTable[PhongBan](tag, "phongBan") {
 
   def shortName = column[String]("shortName")
 
-  def * = (id.?, donViId, name, shortName.?) <>(PhongBan.tupled, PhongBan.unapply)
+  def showOnReport = column[Boolean]("showOnReport", O.Default(true))
+
+  def * = (id.?, donViId, name, shortName.?, showOnReport) <>(PhongBan.tupled, PhongBan.unapply)
 }
 
 object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
@@ -45,7 +48,8 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
       "id" -> optional(longNumber),
       "donViId" -> longNumber,
       "name" -> text(minLength = 4),
-      "shortName" -> optional(nonEmptyText)
+      "shortName" -> optional(nonEmptyText),
+      "showOnReport" -> default(boolean, true)
     )(PhongBan.apply)(PhongBan.unapply)
   )
 
@@ -70,6 +74,7 @@ object PhongBans extends AbstractQuery[PhongBan, PhongBans](new PhongBans(_)) {
         val (donVi, phongBan) = table
         sort.property match {
           case "name" => orderColumn(sort.direction, phongBan.name)
+          case "showOnReport" => orderColumn(sort.direction, phongBan.showOnReport)
           case "shortName" => orderColumn(sort.direction, phongBan.shortName)
           case "donVi.name" => orderColumn(sort.direction, donVi.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)

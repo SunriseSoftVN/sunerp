@@ -15,7 +15,8 @@ case class PhongBanDto(
                          name: String,
                          shortName: Option[String],
                          donViId: Long,
-                         donVi: DonVi
+                         donVi: DonVi,
+                         showOnReport: Boolean
                          )
 
 
@@ -28,6 +29,7 @@ object PhongBanDto {
       name = phongBan.name,
       shortName = phongBan.shortName,
       donViId = phongBan.donViId,
+      showOnReport = phongBan.showOnReport,
       donVi = donVi
     )
   }
@@ -38,6 +40,7 @@ object PhongBanDto {
       "name" -> o.name,
       "shortName" -> o.shortName,
       "donViId" -> o.donViId,
+      "showOnReport" -> o.showOnReport,
       "donVi" -> DonVis.donViJsonFormat.writes(o.donVi)
     )
   }

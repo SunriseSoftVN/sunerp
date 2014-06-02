@@ -25,6 +25,13 @@ Ext.define('sunerp.view.phongban.PhongBanEdit', {
                         fieldLabel: 'Tên viết tắt'
                     },
                     {
+                        xtype: 'checkbox',
+                        name: 'showOnReport',
+                        inputValue: true,
+                        uncheckedValue: false,
+                        fieldLabel: 'Báo cáo'
+                    },
+                    {
                         xtype: 'comboboxx',
                         fieldLabel: 'Đơn vị',
                         name: 'donViId',
