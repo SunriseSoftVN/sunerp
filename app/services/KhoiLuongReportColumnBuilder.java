@@ -100,7 +100,7 @@ public final class KhoiLuongReportColumnBuilder {
             TextColumnBuilder<String> _col = col
                     .column(i.toString(), "gioCongViec." + i, type.stringType())
                     .setStyle(COLUMN_NUMBER_CENTER_STYLE)
-                    .setFixedWidth(40);
+                    .setFixedWidth(25);
             builder.addColumn(_col);
             builder.addSubtotalAtSummary(sbt.text("", _col));
             tg1.add(_col);
@@ -310,7 +310,7 @@ public final class KhoiLuongReportColumnBuilder {
     }
 
     public static JasperReportBuilder buildThKhoiLuongQuyLayout(KhoiLuongReportRequest request) {
-        int quarter = DateTimeUtils.getQuarter(request.month());
+        int quarter = request.quarter();
         HorizontalColumnGridListBuilder tb = grid.horizontalColumnGridList();
 
         JasperReportBuilder builder = report()
@@ -385,7 +385,7 @@ public final class KhoiLuongReportColumnBuilder {
                                 cmp.verticalList().add(
                                         cmp.text("Xí nghiệp: " + request.donViName()).setStyle(stl.style(LEFT_SUB_TITLE_STYLE).setBottomPadding(0)),
                                         cmp.text("Cung (Trạm): " + request.phongBanName()).setStyle(LEFT_SUB_TITLE_STYLE)
-                                ).setFixedWidth(250),
+                                ).setFixedWidth(200),
                                 cmp.verticalList().add(
                                         cmp.text("BIỂU TỔNG HỢP CÔNG VIỆC HÀNG NGÀY").setStyle(TITLE_STYLE),
                                         cmp.text("Tháng: " + request.month() + "  Quý: " + quarter + "  Năm: " + request.year()).setStyle(SUB_TITLE_STYLE)
