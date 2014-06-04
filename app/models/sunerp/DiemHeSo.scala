@@ -63,6 +63,7 @@ object DiemHeSos extends AbstractQuery[DiemHeSo, DiemHeSos](new DiemHeSos(_)) {
           case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
           case "year" => diemHeSo.year === filter.asInt
           case "donViId" => phongBan.donViId === filter.asLong
+          case "phongBanId" => phongBan.id === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -73,6 +74,7 @@ object DiemHeSos extends AbstractQuery[DiemHeSo, DiemHeSos](new DiemHeSos(_)) {
         val (diemHeSo, nhanVien, phongBan) = tuple
         sort.property match {
           case "nhanVien.fullName" => orderColumn(sort.direction, nhanVien.firstName)
+          case "phongBan.name" => orderColumn(sort.direction, phongBan.name)
           case "year" => orderColumn(sort.direction, diemHeSo.year)
           case "heSo" => orderColumn(sort.direction, diemHeSo.heSo)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)

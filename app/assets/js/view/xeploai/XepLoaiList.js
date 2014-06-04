@@ -8,9 +8,10 @@ Ext.define('sunerp.view.xeploai.XepLoaiList', {
         'sunerp.component.MonthCb'
     ],
     controller: 'sunerp.controller.xeploai.XepLoaiListCtr',
-    inject: ['xepLoaiStore'],
+    inject: ['xepLoaiStore', 'userService'],
     config: {
-        xepLoaiStore: null
+        xepLoaiStore: null,
+        userService: null
     },
     searchField: 'nhanVien.firstName',
     initComponent: function () {
@@ -45,6 +46,18 @@ Ext.define('sunerp.view.xeploai.XepLoaiList', {
             fieldName: 'month',
             store: me.store
         });
+
+        var gioiHan = me.getUserService().checkGioiHan('xeploai');
+        var phongBanId = me.getUserService().getCurrentUser().phongBanId;
+        var donViId = me.getUserService().getCurrentUser().donViId;
+        if (gioiHan == "phongban") {
+            var phongBangFilter = new Ext.util.Filter({
+                property: 'phongBanId',
+                value: sunerp.Utils.toString(phongBanId)
+            });
+            me.store.addFilter(phongBangFilter, false);
+        }
+
         me.tbar.insert(1, [momthCbFilter])
     }
 });

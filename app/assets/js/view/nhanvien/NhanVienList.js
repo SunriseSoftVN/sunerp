@@ -8,9 +8,10 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
         'sunerp.component.PhongBanCb'
     ],
     controller: 'sunerp.controller.nhanvien.NhanVienListCtr',
-    inject: ['nhanVienStore'],
+    inject: ['nhanVienStore', 'userService'],
     config: {
-        nhanVienStore: null
+        nhanVienStore: null,
+        userService: null
     },
     searchField: 'nameOrMaNv',
     initComponent: function () {
@@ -61,6 +62,16 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
             fieldName: 'chucVuId',
             store: me.store
         });
+
+        var gioHan = me.getUserService().checkGioiHan("nhanvien");
+        var donViId = me.getUserService().getCurrentUser().donViId;
+        if (gioHan == "donvi") {
+            me.store.addFilter({
+                property: 'donViId',
+                value: sunerp.Utils.toString(donViId)
+            }, false);
+        }
+
         me.tbar.insert(1, [phongBanCbFilter, chuVuCbFilter]);
     }
 });

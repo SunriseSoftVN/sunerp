@@ -8,9 +8,10 @@ Ext.define('sunerp.view.diemheso.DiemHeSoList', {
         'sunerp.component.YearCb'
     ],
     controller: 'sunerp.controller.diemheso.DiemHeSoListCtr',
-    inject: ['diemHeSoStore'],
+    inject: ['diemHeSoStore', 'userService'],
     config: {
-        diemHeSoStore: null
+        diemHeSoStore: null,
+        userService: null
     },
     searchField: 'nhanVien.firstName',
     initComponent: function () {
@@ -23,6 +24,7 @@ Ext.define('sunerp.view.diemheso.DiemHeSoList', {
                 dataIndex: 'nhanVien.fullName',
                 flex: 1
             },
+            {header: 'Đơn vị', dataIndex: 'phongBan.name', flex: 1},
             {header: 'Hệ số', dataIndex: 'heSo', flex: 1},
             {
                 xtype: 'actioncolumn',
@@ -45,6 +47,23 @@ Ext.define('sunerp.view.diemheso.DiemHeSoList', {
             fieldName: 'year',
             store: me.store
         });
-        me.tbar.insert(1, [yearCbFilter])
+
+        var phongBanCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.PhongBanCb', {
+                name: 'Đơn vị',
+                width: 200
+            }),
+            fieldName: 'phongBanId',
+            store: me.store
+        });
+
+        var donViId = me.getUserService().getCurrentUser().donViId;
+        var donViFilter = new Ext.util.Filter({
+            property: 'donViId',
+            value: sunerp.Utils.toString(donViId)
+        });
+        me.store.addFilter(donViFilter, false);
+
+        me.tbar.insert(1, [phongBanCbFilter, yearCbFilter])
     }
 });

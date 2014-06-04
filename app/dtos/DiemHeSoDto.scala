@@ -1,7 +1,10 @@
 package dtos
 
-import models.sunerp.{PhongBan, NhanViens, DiemHeSo, NhanVien}
+import models.sunerp._
 import play.api.libs.json.{Json, JsValue, Writes}
+import models.sunerp.NhanVien
+import models.sunerp.DiemHeSo
+import models.sunerp.PhongBan
 
 /**
  * The Class XepLoaiDto.
@@ -15,6 +18,7 @@ case class DiemHeSoDto(
                         nhanVienId: Long,
                         year: Int,
                         heSo: Double,
+                        phongBan: PhongBan,
                         nhanVien: NhanVien
                         )
 
@@ -29,7 +33,8 @@ object DiemHeSoDto {
       nhanVienId = diemHeSo.nhanVienId,
       year = diemHeSo.year,
       heSo = diemHeSo.heSo,
-      nhanVien = nhanVien
+      nhanVien = nhanVien,
+      phongBan = phongBan
     )
   }
 
@@ -39,7 +44,8 @@ object DiemHeSoDto {
       "nhanVienId" -> o.nhanVienId,
       "year" -> o.year,
       "heSo" -> o.heSo,
-      "nhanVien" -> NhanViens.nhanVienJsonFormat.writes(o.nhanVien)
+      "nhanVien" -> NhanViens.nhanVienJsonFormat.writes(o.nhanVien),
+      "phongBan" -> PhongBans.phongBanJsonFormat.writes(o.phongBan)
     )
   }
 

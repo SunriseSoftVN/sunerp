@@ -6,9 +6,12 @@ Ext.define('sunerp.model.DiemHeSo', {
         'nhanVien',
         'year',
         'heSo',
-        {name: 'nhanVien.fullName', mapping: 'nhanVien.fullName'}
+        'phongban',
+        {name: 'nhanVien.fullName', mapping: 'nhanVien.fullName'},
+        {name: 'phongBan.name', mapping: 'phongBan.name'}
     ],
     associations: [
-        {type: 'belongsTo', model: 'sunerp.model.NhanVien', name: 'nhanVien'}
+        {type: 'belongsTo', model: 'sunerp.model.NhanVien', name: 'nhanVien'},
+        {type: 'belongsTo', model: 'sunerp.model.PhongBan', name: 'phongBan'}
     ]
 });

@@ -16,16 +16,6 @@ Ext.define('sunerp.controller.xeploai.XepLoaiListCtr', {
     editView: 'sunerp.view.xeploai.XepLoaiEdit',
     init: function () {
         this.mainStore = this.getXepLoaiStore();
-        var gioiHan = this.getUserService().checkGioiHan('xeploai');
-        var phongBanId = this.getUserService().getCurrentUser().phongBanId;
-        var donViId = this.getUserService().getCurrentUser().donViId;
-        if (gioiHan == "phongban") {
-            var phongBangFilter = new Ext.util.Filter({
-                property: 'phongBanId',
-                value: sunerp.Utils.toString(phongBanId)
-            });
-            this.mainStore.addFilter(phongBangFilter, true);
-        }
         this.callParent(arguments);
     },
     showAddPanel: function () {

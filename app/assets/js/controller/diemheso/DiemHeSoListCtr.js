@@ -16,12 +16,6 @@ Ext.define('sunerp.controller.diemheso.DiemHeSoListCtr', {
     editView: 'sunerp.view.diemheso.DiemHeSoEdit',
     init: function () {
         this.mainStore = this.getDiemHeSoStore();
-        var donViId = this.getUserService().getCurrentUser().donViId;
-        var phongBangFilter = new Ext.util.Filter({
-            property: 'donViId',
-            value: sunerp.Utils.toString(donViId)
-        });
-        this.mainStore.addFilter(phongBangFilter, true);
         this.callParent(arguments);
     },
     showAddPanel: function () {
