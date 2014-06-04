@@ -5,7 +5,7 @@ Ext.define('sunerp.view.diemheso.DiemHeSoList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.diemHeSoList',
     requires: [
-        'sunerp.component.MonthCb'
+        'sunerp.component.YearCb'
     ],
     controller: 'sunerp.controller.diemheso.DiemHeSoListCtr',
     inject: ['diemHeSoStore'],
@@ -23,7 +23,7 @@ Ext.define('sunerp.view.diemheso.DiemHeSoList', {
                 dataIndex: 'nhanVien.fullName',
                 flex: 1
             },
-            {header: 'Xếp loại', dataIndex: 'xepLoai', flex: 1},
+            {header: 'Hệ số', dataIndex: 'heSo', flex: 1},
             {
                 xtype: 'actioncolumn',
                 header: 'Option',
@@ -37,14 +37,14 @@ Ext.define('sunerp.view.diemheso.DiemHeSoList', {
     initTBar: function () {
         var me = this;
         me.callParent(arguments);
-        var momthCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
-            comp: Ext.create('sunerp.component.MonthCb', {
-                name: 'Tháng',
+        var yearCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.YearCb', {
+                name: 'Năm',
                 width: 100
             }),
-            fieldName: 'month',
+            fieldName: 'year',
             store: me.store
         });
-        me.tbar.insert(1, [momthCbFilter])
+        me.tbar.insert(1, [yearCbFilter])
     }
 });

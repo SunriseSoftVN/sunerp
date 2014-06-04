@@ -6,6 +6,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
 import dtos.{XepLoaiDto, ExtGirdDto, PagingDto}
+import utils.DateTimeUtils
 
 /**
  * The Class XepLoai.
@@ -51,7 +52,7 @@ object XepLoais extends AbstractQuery[XepLoai, XepLoais](new XepLoais(_)) {
       "id" -> optional(longNumber),
       "nhanVienId" -> longNumber,
       "month" -> number,
-      "year" -> number,
+      "year" -> default(number, DateTimeUtils.currentYear),
       "xepLoai" -> nonEmptyText
     )(XepLoai.apply)(XepLoai.unapply)
   )

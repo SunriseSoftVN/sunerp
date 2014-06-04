@@ -7,6 +7,7 @@ import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.libs.json.Json
 import dtos.{DiemHeSoDto, XepLoaiDto, ExtGirdDto, PagingDto}
+import utils.DateTimeUtils
 
 /**
  * The Class DiemHeSo.
@@ -41,20 +42,24 @@ object DiemHeSos extends AbstractQuery[DiemHeSo, DiemHeSos](new DiemHeSos(_)) {
       "id" -> optional(longNumber),
       "nhanVienId" -> longNumber,
       "heSo" -> of[Double],
-      "year" -> number
+      "year" -> default(number, DateTimeUtils.currentYear)
     )(DiemHeSo.apply)(DiemHeSo.unapply)
   )
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[DiemHeSoDto] = {
-    var query = for (diemHeSo <- this; nhanVien <- diemHeSo.nhanVien) yield (diemHeSo, nhanVien)
+    var query = for {
+      diemHeSo <- this
+      nhanVien <- diemHeSo.nhanVien
+      phongBan <- nhanVien.phongBan
+    } yield (diemHeSo, nhanVien, phongBan)
 
     pagingDto.getFilters.foreach(filter => {
       query = query.where(tuple => {
-        val (diemHeSo, nhanVien) = tuple
+        val (diemHeSo, nhanVien, phongBan) = tuple
         filter.property match {
           case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
           case "year" => diemHeSo.year === filter.asInt
-          case "phongBanId" => nhanVien.phongBanId === filter.asLong
+          case "donViId" => phongBan.donViId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -62,7 +67,7 @@ object DiemHeSos extends AbstractQuery[DiemHeSo, DiemHeSos](new DiemHeSos(_)) {
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(tuple => {
-        val (diemHeSo, nhanVien) = tuple
+        val (diemHeSo, nhanVien, phongBan) = tuple
         sort.property match {
           case "nhanVien.fullName" => orderColumn(sort.direction, nhanVien.firstName)
           case "year" => orderColumn(sort.direction, diemHeSo.year)

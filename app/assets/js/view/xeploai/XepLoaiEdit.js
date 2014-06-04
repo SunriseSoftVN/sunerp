@@ -13,7 +13,6 @@ Ext.define('sunerp.view.xeploai.XepLoaiEdit', {
     config: {
         userService: null
     },
-    year: null,
     month: null,
     initComponent: function () {
         var phongBanId = this.getUserService().getCurrentUser().phongBanId;
@@ -55,14 +54,6 @@ Ext.define('sunerp.view.xeploai.XepLoaiEdit', {
                                 {value: "C", name: "C"}
                             ]
                         })
-                    },
-                    {
-                        fieldLabel: 'Year',
-                        xtype: 'numberfield',
-                        name: 'year',
-                        value: this.year,
-                        hidden: true,
-                        allowBlank: false
                     },
                     {
                         fieldLabel: 'Month',

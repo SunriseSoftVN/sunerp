@@ -29,10 +29,8 @@ Ext.define('sunerp.controller.xeploai.XepLoaiListCtr', {
         this.callParent(arguments);
     },
     showAddPanel: function () {
-        var year = new Date().getFullYear();
         var month = this.getMonthCb().getValue();
         var view = Ext.create(this.editView, {
-            year: year,
             month: month
         });
     }

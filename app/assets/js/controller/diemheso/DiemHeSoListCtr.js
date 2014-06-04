@@ -3,37 +3,31 @@
  */
 Ext.define('sunerp.controller.diemheso.DiemHeSoListCtr', {
     extend: 'sunerp.controller.core.BaseListController',
-    inject: ['xepLoaiStore', 'userService'],
+    inject: ['diemHeSoStore', 'userService'],
     config: {
-        xepLoaiStore: null,
+        diemHeSoStore: null,
         userService: null
     },
     control: {
-        monthCb: {
-            selector: 'monthcb'
+        yearCb: {
+            selector: 'yearcb'
         }
     },
-    editView: 'sunerp.view.xeploai.XepLoaiEdit',
+    editView: 'sunerp.view.diemheso.DiemHeSoEdit',
     init: function () {
-        this.mainStore = this.getXepLoaiStore();
-        var gioiHan = this.getUserService().checkGioiHan('xeploai');
-        var phongBanId = this.getUserService().getCurrentUser().phongBanId;
+        this.mainStore = this.getDiemHeSoStore();
         var donViId = this.getUserService().getCurrentUser().donViId;
-        if (gioiHan == "phongban") {
-            var phongBangFilter = new Ext.util.Filter({
-                property: 'phongBanId',
-                value: sunerp.Utils.toString(phongBanId)
-            });
-            this.mainStore.addFilter(phongBangFilter);
-        }
+        var phongBangFilter = new Ext.util.Filter({
+            property: 'donViId',
+            value: sunerp.Utils.toString(donViId)
+        });
+        this.mainStore.addFilter(phongBangFilter);
         this.callParent(arguments);
     },
     showAddPanel: function () {
-        var year = new Date().getFullYear();
-        var month = this.getMonthCb().getValue();
+        var year = this.getYearCb().getValue();
         var view = Ext.create(this.editView, {
-            year: year,
-            month: month
+            year: year
         });
     }
 });

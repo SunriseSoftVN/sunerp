@@ -5,7 +5,7 @@ Ext.define('sunerp.view.diemheso.DiemHeSoEdit', {
     extend: 'sunerp.view.core.BaseEditView',
     alias: 'widget.DiemHeSoEdit',
     title: 'Edit Hệ Số',
-    controller: 'sunerp.controller.xeploai.XepLoaiEditCtr',
+    controller: 'sunerp.controller.diemheso.DiemHeSoEditCtr',
     inject: ['userService'],
     requires: [
         'sunerp.store.NhanVienStore'
@@ -16,7 +16,7 @@ Ext.define('sunerp.view.diemheso.DiemHeSoEdit', {
     year: null,
     month: null,
     initComponent: function () {
-        var phongBanId = this.getUserService().getCurrentUser().phongBanId;
+        var donViId = this.getUserService().getCurrentUser().donViId;
         this.items = [
             {
                 xtype: 'form',
@@ -31,8 +31,8 @@ Ext.define('sunerp.view.diemheso.DiemHeSoEdit', {
                         store: Ext.create('sunerp.store.NhanVienStore', {
                             filters: [
                                 {
-                                    property: 'phongBanId',
-                                    value: String(phongBanId)
+                                    property: 'donViId',
+                                    value: String(donViId)
                                 }
                             ]
                         }),
@@ -40,36 +40,10 @@ Ext.define('sunerp.view.diemheso.DiemHeSoEdit', {
                         displayField: 'fullName'
                     },
                     {
-                        xtype: 'comboboxx',
-                        fieldLabel: 'Xếp loại',
-                        name: 'xepLoai',
-                        queryMode: 'local',
-                        valueField: 'value',
-                        displayField: 'name',
-                        allowBlank: false,
-                        store: Ext.create('Ext.data.Store', {
-                            fields: ['value', 'name'],
-                            data: [
-                                {value: "A", name: "A"},
-                                {value: "B", name: "B"},
-                                {value: "C", name: "C"}
-                            ]
-                        })
-                    },
-                    {
-                        fieldLabel: 'Year',
                         xtype: 'numberfield',
-                        name: 'year',
-                        value: this.year,
-                        hidden: true,
-                        allowBlank: false
-                    },
-                    {
-                        fieldLabel: 'Month',
-                        xtype: 'numberfield',
-                        name: 'month',
-                        value: this.month,
-                        hidden: true,
+                        fieldLabel: 'Hệ số',
+                        name: 'heSo',
+                        minValue: 0,
                         allowBlank: false
                     }
                 ]

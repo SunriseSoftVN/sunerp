@@ -1,6 +1,6 @@
 package dtos
 
-import models.sunerp.{NhanViens, DiemHeSo, NhanVien}
+import models.sunerp.{PhongBan, NhanViens, DiemHeSo, NhanVien}
 import play.api.libs.json.{Json, JsValue, Writes}
 
 /**
@@ -21,8 +21,8 @@ case class DiemHeSoDto(
 
 object DiemHeSoDto {
 
-  def apply(tuple: (DiemHeSo, NhanVien)) = {
-    val (diemHeSo, nhanVien) = tuple
+  def apply(tuple: (DiemHeSo, NhanVien, PhongBan)) = {
+    val (diemHeSo, nhanVien, phongBan) = tuple
 
     new DiemHeSoDto(
       id = diemHeSo.id.get,

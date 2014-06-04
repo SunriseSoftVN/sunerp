@@ -20,6 +20,8 @@ object DateTimeUtils {
     4 -> List(10, 11, 12)
   )
 
+  def currentYear = LocalDate.now.getYear
+
   def getQuarter(month: Int) = {
     val quarter = (month - 1) / 3 + 1
     quarter
