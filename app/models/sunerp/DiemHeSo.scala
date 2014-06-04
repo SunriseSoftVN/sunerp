@@ -73,7 +73,8 @@ object DiemHeSos extends AbstractQuery[DiemHeSo, DiemHeSos](new DiemHeSos(_)) {
       query = query.sortBy(tuple => {
         val (diemHeSo, nhanVien, phongBan) = tuple
         sort.property match {
-          case "nhanVien.fullName" => orderColumn(sort.direction, nhanVien.firstName)
+          case "nhanVien.firstName" => orderColumn(sort.direction, nhanVien.firstName)
+          case "nhanVien.lastName" => orderColumn(sort.direction, nhanVien.lastName)
           case "phongBan.name" => orderColumn(sort.direction, phongBan.name)
           case "year" => orderColumn(sort.direction, diemHeSo.year)
           case "heSo" => orderColumn(sort.direction, diemHeSo.heSo)

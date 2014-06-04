@@ -20,8 +20,13 @@ Ext.define('sunerp.view.diemheso.DiemHeSoList', {
         me.columns = [
             {xtype: 'rownumberer', width: 30},
             {
-                header: 'Họ tên',
-                dataIndex: 'nhanVien.fullName',
+                header: 'Tên',
+                dataIndex: 'nhanVien.firstName',
+                width: 100
+            },
+            {
+                header: 'Họ',
+                dataIndex: 'nhanVien.lastName',
                 flex: 1
             },
             {header: 'Đơn vị', dataIndex: 'phongBan.name', flex: 1},
