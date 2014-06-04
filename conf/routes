@@ -18,6 +18,11 @@ POST          /xeploai                                  @controllers.XepLoaiCtr.
 PUT           /xeploai/:id                              @controllers.XepLoaiCtr.update(id: Long)
 DELETE        /xeploai/:id                              @controllers.XepLoaiCtr.delete(id: Long)
 
+GET           /diemheso                                 @controllers.DiemHeSoCtr.index
+POST          /diemheso                                 @controllers.DiemHeSoCtr.save
+PUT           /diemheso/:id                             @controllers.DiemHeSoCtr.update(id: Long)
+DELETE        /diemheso/:id                             @controllers.DiemHeSoCtr.delete(id: Long)
+
 GET           /company                                  @controllers.CompanyCtr.index
 POST          /company                                  @controllers.CompanyCtr.save
 PUT           /company/:id                              @controllers.CompanyCtr.update(id: Long)

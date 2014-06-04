@@ -119,6 +119,12 @@ class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with
         view = "sunerp.view.quyenhanh.QuyenHanhList",
         text = "Quyền hành",
         leaf = true
+      ),
+      MenuItemDto(
+        id = diemHeSo,
+        view = "sunerp.view.diemheso.DiemHeSoList",
+        text = "Điểm hệ số",
+        leaf = true
       )
     )
   )

@@ -25,6 +25,7 @@ object ApplicationConfiguration extends NewBindingModule(module => {
   bind[SoPhanCongCtr] to moduleInstanceOf[SoPhanCongCtr]
   bind[TaskCtr] to moduleInstanceOf[TaskCtr]
   bind[XepLoaiCtr] to moduleInstanceOf[XepLoaiCtr]
+  bind[DiemHeSoCtr] to moduleInstanceOf[DiemHeSoCtr]
 
   //Service
   bind[KhoiLuongReportService] to moduleInstanceOf[KhoiLuongReportServiceImpl]
