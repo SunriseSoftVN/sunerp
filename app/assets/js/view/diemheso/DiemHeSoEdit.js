@@ -14,7 +14,6 @@ Ext.define('sunerp.view.diemheso.DiemHeSoEdit', {
         userService: null
     },
     year: null,
-    month: null,
     initComponent: function () {
         var donViId = this.getUserService().getCurrentUser().donViId;
         this.items = [
@@ -44,6 +43,14 @@ Ext.define('sunerp.view.diemheso.DiemHeSoEdit', {
                         fieldLabel: 'Hệ số',
                         name: 'heSo',
                         minValue: 0,
+                        allowBlank: false
+                    },
+                    {
+                        fieldLabel: 'Year',
+                        xtype: 'numberfield',
+                        name: 'year',
+                        value: this.year,
+                        hidden: true,
                         allowBlank: false
                     }
                 ]

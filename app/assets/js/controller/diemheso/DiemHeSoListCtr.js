@@ -21,7 +21,7 @@ Ext.define('sunerp.controller.diemheso.DiemHeSoListCtr', {
             property: 'donViId',
             value: sunerp.Utils.toString(donViId)
         });
-        this.mainStore.addFilter(phongBangFilter);
+        this.mainStore.addFilter(phongBangFilter, true);
         this.callParent(arguments);
     },
     showAddPanel: function () {

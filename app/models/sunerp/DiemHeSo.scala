@@ -6,7 +6,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.libs.json.Json
-import dtos.{DiemHeSoDto, XepLoaiDto, ExtGirdDto, PagingDto}
+import dtos.{DiemHeSoDto, ExtGirdDto, PagingDto}
 import utils.DateTimeUtils
 
 /**
@@ -45,6 +45,9 @@ object DiemHeSos extends AbstractQuery[DiemHeSo, DiemHeSos](new DiemHeSos(_)) {
       "year" -> default(number, DateTimeUtils.currentYear)
     )(DiemHeSo.apply)(DiemHeSo.unapply)
   )
+
+  def findByNhanVienId(nhanVienId: Long, year: Int)(implicit session: Session) =
+    where(diemHeSO => diemHeSO.nhanVienId === nhanVienId && diemHeSO.year === year).firstOption()
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[DiemHeSoDto] = {
     var query = for {

@@ -6,7 +6,7 @@ import scala.collection.JavaConverters._
 import org.joda.time.LocalDate
 import utils.DateTimeUtils
 import play.api.db.slick._
-import models.sunerp.XepLoais
+import models.sunerp.{DiemHeSos, XepLoais}
 
 /**
  * The Class PhongBanDto.
@@ -52,6 +52,7 @@ case class PhongBanDto(
       row.tenNV = nhanVien.name
       row.hsl = nhanVien.heSoLuong.asJava
       row.xepLoai = XepLoais.findByNhanVienId(nhanVien.id, month, year).fold("")(_.xepLoai)
+      row.diemHeSo = DiemHeSos.findByNhanVienId(nhanVien.id, year).fold(Double.NaN)(_.heSo)
 
       val hop = sumHop(nhanVien.id)
       val hocNH = sumHocNH(nhanVien.id)

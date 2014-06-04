@@ -24,7 +24,7 @@ Ext.define('sunerp.controller.xeploai.XepLoaiListCtr', {
                 property: 'phongBanId',
                 value: sunerp.Utils.toString(phongBanId)
             });
-            this.mainStore.addFilter(phongBangFilter);
+            this.mainStore.addFilter(phongBangFilter, true);
         }
         this.callParent(arguments);
     },
