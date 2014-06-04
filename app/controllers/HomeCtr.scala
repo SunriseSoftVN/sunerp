@@ -26,6 +26,7 @@ object DomainKey {
   val inSoPhanCong = "insophancong"
   val bangChamCong = "bangchamcong"
   val xepLoai = "xeploai"
+  val diemHeSo = "diemheso"
   val task = "task"
 
   val list = List(
@@ -44,6 +45,7 @@ object DomainKey {
     inSoPhanCong,
     bangChamCong,
     xepLoai,
+    diemHeSo,
     task
   )
 }

@@ -2,7 +2,7 @@ package controllers
 
 import com.escalatesoft.subcut.inject.BindingModule
 import controllers.element.{MainTemplate, BaseCtr}
-import models.sunerp.{QuyenHanhs, XepLoais, XepLoai}
+import models.sunerp.{DiemHeSos, DiemHeSo, XepLoais, XepLoai}
 import models.core.AbstractQuery
 import play.api.libs.json.{Json, JsValue, Writes}
 import play.api.data.Form
@@ -12,19 +12,19 @@ import play.api.mvc.AnyContent
 import play.api.db.slick.Session
 
 /**
- * The Class XepLoaiCtr.
+ * The Class DiemHeSoCtr.
  *
  * @author Nguyen Duc Dung
  * @since 5/9/14 5:32 AM
  *
  */
-class XepLoaiCtr(implicit val bindingModule: BindingModule) extends BaseCtr[XepLoai, XepLoais] with MainTemplate {
-  override def editForm(implicit session: Session): Form[XepLoai] = XepLoais.editForm
-  override implicit val jsonWrite: Writes[XepLoai] = XepLoais.xepLoaiJsonFormat
-  override val dao: AbstractQuery[XepLoai, XepLoais] = XepLoais
-  override val domainName: String = DomainKey.xepLoai
+class DiemHeSoCtr(implicit val bindingModule: BindingModule) extends BaseCtr[DiemHeSo, DiemHeSos] with MainTemplate {
+  override def editForm(implicit session: Session): Form[DiemHeSo] = DiemHeSos.editForm
+  override implicit val jsonWrite: Writes[DiemHeSo] = DiemHeSos.diemHeSoJsonFormat
+  override val dao: AbstractQuery[DiemHeSo, DiemHeSos] = DiemHeSos
+  override val domainName: String = DomainKey.diemHeSo
   override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
-    val result = XepLoais.load(paging)
+    val result = DiemHeSos.load(paging)
     Json.toJson(result)
   }
 }

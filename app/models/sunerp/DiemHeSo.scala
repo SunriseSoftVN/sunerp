@@ -6,6 +6,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.libs.json.Json
+import dtos.{DiemHeSoDto, XepLoaiDto, ExtGirdDto, PagingDto}
 
 /**
  * The Class DiemHeSo.
@@ -43,6 +44,47 @@ object DiemHeSos extends AbstractQuery[DiemHeSo, DiemHeSos](new DiemHeSos(_)) {
       "year" -> number
     )(DiemHeSo.apply)(DiemHeSo.unapply)
   )
+
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[DiemHeSoDto] = {
+    var query = for (diemHeSo <- this; nhanVien <- diemHeSo.nhanVien) yield (diemHeSo, nhanVien)
+
+    pagingDto.getFilters.foreach(filter => {
+      query = query.where(tuple => {
+        val (diemHeSo, nhanVien) = tuple
+        filter.property match {
+          case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
+          case "year" => diemHeSo.year === filter.asInt
+          case "phongBanId" => nhanVien.phongBanId === filter.asLong
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
+      })
+    })
+
+    pagingDto.sorts.foreach(sort => {
+      query = query.sortBy(tuple => {
+        val (diemHeSo, nhanVien) = tuple
+        sort.property match {
+          case "nhanVien.fullName" => orderColumn(sort.direction, nhanVien.firstName)
+          case "year" => orderColumn(sort.direction, diemHeSo.year)
+          case "heSo" => orderColumn(sort.direction, diemHeSo.heSo)
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
+        }
+      })
+    })
+
+    val totalRow = Query(query.length).first()
+
+    val rows = query
+      .drop(pagingDto.start)
+      .take(pagingDto.limit)
+      .list
+      .map(DiemHeSoDto(_))
+
+    ExtGirdDto[DiemHeSoDto](
+      total = totalRow,
+      data = rows
+    )
+  }
 
   implicit val diemHeSoJsonFormat = Json.format[DiemHeSo]
 

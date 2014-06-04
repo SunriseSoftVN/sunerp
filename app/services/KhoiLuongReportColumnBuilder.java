@@ -100,7 +100,7 @@ public final class KhoiLuongReportColumnBuilder {
             TextColumnBuilder<String> _col = col
                     .column(i.toString(), "gioCongViec." + i, type.stringType())
                     .setStyle(COLUMN_NUMBER_CENTER_STYLE)
-                    .setFixedWidth(25);
+                    .setFixedWidth(28);
             builder.addColumn(_col);
             builder.addSubtotalAtSummary(sbt.text("", _col));
             tg1.add(_col);
