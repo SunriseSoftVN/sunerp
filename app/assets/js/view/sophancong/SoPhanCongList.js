@@ -31,7 +31,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 },
                 renderer: function (value, metaData, record) {
                     if (record.data.nhanVien) {
-                        return record.data.nhanVien.firstName + " " + record.data.nhanVien.lastName;
+                        return record.data.nhanVien.lastName + " " + record.data.nhanVien.firstName;
                     } else {
                         return "";
                     }

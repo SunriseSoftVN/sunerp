@@ -3,7 +3,7 @@
  */
 
 function fullName(v, record) {
-    return record.data.firstName + " " + record.data.lastName;
+    return record.data.lastName + " " + record.data.firstName;
 }
 
 Ext.define('sunerp.model.NhanVien', {
