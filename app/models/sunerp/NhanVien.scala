@@ -112,7 +112,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       "heSoLuong" -> nhanVien.heSoLuong,
       "chucVuId" -> nhanVien.chucVuId,
       "phongBanId" -> nhanVien.phongBanId,
-      "fullName" -> (nhanVien.firstName + " " + nhanVien.lastName)
+      "fullName" -> (nhanVien.lastName + " " + nhanVien.firstName)
     )
   }
 
