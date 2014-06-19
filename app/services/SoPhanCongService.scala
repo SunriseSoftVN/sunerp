@@ -8,6 +8,7 @@ import play.api.db.slick.Config.driver.simple._
 import org.scalautils._
 import TripleEquals._
 import utils.Options.optionLongEq
+import com.github.tototoshi.slick.MySQLJodaSupport._
 
 /**
  * The Class SoPhanCongService.
@@ -18,9 +19,34 @@ import utils.Options.optionLongEq
  */
 trait SoPhanCongService {
   def initData(month: Int, phongBanId: Long)(implicit session: Session)
+
+  def dayCopyData(month: Int, day: Int, phongBanId: Long)(implicit session: Session)
 }
 
 class SoPhanCongServiceImpl(implicit val bindingModule: BindingModule) extends SoPhanCongService {
+
+
+  override def dayCopyData(month: Int, day: Int, phongBanId: Long)(implicit session: Session) {
+    val date = LocalDate
+      .now
+      .withMonth(month)
+      .withDayOfMonth(day)
+
+    val targetDate = date.minusMonths(1)
+
+    val query = for {
+      soPhanCong <- SoPhanCongs
+      soPhanCongExt <- soPhanCong.soPhanCongExt
+      if soPhanCong.phongBanId === phongBanId && soPhanCong.ngayPhanCong === targetDate && soPhanCong.taskId.isNotNull
+    } yield (soPhanCong, soPhanCongExt)
+
+    for (tuple <- query.list()) {
+      val (soPhanCong, soPhanCongExt) = tuple
+      val extId = SoPhanCongExts.save(soPhanCongExt.copy(id = None))
+      SoPhanCongs.save(soPhanCong.copy(id = None, ngayPhanCong = date, soPhanCongExtId = extId))
+    }
+  }
+
   def initData(month: Int, phongBanId: Long)(implicit session: Session) {
     val date = LocalDate.now.withMonth(month)
     val firstDayOfMonth = date.dayOfMonth().withMinimumValue()

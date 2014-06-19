@@ -66,6 +66,7 @@ POST          /sophancong                               @controllers.SoPhanCongC
 PUT           /sophancong/:id                           @controllers.SoPhanCongCtr.update(id: Long)
 DELETE        /sophancong/:id                           @controllers.SoPhanCongCtr.delete(id: Long)
 GET           /sophancong/init/:month/:phongBanId       @controllers.SoPhanCongCtr.init(month: Int, phongBanId: Long)
+GET           /sophancong/dayCopyData/:month/:day/:phongBanId       @controllers.SoPhanCongCtr.dayCopyData(month: Int, day: Int, phongBanId: Long)
 
 
 GET           /report/doDonViReport                     @controllers.ReportCtr.doDonViReport(fileType: String ?= "pdf")

@@ -56,8 +56,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 xtype: 'numbercolumn',
                 locked: true,
                 editor: {
-                    xtype: 'numberfield',
-                    minValue: 0
+                    xtype: 'numberfield'
                 }
             },
             {
@@ -67,8 +66,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 xtype: 'numbercolumn',
                 locked: true,
                 editor: {
-                    xtype: 'numberfield',
-                    minValue: 0
+                    xtype: 'numberfield'
                 }
             },
             {
@@ -195,6 +193,15 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
             iconCls: 'init',
             text: 'Khởi tạo',
             tooltip: 'Khởi tạo dữ liệu với tất cả nhân viên trong phòng hoặc cung'
+        });
+
+        me.tbar.add({
+            xtype: 'button',
+            action: 'dayCopy',
+            iconCls: 'init',
+            disabled: true,
+            text: 'Copy dữ liệu ngày',
+            tooltip: 'Copy dữ liệu của ngày này tháng trước'
         });
     }
 });
