@@ -103,6 +103,11 @@ with TransactionElement with MainTemplate with Injectable {
     Ok
   }
 
+  def yesterdayCopyData(month: Int, day: Int, phongBanId: Long) = StackAction(AuthorityKey -> DomainKey.soPhanCong) { implicit request =>
+    soPhanCongService.yesterdayCopyData(month, day, phongBanId)
+    Ok
+  }
+
   def init(month: Int, phongBanId: Long) = AsyncStack(AuthorityKey -> DomainKey.soPhanCong)(implicit request => {
     Future {
       soPhanCongService.initData(month, phongBanId)

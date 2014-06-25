@@ -33,9 +33,18 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
             }
         },
         dayCopyBtn: {
-            selector: 'button[action=dayCopy]',
+            selector: 'button[action=dayCopy]'
+        },
+        btnDayMonthCopy: {
+            selector: '#btnDayMonthCopy',
             listeners: {
-                click: 'onDayCopyBtnClick'
+                click: "onBtnDayMonthCopyClick"
+            }
+        },
+        btnYesterdayCopy: {
+            selector: '#btnYesterdayCopy',
+            listeners: {
+                click: "onBtnYesterdayCopyClick"
             }
         }
     },
@@ -73,10 +82,19 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
             }
         });
     },
-    onDayCopyBtnClick: function () {
+    onBtnDayMonthCopyClick: function () {
         var me = this;
         Ext.Ajax.request({
             url: '/sophancong/dayCopyData/' + me.getMonthCb().getValue() + "/" + me.getDayCb().getValue() + "/" + this.getPhongBanId(),
+            success: function (rep) {
+                me.mainStore.reload();
+            }
+        });
+    },
+    onBtnYesterdayCopyClick: function () {
+        var me = this;
+        Ext.Ajax.request({
+            url: '/sophancong/yesterdayCopyData/' + me.getMonthCb().getValue() + "/" + me.getDayCb().getValue() + "/" + this.getPhongBanId(),
             success: function (rep) {
                 me.mainStore.reload();
             }

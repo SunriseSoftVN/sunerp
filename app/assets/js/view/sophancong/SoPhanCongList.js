@@ -200,8 +200,17 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
             action: 'dayCopy',
             iconCls: 'init',
             disabled: true,
-            text: 'Copy dữ liệu ngày',
-            tooltip: 'Copy dữ liệu của ngày này tháng trước'
+            text: 'Copy dữ liệu',
+            menu: [
+                {
+                    id: "btnDayMonthCopy",
+                    text: 'Copy dữ liệu cùng ngày của tháng trước'
+                },
+                {
+                    id: "btnYesterdayCopy",
+                    text: 'Copy dữ liệu cùng ngày hôm qua'
+                }
+            ]
         });
     }
 });

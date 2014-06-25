@@ -21,10 +21,20 @@ trait SoPhanCongService {
   def initData(month: Int, phongBanId: Long)(implicit session: Session)
 
   def dayCopyData(month: Int, day: Int, phongBanId: Long)(implicit session: Session)
+
+  def yesterdayCopyData(month: Int, day: Int, phongBanId: Long)(implicit session: Session)
 }
 
 class SoPhanCongServiceImpl(implicit val bindingModule: BindingModule) extends SoPhanCongService {
 
+  override def yesterdayCopyData(month: Int, day: Int, phongBanId: Long)(implicit session: Session) = {
+    val date = LocalDate
+      .now
+      .withMonth(month)
+      .withDayOfMonth(day)
+    val targetDate = date.minusDays(1)
+    copyData(targetDate, date, phongBanId)
+  }
 
   override def dayCopyData(month: Int, day: Int, phongBanId: Long)(implicit session: Session) {
     val date = LocalDate
@@ -33,7 +43,10 @@ class SoPhanCongServiceImpl(implicit val bindingModule: BindingModule) extends S
       .withDayOfMonth(day)
 
     val targetDate = date.minusMonths(1)
+    copyData(targetDate, date, phongBanId)
+  }
 
+  private def copyData(targetDate: LocalDate, date: LocalDate, phongBanId: Long)(implicit session: Session) {
     val checkQuery = for {
       soPhanCong <- SoPhanCongs
       if soPhanCong.phongBanId === phongBanId && soPhanCong.ngayPhanCong === date
