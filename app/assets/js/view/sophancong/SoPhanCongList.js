@@ -139,11 +139,11 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
                 xtype: 'checkcolumn'
             },
             {
-                header: 'Học DH', dataIndex: 'soPhanCongExt.hocDaiHan', width: 80,
+                header: 'Học HO', dataIndex: 'soPhanCongExt.hocDaiHan', width: 80,
                 xtype: 'checkcolumn'
             },
             {
-                header: 'Học ĐX', dataIndex: 'soPhanCongExt.hocDotXuat', width: 80,
+                header: 'Học HT', dataIndex: 'soPhanCongExt.hocDotXuat', width: 80,
                 xtype: 'checkcolumn'
             },
             {

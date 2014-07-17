@@ -54,8 +54,8 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> hsl = col.column("HSL", "hsl", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Double> congSanPham = col.column("Công sản phẩm", "congSanPham", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> hop = col.column("Họp", "hop", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
-    public static final TextColumnBuilder<Double> hocNH = col.column("Học NH", "hocNH", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
-    public static final TextColumnBuilder<Integer> hocDH = col.column("Học DH", "hocDH", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
+    public static final TextColumnBuilder<Double> hocNH = col.column("Học HT", "hocNH", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
+    public static final TextColumnBuilder<Integer> hocDH = col.column("Học H0", "hocDH", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Integer> gianTiep = col.column("Gián tiếp", "gianTiep", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Integer> nghiPhep = col.column("Nghỉ phép", "phep", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Integer> leTet = col.column("Lễ tết", "leTet", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
