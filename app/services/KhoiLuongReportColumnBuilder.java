@@ -51,7 +51,9 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType()).setFixedWidth(120);
     public static final TextColumnBuilder<String> ngay = col.column("Ngày", "ngay", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Integer> stt = col.column("TT", "stt", type.integerType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
-    public static final TextColumnBuilder<Double> hsl = col.column("HSL", "hsl", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE).setFixedWidth(30);
+    public static final TextColumnBuilder<Double> hsl = col.column("HSL", "hsl", type.doubleType())
+            .setPattern("0.##")
+            .setStyle(COLUMN_NUMBER_CENTER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Double> congSanPham = col.column("Công sản phẩm", "congSanPham", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> hop = col.column("Họp", "hop", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> hocNH = col.column("Học HT", "hocNH", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
@@ -70,7 +72,9 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Integer> phuCapDocHai = col.column("Phụ cấp độc hại", "phuCapDocHai", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Integer> giuaCa = col.column("Giữa ca", "giuaCa", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> tongGioCong = col.column("Tổng giờ công", "tongGioCong", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
-    public static final TextColumnBuilder<Double> diemHeSo = col.column("Điểm hệ số", "diemHeSo", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
+    public static final TextColumnBuilder<Double> diemHeSo = col.column("Điểm hệ số", "diemHeSo", type.doubleType())
+            .setPattern("0.##")
+            .setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<String> xepLoai = col.column("Xếp loại ABC", "xepLoai", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
     public static final TextColumnBuilder<String> ghiChu = col.column("Ghi chú", "ghiChu", type.stringType()).setFixedWidth(100);
 
