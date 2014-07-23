@@ -25,6 +25,16 @@ Ext.define('sunerp.component.core.BasePicker', {
         me.setStore(Ext.create(me.storeClass));
         me.getStore().clearFilter(true);
         me.getStore().loadPage(1);
+        var txtSearch = Ext.create('Ext.form.field.Text', {
+            name: 'searchField',
+            emptyText: me.searchEmptyText,
+            hideLabel: true,
+            width: 200,
+            listeners: {
+                specialkey: me.onSearchFieldChange,
+                scope: me
+            }
+        });
         if (me.gird.getSelectionModel().hasSelection()) {
             var model = me.gird.getSelectionModel().getLastSelected();
             me.setModel(model);
@@ -34,7 +44,7 @@ Ext.define('sunerp.component.core.BasePicker', {
                 width: me.wWidth,
                 layout: 'fit',
                 modal: true,
-                items: me.createGrid(),
+                items: me.createGrid(txtSearch),
                 buttons: [
                     {
                         text: 'Ok',
@@ -51,10 +61,11 @@ Ext.define('sunerp.component.core.BasePicker', {
                 ]
             });
             window.show();
+            txtSearch.focus();
             me.setWindow(window);
         }
     },
-    createGrid: function () {
+    createGrid: function (txtSearch) {
         var me = this;
         return {
             // Let's put an empty grid in just to illustrate fit layout
@@ -69,17 +80,7 @@ Ext.define('sunerp.component.core.BasePicker', {
                 emptyMsg: "No topics to display"
             }),
             tbar: [
-                {
-                    xtype: 'textfield',
-                    name: 'searchField',
-                    emptyText: me.searchEmptyText,
-                    hideLabel: true,
-                    width: 200,
-                    listeners: {
-                        specialkey: me.onSearchFieldChange,
-                        scope: me
-                    }
-                }
+                txtSearch
             ],
             listeners: {
                 selectionchange: me.onSelected,
