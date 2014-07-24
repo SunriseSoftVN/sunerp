@@ -48,8 +48,8 @@ Ext.define('sunerp.view.Viewport', {
                     height: '35%', // assign 90% of the container height to the item
                     html: '<div style="text-align: center">' +
                         '<img src="/assets/companylogo.png">' +
-                        '<h4>Công ty TNHH SunriseSoft</h4>' +
-                        '<p>Website: <a target="_blank" href="http://www.sunrisesoft.vn/">http://sunrisesoft.vn</a></p>' +
+                        '<h4>Công ty thông tin tín hiệu đường sắt Vinh</h4>' +
+                        '<p>Website: <a target="_blank" href="http://visitec.vn/">http://visitec.vn</a></p>' +
                         '</div>',
                     bodyStyle: 'background-image: url(/assets/img/square.gif)'
                 }
