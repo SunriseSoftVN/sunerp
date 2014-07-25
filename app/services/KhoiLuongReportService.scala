@@ -40,6 +40,8 @@ trait KhoiLuongReportService {
 
   def inSoPhanCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): String
 
+  def inSoPhanCongCaNhan(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session, nhanVien: NhanVien): String
+
   def inBangChamCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
   def inBangChamCongCaNhan(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session, nhanVien: NhanVien): Future[String]
@@ -112,6 +114,27 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
       soPhanCong <- SoPhanCongs.khoiLuongMonthQuery(req.month, req.year, req.phongBanId)
       nhanVien <- soPhanCong.nhanVien
     } yield (soPhanCong, nhanVien)
+
+    val data = query
+      .sortBy(_._2.firstName.asc)
+      .sortBy(_._1.ngayPhanCong.asc)
+      .list()
+      .map(SoPhanCongDto(_))
+
+    val ds = new JRBeanCollectionDataSource(data.asJavaCollection)
+    report.setDataSource(ds)
+
+    exportReport(fileType, fileName, report)
+  }
+
+  override def inSoPhanCongCaNhan(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session, nhanVien: NhanVien): String = {
+    val fileName = s"sophancong-${nhanVien.maNv}-thang${req.month}-nam${req.year}"
+    val report = KhoiLuongReportColumnBuilder.buildSoPhanCong(req)
+
+    val query = for {
+      soPhanCong <- SoPhanCongs.khoiLuongMonthQuery(req.month, req.year, req.phongBanId)
+      _nhanVien <- soPhanCong.nhanVien if _nhanVien.id === nhanVien.id
+    } yield (soPhanCong, _nhanVien)
 
     val data = query
       .sortBy(_._2.firstName.asc)
