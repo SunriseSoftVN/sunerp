@@ -1,7 +1,8 @@
 package controllers
 
+import _root_.utils.DateTimeUtils
 import controllers.element.{TransactionElement, AuthConfigImpl, MainTemplate}
-import models.sunerp.{SoPhanCong, SoPhanCongExts, SoPhanCongs}
+import models.sunerp.{KhoaSoPhanCongs, SoPhanCong, SoPhanCongExts, SoPhanCongs}
 import play.api.libs.json.Json
 import dtos.{FormErrorDto, PagingDto}
 import play.api.mvc.Controller
@@ -114,5 +115,22 @@ with TransactionElement with MainTemplate with Injectable {
       Ok
     }
   })
+
+  def lock(month: Int) = StackAction(AuthorityKey -> DomainKey.khoaSoPhanCong) { implicit request =>
+    KhoaSoPhanCongs.lock(month, DateTimeUtils.currentYear)
+    Ok
+  }
+
+  def unlock(month: Int) = StackAction(AuthorityKey -> DomainKey.khoaSoPhanCong) { implicit request =>
+    KhoaSoPhanCongs.unlock(month, DateTimeUtils.currentYear)
+    Ok
+  }
+
+  def isLock(month: Int) = StackAction(AuthorityKey -> DomainKey.khoaSoPhanCong) { implicit request =>
+    val isLock = KhoaSoPhanCongs.isLock(month, DateTimeUtils.currentYear)
+    Ok(Json.obj(
+      "lock" -> isLock
+    ))
+  }
 
 }
