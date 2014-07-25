@@ -20,6 +20,7 @@ import scala.concurrent.{Promise, ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 import dtos.report.qlkh.TaskReportBean
 import scala.collection.JavaConverters._
+import scala.collection.JavaConversions._
 
 /**
  * The Class KhoiLuongReportService.
@@ -41,6 +42,8 @@ trait KhoiLuongReportService {
 
   def inBangChamCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
+  def inBangChamCongCaNhan(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session, nhanVien: NhanVien): Future[String]
+
   def doThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
   def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
@@ -55,11 +58,34 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   val reportDir = "report/"
   lazy val qlkhUrl = Play.configuration.getString("qlkh.url").getOrElse(throw new Exception("Config key 'qlkh.url' is missing"))
 
+  override def inBangChamCongCaNhan(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session, nhanVien: NhanVien): Future[String] = {
+    val promise = Promise[String]()
+
+    def buildReport(tasks: List[TaskDto]) = Future {
+      val fileName = s"bangchamcong-${nhanVien.maNv}-thang${req.month}-nam${req.year}"
+      val report = KhoiLuongReportColumnBuilder.buildBangChamCong(req)
+      val phongBanDto = buildPhongBanData(req.month, req._quarter, req.year, req.getPhongBan, tasks, Nil)
+      //build data
+      val ds = new JRBeanCollectionDataSource(phongBanDto.bangChamCongs.filter(_.nvId == nhanVien.getId))
+      report.setDataSource(ds)
+      exportReport(fileType, fileName, report)
+    }
+
+    promise.completeWith {
+      for {
+        tasks <- getTasks
+        fileName <- buildReport(tasks)
+      } yield fileName
+    }
+
+    promise.future
+  }
+
   override def inBangChamCong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
     val promise = Promise[String]()
 
     def buildReport(tasks: List[TaskDto]) = Future {
-      val fileName = s"sophancong-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
+      val fileName = s"bangchamcong-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
       val report = KhoiLuongReportColumnBuilder.buildBangChamCong(req)
       val phongBanDto = buildPhongBanData(req.month, req._quarter, req.year, req.getPhongBan, tasks, Nil)
       //build data

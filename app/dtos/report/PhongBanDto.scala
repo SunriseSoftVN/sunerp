@@ -50,6 +50,7 @@ case class PhongBanDto(
       val row = new BangChamCongRow
       row.stt = stt
       row.tenNV = nhanVien.name
+      row.nvId = nhanVien.id
       row.hsl = nhanVien.heSoLuong.asJava
       row.xepLoai = XepLoais.findByNhanVienId(nhanVien.id, month, year).fold("")(_.xepLoai)
       row.diemHeSo = DiemHeSos.findByNhanVienId(nhanVien.id, year).fold(Double.NaN)(_.heSo)

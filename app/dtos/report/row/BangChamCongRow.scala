@@ -16,6 +16,9 @@ class BangChamCongRow {
   var stt: java.lang.Integer = null
 
   @BeanProperty
+  var nvId: java.lang.Long = null
+
+  @BeanProperty
   var tenNV: String = _
 
   @BeanProperty

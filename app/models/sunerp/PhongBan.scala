@@ -22,8 +22,14 @@ case class PhongBan(
                      showOnReport: Boolean = true
                      ) extends WithId[Long] {
 
+  private var _donVi: Option[DonVi] = None
+
   def getShortName = shortName.getOrElse(name)
 
+  def donVi(implicit session: Session) = _donVi.getOrElse {
+    _donVi = DonVis.findById(donViId)
+    _donVi.get
+  }
 }
 
 class PhongBans(tag: Tag) extends AbstractTable[PhongBan](tag, "phongBan") {
