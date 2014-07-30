@@ -77,6 +77,11 @@ object PhongBanKhoiLuongRow {
       row.quyGio = data.gio
     })
 
+    val hideKlUnits = List("giờ", "hệ", "cv")
+    if(hideKlUnits.contains(row.taskUnit)) {
+      row.setTotalKhoiLuong(null)
+    }
+
     for (i <- 1 to 31) {
       val daily = sumByDay(task.id, i)
       if (daily > 0) row.getKhoiLuongCongViec.put(i.toString, daily)
