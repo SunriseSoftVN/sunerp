@@ -91,11 +91,21 @@ case class PhongBanDto(
       row.trucBHLD = sumBHLD(nhanVien.id).asJava
       row.phuCapDocHai = sumPhuCapDH(nhanVien.id).asJava
 
+      var giuaCa = 0
       for (i <- 1 to 31) {
         val daily = khoiLuongs
           .filter(khoiLuong => khoiLuong.nhanVien.id == nhanVien.id && khoiLuong.ngayPhanCong.getDayOfMonth == i)
         val gio = daily.foldLeft(0d)((kl, dto) => dto.gio + kl)
         row.getGioCongViec.put(i.toString, khoiLuongCode(gio, daily))
+
+        for (khoiLuong <- daily) {
+          if (khoiLuong.hop || khoiLuong.hocDotXuat || gio > 0) {
+            giuaCa += 1
+          }
+        }
+        if (giuaCa > 0) {
+          row.giuaCa = giuaCa
+        }
       }
 
       val now = LocalDate.now().withMonthOfYear(month).withYear(year)
