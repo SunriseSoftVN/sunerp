@@ -156,6 +156,9 @@ case class PhongBanDto(
       if (khoiLuong.tet) {
         code = "T"
       }
+      if (khoiLuong.phep) {
+        code = "F"
+      }
       if (khoiLuong.thaiSan) {
         code = "TS"
       }
