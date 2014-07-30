@@ -126,7 +126,7 @@ with TransactionElement with MainTemplate with Injectable {
     Ok
   }
 
-  def isLock(month: Int) = StackAction(AuthorityKey -> DomainKey.khoaSoPhanCong) { implicit request =>
+  def isLock(month: Int) = StackAction(AuthorityKey -> DomainKey.soPhanCong) { implicit request =>
     val isLock = KhoaSoPhanCongs.isLock(month, DateTimeUtils.currentYear)
     Ok(Json.obj(
       "lock" -> isLock

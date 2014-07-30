@@ -18,7 +18,10 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     },
     control: {
         monthCb: {
-            selector: 'monthcb'
+            selector: 'monthcb',
+            listeners: {
+                select: 'onMonthCbSelect'
+            }
         },
         dayCb: {
             selector: 'daycb',
@@ -50,9 +53,36 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     },
     phongBanFilter: null,
     init: function () {
-        this.mainStore = this.getSoPhanCongStore();
-        this.setPhongBanId(this.getUserService().getCurrentUser().phongBanId);
-        this.callParent(arguments);
+        var me = this;
+        me.mainStore = me.getSoPhanCongStore();
+        me.setPhongBanId(me.getUserService().getCurrentUser().phongBanId);
+        me.checkLock();
+        me.callParent(arguments);
+    },
+    checkLock: function() {
+        var me = this;
+        Ext.Ajax.request({
+            url: 'sophancong/islock/' + me.getMonthCb().value,
+            success: function (response) {
+                var result = Ext.decode(response.responseText);
+                me.getDayCopyBtn().setDisabled(result.lock);
+                me.getBtnDayMonthCopy().setDisabled(result.lock);
+                me.getBtnYesterdayCopy().setDisabled(result.lock);
+                me.getIniBtn().setDisabled(result.lock);
+                me.getDeleteBtn().setDisabled(result.lock);
+                me.getAddBtn().setDisabled(result.lock);
+                me.getSaveBtn().setDisabled(result.lock);
+                if(result.lock) {
+                    Ext.Msg.alert('Status', 'Công ty đã khóa sổ phân công tháng '
+                            + me.getMonthCb().value
+                            + ', dữ liệu xẽ không được thay đổi!'
+                    );
+                }
+            }
+        });
+    },
+    onMonthCbSelect: function() {
+        this.checkLock();
     },
     addNewRow: function () {
         var rec = Ext.create(this.modelClass);
