@@ -37,7 +37,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Arial" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Độc lập - Tự do - Hạnh phú]]></text>
+				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="374" y="26" width="33" height="13" uuid="d86a6709-e73e-42b5-b104-623c6d86be12"/>
