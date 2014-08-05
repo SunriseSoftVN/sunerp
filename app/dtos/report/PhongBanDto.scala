@@ -95,19 +95,18 @@ case class PhongBanDto(
 
       var giuaCa = 0
       for (i <- 1 to 31) {
-        val daily = khoiLuongs
+        val klCongViecTrongNgay = khoiLuongs
           .filter(khoiLuong => khoiLuong.nhanVien.id == nhanVien.id && khoiLuong.ngayPhanCong.getDayOfMonth == i)
-        val gio = daily.foldLeft(0d)((kl, dto) => dto.gio + kl)
-        row.getGioCongViec.put(i.toString, khoiLuongCode(gio, daily))
+        val gio = klCongViecTrongNgay.foldLeft(0d)((kl, dto) => dto.gio + kl)
+        row.getGioCongViec.put(i.toString, khoiLuongCode(gio, klCongViecTrongNgay))
 
-        for (khoiLuong <- daily) {
-          if (khoiLuong.hop || khoiLuong.hocDotXuat || gio > 0) {
-            giuaCa += 1
-          }
+        val duocTinhCongGiuaCa = klCongViecTrongNgay.exists(khoiLuong => khoiLuong.hop || khoiLuong.hocDotXuat)
+        if (duocTinhCongGiuaCa || gio > 0) {
+          giuaCa += 1
         }
-        if (giuaCa > 0) {
-          row.giuaCa = giuaCa
-        }
+      }
+      if (giuaCa > 0) {
+        row.giuaCa = giuaCa
       }
 
       row
