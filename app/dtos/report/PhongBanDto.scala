@@ -110,12 +110,6 @@ case class PhongBanDto(
         }
       }
 
-      val now = LocalDate.now().withMonthOfYear(month).withYear(year)
-      val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
-      val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
-
-      row.giuaCa = workingDay - hocDH - phep - leTet - tongCacKhoanTru
-
       row
     }).asJavaCollection
   }
