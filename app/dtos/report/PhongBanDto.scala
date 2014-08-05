@@ -106,7 +106,15 @@ case class PhongBanDto(
         }
       }
       if (giuaCa > 0) {
-        row.giuaCa = giuaCa
+        val now = LocalDate.now().withMonthOfYear(month).withYear(year)
+        val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
+        val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
+        //Công giữa ca, không được lớn hơn số ngày làm việc trong tuần.
+        if(giuaCa > workingDay) {
+          row.giuaCa = workingDay
+        } else {
+          row.giuaCa = giuaCa
+        }
       }
 
       row
