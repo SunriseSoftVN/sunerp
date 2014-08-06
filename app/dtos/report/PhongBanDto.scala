@@ -101,7 +101,11 @@ case class PhongBanDto(
         row.getGioCongViec.put(i.toString, khoiLuongCode(gio, klCongViecTrongNgay))
 
         val duocTinhCongGiuaCa = klCongViecTrongNgay.exists(khoiLuong => khoiLuong.hop || khoiLuong.hocDotXuat)
-        if (duocTinhCongGiuaCa || gio > 0) {
+        val khongDuocTinhCongGiuaCa = klCongViecTrongNgay.exists {
+          khoiLuong => khoiLuong.chuNhat || khoiLuong.hocDaiHan || khoiLuong.phep || khoiLuong.le ||
+            khoiLuong.dauOm || khoiLuong.thaiSan || khoiLuong.conOm || khoiLuong.taiNanLd
+        }
+        if (duocTinhCongGiuaCa || (gio > 0 && !khongDuocTinhCongGiuaCa)) {
           giuaCa += 1
         }
       }
@@ -115,14 +119,6 @@ case class PhongBanDto(
         } else {
           row.giuaCa = giuaCa
         }
-
-        /**
-         * Gửi Dũng: Điều chỉnh giúp anh nội dung:
-          Tính công giữa ca:
-          "Khi chấm công “Học HO’, “Nghỉ  phép”, “Lễ Tết”, “Ốm đau”, Thai sản”, “Con ốm”, “TNLĐ, bệnh NN”
-          thì phần mềm tính công giữa ca = số công được hưởng trong tháng trừ đi số công chấm các nội dung trên"
-         */
-        row.giuaCa = row.giuaCa - hocDH - phep - leTet - omDau - thaiSan - conOm - taiNanLaoDong
       }
 
       row
