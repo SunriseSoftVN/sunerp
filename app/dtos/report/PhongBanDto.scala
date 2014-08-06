@@ -110,11 +110,19 @@ case class PhongBanDto(
         val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
         val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
         //Công giữa ca, không được lớn hơn số ngày làm việc trong tuần.
-        if(giuaCa > workingDay) {
+        if (giuaCa > workingDay) {
           row.giuaCa = workingDay
         } else {
           row.giuaCa = giuaCa
         }
+
+        /**
+         * Gửi Dũng: Điều chỉnh giúp anh nội dung:
+          Tính công giữa ca:
+          "Khi chấm công “Học HO’, “Nghỉ  phép”, “Lễ Tết”, “Ốm đau”, Thai sản”, “Con ốm”, “TNLĐ, bệnh NN”
+          thì phần mềm tính công giữa ca = số công được hưởng trong tháng trừ đi số công chấm các nội dung trên"
+         */
+        row.giuaCa = row.giuaCa - hocDH - phep - leTet - omDau - thaiSan - conOm - taiNanLaoDong
       }
 
       row
