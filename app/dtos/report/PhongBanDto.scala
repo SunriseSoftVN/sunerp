@@ -93,7 +93,11 @@ case class PhongBanDto(
       row.trucBHLD = sumBHLD(nhanVien.id).asJava
       row.phuCapDocHai = sumPhuCapDH(nhanVien.id).asJava
 
-      var giuaCa = 0
+      val now = LocalDate.now().withMonthOfYear(month).withYear(year)
+      val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
+      val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
+      var giuaCa = workingDay
+
       for (i <- 1 to 31) {
         val klCongViecTrongNgay = khoiLuongs
           .filter(khoiLuong => khoiLuong.nhanVien.id == nhanVien.id && khoiLuong.ngayPhanCong.getDayOfMonth == i)
@@ -101,24 +105,18 @@ case class PhongBanDto(
         row.getGioCongViec.put(i.toString, khoiLuongCode(gio, klCongViecTrongNgay))
 
         val duocTinhCongGiuaCa = klCongViecTrongNgay.exists(khoiLuong => khoiLuong.hop || khoiLuong.hocDotXuat)
+        val chuNhat = klCongViecTrongNgay.exists(_.chuNhat)
         val khongDuocTinhCongGiuaCa = klCongViecTrongNgay.exists {
-          khoiLuong => khoiLuong.chuNhat || khoiLuong.hocDaiHan || khoiLuong.phep || khoiLuong.le ||
+          khoiLuong => khoiLuong.hocDaiHan || khoiLuong.phep || khoiLuong.le ||
             khoiLuong.dauOm || khoiLuong.thaiSan || khoiLuong.conOm || khoiLuong.taiNanLd
         }
-        if (duocTinhCongGiuaCa || (gio > 0 && !khongDuocTinhCongGiuaCa)) {
-          giuaCa += 1
+
+        if (khongDuocTinhCongGiuaCa || (gio == 0 && !duocTinhCongGiuaCa && !chuNhat)) {
+          giuaCa -= 1
         }
       }
       if (giuaCa > 0) {
-        val now = LocalDate.now().withMonthOfYear(month).withYear(year)
-        val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
-        val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
-        //Công giữa ca, không được lớn hơn số ngày làm việc trong tuần.
-        if (giuaCa > workingDay) {
-          row.giuaCa = workingDay
-        } else {
-          row.giuaCa = giuaCa
-        }
+        row.giuaCa = giuaCa
       }
 
       row
