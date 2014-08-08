@@ -94,11 +94,12 @@ case class PhongBanDto(
       row.phuCapDocHai = sumPhuCapDH(nhanVien.id).asJava
 
       val now = LocalDate.now().withMonthOfYear(month).withYear(year)
+      val soNgayTrongThang = now.dayOfMonth().withMaximumValue().getDayOfMonth
       val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
       val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
       var giuaCa = workingDay
 
-      for (i <- 1 to 31) {
+      for (i <- 1 to soNgayTrongThang) {
         val klCongViecTrongNgay = khoiLuongs
           .filter(khoiLuong => khoiLuong.nhanVien.id == nhanVien.id && khoiLuong.ngayPhanCong.getDayOfMonth == i)
         val gio = klCongViecTrongNgay.foldLeft(0d)((kl, dto) => dto.gio + kl)
