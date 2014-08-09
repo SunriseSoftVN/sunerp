@@ -1,16 +1,16 @@
 package controllers
 
-import _root_.utils.DateTimeUtils
-import controllers.element.{TransactionElement, AuthConfigImpl, MainTemplate}
-import models.sunerp.{KhoaSoPhanCongs, SoPhanCong, SoPhanCongExts, SoPhanCongs}
-import play.api.libs.json.Json
-import dtos.{FormErrorDto, PagingDto}
-import play.api.mvc.Controller
-import jp.t2v.lab.play2.auth.AuthElement
-import services.SoPhanCongService
 import com.escalatesoft.subcut.inject._
+import controllers.element.{AuthConfigImpl, MainTemplate, TransactionElement}
+import dtos.{FormErrorDto, PagingDto}
+import jp.t2v.lab.play2.auth.AuthElement
+import models.sunerp.{SoPhanCong, SoPhanCongExts, SoPhanCongs}
+import play.api.libs.json.Json
+import play.api.mvc.Controller
+import services.SoPhanCongService
+
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
-import ExecutionContext.Implicits.global
 
 /**
  * The Class SoPhanCongCtr.
@@ -115,22 +115,5 @@ with TransactionElement with MainTemplate with Injectable {
       Ok
     }
   })
-
-  def lock(month: Int) = StackAction(AuthorityKey -> DomainKey.khoaSoPhanCong) { implicit request =>
-    KhoaSoPhanCongs.lock(month, DateTimeUtils.currentYear)
-    Ok
-  }
-
-  def unlock(month: Int) = StackAction(AuthorityKey -> DomainKey.khoaSoPhanCong) { implicit request =>
-    KhoaSoPhanCongs.unlock(month, DateTimeUtils.currentYear)
-    Ok
-  }
-
-  def isLock(month: Int) = StackAction(AuthorityKey -> DomainKey.soPhanCong) { implicit request =>
-    val isLock = KhoaSoPhanCongs.isLock(month, DateTimeUtils.currentYear)
-    Ok(Json.obj(
-      "lock" -> isLock
-    ))
-  }
 
 }

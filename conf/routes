@@ -68,10 +68,11 @@ DELETE        /sophancong/:id                           @controllers.SoPhanCongC
 GET           /sophancong/init/:month/:phongBanId       @controllers.SoPhanCongCtr.init(month: Int, phongBanId: Long)
 GET           /sophancong/dayCopyData/:month/:day/:phongBanId       @controllers.SoPhanCongCtr.dayCopyData(month: Int, day: Int, phongBanId: Long)
 GET           /sophancong/yesterdayCopyData/:month/:day/:phongBanId       @controllers.SoPhanCongCtr.yesterdayCopyData(month: Int, day: Int, phongBanId: Long)
-POST          /sophancong/lock/:month                   @controllers.SoPhanCongCtr.lock(month: Int)
-POST          /sophancong/unlock/:month                 @controllers.SoPhanCongCtr.unlock(month: Int)
-GET           /sophancong/islock/:month                 @controllers.SoPhanCongCtr.isLock(month: Int)
 
+GET           /khoasophancong                           @controllers.KhoaSoPhanCongCtr.index
+POST          /khoasophancong                           @controllers.KhoaSoPhanCongCtr.save
+PUT           /khoasophancong/:id                       @controllers.KhoaSoPhanCongCtr.update(id: Long)
+DELETE        /khoasophancong/:id                       @controllers.KhoaSoPhanCongCtr.delete(id: Long)
 
 GET           /report/doDonViReport                     @controllers.ReportCtr.doDonViReport(fileType: String ?= "pdf")
 GET           /report/doThKhoiLuongQuyReport            @controllers.ReportCtr.doThKhoiLuongQuyReport(fileType: String ?= "pdf")

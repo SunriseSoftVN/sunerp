@@ -36,6 +36,7 @@ object ApplicationContext extends Injectable {
   val soLuongCtr = inject[SoLuongCtr]
   val soLuongCtrClass = classOf[SoLuongCtr]
   val soPhanCongCtr = inject[SoPhanCongCtr]
+  val khoaSoPhanCongCtr = inject[KhoaSoPhanCongCtr]
   val soPhanCongCtrClass = classOf[SoPhanCongCtr]
   val taskCtr = inject[TaskCtr]
   val taskCtrClass = classOf[TaskCtr]
@@ -43,6 +44,7 @@ object ApplicationContext extends Injectable {
   val xepLoaiCtrClass = classOf[XepLoaiCtr]
   val diemHeSoCtr = inject[DiemHeSoCtr]
   val diemHeSoCtrClass = classOf[DiemHeSoCtr]
+  val khoaSoPhanCongCtrClass = classOf[KhoaSoPhanCongCtr]
 
   def getControllerInstance[A](controllerClass: Class[A]): A = {
     controllerClass match {
@@ -57,6 +59,7 @@ object ApplicationContext extends Injectable {
       case `quyenHanhCtrClass` => quyenHanhCtr.asInstanceOf[A]
       case `soLuongCtrClass` => soLuongCtr.asInstanceOf[A]
       case `soPhanCongCtrClass` => soPhanCongCtr.asInstanceOf[A]
+      case `khoaSoPhanCongCtrClass` => khoaSoPhanCongCtr.asInstanceOf[A]
       case `taskCtrClass` => taskCtr.asInstanceOf[A]
       case `nhanVienCtrClass` => nhanVienCtr.asInstanceOf[A]
       case `xepLoaiCtrClass` => xepLoaiCtr.asInstanceOf[A]

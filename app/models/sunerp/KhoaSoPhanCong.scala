@@ -1,5 +1,6 @@
 package models.sunerp
 
+import dtos.{ExtGirdDto, KhoaSoPhanCongDto, PagingDto}
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
 import play.api.libs.json.Json
@@ -13,6 +14,8 @@ import play.api.libs.json.Json
  */
 case class KhoaSoPhanCong(
                            id: Option[Long] = None,
+                           donViId: Long,
+                           lock: Boolean,
                            month: Int,
                            year: Int
                            ) extends WithId[Long]
@@ -20,28 +23,57 @@ case class KhoaSoPhanCong(
 class KhoaSoPhanCongs(tag: Tag) extends AbstractTable[KhoaSoPhanCong](tag, "khoaSoPhanCong") {
   def month = column[Int]("month", O.NotNull)
 
+  def donViId = column[Long]("donViId", O.NotNull)
+
+  def lock = column[Boolean]("lock", O.NotNull)
+
+  def donVi = foreignKey("doi_vi_phong_ban_fk", donViId, DonVis)(_.id)
+
   def year = column[Int]("year", O.NotNull)
 
-  override def * = (id.?, month, year) <>(KhoaSoPhanCong.tupled, KhoaSoPhanCong.unapply)
+  override def * = (id.?, donViId, lock, month, year) <>(KhoaSoPhanCong.tupled, KhoaSoPhanCong.unapply)
 }
 
 object KhoaSoPhanCongs extends AbstractQuery[KhoaSoPhanCong, KhoaSoPhanCongs](new KhoaSoPhanCongs(_)) {
   implicit val jsonFormat = Json.format[KhoaSoPhanCong]
 
-  def isLock(month: Int, year: Int)(implicit session: Session) = where(k => k.month === month && k.year === year).firstOption.isDefined
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[KhoaSoPhanCongDto] = {
+    var query = for (khoaSoPhanCong <- this; donVi <- khoaSoPhanCong.donVi) yield (khoaSoPhanCong, donVi)
 
-  def lock(month: Int, year: Int)(implicit session: Session) {
-    if (!isLock(month, year)) {
-      save(
-        KhoaSoPhanCong(
-          month = month,
-          year = year
-        )
-      )
-    }
+    pagingDto.getFilters.foreach(filter => {
+      query = query.where(table => {
+        val (khoaSoPhanCong, donVi) = table
+        filter.property match {
+          case "donVi.name" => donVi.name.toLowerCase like filter.asLikeValue
+          case "month" => khoaSoPhanCong.month === filter.asInt
+          case "year" => khoaSoPhanCong.year === filter.asInt
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
+      })
+    })
+
+    pagingDto.sorts.foreach(sort => {
+      query = query.sortBy(table => {
+        val (khoaSoPhanCong, donVi) = table
+        sort.property match {
+          case "donVi.name" => orderColumn(sort.direction, donVi.name)
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
+        }
+      })
+    })
+
+    val totalRow = Query(query.length).first()
+
+    val rows = query
+      .drop(pagingDto.start)
+      .take(pagingDto.limit)
+      .list
+      .map(KhoaSoPhanCongDto.apply)
+
+    ExtGirdDto[KhoaSoPhanCongDto](
+      total = totalRow,
+      data = rows
+    )
   }
 
-  def unlock(month: Int, year: Int)(implicit session: Session) {
-    where(k => k.month === month && k.year === year).delete
-  }
 }
