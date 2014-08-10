@@ -1,10 +1,11 @@
 package controllers
 
+import _root_.utils.DateTimeUtils
 import com.escalatesoft.subcut.inject._
 import controllers.element.{AuthConfigImpl, MainTemplate, TransactionElement}
 import dtos.{FormErrorDto, PagingDto}
 import jp.t2v.lab.play2.auth.AuthElement
-import models.sunerp.{SoPhanCong, SoPhanCongExts, SoPhanCongs}
+import models.sunerp.{KhoaSoPhanCongs, SoPhanCong, SoPhanCongExts, SoPhanCongs}
 import play.api.libs.json.Json
 import play.api.mvc.Controller
 import services.SoPhanCongService
@@ -116,4 +117,10 @@ with TransactionElement with MainTemplate with Injectable {
     }
   })
 
+  def isLock(month: Int) = StackAction(AuthorityKey -> DomainKey.soPhanCong)(implicit request => {
+    val isLock = KhoaSoPhanCongs.isLock(loggedIn.phongBan.donViId, month, DateTimeUtils.currentYear)
+    Ok(Json.obj(
+      "lock" -> isLock
+    ))
+  })
 }

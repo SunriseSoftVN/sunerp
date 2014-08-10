@@ -2,8 +2,13 @@ package models.sunerp
 
 import dtos.{ExtGirdDto, KhoaSoPhanCongDto, PagingDto}
 import models.core.{AbstractQuery, AbstractTable, WithId}
+import play.api.data.Form
+import play.api.data.Forms._
 import play.api.db.slick.Config.driver.simple._
 import play.api.libs.json.Json
+import utils.DateTimeUtils
+
+import scala.text
 
 /**
  * The Class KhoaSoPhanCong.
@@ -37,8 +42,22 @@ class KhoaSoPhanCongs(tag: Tag) extends AbstractTable[KhoaSoPhanCong](tag, "khoa
 object KhoaSoPhanCongs extends AbstractQuery[KhoaSoPhanCong, KhoaSoPhanCongs](new KhoaSoPhanCongs(_)) {
   implicit val jsonFormat = Json.format[KhoaSoPhanCong]
 
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "donViId" -> longNumber,
+      "lock" -> boolean,
+      "month" -> number,
+      "year" -> number
+    )(KhoaSoPhanCong.apply)(KhoaSoPhanCong.unapply)
+  )
+
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[KhoaSoPhanCongDto] = {
-    var query = for (khoaSoPhanCong <- this; donVi <- khoaSoPhanCong.donVi) yield (khoaSoPhanCong, donVi)
+    var query = for {
+      khoaSoPhanCong <- this
+      donVi <- khoaSoPhanCong.donVi
+      if khoaSoPhanCong.year === DateTimeUtils.currentYear
+    } yield (khoaSoPhanCong, donVi)
 
     pagingDto.getFilters.foreach(filter => {
       query = query.where(table => {
@@ -46,7 +65,6 @@ object KhoaSoPhanCongs extends AbstractQuery[KhoaSoPhanCong, KhoaSoPhanCongs](ne
         filter.property match {
           case "donVi.name" => donVi.name.toLowerCase like filter.asLikeValue
           case "month" => khoaSoPhanCong.month === filter.asInt
-          case "year" => khoaSoPhanCong.year === filter.asInt
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -57,6 +75,7 @@ object KhoaSoPhanCongs extends AbstractQuery[KhoaSoPhanCong, KhoaSoPhanCongs](ne
         val (khoaSoPhanCong, donVi) = table
         sort.property match {
           case "donVi.name" => orderColumn(sort.direction, donVi.name)
+          case "lock" => orderColumn(sort.direction, khoaSoPhanCong.lock)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)
         }
       })
@@ -76,4 +95,10 @@ object KhoaSoPhanCongs extends AbstractQuery[KhoaSoPhanCong, KhoaSoPhanCongs](ne
     )
   }
 
+  def isLock(donViId: Long, month: Int, year: Int)(implicit session: Session) = {
+    val khoaSo = where {
+      _khoaSo => _khoaSo.donViId === donViId && _khoaSo.month === month && _khoaSo.year === year
+    }.firstOption
+    khoaSo.isDefined && khoaSo.get.lock
+  }
 }

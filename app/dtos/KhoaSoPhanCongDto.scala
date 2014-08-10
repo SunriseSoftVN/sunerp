@@ -15,6 +15,7 @@ case class KhoaSoPhanCongDto(
                               lock: Boolean,
                               month: Int,
                               year: Int,
+                              donViId: Long,
                               donVi: DonVi
                               )
 
@@ -26,6 +27,7 @@ object KhoaSoPhanCongDto {
       lock = khoaSoPhanCong.lock,
       month = khoaSoPhanCong.month,
       year = khoaSoPhanCong.year,
+      donViId = khoaSoPhanCong.donViId,
       donVi = donVi
     )
   }
@@ -35,6 +37,7 @@ object KhoaSoPhanCongDto {
       "id" -> o.id,
       "lock" -> o.lock,
       "month" -> o.month,
+      "donViId" -> o.donViId,
       "year" -> o.year,
       "donVi" -> DonVis.donViJsonFormat.writes(o.donVi)
     )

@@ -6,6 +6,7 @@ Ext.define('sunerp.model.KhoaSoPhanCong', {
     fields: [
         'id',
         'donViId',
+        'lock',
         'donVi',
         {name: 'donVi.name', mapping: 'donVi.name'},
         'month',

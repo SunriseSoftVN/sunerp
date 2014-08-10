@@ -62,7 +62,11 @@ object XepLoais extends AbstractQuery[XepLoai, XepLoais](new XepLoais(_)) {
 
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[XepLoaiDto] = {
-    var query = for (xepLoai <- this; nhanVien <- xepLoai.nhanVien) yield (xepLoai, nhanVien)
+    var query = for {
+      xepLoai <- this
+      nhanVien <- xepLoai.nhanVien
+      if xepLoai.year === DateTimeUtils.currentYear
+    } yield (xepLoai, nhanVien)
 
     pagingDto.getFilters.foreach(filter => {
       query = query.where(tuple => {

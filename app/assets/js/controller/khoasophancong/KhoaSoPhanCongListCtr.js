@@ -8,10 +8,24 @@ Ext.define('sunerp.controller.khoasophancong.KhoaSoPhanCongListCtr', {
     config: {
         khoaSoPhanCongStore: null
     },
-    editView: 'sunerp.view.donvi.DonViEdit',
+    control: {
+        btnSave: {
+            selector: 'button[action=save]',
+            listeners: {
+                click: 'onBtnSaveClick'
+            }
+        }
+    },
     init: function () {
         this.mainStore = this.getKhoaSoPhanCongStore();
         this.getAddBtn().setDisabled(true);
         this.callParent(arguments);
+    },
+    onBtnSaveClick: function () {
+        this.mainStore.sync({
+            success: function () {
+                Ext.Msg.alert('Status', 'Cập nhật thành công.');
+            }
+        });
     }
 });

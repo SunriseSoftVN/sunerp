@@ -6,19 +6,22 @@ Ext.define('sunerp.view.khoasophancong.KhoaSoPhanCongList', {
     config: {
         khoaSoPhanCongStore: null
     },
-    searchField: 'name',
+    searchField: 'donVi.name',
     initComponent: function () {
         var me = this;
         me.store = this.getKhoaSoPhanCongStore();
         me.columns = [
             {xtype: 'rownumberer', width: 30},
-            {header: 'Tên', dataIndex: 'name', flex: 1},
+            {header: 'Tên', dataIndex: 'donVi.name', flex: 1},
+            {
+                header: 'Khóa', dataIndex: 'lock', width: 90,
+                xtype: 'checkcolumn'
+            },
             {
                 xtype: 'actioncolumn',
                 header: 'Option',
                 sortable: false,
-                menuDisabled: true,
-                items: [this.deleteBtn()]
+                menuDisabled: true
             }
         ];
         me.callParent(arguments);
@@ -34,6 +37,12 @@ Ext.define('sunerp.view.khoasophancong.KhoaSoPhanCongList', {
             fieldName: 'month',
             store: me.store
         });
-        me.tbar.insert(1, [momthCbFilter]);
+        var saveButton = Ext.create('Ext.Button', {
+            text: 'Lưu',
+            tooltip: 'Lưu',
+            iconCls: 'save',
+            action: 'save'
+        });
+        me.tbar.insert(1, [momthCbFilter, saveButton]);
     }
 });
