@@ -53,6 +53,15 @@ Ext.define('sunerp.view.diemheso.DiemHeSoList', {
             store: me.store
         });
 
+        var donViCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.DonViCb', {
+                name: 'Xí Nghiệp',
+                width: 200
+            }),
+            fieldName: 'donViId',
+            store: me.store
+        });
+
         var phongBanCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
             comp: Ext.create('sunerp.component.PhongBanCb', {
                 name: 'Đơn vị',
@@ -62,13 +71,6 @@ Ext.define('sunerp.view.diemheso.DiemHeSoList', {
             store: me.store
         });
 
-        var donViId = me.getUserService().getCurrentUser().donViId;
-        var donViFilter = new Ext.util.Filter({
-            property: 'donViId',
-            value: sunerp.Utils.toString(donViId)
-        });
-        me.store.addFilter(donViFilter, false);
-
-        me.tbar.insert(1, [phongBanCbFilter, yearCbFilter])
+        me.tbar.insert(1, [donViCbFilter, phongBanCbFilter, yearCbFilter])
     }
 });

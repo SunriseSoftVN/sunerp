@@ -141,6 +141,19 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
     where(_.phongBanId in phongBanIds).sortBy(_.firstName).list()
   }
 
+  def findWhoNotInDiemHeSo(year: Int)(implicit session: Session) = {
+    val nhanVienIds = for {
+      diemHeSo <- DiemHeSos
+      if diemHeSo.year === year
+    } yield diemHeSo.nhanVienId
+
+    val query = for {
+      nhanVien <- NhanViens
+      if nhanVien.id notIn nhanVienIds
+    } yield nhanVien
+    query.list()
+  }
+
   def login(maNv: String, password: String)(implicit session: Session) = {
     val nhanVien = findByMaNv(maNv)
     nhanVien.isDefined &&

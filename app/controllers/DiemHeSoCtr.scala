@@ -28,19 +28,17 @@ class DiemHeSoCtr(implicit val bindingModule: BindingModule) extends BaseCtr[Die
   override val domainName: String = DomainKey.diemHeSo
 
   override protected def doIndex(paging: PagingDto, request: RequestWithAttributes[AnyContent])(implicit session: Session): JsValue = {
-    var result = DiemHeSos.load(paging)
-    if (result.total == 0) {
-      val nhanViens = NhanViens.findByDonViId(loggedIn(request).phongBan.donViId)
-      for (nhanVien <- nhanViens) yield {
-        val diemHeSo = new DiemHeSo(
-          nhanVienId = nhanVien.id.get,
-          heSo = 0d,
-          year = paging.findFilters("year").fold(DateTimeUtils.currentYear)(f => f.asInt)
-        )
-        DiemHeSos.save(diemHeSo)
-      }
-      result = DiemHeSos.load(paging)
+    val year = paging.findFilters("year").fold(DateTimeUtils.currentYear)(f => f.asInt)
+    val nhanViens = NhanViens.findWhoNotInDiemHeSo(year)
+    for (nhanVien <- nhanViens) {
+      val diemHeSo = new DiemHeSo(
+        nhanVienId = nhanVien.id.get,
+        heSo = 0d,
+        year = year
+      )
+      DiemHeSos.save(diemHeSo)
     }
+    val result = DiemHeSos.load(paging)
     Json.toJson(result)
   }
 }
