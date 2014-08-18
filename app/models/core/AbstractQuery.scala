@@ -2,7 +2,7 @@ package models.core
 
 import play.api.db.slick.Config.driver.simple._
 import scala.slick.lifted.{Tag, TableQuery}
-import dtos.PagingDto
+import dtos.{ExtGirdDto, PagingDto}
 
 /**
  * The Class QueryHelper.
@@ -44,4 +44,37 @@ abstract class AbstractQuery[E, T <: AbstractTable[E]](cons: Tag => T) extends T
   def update(entity: E, id: Long)(implicit session: Session) = where(_.id === id).update(entity)
 
   protected def orderColumn(direction: String, column: Column[_]) = if (direction.toLowerCase == "asc") column.asc else column.desc
+
+  def abstractLoad(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[E] = {
+    abstractLoad(pagingDto)
+    var query = for (row <- this) yield row
+
+    pagingDto.filters.foreach{filter =>
+      try{
+        query = query.where(_.columnByNameAsString(filter.property) like filter.asLikeValue)
+      }catch{
+        case _:NoSuchElementException => throw new Exception("Invalid filtering key: " + filter.property)
+      }
+    }
+
+    pagingDto.sorts.foreach{sort =>
+      try{
+        query = query.sortBy(row => orderColumn(sort.direction, row.columnByName(sort.property)))
+      }catch{
+        case _:NoSuchElementException => throw new Exception("Invalid sorting key: " + sort.property)
+      }
+    }
+
+    val totalRow = query.length.run
+
+    val rows = query
+      .drop(pagingDto.start)
+      .take(pagingDto.limit)
+      .list
+
+    ExtGirdDto[E](
+      total = totalRow,
+      data = rows
+    )
+  }
 }

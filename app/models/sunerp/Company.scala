@@ -43,6 +43,17 @@ class Companies(tag: Tag) extends AbstractTable[Company](tag, "company") {
   def companySetting = foreignKey("company_company_setting_fk", companySettingId, CompanySettings)(_.id)
 
   override def * = (id.?, name, address, phone, email, mst, companySettingId) <>(Company.tupled, Company.unapply)
+
+  override def columnByName = {
+    // could be implemented in AbstractQuery using reflection
+    Map[String,Column[_]](
+      "name"    -> name,
+      "address" -> address,
+      "phone"   -> phone,
+      "email"   -> email,
+      "mst"     -> mst
+    )
+  }
 }
 
 object Companies extends AbstractQuery[Company, Companies](new Companies(_)) {
@@ -60,42 +71,5 @@ object Companies extends AbstractQuery[Company, Companies](new Companies(_)) {
     )(Company.apply)(Company.unapply)
   )
 
-  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[Company] = {
-
-    var query = for (row <- this) yield row
-
-    pagingDto.filters.foreach(filter => {
-      query = query.where(table => {
-        filter.property match {
-          case "name" => table.name.toLowerCase like filter.asLikeValue
-          case _ => throw new Exception("Invalid filtering key: " + filter.property)
-        }
-      })
-    })
-
-    pagingDto.sorts.foreach(sort => {
-      query = query.sortBy(table => {
-        sort.property match {
-          case "name" => orderColumn(sort.direction, table.name)
-          case "address" => orderColumn(sort.direction, table.address)
-          case "phone" => orderColumn(sort.direction, table.phone)
-          case "email" => orderColumn(sort.direction, table.email)
-          case "mst" => orderColumn(sort.direction, table.mst)
-          case _ => throw new Exception("Invalid sorting key: " + sort.property)
-        }
-      })
-    })
-
-    val totalRow = Query(query.length).first()
-
-    val rows = query
-      .drop(pagingDto.start)
-      .take(pagingDto.limit)
-      .list
-
-    ExtGirdDto[Company](
-      total = totalRow,
-      data = rows
-    )
-  }
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[Company] = abstractLoad(pagingDto)
 }
