@@ -15,21 +15,25 @@ import play.api.libs.json.Json
  */
 case class CompanySetting(
                            id: Option[Long] = None,
-                           luongToiThieu: Long
+                           key: String,
+                           value: String
                            ) extends WithId[Long]
 
 class CompanySettings(tag: Tag) extends AbstractTable[CompanySetting](tag, "companySetting") {
 
-  def luongToiThieu = column[Long]("luongToiThieu", O.NotNull)
+  def key = column[String]("key", O.NotNull)
 
-  def * = (id.?, luongToiThieu) <>(CompanySetting.tupled, CompanySetting.unapply)
+  def value = column[String]("value", O.NotNull)
+
+  def * = (id.?, key, value) <>(CompanySetting.tupled, CompanySetting.unapply)
 }
 
 object CompanySettings extends AbstractQuery[CompanySetting, CompanySettings](new CompanySettings(_)) {
   def editForm = Form(
     mapping(
       "id" -> optional(longNumber),
-      "luongToiThieu" -> longNumber
+      "key" -> nonEmptyText,
+      "value" -> nonEmptyText
     )(CompanySetting.apply)(CompanySetting.unapply)
   )
 

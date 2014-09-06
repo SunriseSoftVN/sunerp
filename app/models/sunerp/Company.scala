@@ -22,8 +22,7 @@ case class Company(
                     address: String,
                     phone: String,
                     email: String,
-                    mst: String,
-                    companySettingId: Long
+                    mst: String
                     ) extends WithId[Long]
 
 class Companies(tag: Tag) extends AbstractTable[Company](tag, "company") {
@@ -38,11 +37,7 @@ class Companies(tag: Tag) extends AbstractTable[Company](tag, "company") {
 
   def mst = column[String]("mst", O.NotNull)
 
-  def companySettingId = column[Long]("companySettingId", O.NotNull)
-
-  def companySetting = foreignKey("company_company_setting_fk", companySettingId, CompanySettings)(_.id)
-
-  override def * = (id.?, name, address, phone, email, mst, companySettingId) <>(Company.tupled, Company.unapply)
+  override def * = (id.?, name, address, phone, email, mst) <>(Company.tupled, Company.unapply)
 }
 
 object Companies extends AbstractQuery[Company, Companies](new Companies(_)) {
@@ -55,8 +50,7 @@ object Companies extends AbstractQuery[Company, Companies](new Companies(_)) {
       "address" -> text(minLength = 4),
       "phone" -> text(minLength = 4),
       "email" -> email,
-      "mst" -> text(minLength = 4),
-      "companySettingId" -> longNumber
+      "mst" -> text(minLength = 4)
     )(Company.apply)(Company.unapply)
   )
 

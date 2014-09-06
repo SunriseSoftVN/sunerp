@@ -14,19 +14,13 @@ object DBinit {
   def init() {
     DB.withTransaction(implicit session => {
       if (Companies.countAll == 0) {
-        val companySetting = new CompanySetting(
-          luongToiThieu = 1005000
-        )
-
-        val companySettingId = CompanySettings.save(companySetting)
 
         val company = new Company(
           name = "Mặc định",
           address = "Mặc định",
           phone = "Mặc định",
           email = "demo@demo.vn",
-          mst = "0123456789",
-          companySettingId = companySettingId
+          mst = "0123456789"
         )
 
         val companyId = Companies.save(company)
