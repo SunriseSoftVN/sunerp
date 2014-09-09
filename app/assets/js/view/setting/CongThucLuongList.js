@@ -2,18 +2,18 @@
  * Created by dungvn3000 on 4/21/14.
  */
 
-Ext.define('sunerp.view.setting.SettingList', {
+Ext.define('sunerp.view.setting.CongThucLuongList', {
     extend: 'sunerp.view.core.BaseListView',
-    alias: 'widget.congThucTinhLuongList',
-    controller: 'sunerp.controller.setting.SettingListCtr',
-    inject: ['companySettingStore'],
+    alias: 'widget.congThucLuongList',
+    controller: 'sunerp.controller.setting.CongThucLuongListCtr',
+    inject: ['congThucLuongStore'],
     config: {
-        companySettingStore: null
+        congThucLuongStore: null
     },
     searchField: 'name',
     initComponent: function () {
         var me = this;
-        me.store = this.getCompanySettingStore();
+        me.store = this.getCongThucLuongStore();
         me.columns = [
             {xtype: 'rownumberer', width: 30},
             {header: 'Tên', dataIndex: 'name', flex: 1},

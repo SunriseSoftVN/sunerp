@@ -14,14 +14,16 @@ import play.api.libs.json.Json
  * @since 3/4/14 10:01 AM
  *
  */
-case class CompanySetting(
-                           id: Option[Long] = None,
-                           key: String,
-                           value: String,
-                           name: String
-                           ) extends WithId[Long]
+case class CongThucLuong(
+                          id: Option[Long] = None,
+                          key: String,
+                          value: String,
+                          name: String,
+                          month: Int,
+                          year: Int
+                          ) extends WithId[Long]
 
-class CompanySettings(tag: Tag) extends AbstractTable[CompanySetting](tag, "companySetting") {
+class CongThucLuongs(tag: Tag) extends AbstractTable[CongThucLuong](tag, "congthucluong") {
 
   def key = column[String]("key", O.NotNull)
 
@@ -29,20 +31,26 @@ class CompanySettings(tag: Tag) extends AbstractTable[CompanySetting](tag, "comp
 
   def name = column[String]("name", O.NotNull)
 
-  def * = (id.?, key, value, name) <>(CompanySetting.tupled, CompanySetting.unapply)
+  def month = column[Int]("month", O.NotNull)
+
+  def year = column[Int]("year", O.NotNull)
+
+  def * = (id.?, key, value, name, month, year) <>(CongThucLuong.tupled, CongThucLuong.unapply)
 }
 
-object CompanySettings extends AbstractQuery[CompanySetting, CompanySettings](new CompanySettings(_)) {
+object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new CongThucLuongs(_)) {
   def editForm = Form(
     mapping(
       "id" -> optional(longNumber),
       "key" -> nonEmptyText,
       "value" -> nonEmptyText,
-      "name" -> nonEmptyText
-    )(CompanySetting.apply)(CompanySetting.unapply)
+      "name" -> nonEmptyText,
+      "month" -> number,
+      "year" -> number
+    )(CongThucLuong.apply)(CongThucLuong.unapply)
   )
 
-  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[CompanySetting] = {
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[CongThucLuong] = {
 
     var query = for (row <- this) yield row
 
@@ -50,6 +58,8 @@ object CompanySettings extends AbstractQuery[CompanySetting, CompanySettings](ne
       query = query.where(table => {
         filter.property match {
           case "name" => table.name.toLowerCase like filter.asLikeValue
+          case "month" => table.month === filter.asInt
+          case "year" => table.year === filter.asInt
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -72,11 +82,11 @@ object CompanySettings extends AbstractQuery[CompanySetting, CompanySettings](ne
       .take(pagingDto.limit)
       .list
 
-    ExtGirdDto[CompanySetting](
+    ExtGirdDto[CongThucLuong](
       total = totalRow,
       data = rows
     )
   }
 
-  implicit val companySettingJsonFormat = Json.format[CompanySetting]
+  implicit val congThucLuongJsonFormat = Json.format[CongThucLuong]
 }

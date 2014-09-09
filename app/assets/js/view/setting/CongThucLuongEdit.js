@@ -2,11 +2,11 @@
  * Created by dungvn3000 on 3/19/14.
  */
 
-Ext.define('sunerp.view.setting.SettingEdit', {
+Ext.define('sunerp.view.setting.CongThucLuongEdit', {
     extend: 'sunerp.view.core.BaseEditView',
-    alias: 'widget.settingEdit',
-    title: 'Edit Setting',
-    controller: 'sunerp.controller.setting.SettingEditCtr',
+    alias: 'widget.congThucLuongEdit',
+    title: 'Edit Công thức lương',
+    controller: 'sunerp.controller.setting.CongThucLuongEditCtr',
     initComponent: function () {
         this.items = [
             {
