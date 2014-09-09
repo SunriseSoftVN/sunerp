@@ -5,11 +5,8 @@ Ext.define('sunerp.model.CompanySetting', {
     extend: 'sunerp.model.BaseModel',
     fields: [
         'id',
-        'companyId',
-        'company',
-        'luongToiThieu'
-    ],
-    associations: [
-        {type: 'belongsTo', model: 'sunerp.model.Company', name: 'company'}
+        'key',
+        'value',
+        'name'
     ]
 });

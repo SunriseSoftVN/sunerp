@@ -28,6 +28,11 @@ POST          /company                                  @controllers.CompanyCtr.
 PUT           /company/:id                              @controllers.CompanyCtr.update(id: Long)
 DELETE        /company/:id                              @controllers.CompanyCtr.delete(id: Long)
 
+GET           /companysetting                           @controllers.CompanySettingCtr.index
+POST          /companysetting                           @controllers.CompanySettingCtr.save
+PUT           /companysetting/:id                       @controllers.CompanySettingCtr.update(id: Long)
+DELETE        /companysetting/:id                       @controllers.CompanySettingCtr.delete(id: Long)
+
 GET           /soluong                                  @controllers.SoLuongCtr.index
 POST          /soluong                                  @controllers.SoLuongCtr.save
 PUT           /soluong/:id                              @controllers.SoLuongCtr.update(id: Long)

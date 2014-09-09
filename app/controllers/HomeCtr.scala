@@ -20,7 +20,7 @@ object DomainKey {
   val quyenHanh = "quyenhanh"
   val soLuong = "soluong"
   val thCongViecHangNgay = "thcongviechangngay"
-  val bcThucHienKhoiLuong = "bcThucHienKhoiLuong"
+  val bcThucHienKhoiLuong = "bcthuchienkhoiluong"
   val thThucHienKhoiLuong = "ththuchienkhoiluong"
   val thThucHienKhoiLuongQuy = "ththuchienkhoiluongquy"
   val inSoPhanCong = "insophancong"
@@ -30,7 +30,8 @@ object DomainKey {
   val xepLoai = "xeploai"
   val diemHeSo = "diemheso"
   val task = "task"
-  val khoaSoPhanCong = "khoaSoPhanCong"
+  val khoaSoPhanCong = "khoasophancong"
+  val companySetting = "companysetting"
 
   val list = List(
     soPhanCong,
@@ -52,6 +53,7 @@ object DomainKey {
     xepLoai,
     diemHeSo,
     task,
+    companySetting,
     khoaSoPhanCong
   )
 }
@@ -209,6 +211,19 @@ class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with
     )
   )
 
+  val setting = MenuItemDto(
+    text = "Setting",
+    expanded = true,
+    children = List(
+      MenuItemDto(
+        id = companySetting,
+        view = "sunerp.view.setting.SettingList",
+        text = "Cài đặt",
+        leaf = true
+      )
+    )
+  )
+
   val rootMenu = MenuItemDto(
     expanded = true,
     children = List(
@@ -216,7 +231,8 @@ class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with
       quanLyNhanVien,
       quanLyCongViec,
       quanLyLuong,
-      baoCaoKhoiLuong
+      baoCaoKhoiLuong,
+      setting
     )
   )
 
