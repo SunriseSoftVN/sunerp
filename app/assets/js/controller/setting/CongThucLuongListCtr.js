@@ -5,6 +5,17 @@
 Ext.define('sunerp.controller.setting.CongThucLuongListCtr', {
     extend: 'sunerp.controller.core.BaseListController',
     inject: ['congThucLuongStore'],
+    control: {
+        monthCb: {
+            selector: 'monthcb'
+        },
+        copyFromLastMonthBtn: {
+            selector: 'button[action=copyFromLastMonth]',
+            listeners: {
+                click: 'onCopyFromLastMonthBtnClick'
+            }
+        }
+    },
     config: {
         congThucLuongStore: null
     },
@@ -13,5 +24,14 @@ Ext.define('sunerp.controller.setting.CongThucLuongListCtr', {
         this.getAddBtn().setDisabled(true);
         this.mainStore = this.getCongThucLuongStore();
         this.callParent(arguments);
+    },
+    onCopyFromLastMonthBtnClick: function() {
+        var me = this;
+        Ext.Ajax.request({
+            url: '/congthucluong/copyFromLastMonth/' + me.getMonthCb().getValue(),
+            success: function (rep) {
+                me.mainStore.reload();
+            }
+        });
     }
 });

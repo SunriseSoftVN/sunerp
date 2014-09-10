@@ -27,4 +27,9 @@ class CongThucLuongCtr(implicit val bindingModule: BindingModule) extends BaseCt
     val result = CongThucLuongs.load(paging)
     Json.toJson(result)
   }
+
+  def copyFromLastMonth(month: Int) = StackAction(AuthorityKey -> domainName)(implicit request => {
+    CongThucLuongs.copyDataFromLastMonth(month)
+    Ok
+  })
 }

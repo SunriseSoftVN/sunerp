@@ -7,6 +7,9 @@ Ext.define('sunerp.view.setting.CongThucLuongList', {
     alias: 'widget.congThucLuongList',
     controller: 'sunerp.controller.setting.CongThucLuongListCtr',
     inject: ['congThucLuongStore'],
+    requires: [
+        'sunerp.component.MonthCb'
+    ],
     config: {
         congThucLuongStore: null
     },
@@ -26,5 +29,27 @@ Ext.define('sunerp.view.setting.CongThucLuongList', {
             }
         ];
         me.callParent(arguments);
+    },
+    initTBar: function () {
+        var me = this;
+        me.callParent(arguments);
+        var momthCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.MonthCb', {
+                name: 'Tháng',
+                width: 100
+            }),
+            fieldName: 'month',
+            store: me.store
+        });
+
+        me.tbar.insert(1, [momthCbFilter]);
+
+        me.tbar.add({
+            xtype: 'button',
+            action: 'copyFromLastMonth',
+            iconCls: 'init',
+            text: 'Copy dữ liệu',
+            tooltip: 'Copy dữ liệu từ tháng trước'
+        });
     }
 });

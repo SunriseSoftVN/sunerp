@@ -1,5 +1,6 @@
 package models.sunerp
 
+import com.github.nscala_time.time.StaticForwarderImports._
 import dtos.{ExtGirdDto, PagingDto}
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.db.slick.Config.driver.simple._
@@ -50,6 +51,31 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
     )(CongThucLuong.apply)(CongThucLuong.unapply)
   )
 
+  def copyDataFromLastMonth(month: Int)(implicit session: Session): Unit = {
+    val last = LocalDate.now.withMonthOfYear(month).minusMonths(1)
+    val lastMonth = last.getMonthOfYear
+    val year = last.getYear
+
+    val lastMonthQuery = for {
+      row <- this
+      if row.month === lastMonth && row.year === year
+    } yield row
+
+    val query = for {
+      row <- this
+      if row.month === month && row.year === LocalDate.now.getYear
+    } yield row
+
+    val data = lastMonthQuery.list()
+
+    if(data.length > 0) {
+      query.delete
+      for (row <- data) {
+        save(row.copy(id = None, month = month, year = LocalDate.now.getYear))
+      }
+    }
+  }
+
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[CongThucLuong] = {
 
     var query = for (row <- this) yield row
@@ -58,8 +84,8 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
       query = query.where(table => {
         filter.property match {
           case "name" => table.name.toLowerCase like filter.asLikeValue
-          case "month" => table.month === filter.asInt
-          case "year" => table.year === filter.asInt
+          case "month" =>
+            table.month === filter.asInt && table.year === LocalDate.now.getYear
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
