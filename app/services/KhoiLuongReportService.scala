@@ -50,6 +50,8 @@ trait KhoiLuongReportService {
 
   def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
+  def doBcChungTuLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
+
   def doThKhoiLuongQuy(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 }
 
@@ -60,11 +62,36 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   val reportDir = "report/"
   lazy val qlkhUrl = Play.configuration.getString("qlkh.url").getOrElse(throw new Exception("Config key 'qlkh.url' is missing"))
 
+  override def doBcChungTuLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
+    val promise = Promise[String]()
+
+    def buildReport(tasks: List[TaskDto]) = Future {
+      val fileName = s"chungtuluong-${req.phongBanNameStrip}-thang${req.month}-nam${req.year}"
+      val report = KhoiLuongReportColumnBuilder.buildChungTuLuong(req)
+      val phongBanDto = buildPhongBanData(req.month, req._quarter, req.year, req.getPhongBan, tasks, Nil)
+      //build data
+      val bangChamCongs = phongBanDto.bangChamCongs
+
+      val ds = new JRBeanCollectionDataSource(phongBanDto.bangChamCongs)
+      report.setDataSource(ds)
+      exportReport(fileType, fileName, report)
+    }
+
+    promise.completeWith {
+      for {
+        tasks <- getTasks
+        fileName <- buildReport(tasks)
+      } yield fileName
+    }
+
+    promise.future
+  }
+
   override def inBangChamCongCaNhan(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session, nhanVien: NhanVien): Future[String] = {
     val promise = Promise[String]()
 
     def buildReport(tasks: List[TaskDto]) = Future {
-      val fileName = s"bangchamcong-${nhanVien.maNv}-thang${req.month}-nam${req.year}"
+      val fileName = s"bangchamcongcanhan-${nhanVien.maNv}-thang${req.month}-nam${req.year}"
       val report = KhoiLuongReportColumnBuilder.buildBangChamCong(req)
       val phongBanDto = buildPhongBanData(req.month, req._quarter, req.year, req.getPhongBan, tasks, Nil)
       //build data
@@ -128,7 +155,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
   }
 
   override def inSoPhanCongCaNhan(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session, nhanVien: NhanVien): String = {
-    val fileName = s"sophancong-${nhanVien.maNv}-thang${req.month}-nam${req.year}"
+    val fileName = s"sophancongcanhan-${nhanVien.maNv}-thang${req.month}-nam${req.year}"
     val report = KhoiLuongReportColumnBuilder.buildSoPhanCong(req)
 
     val query = for {

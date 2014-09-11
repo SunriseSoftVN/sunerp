@@ -18,7 +18,7 @@ import play.api.libs.json.Json
 case class CongThucLuong(
                           id: Option[Long] = None,
                           key: String,
-                          value: String,
+                          value: Int,
                           name: String,
                           month: Int,
                           year: Int
@@ -28,7 +28,7 @@ class CongThucLuongs(tag: Tag) extends AbstractTable[CongThucLuong](tag, "congth
 
   def key = column[String]("key", O.NotNull)
 
-  def value = column[String]("value", O.NotNull)
+  def value = column[Int]("value", O.NotNull)
 
   def name = column[String]("name", O.NotNull)
 
@@ -44,7 +44,7 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
     mapping(
       "id" -> optional(longNumber),
       "key" -> nonEmptyText,
-      "value" -> nonEmptyText,
+      "value" -> number,
       "name" -> nonEmptyText,
       "month" -> number,
       "year" -> number

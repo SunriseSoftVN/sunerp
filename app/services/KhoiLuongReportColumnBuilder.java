@@ -58,7 +58,7 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> hop = col.column("Họp", "hop", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> hocNH = col.column("Học HT", "hocNH", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Integer> hocDH = col.column("Học H0", "hocDH", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
-    public static final TextColumnBuilder<Integer> gianTiep = col.column("Gián tiếp", "gianTiep", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
+    public static final TextColumnBuilder<Integer> gianTiep = col.column("Việc riêng", "gianTiep", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Integer> nghiPhep = col.column("Nghỉ phép", "phep", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Integer> leTet = col.column("Lễ tết", "leTet", type.integerType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<Double> tongCacKhoanCong = col.column("Tổng cộng", "tongCacKhoanCong", type.doubleType()).setStyle(COLUMN_NUMBER_CENTER_STYLE);
@@ -77,6 +77,36 @@ public final class KhoiLuongReportColumnBuilder {
             .setStyle(COLUMN_NUMBER_CENTER_STYLE);
     public static final TextColumnBuilder<String> xepLoai = col.column("Xếp loại ABC", "xepLoai", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
     public static final TextColumnBuilder<String> ghiChu = col.column("Ghi chú", "ghiChu", type.stringType()).setFixedWidth(100);
+    public static final TextColumnBuilder<String> danhMuc = col.column("Danh mục", "danhMuc", type.stringType()).setFixedWidth(150);
+    public static final TextColumnBuilder<Double> donGia = col.column("Đơn giá", "donGia", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(100);
+    public static final TextColumnBuilder<Double> khoiLuong = col.column("Khối lượng", "khoiLuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(70);
+    public static final TextColumnBuilder<String> donVi = col.column("Đơn vị", "donvi", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(40);
+    public static final TextColumnBuilder<Double> khongThuong = col.column("K.Thưởng", "khongThuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(80);
+    public static final TextColumnBuilder<Double> coThuong = col.column("Có Thưởng", "coThuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(80);
+
+    public static JasperReportBuilder buildChungTuLuong(KhoiLuongReportRequest request) throws DRException {
+        InputStream is = Play.application().resourceAsStream("report/chungtuluong.jrxml");
+        JasperReportBuilder builder = report()
+                .setTemplateDesign(is)
+                .setColumnTitleStyle(COLUMN_TITLE_STYLE)
+                .setColumnStyle(COLUMN_STYLE)
+                .setSubtotalStyle(COLUMN_STYLE)
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL);
+
+        builder.setParameter("phongBang", request.phongBanName());
+        builder.setParameter("month", request.month());
+        builder.setParameter("year", request.year());
+
+        builder.columns(
+                stt, danhMuc, donVi, khoiLuong, donGia, khongThuong, coThuong
+        );
+
+        ColumnTitleGroupBuilder thanhTien = grid.titleGroup();
+        thanhTien.setTitle("Thành tiền");
+        thanhTien.add(khongThuong, coThuong);
+        builder.columnGrid(stt, danhMuc, donVi, khoiLuong, donGia, thanhTien);
+        return builder;
+    }
 
     public static JasperReportBuilder buildBangChamCong(KhoiLuongReportRequest request) throws DRException {
         InputStream is = Play.application().resourceAsStream("report/bangchamcong.jrxml");

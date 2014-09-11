@@ -24,7 +24,7 @@ Ext.define('sunerp.view.setting.CongThucLuongEdit', {
                         fieldLabel: 'Name'
                     },
                     {
-                        xtype: 'textfield',
+                        xtype: 'numberfield',
                         anchor: '100%',
                         name: 'value',
                         allowBlank: false,
