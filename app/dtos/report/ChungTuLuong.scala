@@ -310,7 +310,7 @@ class ChungTuLuong(
     row.donVi = "Công"
     if (klOmDau > 0) {
       row.khoiLuong = klOmDau
-      row.donGia = bangChamCongs.map {
+      row.coThuong = bangChamCongs.map {
         r => double2Double(r.hsl) * (int2Double(r.omDau) + int2Double(r.conOm)) * kOmDau / monthWorkingDay * 0.75
       }.sum
     }
@@ -324,7 +324,7 @@ class ChungTuLuong(
     row.donVi = "Công"
     if (klThaiSan > 0) {
       row.khoiLuong = klThaiSan
-      row.donGia = bangChamCongs.filter(_.thaiSan > 0).map {
+      row.coThuong = bangChamCongs.filter(_.thaiSan != null).map {
         r => (double2Double(r.hsl) * kThaiSan * thaiSanThang) + (2 * kThaiSan)
       }.sum
     }
@@ -338,7 +338,7 @@ class ChungTuLuong(
     row.donVi = "Công"
     if (klTaiNanLD > 0) {
       row.khoiLuong = klTaiNanLD
-      row.donGia = bangChamCongs.filter(_.taiNanLaoDong > 0).map {
+      row.coThuong = bangChamCongs.filter(_.taiNanLaoDong != null).map {
         r => double2Double(r.hsl) * kTaiNan * klTaiNanLD
       }.sum
     }
