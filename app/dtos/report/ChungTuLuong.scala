@@ -1,10 +1,9 @@
 package dtos.report
 
-import java.lang
-
 import dtos.report.row.ChungTuLuongRow
-import models.sunerp.CongThucLuongs
+import models.sunerp.{NhanViens, CongThucLuongs}
 import play.api.db.slick._
+import utils.DateTimeUtils
 
 import scala.collection.mutable.ListBuffer
 
@@ -12,24 +11,12 @@ import scala.collection.mutable.ListBuffer
  * Created by dungvn3000 on 9/11/2014.
  */
 class ChungTuLuong(
-                    klLuongSanPhamTi: Double,
-                    klLuongGianTiep: Double,
-                    klLuongThoiGian: Double,
-                    klPhepNam: Double,
-                    klNghiLe: Double,
-                    klAnToan: Double,
-                    klTrachNhiem: Double,
-                    klPhuCapDocHai: Double,
-                    klPhuCapLamDem: Double,
-                    klPhuCapTrucNhat: Double,
-                    klOmDau: Double,
-                    klThaiSan: Double,
-                    klTaiNanLD: Double,
-                    klGiuaCa: Double,
-                    klNuocUong: Double,
-                    month: Int
+                    phongBanDto: PhongBanDto,
+                    month: Int,
+                    year: Int
                     )(implicit session: Session) {
 
+  val monthWorkingDay = DateTimeUtils.monthWorkingDay(year, month).toDouble
   val donGiaTiKey = "ti.dongia"
   val kGianTiepKey = "giantiep.k"
   val kThoiGianKey = "thoigian.k"
@@ -38,11 +25,11 @@ class ChungTuLuong(
   val kAnToanKey = "antoan.k"
   val kTrachNhiemKey = "trachnhiem.k"
   val heSoTrachNhiemKey = "trachnhiem.heso"
-  val kPhuCapKhuVucKey = "phucapkhuvuc.k"
+  val donGiaPhuCapKhuVucKey = "phucapkhuvuc.dongia"
   val klPhuCapKhuVucKey = "phucapkhuvuc.khoiluong"
-  val kPhuCapDocHaiKey = "phucapdochai.k"
+  val donGiaPhuCapDocHaiKey = "phucapdochai.dongia"
   val kPhuCapLamDemKey = "phucaplamdem.k"
-  val kPhuCapBhldKey = "phucapbhld.dongia"
+  val donGianPhuCapBhldKey = "phucapbhld.dongia"
   val thueNgoaiKey = "thuengoai"
   val buLuongKey = "buluong"
   val kOmDauKey = "omdau.k"
@@ -61,19 +48,40 @@ class ChungTuLuong(
   val kAnToan = congThucLuongs.find(_.key == kAnToanKey).get.value
   val kTrachNhiem = congThucLuongs.find(_.key == kTrachNhiemKey).get.value
   val heSoTrachNhiem = congThucLuongs.find(_.key == heSoTrachNhiemKey).get.value
-  val kPhuCapKhuVuc = congThucLuongs.find(_.key == kPhuCapKhuVucKey).get.value
+  val donGiaPhuCapKhuVuc = congThucLuongs.find(_.key == donGiaPhuCapKhuVucKey).get.value
   val klPhuCapKhuVuc = congThucLuongs.find(_.key == klPhuCapKhuVucKey).get.value
-  val kDocHai = congThucLuongs.find(_.key == kPhuCapDocHaiKey).get.value
+  val donGiaPhuCapDocHai = congThucLuongs.find(_.key == donGiaPhuCapDocHaiKey).get.value
   val kPhuCapLamDem = congThucLuongs.find(_.key == kPhuCapLamDemKey).get.value
-  val kPhuCapBhld = congThucLuongs.find(_.key == kPhuCapBhldKey).get.value
+  val donGiaPhuCapBhld = congThucLuongs.find(_.key == donGianPhuCapBhldKey).get.value
   val theuNgoaiThanhTien = congThucLuongs.find(_.key == thueNgoaiKey).get.value
   val buLuongThangThanhTien = congThucLuongs.find(_.key == buLuongKey).get.value
   val kOmDau = congThucLuongs.find(_.key == kOmDauKey).get.value
   val kThaiSan = congThucLuongs.find(_.key == kThaiSanKey).get.value
   val thaiSanThang = congThucLuongs.find(_.key == thaiSanThangKey).get.value
   val kTaiNan = congThucLuongs.find(_.key == kTaiNanKey).get.value
-  val giuaCaDonGia = congThucLuongs.find(_.key == giuaCaDonGiaKey).get.value
-  val nuocUongDonGia = congThucLuongs.find(_.key == nuocUongDonGiaKey).get.value
+  val donGiaGiuaCa = congThucLuongs.find(_.key == giuaCaDonGiaKey).get.value
+  val donGiaNuocUong = congThucLuongs.find(_.key == nuocUongDonGiaKey).get.value
+
+  def double2Double(value: java.lang.Double) = if (value == null) 0d else value.toDouble
+
+  def int2Double(value: java.lang.Integer) = if (value == null) 0d else value.toDouble
+
+  val bangChamCongs = phongBanDto.bangChamCongs
+  val klLuongSanPhamTi = bangChamCongs.map(r => double2Double(r.tongGioCong)).sum
+  val klLuongGianTiep = bangChamCongs.map(r => double2Double(r.hop)).sum
+  val klLuongThoiGian = bangChamCongs.map(r => int2Double(r.hocDH) + double2Double(r.hocNH)).sum
+  val klPhepNam = bangChamCongs.map(r => int2Double(r.phep)).sum
+  val klNghiLe = bangChamCongs.map(r => int2Double(r.leTet) + int2Double(r.gianTiep)).sum
+  val klAnToan = 1
+  val klTrachNhiem = 1
+  val klPhuCapDocHai = bangChamCongs.map(r => int2Double(r.phuCapDocHai)).sum
+  val klPhuCapLamDem = bangChamCongs.map(r => int2Double(r.phuCapLamDem)).sum
+  val klPhuCapTrucNhat = bangChamCongs.map(r => int2Double(r.trucBHLD)).sum
+  val klOmDau = bangChamCongs.map(r => int2Double(r.omDau) + int2Double(r.conOm)).sum
+  val klThaiSan = bangChamCongs.map(r => int2Double(r.thaiSan)).sum
+  val klTaiNanLD = bangChamCongs.map(r => int2Double(r.taiNanLaoDong)).sum
+  val klGiuaCa = bangChamCongs.map(r => int2Double(r.giuaCa)).sum
+  val klNuocUong = NhanViens.findByPhongBanId(phongBanDto.id).length
 
   val rows = new ListBuffer[ChungTuLuongRow]
 
@@ -82,11 +90,11 @@ class ChungTuLuong(
     row.stt = "I"
     row.danhMuc = "Thuộc quỹ lương"
     row.coThuong = luongSanPhamTiRow.coThuong + luongSanPhamGianTiepRow.coThuong
-    + luongSanPhamThoiGianRow.coThuong + phepNamRow.coThuong
-    + nghiLeRow.coThuong + anToanVeSinhRow.coThuong
-    + trachNhiemRow.coThuong + phuCapKhuVucRow.coThuong + phuCapDocHaiRow.coThuong
-    + phuCapLamDemRow.coThuong + phuCapTrucNhatRow.coThuong
-    + thueNgoaiRow.coThuong + buLuongThangRow.coThuong
+    +luongSanPhamThoiGianRow.coThuong + phepNamRow.coThuong
+    +nghiLeRow.coThuong + anToanVeSinhRow.coThuong
+    +trachNhiemRow.coThuong + phuCapKhuVucRow.coThuong + phuCapDocHaiRow.coThuong
+    +phuCapLamDemRow.coThuong + phuCapTrucNhatRow.coThuong
+    +thueNgoaiRow.coThuong + buLuongThangRow.coThuong
     row
   }
 
@@ -94,6 +102,7 @@ class ChungTuLuong(
     val row = new ChungTuLuongRow()
     row.stt = "II"
     row.danhMuc = "Bảo hiểm xã hội"
+    row.coThuong = omDauRow.coThuong + thaiSanRow.coThuong + taiNanLaoDongRow.coThuong
     row
   }
 
@@ -101,6 +110,7 @@ class ChungTuLuong(
     val row = new ChungTuLuongRow()
     row.stt = "III"
     row.danhMuc = "Chi phí khác"
+    row.coThuong = giuaCaRow.coThuong + nuocUongRow.coThuong
     row
   }
 
@@ -138,7 +148,12 @@ class ChungTuLuong(
     row.stt = "2"
     row.danhMuc = "Lương gián tiếp"
     row.donVi = "Công"
-    row.khoiLuong = klLuongGianTiep
+    if (klLuongGianTiep > 0) {
+      row.khoiLuong = klLuongGianTiep
+      row.donGia = bangChamCongs
+        .map(r => double2Double(r.hsl) * double2Double(r.hop)).sum / klLuongGianTiep * kGianTiep / monthWorkingDay
+      row.coThuong = row.khoiLuong * row.donGia
+    }
     row
   }
 
@@ -147,7 +162,12 @@ class ChungTuLuong(
     row.stt = "3"
     row.danhMuc = "Lương thời gian"
     row.donVi = "Công"
-    row.khoiLuong = klLuongThoiGian
+    if (klLuongThoiGian > 0) {
+      row.khoiLuong = klLuongThoiGian
+      row.donGia = bangChamCongs
+        .map(r => double2Double(r.hsl) * (int2Double(r.hocDH) + double2Double(r.hocNH))).sum / klLuongThoiGian * kThoiGian / monthWorkingDay
+      row.coThuong = row.khoiLuong * row.donGia
+    }
     row
   }
 
@@ -156,7 +176,12 @@ class ChungTuLuong(
     row.stt = "4"
     row.danhMuc = "Phép năm"
     row.donVi = "Công"
-    row.khoiLuong = klPhepNam
+    if (klPhepNam > 0) {
+      row.khoiLuong = klPhepNam
+      row.donGia = bangChamCongs
+        .map(r => double2Double(r.hsl) * int2Double(r.phep)).sum / klPhepNam * kPhep / monthWorkingDay
+      row.coThuong = row.khoiLuong * row.donGia
+    }
     row
   }
 
@@ -165,7 +190,12 @@ class ChungTuLuong(
     row.stt = "5"
     row.danhMuc = "Nghỉ lễ, tết, nghỉ hưởng  lương"
     row.donVi = "Công"
-    row.khoiLuong = klNghiLe
+    if (klNghiLe > 0) {
+      row.khoiLuong = klNghiLe
+      row.donGia = bangChamCongs
+        .map(r => double2Double(r.hsl) * int2Double(r.leTet)).sum / klNghiLe * klNghiLe / monthWorkingDay
+      row.coThuong = row.khoiLuong * row.donGia
+    }
     row
   }
 
@@ -174,7 +204,11 @@ class ChungTuLuong(
     row.stt = "6"
     row.danhMuc = "An toàn vệ sinh viên"
     row.donVi = "Đồng"
-    row.khoiLuong = klAnToan
+    if (klAnToan > 0) {
+      row.khoiLuong = klAnToan
+      row.donGia = 0.1 * kAnToan
+      row.coThuong = row.khoiLuong * row.donGia
+    }
     row
   }
 
@@ -183,8 +217,11 @@ class ChungTuLuong(
     row.stt = "7"
     row.danhMuc = "Trách nhiệm, chức vụ"
     row.donVi = "Đồng"
-    row.khoiLuong = klTrachNhiem
-    row.donGia = heSoTrachNhiem * kTrachNhiem * klTrachNhiem
+    if (klTrachNhiem > 0) {
+      row.khoiLuong = klTrachNhiem
+      row.donGia = heSoTrachNhiem * kTrachNhiem
+      row.coThuong = heSoTrachNhiem * kTrachNhiem * klTrachNhiem
+    }
     row
   }
 
@@ -193,7 +230,11 @@ class ChungTuLuong(
     row.stt = "8"
     row.danhMuc = "Phụ cấp khu vực"
     row.donVi = "Người"
-    row.khoiLuong = klPhuCapKhuVuc
+    if (klPhuCapKhuVuc > 0) {
+      row.khoiLuong = klPhuCapKhuVuc
+      row.donGia = donGiaPhuCapKhuVuc
+      row.coThuong = klPhuCapKhuVuc * donGiaPhuCapKhuVuc
+    }
     row
   }
 
@@ -202,7 +243,11 @@ class ChungTuLuong(
     row.stt = "9"
     row.danhMuc = "Phụ cấp độc hại"
     row.donVi = "Công"
-    row.khoiLuong = klPhuCapDocHai
+    if (klPhuCapDocHai > 0) {
+      row.khoiLuong = klPhuCapDocHai
+      row.donGia = donGiaPhuCapDocHai
+      row.coThuong = klPhuCapDocHai * donGiaPhuCapDocHai
+    }
     row
   }
 
@@ -211,7 +256,12 @@ class ChungTuLuong(
     row.stt = "10"
     row.danhMuc = "Phụ cấp làm đêm"
     row.donVi = "Công"
-    row.khoiLuong = klPhuCapLamDem
+    if (klPhuCapLamDem > 0) {
+      row.khoiLuong = klPhuCapLamDem
+      row.donGia = bangChamCongs
+        .map(r => double2Double(r.hsl) * int2Double(r.phuCapLamDem)).sum / klPhuCapLamDem * kPhuCapLamDem / monthWorkingDay
+      row.coThuong = row.khoiLuong * row.donGia
+    }
     row
   }
 
@@ -220,7 +270,11 @@ class ChungTuLuong(
     row.stt = "11"
     row.danhMuc = "Phụ cấp trực nhật BHLĐ"
     row.donVi = "Công"
-    row.khoiLuong = klPhuCapTrucNhat
+    if (klPhuCapTrucNhat > 0) {
+      row.khoiLuong = klPhuCapTrucNhat
+      row.donGia = donGiaPhuCapBhld
+      row.coThuong = donGiaPhuCapBhld * klPhuCapTrucNhat
+    }
     row
   }
 
@@ -235,8 +289,8 @@ class ChungTuLuong(
 
   val buLuongThangRow = {
     val row = new ChungTuLuongRow()
-    row.stt = "12"
-    row.danhMuc = "Thuê ngoài"
+    row.stt = "13"
+    row.danhMuc = "Bù lương tháng"
     row.donVi = "Đồng"
     row.coThuong = buLuongThangThanhTien
     row
@@ -247,7 +301,12 @@ class ChungTuLuong(
     row.stt = "1"
     row.danhMuc = "Ốm đau"
     row.donVi = "Công"
-    row.khoiLuong = klOmDau
+    if (klOmDau > 0) {
+      row.khoiLuong = klOmDau
+      row.donGia = bangChamCongs.map {
+        r => double2Double(r.hsl) * (int2Double(r.omDau) + int2Double(r.conOm)) * kOmDau / monthWorkingDay * 0.75
+      }.sum
+    }
     row
   }
 
@@ -256,7 +315,12 @@ class ChungTuLuong(
     row.stt = "2"
     row.danhMuc = "Thai sản"
     row.donVi = "Công"
-    row.khoiLuong = klThaiSan
+    if (klThaiSan > 0) {
+      row.khoiLuong = klThaiSan
+      row.donGia = bangChamCongs.filter(_.thaiSan > 0).map {
+        r => (double2Double(r.hsl) * kThaiSan * thaiSanThang) + (2 * kThaiSan)
+      }.sum
+    }
     row
   }
 
@@ -265,16 +329,25 @@ class ChungTuLuong(
     row.stt = "3"
     row.danhMuc = "Tai nạn lao động, bệnh NN"
     row.donVi = "Công"
-    row.khoiLuong = klTaiNanLD
+    if (klTaiNanLD > 0) {
+      row.khoiLuong = klTaiNanLD
+      row.donGia = bangChamCongs.filter(_.taiNanLaoDong > 0).map {
+        r => double2Double(r.hsl) * kTaiNan * klTaiNanLD
+      }.sum
+    }
     row
   }
 
-  val giuaCaRow  = {
+  val giuaCaRow = {
     val row = new ChungTuLuongRow()
     row.stt = "1"
     row.danhMuc = "Giữa ca"
     row.donVi = "Công"
-    row.khoiLuong = klGiuaCa
+    if (klGiuaCa > 0) {
+      row.khoiLuong = klGiuaCa
+      row.donGia = donGiaGiuaCa
+      row.coThuong = klGiuaCa * donGiaGiuaCa
+    }
     row
   }
 
@@ -283,7 +356,11 @@ class ChungTuLuong(
     row.stt = "2"
     row.danhMuc = "Nước uống"
     row.donVi = "Người"
-    row.khoiLuong = klNuocUong
+    if (klNuocUong > 0) {
+      row.khoiLuong = klNuocUong
+      row.donGia = donGiaNuocUong
+      row.coThuong = klNuocUong * donGiaNuocUong
+    }
     row
   }
 
@@ -303,13 +380,13 @@ class ChungTuLuong(
   rows += phuCapLamDemRow
   rows += phuCapTrucNhatRow
   rows += thueNgoaiRow
-  rows +=buLuongThangRow
+  rows += buLuongThangRow
 
   //II Bao hiem xa hoi
   rows += baoHiemXaHoi
-  rows +=omDauRow
-  rows +=thaiSanRow
-  rows +=taiNanLaoDongRow
+  rows += omDauRow
+  rows += thaiSanRow
+  rows += taiNanLaoDongRow
 
   //III Chi phi khac
   rows += chiPhiKhacRow

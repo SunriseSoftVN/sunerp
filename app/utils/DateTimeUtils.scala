@@ -1,7 +1,7 @@
 package utils
 
 import com.github.nscala_time.time.Imports._
-import org.joda.time.IllegalFieldValueException
+import org.joda.time.{LocalDate, IllegalFieldValueException}
 import java.util.Calendar
 
 /**
@@ -52,6 +52,14 @@ object DateTimeUtils {
       }
     }
     count
+  }
+
+  def monthWorkingDay(year: Int, month: Int) = {
+    val now = LocalDate.now().withMonthOfYear(month).withYear(year)
+    val soNgayTrongThang = now.dayOfMonth().withMaximumValue().getDayOfMonth
+    val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
+    val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
+    workingDay
   }
 
 }

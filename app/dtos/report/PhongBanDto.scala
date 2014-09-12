@@ -95,9 +95,7 @@ case class PhongBanDto(
 
       val now = LocalDate.now().withMonthOfYear(month).withYear(year)
       val soNgayTrongThang = now.dayOfMonth().withMaximumValue().getDayOfMonth
-      val weekend = DateTimeUtils.countWeekendDays(now.getYear, now.getMonthOfYear)
-      val workingDay = now.dayOfMonth().withMaximumValue().getDayOfMonth - weekend
-      var giuaCa = workingDay
+      var giuaCa = DateTimeUtils.monthWorkingDay(year, month)
 
       for (i <- 1 to soNgayTrongThang) {
         val klCongViecTrongNgay = khoiLuongs
