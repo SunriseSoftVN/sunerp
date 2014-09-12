@@ -80,7 +80,7 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<String> danhMuc = col.column("Danh mục", "danhMuc", type.stringType()).setFixedWidth(150);
     public static final TextColumnBuilder<Double> donGia = col.column("Đơn giá", "donGia", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(100);
     public static final TextColumnBuilder<Double> khoiLuong = col.column("Khối lượng", "khoiLuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(70);
-    public static final TextColumnBuilder<String> donVi = col.column("Đơn vị", "donvi", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(40);
+    public static final TextColumnBuilder<String> donVi = col.column("Đơn vị", "donVi", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(40);
     public static final TextColumnBuilder<Double> khongThuong = col.column("K.Thưởng", "khongThuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(80);
     public static final TextColumnBuilder<Double> coThuong = col.column("Có Thưởng", "coThuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(80);
 
@@ -96,6 +96,8 @@ public final class KhoiLuongReportColumnBuilder {
         builder.setParameter("phongBang", request.phongBanName());
         builder.setParameter("month", request.month());
         builder.setParameter("year", request.year());
+
+        TextColumnBuilder<String> stt = col.column("TT", "stt", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
 
         builder.columns(
                 stt, danhMuc, donVi, khoiLuong, donGia, khongThuong, coThuong

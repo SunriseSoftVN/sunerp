@@ -121,7 +121,7 @@ case class PhongBanDto(
       }
 
       row
-    }).asJavaCollection
+    })
   }
 
 

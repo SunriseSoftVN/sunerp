@@ -7,6 +7,7 @@ import play.api.db.slick.Config.driver.simple._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
+import play.api.data.format.Formats._
 
 /**
  * The Class CompanySetting.
@@ -18,7 +19,7 @@ import play.api.libs.json.Json
 case class CongThucLuong(
                           id: Option[Long] = None,
                           key: String,
-                          value: Int,
+                          value: Double,
                           name: String,
                           month: Int,
                           year: Int
@@ -28,7 +29,7 @@ class CongThucLuongs(tag: Tag) extends AbstractTable[CongThucLuong](tag, "congth
 
   def key = column[String]("key", O.NotNull)
 
-  def value = column[Int]("value", O.NotNull)
+  def value = column[Double]("value", O.NotNull)
 
   def name = column[String]("name", O.NotNull)
 
@@ -44,14 +45,18 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
     mapping(
       "id" -> optional(longNumber),
       "key" -> nonEmptyText,
-      "value" -> number,
+      "value" -> of[Double],
       "name" -> nonEmptyText,
       "month" -> number,
       "year" -> number
     )(CongThucLuong.apply)(CongThucLuong.unapply)
   )
 
-  def copyDataFromLastMonth(month: Int)(implicit session: Session): Unit = {
+  def findByMonth(month: Int)(implicit session: Session) = where(r => r.month === month && r.year === LocalDate.now.getYear).list()
+
+  def findByKey(key: String)(implicit session: Session) = where(_.key === key).firstOption
+
+  def copyDataFromLastMonth(month: Int)(implicit session: Session) {
     val last = LocalDate.now.withMonthOfYear(month).minusMonths(1)
     val lastMonth = last.getMonthOfYear
     val year = last.getYear
@@ -68,7 +73,7 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
 
     val data = lastMonthQuery.list()
 
-    if(data.length > 0) {
+    if (data.length > 0) {
       query.delete
       for (row <- data) {
         save(row.copy(id = None, month = month, year = LocalDate.now.getYear))

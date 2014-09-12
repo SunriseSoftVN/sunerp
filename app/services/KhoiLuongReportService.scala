@@ -70,9 +70,47 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
       val report = KhoiLuongReportColumnBuilder.buildChungTuLuong(req)
       val phongBanDto = buildPhongBanData(req.month, req._quarter, req.year, req.getPhongBan, tasks, Nil)
       //build data
-      val bangChamCongs = phongBanDto.bangChamCongs
 
-      val ds = new JRBeanCollectionDataSource(phongBanDto.bangChamCongs)
+      def double2Double(value: java.lang.Double) = if (value == null) 0d else value.toDouble
+      def int2Double(value: java.lang.Integer) = if (value == null) 0d else value.toDouble
+
+      val bangChamCongs = phongBanDto.bangChamCongs
+      val klLuongSanPhamTi = bangChamCongs.map(r => double2Double(r.tongGioCong)).sum
+      val klLuongGianTiep = bangChamCongs.map(r => double2Double(r.hop)).sum
+      val klLuongThoiGian = bangChamCongs.map(r => int2Double(r.hocDH )+ double2Double(r.hocNH)).sum
+      val klPhepNam = bangChamCongs.map(r => int2Double(r.phep)).sum
+      val klNghiLe = bangChamCongs.map(r => int2Double(r.leTet) + int2Double(r.gianTiep)).sum
+      val klAnToan = 1
+      val klTrachNhiem = 1
+      val klPhuCapDocHai = bangChamCongs.map(r => int2Double(r.phuCapDocHai)).sum
+      val klPhuCapLamDem = bangChamCongs.map(r => int2Double(r.phuCapLamDem)).sum
+      val klPhuCapTrucNhat = bangChamCongs.map(r => int2Double(r.trucBHLD)).sum
+      val klOmDau = bangChamCongs.map(r => int2Double(r.omDau) + int2Double(r.conOm)).sum
+      val klThaiSan = bangChamCongs.map(r => int2Double(r.thaiSan)).sum
+      val klTaiNanLD = bangChamCongs.map(r => int2Double(r.taiNanLaoDong)).sum
+      val klGiuaCa = bangChamCongs.map(r => int2Double(r.giuaCa)).sum
+      val klNuocUong = NhanViens.findByPhongBanId(req.phongBanId).length
+
+      val chungTuLuong = new ChungTuLuong(
+        klLuongSanPhamTi = klLuongSanPhamTi,
+        klLuongGianTiep = klLuongGianTiep,
+        klLuongThoiGian = klLuongThoiGian,
+        klPhepNam = klPhepNam,
+        klNghiLe = klNghiLe,
+        klAnToan = klAnToan,
+        klTrachNhiem = klTrachNhiem,
+        klPhuCapDocHai = klPhuCapDocHai,
+        klPhuCapLamDem = klPhuCapLamDem,
+        klPhuCapTrucNhat = klPhuCapTrucNhat,
+        klOmDau = klOmDau,
+        klThaiSan = klThaiSan,
+        klTaiNanLD = klTaiNanLD,
+        klGiuaCa = klGiuaCa,
+        klNuocUong = klNuocUong,
+        month = req.month
+      )
+
+      val ds = new JRBeanCollectionDataSource(chungTuLuong.rows)
       report.setDataSource(ds)
       exportReport(fileType, fileName, report)
     }
@@ -360,7 +398,7 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val khoiLuongs = for (tuple <- result) yield {
       val (soPhanCong, soPhanCongEx, nhanVien) = tuple
       //make sure every task in so phan cong always exits.
-      val task = tasks.find {task => soPhanCong.taskId.isDefined && task.id == soPhanCong.taskId.get}
+      val task = tasks.find { task => soPhanCong.taskId.isDefined && task.id == soPhanCong.taskId.get}
       KhoiLuongDto(
         task = task,
         nhanVien = dtos.report.NhanVienDto(nhanVien),

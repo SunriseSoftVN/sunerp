@@ -6,24 +6,16 @@ import scala.beans.BeanProperty
  * Created by dungvn3000 on 9/11/2014.
  */
 class ChungTuLuongRow {
-  @BeanProperty
-  var stt: java.lang.Integer = null
+  @BeanProperty var stt: String = null
+  @BeanProperty var danhMuc: String = null
+  @BeanProperty var donVi: String = null
+  var khoiLuong: Double = _
+  var donGia: Double = _
+  var khongThuong: Double = _
+  var coThuong: Double = _
 
-  @BeanProperty
-  var danhMuc: String = null
-
-  @BeanProperty
-  var donVi: String = null
-
-  @BeanProperty
-  var khoiLuong: java.lang.Double = null
-
-  @BeanProperty
-  var donGia: java.lang.Double = null
-
-  @BeanProperty
-  var khongThuong: java.lang.Double = null
-
-  @BeanProperty
-  var coThuong: java.lang.Double = null
+  def getKhoiLuong = if (khoiLuong > 0) khoiLuong else null
+  def getDonGia = if (donGia > 0) donGia else null
+  def getKhongThuong = if (khongThuong > 0) khongThuong else null
+  def getCoThuong = if (coThuong > 0) coThuong else null
 }

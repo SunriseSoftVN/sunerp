@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="baocaothkhoiluong" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9864761e-2e1c-411d-89aa-ceafe0b17b19">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1" isDefault="true" fontName="Arial"/>
+	<parameter name="phongBang" class="java.lang.String"/>
+	<parameter name="month" class="java.lang.Integer"/>
+	<parameter name="year" class="java.lang.Integer"/>
+	<title>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="196" height="13" uuid="a5325760-3261-47ec-a9b9-b98eb38d0075"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TỔNG CÔNG TY ĐƯỜNG SẮT VIỆT NAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="196" height="13" uuid="a9280040-bee5-429a-8ffe-8fc4c4a63d54"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÔNG TY THÔNG TIN TÍN HIỆU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="0" width="211" height="13" uuid="d673d117-e1d4-430f-9579-76aae5311744"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="13" width="211" height="13" uuid="76784816-86e8-4c3f-9eb6-d78b8880dee7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="52" width="221" height="16" uuid="9bf361e0-ce8d-46db-b7e8-aa98ec0108e3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHỨNG TỪ DUYỆT - THANH TOÁN LƯƠNG]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="196" y="81" width="158" height="13" uuid="a43a7593-e899-42c5-aea5-306937def1dd"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Đơn vị: " + $P{phongBang}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="26" width="196" height="13" uuid="019107fa-0423-4b3d-8f1c-644905b18153"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ĐƯỜNG SẮT VINH]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="196" y="68" width="158" height="13" uuid="0af6a95f-49d5-4021-93db-1d17ef287bbb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tháng: " + $P{month}+ " Năm: " + $P{year}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<summary>
+		<band height="67">
+			<staticText>
+				<reportElement x="18" y="12" width="127" height="13" uuid="af1ec687-a0a3-4372-b8ab-78854b0a75bc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PHÒNG TCLĐ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="12" width="127" height="13" uuid="88fe13b9-4fcd-40ba-877d-615548919fb4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PHÒNG TCKT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="12" width="127" height="13" uuid="ce1e1e97-7bf5-4cca-9110-540e68be03a0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GIÁM ĐỐC]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
