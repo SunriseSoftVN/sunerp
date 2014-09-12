@@ -22,7 +22,8 @@ case class CongThucLuong(
                           value: Double,
                           name: String,
                           month: Int,
-                          year: Int
+                          year: Int,
+                          phongBangId: Long
                           ) extends WithId[Long]
 
 class CongThucLuongs(tag: Tag) extends AbstractTable[CongThucLuong](tag, "congthucluong") {
@@ -37,7 +38,11 @@ class CongThucLuongs(tag: Tag) extends AbstractTable[CongThucLuong](tag, "congth
 
   def year = column[Int]("year", O.NotNull)
 
-  def * = (id.?, key, value, name, month, year) <>(CongThucLuong.tupled, CongThucLuong.unapply)
+  def phongBanId = column[Long]("phongBangId", O.NotNull)
+
+  def phongBan = foreignKey("fk_congthucluong_phongban", phongBanId, PhongBans)(_.id)
+
+  def * = (id.?, key, value, name, month, year, phongBanId) <>(CongThucLuong.tupled, CongThucLuong.unapply)
 }
 
 object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new CongThucLuongs(_)) {
@@ -48,7 +53,8 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
       "value" -> of[Double],
       "name" -> nonEmptyText,
       "month" -> number,
-      "year" -> number
+      "year" -> number,
+      "phongBangId" -> longNumber
     )(CongThucLuong.apply)(CongThucLuong.unapply)
   )
 
@@ -56,19 +62,19 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
 
   def findByKey(key: String)(implicit session: Session) = where(_.key === key).firstOption
 
-  def copyDataFromLastMonth(month: Int)(implicit session: Session) {
+  def copyDataFromLastMonth(month: Int, phongBangId: Long)(implicit session: Session) {
     val last = LocalDate.now.withMonthOfYear(month).minusMonths(1)
     val lastMonth = last.getMonthOfYear
     val year = last.getYear
 
     val lastMonthQuery = for {
       row <- this
-      if row.month === lastMonth && row.year === year
+      if row.month === lastMonth && row.year === year && row.phongBanId === phongBangId
     } yield row
 
     val query = for {
       row <- this
-      if row.month === month && row.year === LocalDate.now.getYear
+      if row.month === month && row.year === LocalDate.now.getYear && row.phongBanId === phongBangId
     } yield row
 
     val data = lastMonthQuery.list()
@@ -89,6 +95,7 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
       query = query.where(table => {
         filter.property match {
           case "name" => table.name.toLowerCase like filter.asLikeValue
+          case "phongBanId" => table.phongBanId === filter.asLong
           case "month" =>
             table.month === filter.asInt && table.year === LocalDate.now.getYear
           case _ => throw new Exception("Invalid filtering key: " + filter.property)

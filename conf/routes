@@ -32,7 +32,7 @@ GET           /congthucluong                            @controllers.CongThucLuo
 POST          /congthucluong                            @controllers.CongThucLuongCtr.save
 PUT           /congthucluong/:id                        @controllers.CongThucLuongCtr.update(id: Long)
 DELETE        /congthucluong/:id                        @controllers.CongThucLuongCtr.delete(id: Long)
-GET           /congthucluong/copyFromLastMonth/:month   @controllers.CongThucLuongCtr.copyFromLastMonth(month: Int)
+GET           /congthucluong/copyFromLastMonth/:month/:phongBangId   @controllers.CongThucLuongCtr.copyFromLastMonth(month: Int, phongBangId: Long)
 
 GET           /soluong                                  @controllers.SoLuongCtr.index
 POST          /soluong                                  @controllers.SoLuongCtr.save

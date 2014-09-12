@@ -114,6 +114,13 @@ class ChungTuLuong(
     row
   }
 
+  lazy val tongCongRow = {
+    val row = new ChungTuLuongRow()
+    row.danhMuc = "              Cộng (I+II+III)"
+    row.coThuong = thuocQuyLuongRow.coThuong + baoHiemXaHoi.coThuong + chiPhiKhacRow.coThuong
+    row
+  }
+
   val luongSanPhamTiRow = {
     val row = new ChungTuLuongRow()
     row.stt = "1"
@@ -392,4 +399,7 @@ class ChungTuLuong(
   rows += chiPhiKhacRow
   rows += giuaCaRow
   rows += nuocUongRow
+
+  //Tong Cong
+  rows += tongCongRow
 }

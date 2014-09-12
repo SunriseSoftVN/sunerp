@@ -8,6 +8,8 @@ Ext.define('sunerp.view.setting.CongThucLuongList', {
     controller: 'sunerp.controller.setting.CongThucLuongListCtr',
     inject: ['congThucLuongStore'],
     requires: [
+        'sunerp.component.DonViCb',
+        'sunerp.component.PhongBanCb',
         'sunerp.component.MonthCb'
     ],
     config: {
@@ -33,6 +35,17 @@ Ext.define('sunerp.view.setting.CongThucLuongList', {
     initTBar: function () {
         var me = this;
         me.callParent(arguments);
+
+        var phongBanCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.PhongBanCb', {
+                name: 'Đơn vị',
+                addShowAll: false,
+                width: 200
+            }),
+            fieldName: 'phongBanId',
+            store: me.store
+        });
+
         var momthCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
             comp: Ext.create('sunerp.component.MonthCb', {
                 name: 'Tháng',
@@ -42,7 +55,11 @@ Ext.define('sunerp.view.setting.CongThucLuongList', {
             store: me.store
         });
 
-        me.tbar.insert(1, [momthCbFilter]);
+        me.tbar.insert(1, [
+            {xtype: 'donvicb', addShowAll: false},
+            phongBanCbFilter,
+            momthCbFilter
+        ]);
 
         me.tbar.add({
             xtype: 'button',

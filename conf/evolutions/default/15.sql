@@ -7,3 +7,5 @@ ALTER TABLE `companysetting` ADD COLUMN `key` VARCHAR(250) NOT NULL DEFAULT '0' 
 ALTER TABLE `companysetting` ADD COLUMN `name` VARCHAR(250) NULL AFTER `value`;
 RENAME TABLE `companysetting` TO `congthucluong`;
 ALTER TABLE `congthucluong` ADD COLUMN `month` INT NOT NULL AFTER `name`, ADD COLUMN `year` INT NOT NULL AFTER `month`;
+ALTER TABLE `congthucluong` ADD COLUMN `phongBangId` BIGINT NOT NULL AFTER `year`, ADD INDEX `phongBangId` (`phongBangId`);
+ALTER TABLE `congthucluong` ADD CONSTRAINT `FK_congthucluong_phongban` FOREIGN KEY (`phongBangId`) REFERENCES `phongban` (`id`);
