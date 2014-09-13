@@ -45,7 +45,7 @@
 				<text><![CDATA[CHỨNG TỪ DUYỆT - THANH TOÁN LƯƠNG]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="196" y="81" width="158" height="13" uuid="a43a7593-e899-42c5-aea5-306937def1dd"/>
+				<reportElement x="168" y="81" width="221" height="13" uuid="a43a7593-e899-42c5-aea5-306937def1dd"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
