@@ -89,12 +89,11 @@ class ChungTuLuong(
     val row = new ChungTuLuongRow()
     row.stt = "I"
     row.danhMuc = "Thuộc quỹ lương"
-    row.coThuong = luongSanPhamTiRow.coThuong + luongSanPhamGianTiepRow.coThuong
-    +luongSanPhamThoiGianRow.coThuong + phepNamRow.coThuong
-    +nghiLeRow.coThuong + anToanVeSinhRow.coThuong
-    +trachNhiemRow.coThuong + phuCapKhuVucRow.coThuong + phuCapDocHaiRow.coThuong
-    +phuCapLamDemRow.coThuong + phuCapTrucNhatRow.coThuong
-    +thueNgoaiRow.coThuong + buLuongThangRow.coThuong
+    row.coThuong = luongSanPhamTiRow.coThuong + luongSanPhamGianTiepRow.coThuong +
+      luongSanPhamThoiGianRow.coThuong + phepNamRow.coThuong + nghiLeRow.coThuong +
+      anToanVeSinhRow.coThuong + trachNhiemRow.coThuong + phuCapKhuVucRow.coThuong +
+      phuCapDocHaiRow.coThuong + phuCapLamDemRow.coThuong + phuCapTrucNhatRow.coThuong +
+      thueNgoaiRow.coThuong + buLuongThangRow.coThuong
     row
   }
 
