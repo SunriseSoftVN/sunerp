@@ -39,7 +39,7 @@ class ChungTuLuong(
   val giuaCaDonGiaKey = "giuaca.dongia"
   val nuocUongDonGiaKey = "nuocuong.dongia"
 
-  val congThucLuongs = CongThucLuongs.findByMonth(month)
+  val congThucLuongs = CongThucLuongs.findByMonth(month, year, phongBanDto.id)
   val donGiaTi = congThucLuongs.find(_.key == donGiaTiKey).get.value
   val kGianTiep = congThucLuongs.find(_.key == kGianTiepKey).get.value
   val kThoiGian = congThucLuongs.find(_.key == kThoiGianKey).get.value
@@ -265,7 +265,7 @@ class ChungTuLuong(
     if (klPhuCapLamDem > 0) {
       row.khoiLuong = klPhuCapLamDem
       row.donGia = bangChamCongs
-        .map(r => double2Double(r.hsl) * int2Double(r.phuCapLamDem)).sum / klPhuCapLamDem * kPhuCapLamDem / monthWorkingDay
+        .map(r => double2Double(r.hsl) * int2Double(r.phuCapLamDem)).sum / klPhuCapLamDem * kPhuCapLamDem / monthWorkingDay * 0.12
       row.coThuong = row.khoiLuong * row.donGia
     }
     row

@@ -58,7 +58,9 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
     )(CongThucLuong.apply)(CongThucLuong.unapply)
   )
 
-  def findByMonth(month: Int)(implicit session: Session) = where(r => r.month === month && r.year === LocalDate.now.getYear).list()
+  def findByMonth(month: Int, year: Int, phongBangId: Long)(implicit session: Session) = where {
+    r => r.month === month && r.year === year && r.phongBanId === phongBangId
+  }.list()
 
   def findByKey(key: String)(implicit session: Session) = where(_.key === key).firstOption
 
