@@ -3,7 +3,6 @@ package dtos.report
 import dtos.report.row.ChungTuLuongRow
 import models.sunerp.{NhanViens, CongThucLuongs}
 import play.api.db.slick._
-import utils.DateTimeUtils
 
 import scala.collection.mutable.ListBuffer
 
@@ -16,7 +15,7 @@ class ChungTuLuong(
                     year: Int
                     )(implicit session: Session) {
 
-  val monthWorkingDay = DateTimeUtils.monthWorkingDay(year, month).toDouble
+  val monthWorkingDay = 26 //He truc tiep
   val donGiaTiKey = "ti.dongia"
   val kGianTiepKey = "giantiep.k"
   val kThoiGianKey = "thoigian.k"
