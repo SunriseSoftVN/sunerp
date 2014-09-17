@@ -8,6 +8,7 @@ Ext.define('sunerp.model.CongThucLuong', {
         'key',
         'value',
         'name',
+        'phongBangId',
         'month',
         'year'
     ]

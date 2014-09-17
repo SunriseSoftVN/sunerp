@@ -135,7 +135,7 @@ class ChungTuLuong(
     row.stt = "a"
     row.danhMuc = "Lương T1i"
     row.donVi = "Đồng"
-    row.coThuong = thuocQuyLuongRow.coThuong * 0.4
+    row.coThuong = luongSanPhamTiRow.coThuong * 0.4
     row
   }
 
@@ -144,7 +144,7 @@ class ChungTuLuong(
     row.stt = "b"
     row.danhMuc = "Lương T2i"
     row.donVi = "Đồng"
-    row.coThuong = thuocQuyLuongRow.coThuong * 0.6
+    row.coThuong = luongSanPhamTiRow.coThuong * 0.6
     row
   }
 

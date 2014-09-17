@@ -29,6 +29,12 @@ Ext.define('sunerp.view.setting.CongThucLuongEdit', {
                         name: 'value',
                         allowBlank: false,
                         fieldLabel: 'Value'
+                    },
+                    {
+                        xtype: 'numberfield',
+                        anchor: '100%',
+                        name: 'phongBangId',
+                        hidden: true
                     }
                 ]
             }
