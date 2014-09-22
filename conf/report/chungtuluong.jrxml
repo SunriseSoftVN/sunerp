@@ -45,7 +45,7 @@
 				<text><![CDATA[CHỨNG TỪ DUYỆT - THANH TOÁN LƯƠNG]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="168" y="81" width="221" height="13" uuid="a43a7593-e899-42c5-aea5-306937def1dd"/>
+				<reportElement x="168" y="94" width="221" height="13" uuid="a43a7593-e899-42c5-aea5-306937def1dd"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
@@ -59,11 +59,18 @@
 				<text><![CDATA[ĐƯỜNG SẮT VINH]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="196" y="68" width="158" height="13" uuid="0af6a95f-49d5-4021-93db-1d17ef287bbb"/>
+				<reportElement x="168" y="68" width="221" height="13" uuid="0af6a95f-49d5-4021-93db-1d17ef287bbb"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Tháng: " + $P{month}+ " Năm: " + $P{year}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="168" y="81" width="221" height="13" uuid="6410e17c-0fc8-4b34-8f00-4eaa0367898a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ngày   Tháng " + ($P{month} + 1) + " Năm " + $P{year}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
