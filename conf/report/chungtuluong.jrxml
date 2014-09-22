@@ -70,7 +70,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Arial" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Ngày   Tháng " + ($P{month} + 1) + " Năm " + $P{year}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Ngày   tháng " + ($P{month} + 1) + " năm " + $P{year}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
