@@ -148,7 +148,7 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
     promise.future
   })
 
-  def doBcChungTuLuongReport(fileType: String) = AsyncStack(AuthorityKey -> bcThucHienKhoiLuong)(implicit request => {
+  def doBcChungTuLuongReport(fileType: String) = AsyncStack(AuthorityKey -> chungTuThanhToanLuong)(implicit request => {
     val promise = Promise[SimpleResult]()
     val req = KhoiLuongReportRequest(request)
     if (req.donVi.isDefined && req.phongBan.isDefined) {

@@ -58,9 +58,54 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
     )(CongThucLuong.apply)(CongThucLuong.unapply)
   )
 
-  def findByMonth(month: Int, year: Int, phongBangId: Long)(implicit session: Session) = where {
-    r => r.month === month && r.year === year && r.phongBanId === phongBangId
-  }.list()
+  def findByMonth(month: Int, year: Int, phongBangId: Long)(implicit session: Session) = {
+
+    def load = where {
+      r => r.month === month && r.year === year && r.phongBanId === phongBangId
+    }.list()
+
+    val congThucLuongs = load
+
+    var changed = false
+
+    if (!congThucLuongs.exists(_.key == "phucapkhac.kl")) {
+      save(new CongThucLuong(
+        key = "phucapkhac.kl",
+        value = 0d,
+        name = "Phụ cấp khác khối lượng",
+        month = month,
+        year = year,
+        phongBangId = phongBangId
+      ))
+      changed = true
+    }
+
+    if (!congThucLuongs.exists(_.key == "phucapkhac.kl")) {
+      save(new CongThucLuong(
+        key = "phucapkhac.dongia",
+        value = 0d,
+        name = "Phụ cấp khác đơn giá",
+        month = month,
+        year = year,
+        phongBangId = phongBangId
+      ))
+      changed = true
+    }
+
+    if (!congThucLuongs.exists(_.key == "boiduongdochai.dongia")) {
+      save(new CongThucLuong(
+        key = "boiduongdochai.dongia",
+        value = 0d,
+        name = "Bồi dưỡng độc hại đơn giá",
+        month = month,
+        year = year,
+        phongBangId = phongBangId
+      ))
+      changed = true
+    }
+
+    if(changed) load else congThucLuongs
+  }
 
   def findByKey(key: String)(implicit session: Session) = where(_.key === key).firstOption
 

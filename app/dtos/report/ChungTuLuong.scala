@@ -15,7 +15,8 @@ class ChungTuLuong(
                     year: Int
                     )(implicit session: Session) {
 
-  val monthWorkingDay = 26 //He truc tiep
+  val monthWorkingDay = 26
+  //He truc tiep
   val donGiaTiKey = "ti.dongia"
   val kGianTiepKey = "giantiep.k"
   val kThoiGianKey = "thoigian.k"
@@ -37,6 +38,9 @@ class ChungTuLuong(
   val kTaiNanKey = "tainan.k"
   val giuaCaDonGiaKey = "giuaca.dongia"
   val nuocUongDonGiaKey = "nuocuong.dongia"
+  val boiDuongDocHaiDonGiaKey = "boiduongdochai.dongia"
+  val phuCapKhacKlKey = "phucapkhac.kl"
+  val phuCapKhacDonGiaKey = "phucapkhac.dongia"
 
   val congThucLuongs = CongThucLuongs.findByMonth(month, year, phongBanDto.id)
   val donGiaTi = congThucLuongs.find(_.key == donGiaTiKey).get.value
@@ -60,6 +64,9 @@ class ChungTuLuong(
   val kTaiNan = congThucLuongs.find(_.key == kTaiNanKey).get.value
   val donGiaGiuaCa = congThucLuongs.find(_.key == giuaCaDonGiaKey).get.value
   val donGiaNuocUong = congThucLuongs.find(_.key == nuocUongDonGiaKey).get.value
+  val boiDuongDocHaiDonGia = congThucLuongs.find(_.key == boiDuongDocHaiDonGiaKey).get.value
+  val klPhuCapKhac = congThucLuongs.find(_.key == phuCapKhacKlKey).get.value
+  val phuCapKhacDonGia = congThucLuongs.find(_.key == phuCapKhacDonGiaKey).get.value
 
   def double2Double(value: java.lang.Double) = if (value == null) 0d else value.toDouble
 
@@ -108,7 +115,7 @@ class ChungTuLuong(
     val row = new ChungTuLuongRow()
     row.stt = "III"
     row.danhMuc = "Chi phí khác"
-    row.coThuong = giuaCaRow.coThuong + nuocUongRow.coThuong
+    row.coThuong = giuaCaRow.coThuong + nuocUongRow.coThuong + boiDuongDocHaiRow.coThuong + phuCapKhacRow.coThuong
     row
   }
 
@@ -369,6 +376,33 @@ class ChungTuLuong(
     row
   }
 
+  val boiDuongDocHaiRow = {
+    val row = new ChungTuLuongRow()
+    row.stt = "3"
+    row.danhMuc = "Bồi dưỡng độc hại"
+    row.donVi = "Công"
+    if (klPhuCapDocHai > 0) {
+      row.khoiLuong = klPhuCapDocHai
+      row.donGia = boiDuongDocHaiDonGia
+      row.coThuong = klPhuCapDocHai * boiDuongDocHaiDonGia
+    }
+    row
+  }
+
+
+  val phuCapKhacRow = {
+    val row = new ChungTuLuongRow()
+    row.stt = "4"
+    row.danhMuc = "Phụ cấp khác"
+    row.donVi = "Người"
+    if (klPhuCapKhac > 0) {
+      row.khoiLuong = klPhuCapKhac
+      row.donGia = phuCapKhacDonGia
+      row.coThuong = klPhuCapKhac * phuCapKhacDonGia
+    }
+    row
+  }
+
   //I Thuoc quy luong
   rows += thuocQuyLuongRow
   rows += luongSanPhamTiRow
@@ -397,6 +431,8 @@ class ChungTuLuong(
   rows += chiPhiKhacRow
   rows += giuaCaRow
   rows += nuocUongRow
+  rows += boiDuongDocHaiRow
+  rows += phuCapKhacRow
 
   //Tong Cong
   rows += tongCongRow
