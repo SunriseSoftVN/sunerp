@@ -78,11 +78,17 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<String> xepLoai = col.column("Xếp loại ABC", "xepLoai", type.stringType()).setStyle(COLUMN_CENTER_STYLE);
     public static final TextColumnBuilder<String> ghiChu = col.column("Ghi chú", "ghiChu", type.stringType()).setFixedWidth(100);
     public static final TextColumnBuilder<String> danhMuc = col.column("Danh mục", "danhMuc", type.stringType()).setFixedWidth(150);
-    public static final TextColumnBuilder<Double> donGia = col.column("Đơn giá", "donGia", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(100);
+    public static final TextColumnBuilder<Double> donGia = col.column("Đơn giá", "donGia", type.doubleType())
+            .setPattern("###,###")
+            .setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(100);
     public static final TextColumnBuilder<Double> khoiLuong = col.column("Khối lượng", "khoiLuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(70);
     public static final TextColumnBuilder<String> donVi = col.column("Đơn vị", "donVi", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(40);
-    public static final TextColumnBuilder<Double> khongThuong = col.column("K.Thưởng", "khongThuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(80);
-    public static final TextColumnBuilder<Double> coThuong = col.column("Có Thưởng", "coThuong", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(80);
+    public static final TextColumnBuilder<Double> khongThuong = col.column("K.Thưởng", "khongThuong", type.doubleType())
+            .setPattern("###,###")
+            .setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(80);
+    public static final TextColumnBuilder<Double> coThuong = col.column("Có Thưởng", "coThuong", type.doubleType())
+            .setPattern("###,###")
+            .setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(80);
 
     public static JasperReportBuilder buildChungTuLuong(KhoiLuongReportRequest request) throws DRException {
         InputStream is = Play.application().resourceAsStream("report/chungtuluong.jrxml");
