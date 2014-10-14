@@ -87,7 +87,7 @@ class ChungTuLuong(
   val klThaiSan = bangChamCongs.map(r => int2Double(r.thaiSan)).sum
   val klTaiNanLD = bangChamCongs.map(r => int2Double(r.taiNanLaoDong)).sum
   val klGiuaCa = bangChamCongs.map(r => int2Double(r.giuaCa)).sum
-  val klNuocUong = NhanViens.findByPhongBanId(phongBanDto.id).length
+  val klNuocUong = bangChamCongs.length
 
   val rows = new ListBuffer[ChungTuLuongRow]
 
@@ -205,7 +205,7 @@ class ChungTuLuong(
     if (klNghiLe > 0) {
       row.khoiLuong = klNghiLe
       row.donGia = bangChamCongs
-        .map(r => double2Double(r.hsl) * int2Double(r.leTet)).sum / klNghiLe * klNghiLe / monthWorkingDay
+        .map(r => double2Double(r.hsl) * int2Double(r.leTet)).sum / klNghiLe * kLe / monthWorkingDay
       row.coThuong = row.khoiLuong * row.donGia
     }
     row
