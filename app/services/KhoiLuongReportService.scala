@@ -1,6 +1,7 @@
 package services
 
 import com.escalatesoft.subcut.inject.BindingModule
+import net.sf.dynamicreports.report.builder.DynamicReports
 import play.api.db.slick.Session
 import play.api.Play
 import play.api.Play.current
@@ -322,7 +323,10 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
     val pdfFile = fileName + ".pdf"
     val xlsFile = fileName + ".xls"
     val pdfExporter = export.pdfExporter(Play.application.getFile(reportDir + pdfFile))
-    val xlsExporter = export.xlsExporter(Play.application.getFile(reportDir + xlsFile))
+    val xlsExporter = DynamicReports.export
+      .xlsExporter(Play.application.getFile(reportDir + xlsFile))
+      .setDetectCellType(true)
+
     fileType match {
       case "pdf" =>
         report.toPdf(pdfExporter)

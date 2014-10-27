@@ -20,6 +20,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
 import static services.ReportStyle.*;
@@ -97,7 +98,8 @@ public final class KhoiLuongReportColumnBuilder {
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setSubtotalStyle(COLUMN_STYLE)
-                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL);
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
+                .setLocale(new Locale("vi", "VN"));
 
         builder.setParameter("phongBang", request.phongBanName());
         builder.setParameter("month", request.month());
@@ -123,7 +125,8 @@ public final class KhoiLuongReportColumnBuilder {
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setSubtotalStyle(COLUMN_STYLE)
-                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL);
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
+                .setLocale(new Locale("vi", "VN"));
 
         builder.setParameter("donVi", request.donViName());
         builder.setParameter("phongBang", request.phongBanName());
@@ -222,7 +225,8 @@ public final class KhoiLuongReportColumnBuilder {
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
-                .setPageFormat(PageType.A4, PageOrientation.PORTRAIT);
+                .setPageFormat(PageType.A4, PageOrientation.PORTRAIT)
+                .setLocale(new Locale("vi", "VN"));
 
         TextColumnBuilder<String> taskName = col.column("Nội dung Cv", "taskName", type.stringType()).setFixedWidth(300);
         builder.columns(ngay, tenNV, taskName, taskKL, taskGio);
@@ -243,7 +247,8 @@ public final class KhoiLuongReportColumnBuilder {
                 .setTemplateDesign(is)
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
-                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL);
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
+                .setLocale(new Locale("vi", "VN"));
 
         builder.setParameter("month", request.month());
         builder.setParameter("year", request.year());
@@ -296,7 +301,8 @@ public final class KhoiLuongReportColumnBuilder {
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
-                .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE);
+                .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE)
+                .setLocale(new Locale("vi", "VN"));
 
         builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, quyKL, quyGio, conLaiKL, conLaiGio, xnKL, xnGio);
 
@@ -380,7 +386,8 @@ public final class KhoiLuongReportColumnBuilder {
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
-                .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE);
+                .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE)
+                .setLocale(new Locale("vi", "VN"));
 
         builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, xnKL, xnGio);
         tb.add(maCv, taskName, taskUnit, dinhMuc, soLan);
@@ -440,7 +447,8 @@ public final class KhoiLuongReportColumnBuilder {
                 .setColumnTitleStyle(COLUMN_TITLE_STYLE)
                 .setColumnStyle(COLUMN_STYLE)
                 .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
-                .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE);
+                .setPageFormat(PageType.A3, PageOrientation.LANDSCAPE)
+                .setLocale(new Locale("vi", "VN"));
 
         builder.columns(maCv, taskName, taskUnit, totalKL.setTitle("Tổng cộng"));
         ColumnTitleGroupBuilder tg = grid.titleGroup();
