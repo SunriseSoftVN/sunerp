@@ -1,7 +1,11 @@
 package models.sunerp
 
-import models.core.{AbstractTable, WithId}
+import models.core.{AbstractQuery, AbstractTable, WithId}
+import play.api.data.Form
+import play.api.data.Forms._
 import play.api.db.slick.Config.driver.simple._
+import play.api.libs.json.{Json, Writes}
+import play.api.data.format.Formats._
 
 import scala.slick.lifted.Tag
 
@@ -29,4 +33,28 @@ class HeSoLuongs(tag: Tag)  extends AbstractTable[HeSoLuong](tag, "hesoluong") {
   def nhanVien = foreignKey("he_so_luong_nhan_vien_fk", nhanVienId, NhanViens)(_.id)
 
   override def * = (id.?, nhanVienId, value, month, year) <>(HeSoLuong.tupled, HeSoLuong.unapply)
+}
+
+object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)) {
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "nhanVienId" -> longNumber,
+      "value" -> of[Double],
+      "month" -> number,
+      "year" -> number
+    )(HeSoLuong.apply)(HeSoLuong.unapply)
+  )
+
+  implicit val heSoLuongJsonFormat = new Writes[HeSoLuong] {
+    def writes(heSoLuong: HeSoLuong) = Json.obj(
+      "id" -> heSoLuong.id,
+      "nhanVienId" -> heSoLuong.nhanVienId,
+      "value" -> heSoLuong.value,
+      "month" -> heSoLuong.month,
+      "year" -> heSoLuong.year
+    )
+  }
+
 }

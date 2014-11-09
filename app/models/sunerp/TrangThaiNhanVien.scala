@@ -1,7 +1,10 @@
 package models.sunerp
 
-import models.core.{AbstractTable, WithId}
+import models.core.{AbstractQuery, AbstractTable, WithId}
+import play.api.data.Form
+import play.api.data.Forms._
 import play.api.db.slick.Config.driver.simple._
+import play.api.libs.json.{Json, Writes}
 
 import scala.slick.lifted.Tag
 
@@ -31,3 +34,26 @@ class TrangThaiNhanViens(tag: Tag) extends AbstractTable[TrangThaiNhanVien](tag,
   override def * = (id.?, nhanVienId, nghiViec, month, year) <>(TrangThaiNhanVien.tupled, TrangThaiNhanVien.unapply)
 }
 
+object TrangThaiNhanViens extends AbstractQuery[TrangThaiNhanVien, TrangThaiNhanViens](new TrangThaiNhanViens(_)) {
+
+  def editForm = Form(
+    mapping(
+      "id" -> optional(longNumber),
+      "nhanVienId" -> longNumber,
+      "nghiViec" -> boolean,
+      "month" -> number,
+      "year" -> number
+    )(TrangThaiNhanVien.apply)(TrangThaiNhanVien.unapply)
+  )
+
+  implicit val trangThaiJsonFormat = new Writes[TrangThaiNhanVien] {
+    def writes(trangThai: TrangThaiNhanVien) = Json.obj(
+      "id" -> trangThai.id,
+      "nhanVienId" -> trangThai.nhanVienId,
+      "nghiViec" -> trangThai.nghiViec,
+      "month" -> trangThai.month,
+      "year" -> trangThai.year
+    )
+  }
+
+}
