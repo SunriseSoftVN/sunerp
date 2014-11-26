@@ -7,16 +7,16 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongList', {
     requires: [
         'sunerp.component.PhongBanCb'
     ],
-    controller: 'sunerp.controller.nhanvien.NhanVienListCtr',
-    inject: ['nhanVienStore', 'userService'],
+    controller: 'sunerp.controller.nhanvien.HeSoLuongListCtr',
+    inject: ['heSoLuongStore', 'userService'],
     config: {
-        nhanVienStore: null,
+        heSoLuongStore: null,
         userService: null
     },
     searchField: 'nameOrMaNv',
     initComponent: function () {
         var me = this;
-        me.store = this.getNhanVienStore();
+        me.store = this.getHeSoLuongStore();
         me.columns = [
             {xtype: 'rownumberer', width: 30},
             {header: 'Mã NV', dataIndex: 'maNv', flex: 1},

@@ -1,5 +1,6 @@
 package models.sunerp
 
+import dtos.{HeSoLuongDto, ExtGirdDto, PagingDto}
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.data.Form
 import play.api.data.Forms._
@@ -20,7 +21,7 @@ case class HeSoLuong(
                       year: Int
                       ) extends WithId[Long]
 
-class HeSoLuongs(tag: Tag)  extends AbstractTable[HeSoLuong](tag, "hesoluong") {
+class HeSoLuongs(tag: Tag) extends AbstractTable[HeSoLuong](tag, "hesoluong") {
 
   def nhanVienId = column[Long]("nhanVienId", O.NotNull)
 
@@ -36,6 +37,46 @@ class HeSoLuongs(tag: Tag)  extends AbstractTable[HeSoLuong](tag, "hesoluong") {
 }
 
 object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)) {
+
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[HeSoLuongDto] = {
+    var query = for (heSoLuong <- this; nhanVien <- heSoLuong.nhanVien) yield (heSoLuong, nhanVien)
+
+    pagingDto.getFilters.foreach(filter => {
+      query = query.where(table => {
+        val (heSoLuong, nhanVien) = table
+        filter.property match {
+          case "nhanVien.lastName" => nhanVien.lastName.toLowerCase like filter.asLikeValue
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
+      })
+    })
+
+    pagingDto.sorts.foreach(sort => {
+      query = query.sortBy(table => {
+        val (heSoLuong, nhanVien) = table
+        sort.property match {
+          case "nhanVien.lastName" => orderColumn(sort.direction, nhanVien.lastName)
+          case "month" => orderColumn(sort.direction, heSoLuong.month)
+          case "value" => orderColumn(sort.direction, heSoLuong.value)
+          case "year" => orderColumn(sort.direction, heSoLuong.year)
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
+        }
+      })
+    })
+
+    val totalRow = Query(query.length).first()
+
+    val rows = query
+      .drop(pagingDto.start)
+      .take(pagingDto.limit)
+      .list
+      .map(HeSoLuongDto.apply)
+
+    ExtGirdDto[HeSoLuongDto](
+      total = totalRow,
+      data = rows
+    )
+  }
 
   def editForm = Form(
     mapping(

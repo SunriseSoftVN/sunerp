@@ -25,6 +25,7 @@ Ext.define('sunerp.Application', {
         'sunerp.store.SoPhanCongStore',
         'sunerp.store.TaskStore',
         'sunerp.store.XepLoaiStore',
+        'sunerp.store.HeSoLuongStore',
         'sunerp.store.DiemHeSoStore',
         'sunerp.service.UserService',
         'sunerp.store.KhoaSoPhanCongStore'
@@ -88,6 +89,7 @@ Ext.define('sunerp.Application', {
             soPhanCongExtStore:     'sunerp.store.SoPhanCongExtStore',
             soPhanCongStore:        'sunerp.store.SoPhanCongStore',
             taskStore:              'sunerp.store.TaskStore',
+            heSoLuongStore:         'sunerp.store.HeSoLuongStore',
             xepLoaiStore:           'sunerp.store.XepLoaiStore',
             diemHeSoStore:          'sunerp.store.DiemHeSoStore',
             userService:            'sunerp.service.UserService',

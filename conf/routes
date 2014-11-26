@@ -3,96 +3,101 @@
 # ~~~~
 
 # Home page
-GET           /                                         @controllers.HomeCtr.index
-GET           /menuItems                                @controllers.HomeCtr.menuItems
-GET           /loginUser                                @controllers.HomeCtr.loginUser
-GET           /domains                                  @controllers.HomeCtr.domains
+GET           /                                                            @controllers.HomeCtr.index
+GET           /menuItems                                                   @controllers.HomeCtr.menuItems
+GET           /loginUser                                                   @controllers.HomeCtr.loginUser
+GET           /domains                                                     @controllers.HomeCtr.domains
 
-GET           /chucvu                                   @controllers.ChucVuCtr.index
-POST          /chucvu                                   @controllers.ChucVuCtr.save
-PUT           /chucvu/:id                               @controllers.ChucVuCtr.update(id: Long)
-DELETE        /chucvu/:id                               @controllers.ChucVuCtr.delete(id: Long)
+GET           /chucvu                                                      @controllers.ChucVuCtr.index
+POST          /chucvu                                                      @controllers.ChucVuCtr.save
+PUT           /chucvu/:id                                                  @controllers.ChucVuCtr.update(id: Long)
+DELETE        /chucvu/:id                                                  @controllers.ChucVuCtr.delete(id: Long)
 
-GET           /xeploai                                  @controllers.XepLoaiCtr.index
-POST          /xeploai                                  @controllers.XepLoaiCtr.save
-PUT           /xeploai/:id                              @controllers.XepLoaiCtr.update(id: Long)
-DELETE        /xeploai/:id                              @controllers.XepLoaiCtr.delete(id: Long)
+GET           /xeploai                                                     @controllers.XepLoaiCtr.index
+POST          /xeploai                                                     @controllers.XepLoaiCtr.save
+PUT           /xeploai/:id                                                 @controllers.XepLoaiCtr.update(id: Long)
+DELETE        /xeploai/:id                                                 @controllers.XepLoaiCtr.delete(id: Long)
 
-GET           /diemheso                                 @controllers.DiemHeSoCtr.index
-POST          /diemheso                                 @controllers.DiemHeSoCtr.save
-PUT           /diemheso/:id                             @controllers.DiemHeSoCtr.update(id: Long)
-DELETE        /diemheso/:id                             @controllers.DiemHeSoCtr.delete(id: Long)
+GET           /diemheso                                                    @controllers.DiemHeSoCtr.index
+POST          /diemheso                                                    @controllers.DiemHeSoCtr.save
+PUT           /diemheso/:id                                                @controllers.DiemHeSoCtr.update(id: Long)
+DELETE        /diemheso/:id                                                @controllers.DiemHeSoCtr.delete(id: Long)
 
-GET           /company                                  @controllers.CompanyCtr.index
-POST          /company                                  @controllers.CompanyCtr.save
-PUT           /company/:id                              @controllers.CompanyCtr.update(id: Long)
-DELETE        /company/:id                              @controllers.CompanyCtr.delete(id: Long)
+GET           /company                                                     @controllers.CompanyCtr.index
+POST          /company                                                     @controllers.CompanyCtr.save
+PUT           /company/:id                                                 @controllers.CompanyCtr.update(id: Long)
+DELETE        /company/:id                                                 @controllers.CompanyCtr.delete(id: Long)
 
-GET           /congthucluong                            @controllers.CongThucLuongCtr.index
-POST          /congthucluong                            @controllers.CongThucLuongCtr.save
-PUT           /congthucluong/:id                        @controllers.CongThucLuongCtr.update(id: Long)
-DELETE        /congthucluong/:id                        @controllers.CongThucLuongCtr.delete(id: Long)
-GET           /congthucluong/copyFromLastMonth/:month/:phongBangId   @controllers.CongThucLuongCtr.copyFromLastMonth(month: Int, phongBangId: Long)
+GET           /congthucluong                                               @controllers.CongThucLuongCtr.index
+POST          /congthucluong                                               @controllers.CongThucLuongCtr.save
+PUT           /congthucluong/:id                                           @controllers.CongThucLuongCtr.update(id: Long)
+DELETE        /congthucluong/:id                                           @controllers.CongThucLuongCtr.delete(id: Long)
+GET           /congthucluong/copyFromLastMonth/:month/:phongBangId         @controllers.CongThucLuongCtr.copyFromLastMonth(month: Int, phongBangId: Long)
 
-GET           /soluong                                  @controllers.SoLuongCtr.index
-POST          /soluong                                  @controllers.SoLuongCtr.save
-PUT           /soluong/:id                              @controllers.SoLuongCtr.update(id: Long)
-DELETE        /soluong/:id                              @controllers.SoLuongCtr.delete(id: Long)
+GET           /soluong                                                     @controllers.SoLuongCtr.index
+POST          /soluong                                                     @controllers.SoLuongCtr.save
+PUT           /soluong/:id                                                 @controllers.SoLuongCtr.update(id: Long)
+DELETE        /soluong/:id                                                 @controllers.SoLuongCtr.delete(id: Long)
 
-GET           /nhanvien                                 @controllers.NhanVienCtr.index
-POST          /nhanvien                                 @controllers.NhanVienCtr.save
-PUT           /nhanvien/:id                             @controllers.NhanVienCtr.update(id: Long)
-DELETE        /nhanvien/:id                             @controllers.NhanVienCtr.delete(id: Long)
+GET           /nhanvien                                                    @controllers.NhanVienCtr.index
+POST          /nhanvien                                                    @controllers.NhanVienCtr.save
+PUT           /nhanvien/:id                                                @controllers.NhanVienCtr.update(id: Long)
+DELETE        /nhanvien/:id                                                @controllers.NhanVienCtr.delete(id: Long)
 
-GET           /phongban                                 @controllers.PhongBanCtr.index
-POST          /phongban                                 @controllers.PhongBanCtr.save
-PUT           /phongban/:id                             @controllers.PhongBanCtr.update(id: Long)
-DELETE        /phongban/:id                             @controllers.PhongBanCtr.delete(id: Long)
+GET           /hesoluong                                                   @controllers.HeSoLuongCtr.index
+POST          /hesoluong                                                   @controllers.HeSoLuongCtr.save
+PUT           /hesoluong/:id                                               @controllers.HeSoLuongCtr.update(id: Long)
+DELETE        /hesoluong/:id                                               @controllers.HeSoLuongCtr.delete(id: Long)
 
-GET           /donvi                                    @controllers.DonViCtr.index
-POST          /donvi                                    @controllers.DonViCtr.save
-PUT           /donvi/:id                                @controllers.DonViCtr.update(id: Long)
-DELETE        /donvi/:id                                @controllers.DonViCtr.delete(id: Long)
+GET           /phongban                                                    @controllers.PhongBanCtr.index
+POST          /phongban                                                    @controllers.PhongBanCtr.save
+PUT           /phongban/:id                                                @controllers.PhongBanCtr.update(id: Long)
+DELETE        /phongban/:id                                                @controllers.PhongBanCtr.delete(id: Long)
 
-GET           /quyenhanh                                @controllers.QuyenHanhCtr.index
-POST          /quyenhanh                                @controllers.QuyenHanhCtr.save
-PUT           /quyenhanh/:id                            @controllers.QuyenHanhCtr.update(id: Long)
-GET           /quyenhanh/getGioiHans                    @controllers.QuyenHanhCtr.getGioiHans
-DELETE        /quyenhanh/:id                            @controllers.QuyenHanhCtr.delete(id: Long)
+GET           /donvi                                                       @controllers.DonViCtr.index
+POST          /donvi                                                       @controllers.DonViCtr.save
+PUT           /donvi/:id                                                   @controllers.DonViCtr.update(id: Long)
+DELETE        /donvi/:id                                                   @controllers.DonViCtr.delete(id: Long)
 
-GET           /task                                     @controllers.TaskCtr.index
+GET           /quyenhanh                                                   @controllers.QuyenHanhCtr.index
+POST          /quyenhanh                                                   @controllers.QuyenHanhCtr.save
+PUT           /quyenhanh/:id                                               @controllers.QuyenHanhCtr.update(id: Long)
+GET           /quyenhanh/getGioiHans                                       @controllers.QuyenHanhCtr.getGioiHans
+DELETE        /quyenhanh/:id                                               @controllers.QuyenHanhCtr.delete(id: Long)
 
-GET           /user/login                               @controllers.AuthCtr.login
-POST          /user/auth                                @controllers.AuthCtr.auth
-POST          /user/changePassword                      @controllers.HomeCtr.changePassword
-GET           /user/logout                              @controllers.AuthCtr.logout
+GET           /task                                                        @controllers.TaskCtr.index
 
-GET           /sophancong                               @controllers.SoPhanCongCtr.index
-POST          /sophancong                               @controllers.SoPhanCongCtr.save
-PUT           /sophancong/:id                           @controllers.SoPhanCongCtr.update(id: Long)
-DELETE        /sophancong/:id                           @controllers.SoPhanCongCtr.delete(id: Long)
-GET           /sophancong/init/:month/:phongBanId       @controllers.SoPhanCongCtr.init(month: Int, phongBanId: Long)
-GET           /sophancong/dayCopyData/:month/:day/:phongBanId       @controllers.SoPhanCongCtr.dayCopyData(month: Int, day: Int, phongBanId: Long)
-GET           /sophancong/yesterdayCopyData/:month/:day/:phongBanId       @controllers.SoPhanCongCtr.yesterdayCopyData(month: Int, day: Int, phongBanId: Long)
-GET           /sophancong/islock/:month                 @controllers.SoPhanCongCtr.isLock(month: Int)
+GET           /user/login                                                  @controllers.AuthCtr.login
+POST          /user/auth                                                   @controllers.AuthCtr.auth
+POST          /user/changePassword                                         @controllers.HomeCtr.changePassword
+GET           /user/logout                                                 @controllers.AuthCtr.logout
 
-GET           /khoasophancong                           @controllers.KhoaSoPhanCongCtr.index
-POST          /khoasophancong                           @controllers.KhoaSoPhanCongCtr.save
-PUT           /khoasophancong/:id                       @controllers.KhoaSoPhanCongCtr.update(id: Long)
-DELETE        /khoasophancong/:id                       @controllers.KhoaSoPhanCongCtr.delete(id: Long)
+GET           /sophancong                                                  @controllers.SoPhanCongCtr.index
+POST          /sophancong                                                  @controllers.SoPhanCongCtr.save
+PUT           /sophancong/:id                                              @controllers.SoPhanCongCtr.update(id: Long)
+DELETE        /sophancong/:id                                              @controllers.SoPhanCongCtr.delete(id: Long)
+GET           /sophancong/init/:month/:phongBanId                          @controllers.SoPhanCongCtr.init(month: Int, phongBanId: Long)
+GET           /sophancong/dayCopyData/:month/:day/:phongBanId              @controllers.SoPhanCongCtr.dayCopyData(month: Int, day: Int, phongBanId: Long)
+GET           /sophancong/yesterdayCopyData/:month/:day/:phongBanId        @controllers.SoPhanCongCtr.yesterdayCopyData(month: Int, day: Int, phongBanId: Long)
+GET           /sophancong/islock/:month                                    @controllers.SoPhanCongCtr.isLock(month: Int)
 
-GET           /report/doDonViReport                     @controllers.ReportCtr.doDonViReport(fileType: String ?= "pdf")
-GET           /report/doThKhoiLuongQuyReport            @controllers.ReportCtr.doThKhoiLuongQuyReport(fileType: String ?= "pdf")
-GET           /report/doPhongBanReport                  @controllers.ReportCtr.doPhongBanReport(fileType: String ?= "pdf")
-GET           /report/doBcThKhoiLuongReport             @controllers.ReportCtr.doBcThKhoiLuongReport(fileType: String ?= "pdf")
-GET           /report/inSoPhanCong                      @controllers.ReportCtr.inSoPhanCong(fileType: String ?= "pdf")
-GET           /report/inSoPhanCongCaNhan                @controllers.ReportCtr.inSoPhanCongCaNhan(fileType: String ?= "pdf")
-GET           /report/inBangChamCong                    @controllers.ReportCtr.inBangChamCong(fileType: String ?= "pdf")
-GET           /report/doBcChungTuLuongReport            @controllers.ReportCtr.doBcChungTuLuongReport(fileType: String ?= "pdf")
-GET           /report/inBangChamCongCaNhan              @controllers.ReportCtr.inBangChamCongCaNhan(fileType: String ?= "pdf")
-GET           /report/file/*file                        @controllers.ReportCtr.view(file, download: Boolean ?= false)
+GET           /khoasophancong                                              @controllers.KhoaSoPhanCongCtr.index
+POST          /khoasophancong                                              @controllers.KhoaSoPhanCongCtr.save
+PUT           /khoasophancong/:id                                          @controllers.KhoaSoPhanCongCtr.update(id: Long)
+DELETE        /khoasophancong/:id                                          @controllers.KhoaSoPhanCongCtr.delete(id: Long)
 
-GET           /admin/shutdown                           @controllers.AdminCtr.shutdown
+GET           /report/doDonViReport                                        @controllers.ReportCtr.doDonViReport(fileType: String ?= "pdf")
+GET           /report/doThKhoiLuongQuyReport                               @controllers.ReportCtr.doThKhoiLuongQuyReport(fileType: String ?= "pdf")
+GET           /report/doPhongBanReport                                     @controllers.ReportCtr.doPhongBanReport(fileType: String ?= "pdf")
+GET           /report/doBcThKhoiLuongReport                                @controllers.ReportCtr.doBcThKhoiLuongReport(fileType: String ?= "pdf")
+GET           /report/inSoPhanCong                                         @controllers.ReportCtr.inSoPhanCong(fileType: String ?= "pdf")
+GET           /report/inSoPhanCongCaNhan                                   @controllers.ReportCtr.inSoPhanCongCaNhan(fileType: String ?= "pdf")
+GET           /report/inBangChamCong                                       @controllers.ReportCtr.inBangChamCong(fileType: String ?= "pdf")
+GET           /report/doBcChungTuLuongReport                               @controllers.ReportCtr.doBcChungTuLuongReport(fileType: String ?= "pdf")
+GET           /report/inBangChamCongCaNhan                                 @controllers.ReportCtr.inBangChamCongCaNhan(fileType: String ?= "pdf")
+GET           /report/file/*file                                           @controllers.ReportCtr.view(file, download: Boolean ?= false)
+
+GET           /admin/shutdown                                              @controllers.AdminCtr.shutdown
 
 # Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file                             controllers.Assets.at(path="/public", file)
+GET           /assets/*file                                                controllers.Assets.at(path="/public", file)
