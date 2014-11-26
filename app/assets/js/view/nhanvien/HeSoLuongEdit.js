@@ -11,6 +11,7 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongEdit', {
         'sunerp.component.NhanVienPicker',
         'sunerp.component.MonthCb'
     ],
+    year: null,
     controller: 'sunerp.controller.nhanvien.HeSoLuongEditCtr',
     initComponent: function () {
         this.items = [
@@ -20,14 +21,15 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongEdit', {
                 items: [
                     {
                         xtype: 'nhanvienpicker',
-                        name: 'maNv',
+                        name: 'nhanVienId',
+                        modelName: 'nhanVien',
                         width: 360,
                         allowBlank: false,
                         fieldLabel: 'Mã NV'
                     },
                     {
                         xtype: 'numberfield',
-                        name: 'heSoLuong',
+                        name: 'value',
                         minValue:0,
                         width: 360,
                         allowBlank: false,
@@ -44,6 +46,8 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongEdit', {
                         xtype: 'numberfield',
                         name: 'year',
                         width: 360,
+                        value: this.year,
+                        hidden: true,
                         allowBlank: false,
                         fieldLabel: 'Năm'
                     }

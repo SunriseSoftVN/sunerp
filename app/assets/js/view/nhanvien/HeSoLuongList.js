@@ -19,15 +19,14 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongList', {
         me.store = this.getHeSoLuongStore();
         me.columns = [
             {xtype: 'rownumberer', width: 30},
-            {header: 'Mã NV', dataIndex: 'maNv', flex: 1},
-            {header: 'Tên', dataIndex: 'firstName', flex: 1},
-            {header: 'Họ', dataIndex: 'lastName', flex: 1},
+            {header: 'Mã NV', dataIndex: 'nhanVien.maNv', flex: 1},
+            {header: 'Tên', dataIndex: 'nhanVien.fullName', flex: 1},
             {
                 header: 'Đơn vị',
                 dataIndex: 'phongBan.name',
                 flex: 1
             },
-            {header: 'Hệ số lương', dataIndex: 'heSoLuong', flex: 1},
+            {header: 'Hệ số lương', dataIndex: 'value', flex: 1},
             {header: 'Tháng', dataIndex: 'month', flex: 1},
             {header: 'Năm', dataIndex: 'year', flex: 1},
             {
@@ -60,6 +59,15 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongList', {
             }, false);
         }
 
-        me.tbar.insert(1, [phongBanCbFilter]);
+        var yearCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.YearCb', {
+                name: 'Năm',
+                width: 100
+            }),
+            fieldName: 'year',
+            store: me.store
+        });
+
+        me.tbar.insert(1, [phongBanCbFilter, yearCbFilter]);
     }
 });

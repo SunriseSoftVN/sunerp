@@ -9,15 +9,18 @@ Ext.define('sunerp.controller.nhanvien.HeSoLuongEditCtr', {
         heSoLuongStore: null
     },
     control: {
-        maNv: {
-            selector: 'textfield[name=maNv]'
-        },
-        heSoLuong: {
-            selector: 'numberfield[name=heSoLuong]'
+        nhanVienPicker: {
+            selector: 'nhanvienpicker'
         }
     },
     init: function () {
         this.mainStore = this.getHeSoLuongStore();
         this.callParent(arguments);
+        if(this.getView().getModel()) {
+            var data = this.getView().getModel().data;
+            this.getNhanVienPicker().setValue(data.nhanVien.maNv + " - " + data.nhanVien.fullName);
+            this.getNhanVienPicker().setSelect(data.nhanVien);
+            this.getNhanVienPicker().setReadOnly(true);
+        }
     }
 });

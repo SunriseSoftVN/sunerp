@@ -39,13 +39,19 @@ class HeSoLuongs(tag: Tag) extends AbstractTable[HeSoLuong](tag, "hesoluong") {
 object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)) {
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[HeSoLuongDto] = {
-    var query = for (heSoLuong <- this; nhanVien <- heSoLuong.nhanVien) yield (heSoLuong, nhanVien)
+    var query = for {
+      heSoLuong <- this
+      nhanVien <- heSoLuong.nhanVien
+      phongBan <- nhanVien.phongBan
+    } yield (heSoLuong, nhanVien, phongBan)
 
     pagingDto.getFilters.foreach(filter => {
       query = query.where(table => {
-        val (heSoLuong, nhanVien) = table
+        val (heSoLuong, nhanVien, phongBan) = table
         filter.property match {
           case "nhanVien.lastName" => nhanVien.lastName.toLowerCase like filter.asLikeValue
+          case "year" => heSoLuong.year === filter.asInt
+          case "phongBanId" => phongBan.id === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
@@ -53,7 +59,7 @@ object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)
 
     pagingDto.sorts.foreach(sort => {
       query = query.sortBy(table => {
-        val (heSoLuong, nhanVien) = table
+        val (heSoLuong, nhanVien, phongBan) = table
         sort.property match {
           case "nhanVien.lastName" => orderColumn(sort.direction, nhanVien.lastName)
           case "month" => orderColumn(sort.direction, heSoLuong.month)

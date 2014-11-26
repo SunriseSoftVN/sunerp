@@ -12,21 +12,23 @@ case class HeSoLuongDto(
                          value: Double,
                          month: Int,
                          year: Int,
-                         nhanVien: NhanVien
+                         nhanVien: NhanVien,
+                         phongBan: PhongBan
                          )
 
 
 object HeSoLuongDto {
 
-  def apply(tuple: (HeSoLuong, NhanVien)) = {
-    val (heSoLuong, nhanVien) = tuple
+  def apply(tuple: (HeSoLuong, NhanVien, PhongBan)) = {
+    val (heSoLuong, nhanVien, phongBan) = tuple
     new HeSoLuongDto(
       id = heSoLuong.id.get,
       nhanVienId = heSoLuong.nhanVienId,
       value = heSoLuong.value,
       month = heSoLuong.month,
       year = heSoLuong.year,
-      nhanVien = nhanVien
+      nhanVien = nhanVien,
+      phongBan = phongBan
     )
   }
 
@@ -37,7 +39,8 @@ object HeSoLuongDto {
       "value" -> o.value,
       "month" -> o.month,
       "year" -> o.year,
-      "nhanVien" -> NhanViens.nhanVienJsonFormat.writes(o.nhanVien)
+      "nhanVien" -> NhanViens.nhanVienJsonFormat.writes(o.nhanVien),
+      "phongBan" -> PhongBans.phongBanJsonFormat.writes(o.phongBan)
     )
   }
 }

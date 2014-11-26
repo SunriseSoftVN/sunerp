@@ -15,6 +15,7 @@ Ext.define('sunerp.component.core.BasePicker', {
     wHeight: 400,
     wWidth: 700,
     config: {
+        modelName: null,
         store: null,
         model: null,
         select: null,

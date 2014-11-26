@@ -6,7 +6,7 @@ Ext.define('sunerp.controller.core.BaseEditController', {
     extend: 'Deft.mvc.ViewController',
     //this property has to be set in subclass
     mainStore: null,
-    addNew: false,
+    reloadAfterInsert: false,
     control: {},
     constructor: function (config) {
         this.control['form'] = {
@@ -23,11 +23,6 @@ Ext.define('sunerp.controller.core.BaseEditController', {
     init: function () {
         if (this.getView().getModel() != null) {
             this.getForm().loadRecord(this.getView().getModel());
-            this.addNew = false;
-        } else {
-            var record = Ext.create(this.mainStore.model);
-            this.addNew = true;
-            this.getForm().loadRecord(record);
         }
         this.callParent(arguments);
         this.afterInit();
@@ -41,8 +36,8 @@ Ext.define('sunerp.controller.core.BaseEditController', {
             values = form.getValues(),
             me = this;
         if (form.isValid()) {
-
-            if(me.addNew) {
+            if (record == null) {
+                record = Ext.create(this.mainStore.model);
                 this.mainStore.add(record);
             }
 
@@ -57,7 +52,11 @@ Ext.define('sunerp.controller.core.BaseEditController', {
                     }
                 }
                 if (field.superclass.self.getName() == "sunerp.component.core.BasePicker") {
-                    console.log(field.getSelect());
+                    var data = field.getSelect();
+                    if(data) {
+                        record.set(field.getModelName() + "Id", data.id);
+                    }
+                    me.reloadAfterInsert = true;
                 }
             });
 
@@ -65,6 +64,9 @@ Ext.define('sunerp.controller.core.BaseEditController', {
                 // synchronize the store after editing the record
                 me.mainStore.sync({
                     success: function () {
+                        if(me.reloadAfterInsert) {
+                            me.mainStore.reload();
+                        }
                         view.close();
                     },
                     failure: function () {

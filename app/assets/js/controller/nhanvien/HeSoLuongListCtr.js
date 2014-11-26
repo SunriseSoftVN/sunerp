@@ -8,9 +8,20 @@ Ext.define('sunerp.controller.nhanvien.HeSoLuongListCtr', {
     config: {
         heSoLuongStore: null
     },
+    control: {
+        yearCb: {
+            selector: 'yearcb'
+        }
+    },
     editView: 'sunerp.view.nhanvien.HeSoLuongEdit',
     init: function () {
         this.mainStore = this.getHeSoLuongStore();
         this.callParent(arguments);
+    },
+    showAddPanel: function () {
+        var year = this.getYearCb().getValue();
+        var view = Ext.create(this.editView, {
+            year: year
+        });
     }
 });
