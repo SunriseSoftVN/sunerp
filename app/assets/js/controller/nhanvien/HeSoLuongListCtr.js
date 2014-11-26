@@ -8,7 +8,7 @@ Ext.define('sunerp.controller.nhanvien.HeSoLuongListCtr', {
     config: {
         heSoLuongStore: null
     },
-    editView: 'sunerp.view.nhanvien.NhanVienEdit',
+    editView: 'sunerp.view.nhanvien.HeSoLuongEdit',
     init: function () {
         this.mainStore = this.getHeSoLuongStore();
         this.callParent(arguments);

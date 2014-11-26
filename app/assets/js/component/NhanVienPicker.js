@@ -19,5 +19,12 @@ Ext.define('sunerp.component.NhanVienPicker', {
             {header: 'Chức vụ', dataIndex: 'chucVu.name', flex: 1},
             {header: 'Phòng ban', dataIndex: 'phongBan.name', flex: 1}
         ];
+    },
+    onSelected: function (model, selected, eOpts) {
+        this.callParent(arguments);
+        var select = selected[0];
+        if(select) {
+            this.setValue(select.getData().maNv + " - " + select.getData().fullName);
+        }
     }
 });

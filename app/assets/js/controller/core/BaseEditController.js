@@ -6,6 +6,7 @@ Ext.define('sunerp.controller.core.BaseEditController', {
     extend: 'Deft.mvc.ViewController',
     //this property has to be set in subclass
     mainStore: null,
+    addNew: false,
     control: {},
     constructor: function (config) {
         this.control['form'] = {
@@ -22,6 +23,11 @@ Ext.define('sunerp.controller.core.BaseEditController', {
     init: function () {
         if (this.getView().getModel() != null) {
             this.getForm().loadRecord(this.getView().getModel());
+            this.addNew = false;
+        } else {
+            var record = Ext.create(this.mainStore.model);
+            this.addNew = true;
+            this.getForm().loadRecord(record);
         }
         this.callParent(arguments);
         this.afterInit();
@@ -35,10 +41,9 @@ Ext.define('sunerp.controller.core.BaseEditController', {
             values = form.getValues(),
             me = this;
         if (form.isValid()) {
-            if (record == null) {
-                record = Ext.create(me.mainStore.model);
-                //add new record
-                me.mainStore.add(record);
+
+            if(me.addNew) {
+                this.mainStore.add(record);
             }
 
             record.set(values);
@@ -50,6 +55,9 @@ Ext.define('sunerp.controller.core.BaseEditController', {
                         record.set(field.getModelName() + "Id", data.id);
                         record.set(field.getModelName() + "." + field.displayField, data[field.displayField]);
                     }
+                }
+                if (field.superclass.self.getName() == "sunerp.component.core.BasePicker") {
+                    console.log(field.getSelect());
                 }
             });
 

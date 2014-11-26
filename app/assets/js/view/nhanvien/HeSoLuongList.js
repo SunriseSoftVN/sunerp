@@ -23,16 +23,13 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongList', {
             {header: 'Tên', dataIndex: 'firstName', flex: 1},
             {header: 'Họ', dataIndex: 'lastName', flex: 1},
             {
-                header: 'Chức vụ',
-                dataIndex: 'chucVu.name',
-                flex: 1
-            },
-            {
                 header: 'Đơn vị',
                 dataIndex: 'phongBan.name',
                 flex: 1
             },
             {header: 'Hệ số lương', dataIndex: 'heSoLuong', flex: 1},
+            {header: 'Tháng', dataIndex: 'month', flex: 1},
+            {header: 'Năm', dataIndex: 'year', flex: 1},
             {
                 xtype: 'actioncolumn',
                 header: 'Option',
@@ -54,15 +51,6 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongList', {
             fieldName: 'phongBanId',
             store: me.store
         });
-        var chuVuCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
-            comp: Ext.create('sunerp.component.ChucVuCb', {
-                name: 'Chức vụ',
-                width: 200
-            }),
-            fieldName: 'chucVuId',
-            store: me.store
-        });
-
         var gioHan = me.getUserService().checkGioiHan("nhanvien");
         var donViId = me.getUserService().getCurrentUser().donViId;
         if (gioHan == "donvi") {
@@ -72,6 +60,6 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongList', {
             }, false);
         }
 
-        me.tbar.insert(1, [phongBanCbFilter, chuVuCbFilter]);
+        me.tbar.insert(1, [phongBanCbFilter]);
     }
 });

@@ -2,7 +2,6 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
     extend: 'sunerp.view.core.BaseListEditView',
     requires: [
         'sunerp.component.CongViecPicker',
-        'sunerp.component.CongViecPicker',
         'sunerp.component.NhanVienCb',
         'sunerp.component.NhanVienPicker',
         'sunerp.component.MonthCb',

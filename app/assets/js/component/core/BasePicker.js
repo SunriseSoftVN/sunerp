@@ -35,9 +35,11 @@ Ext.define('sunerp.component.core.BasePicker', {
                 scope: me
             }
         });
-        if (me.gird.getSelectionModel().hasSelection()) {
-            var model = me.gird.getSelectionModel().getLastSelected();
-            me.setModel(model);
+        if (me.gird == null || me.gird.getSelectionModel().hasSelection()) {
+            if(me.gird != null) {
+                var model = me.gird.getSelectionModel().getLastSelected();
+                me.setModel(model);
+            }
             var window = Ext.create('Ext.window.Window', {
                 title: me.title,
                 height: me.wHeight,
@@ -93,13 +95,17 @@ Ext.define('sunerp.component.core.BasePicker', {
         return [];
     },
     onOk: function () {
-        this.getModel().set(this.modelName + "Id", this.getSelect().id);
-        this.getModel().set(this.modelName + "." + this.displayField, this.getSelect()[this.displayField]);
+        if(this.getModel()) {
+            this.getModel().set(this.modelName + "Id", this.getSelect().id);
+            this.getModel().set(this.modelName + "." + this.displayField, this.getSelect()[this.displayField]);
+        }
         this.getWindow().close();
     },
     onSelected: function (model, selected, eOpts) {
         var select = selected[0];
-        this.setSelect(select.getData());
+        if(select) {
+            this.setSelect(select.getData());
+        }
     },
     onSearchFieldChange: function (f, e) {
         var me = this;
