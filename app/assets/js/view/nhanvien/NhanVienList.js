@@ -32,7 +32,7 @@ Ext.define('sunerp.view.nhanvien.NhanVienList', {
                 dataIndex: 'phongBan.name',
                 flex: 1
             },
-            {header: 'Hệ số lương', dataIndex: 'heSoLuong', flex: 1},
+            //{header: 'Hệ số lương', dataIndex: 'heSoLuong', flex: 1},
             {
                 xtype: 'actioncolumn',
                 header: 'Option',

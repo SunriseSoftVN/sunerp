@@ -27,10 +27,10 @@ Ext.define('sunerp.controller.nhanvien.NhanVienEditCtr', {
         },
         phongBanId: {
             selector: 'comboboxx[name=phongBanId]'
-        },
-        heSoLuong: {
-            selector: 'numberfield[name=heSoLuong]'
         }
+        //heSoLuong: {
+        //    selector: 'numberfield[name=heSoLuong]'
+        //}
     },
     init: function () {
         this.mainStore = this.getNhanVienStore();
@@ -41,7 +41,7 @@ Ext.define('sunerp.controller.nhanvien.NhanVienEditCtr', {
             this.getFirstName().setDisabled(true);
             this.getLastName().setDisabled(true);
             this.getChucVuId().setDisabled(true);
-            this.getHeSoLuong().setDisabled(true);
+            //this.getHeSoLuong().setDisabled(true);
         }
         this.callParent(arguments);
     }

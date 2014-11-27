@@ -23,7 +23,7 @@ case class NhanVien(
                      password: String,
                      firstName: String,
                      lastName: String,
-                     heSoLuong: Double,
+                     heSoLuong: Double, //TODO: remove
                      chucVuId: Long,
                      phongBanId: Long
                      ) extends WithId[Long] {
@@ -97,7 +97,7 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       "password" -> text(minLength = 4),
       "firstName" -> nonEmptyText,
       "lastName" -> nonEmptyText,
-      "heSoLuong" -> of[Double],
+      "heSoLuong" -> default(of[Double], 0d),
       "chucVuId" -> longNumber,
       "phongBanId" -> longNumber
     )(NhanVien.apply)(NhanVien.unapply)

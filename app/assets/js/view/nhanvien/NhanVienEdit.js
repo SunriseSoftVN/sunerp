@@ -58,14 +58,14 @@ Ext.define('sunerp.view.nhanvien.NhanVienEdit', {
                         allowBlank: false,
                         addShowAll: false,
                         emptyText: 'Chọn một đơn vị...'
-                    },
-                    {
-                        xtype: 'numberfield',
-                        name: 'heSoLuong',
-                        minValue:0,
-                        allowBlank: false,
-                        fieldLabel: 'Hệ số lương'
                     }
+                    //{
+                    //    xtype: 'numberfield',
+                    //    name: 'heSoLuong',
+                    //    minValue:0,
+                    //    allowBlank: false,
+                    //    fieldLabel: 'Hệ số lương'
+                    //}
                 ]
             }
         ];
