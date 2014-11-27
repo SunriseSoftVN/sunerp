@@ -1,7 +1,7 @@
 package dtos.report
 
 import dtos.report.row.ChungTuLuongRow
-import models.sunerp.{NhanViens, CongThucLuongs}
+import models.sunerp.{TrangThaiNhanViens, CongThucLuongs}
 import play.api.db.slick._
 
 import scala.collection.mutable.ListBuffer
@@ -43,6 +43,8 @@ class ChungTuLuong(
   val phuCapKhacDonGiaKey = "phucapkhac.dongia"
 
   val congThucLuongs = CongThucLuongs.findByMonth(month, year, phongBanDto.id)
+  val nhanVienNghiViecs = TrangThaiNhanViens.getNhanVienNghiViec(month, year)
+
   val donGiaTi = congThucLuongs.find(_.key == donGiaTiKey).get.value
   val kGianTiep = congThucLuongs.find(_.key == kGianTiepKey).get.value
   val kThoiGian = congThucLuongs.find(_.key == kThoiGianKey).get.value
@@ -73,9 +75,11 @@ class ChungTuLuong(
   def int2Double(value: java.lang.Integer) = if (value == null) 0d else value.toDouble
 
   val bangChamCongs = phongBanDto.bangChamCongs
+  val bangChamCongKhongCoNhanVienNghiViec = bangChamCongs
+    .filterNot(r => nhanVienNghiViecs.exists(_.nhanVienId == r.nvId))
   val klLuongSanPhamTi = bangChamCongs.map(r => double2Double(r.tongGioCong)).sum
   val klLuongGianTiep = bangChamCongs.map(r => double2Double(r.hop)).sum
-  val klLuongThoiGian = bangChamCongs.map(r => int2Double(r.hocDH) + double2Double(r.hocNH)).sum
+  val klLuongThoiGian = bangChamCongKhongCoNhanVienNghiViec.map(r => int2Double(r.hocDH) + double2Double(r.hocNH) + int2Double(r.gianTiep)).sum
   val klPhepNam = bangChamCongs.map(r => int2Double(r.phep)).sum
   val klNghiLe = bangChamCongs.map(r => int2Double(r.leTet) + int2Double(r.gianTiep)).sum
   val klAnToan = 1
@@ -87,7 +91,7 @@ class ChungTuLuong(
   val klThaiSan = bangChamCongs.map(r => int2Double(r.thaiSan)).sum
   val klTaiNanLD = bangChamCongs.map(r => int2Double(r.taiNanLaoDong)).sum
   val klGiuaCa = bangChamCongs.map(r => int2Double(r.giuaCa)).sum
-  val klNuocUong = bangChamCongs.length
+  val klNuocUong = bangChamCongKhongCoNhanVienNghiViec.length
 
   val rows = new ListBuffer[ChungTuLuongRow]
 
@@ -176,8 +180,8 @@ class ChungTuLuong(
     row.donVi = "Công"
     if (klLuongThoiGian > 0) {
       row.khoiLuong = klLuongThoiGian
-      row.donGia = bangChamCongs
-        .map(r => double2Double(r.hsl) * (int2Double(r.hocDH) + double2Double(r.hocNH))).sum / klLuongThoiGian * kThoiGian / monthWorkingDay
+      row.donGia = bangChamCongKhongCoNhanVienNghiViec
+        .map(r => double2Double(r.hsl) * (int2Double(r.hocDH) + double2Double(r.hocNH) + int2Double(r.gianTiep))).sum / klLuongThoiGian * kThoiGian / monthWorkingDay
       row.coThuong = row.khoiLuong * row.donGia
     }
     row

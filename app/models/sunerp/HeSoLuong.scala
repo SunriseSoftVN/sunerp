@@ -2,12 +2,12 @@ package models.sunerp
 
 import dtos.{HeSoLuongDto, ExtGirdDto, PagingDto}
 import models.core.{AbstractQuery, AbstractTable, WithId}
-import models.sunerp.TrangThaiNhanViens._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.db.slick.Config.driver.simple._
 import play.api.libs.json.{Json, Writes}
 import play.api.data.format.Formats._
+import utils.DateTimeUtils
 
 import scala.slick.lifted.Tag
 
@@ -39,6 +39,23 @@ class HeSoLuongs(tag: Tag) extends AbstractTable[HeSoLuong](tag, "hesoluong") {
 
 object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)) {
 
+  def copyFormOldTable(implicit session: Session): Unit = {
+    if (countAll == 0) {
+      val nhanViens = NhanViens.all
+      val year = DateTimeUtils.currentYear
+      val month = DateTimeUtils.currentMonth
+      nhanViens.foreach(nhanVien => {
+        val heSoLuong = HeSoLuong(
+          nhanVienId = nhanVien.getId,
+          value = nhanVien.heSoLuong,
+          month = month,
+          year = year
+        )
+        save(heSoLuong)
+      })
+    }
+  }
+
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[HeSoLuongDto] = {
     var query = for {
       heSoLuong <- this
@@ -53,6 +70,7 @@ object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)
           case "nameOrMaNv" => nhanVien.firstName.toLowerCase.like(filter.asLikeValue) || nhanVien.maNv.toLowerCase.like(filter.asLikeValue)
           case "year" => heSoLuong.year === filter.asInt
           case "phongBanId" => phongBan.id === filter.asLong
+          case "donViId" => phongBan.donViId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

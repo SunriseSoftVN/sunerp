@@ -27,3 +27,5 @@ CREATE TABLE `hesoluong` (
   COLLATE='utf8_unicode_ci'
   ENGINE=InnoDB
   AUTO_INCREMENT=1;
+
+update `congthucluong` set `name`='Lương thời gian tối thiểu' where `key` ='thoigian.k';

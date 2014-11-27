@@ -19,7 +19,6 @@ Ext.define('sunerp.view.setting.CongThucLuongEdit', {
                         name: 'name',
                         minLength: 4,
                         readOnly: true,
-                        disabled: true,
                         allowBlank: false,
                         fieldLabel: 'Name'
                     },

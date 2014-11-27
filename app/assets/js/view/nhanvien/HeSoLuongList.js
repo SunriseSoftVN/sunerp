@@ -42,6 +42,16 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongList', {
     initTBar: function () {
         var me = this;
         me.callParent(arguments);
+
+        var donViCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.DonViCb', {
+                name: 'Xí Nghiệp',
+                width: 200
+            }),
+            fieldName: 'donViId',
+            store: me.store
+        });
+
         var phongBanCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
             comp: Ext.create('sunerp.component.PhongBanCb', {
                 name: 'Đơn vị',
@@ -68,6 +78,6 @@ Ext.define('sunerp.view.nhanvien.HeSoLuongList', {
             store: me.store
         });
 
-        me.tbar.insert(1, [phongBanCbFilter, yearCbFilter]);
+        me.tbar.insert(1, [donViCbFilter, phongBanCbFilter, yearCbFilter]);
     }
 });

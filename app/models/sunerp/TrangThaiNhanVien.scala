@@ -38,6 +38,14 @@ class TrangThaiNhanViens(tag: Tag) extends AbstractTable[TrangThaiNhanVien](tag,
 
 object TrangThaiNhanViens extends AbstractQuery[TrangThaiNhanVien, TrangThaiNhanViens](new TrangThaiNhanViens(_)) {
 
+  def getNhanVienNghiViec(month: Int, year: Int)(implicit session: Session) = {
+    val query = for {
+      trangThai <- this
+      if trangThai.month <= month && trangThai.year <= year && trangThai.nghiViec === true
+    } yield trangThai
+    query.list()
+  }
+
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[TrangThaiNhanVienDto] = {
     var query = for {
       trangThai <- this
@@ -52,6 +60,7 @@ object TrangThaiNhanViens extends AbstractQuery[TrangThaiNhanVien, TrangThaiNhan
           case "nameOrMaNv" => nhanVien.firstName.toLowerCase.like(filter.asLikeValue) || nhanVien.maNv.toLowerCase.like(filter.asLikeValue)
           case "year" => trangThai.year === filter.asInt
           case "phongBanId" => phongBan.id === filter.asLong
+          case "donViId" => phongBan.donViId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

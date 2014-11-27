@@ -11,6 +11,15 @@ Ext.define('sunerp.controller.nhanvien.HeSoLuongListCtr', {
     control: {
         yearCb: {
             selector: 'yearcb'
+        },
+        donViCb: {
+            selector: 'donvicb',
+            listeners: {
+                change: 'onDonViCbChange'
+            }
+        },
+        phongBanCb: {
+            selector: 'phongbancb'
         }
     },
     editView: 'sunerp.view.nhanvien.HeSoLuongEdit',
@@ -23,5 +32,10 @@ Ext.define('sunerp.controller.nhanvien.HeSoLuongListCtr', {
         var view = Ext.create(this.editView, {
             year: year
         });
+    },
+    onDonViCbChange: function (comp, newValue, oldValue, eOpts) {
+        var me = this;
+        me.getPhongBanCb().getDonViFilter().setValue(sunerp.Utils.toString(newValue));
+        me.getPhongBanCb().getStore().load();
     }
 });

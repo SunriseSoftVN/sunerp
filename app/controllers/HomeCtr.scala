@@ -5,7 +5,7 @@ import controllers.element.{AuthConfigImpl, TransactionElement, MainTemplate}
 import jp.t2v.lab.play2.auth.AuthenticationElement
 import dtos.MenuItemDto
 import play.api.libs.json.Json
-import models.sunerp.NhanViens
+import models.sunerp.{HeSoLuongs, HeSoLuong, NhanViens}
 import com.escalatesoft.subcut.inject.BindingModule
 import play.api.data.Form
 import play.api.data.Forms._
@@ -302,6 +302,11 @@ class HomeCtr(implicit val bindingModule: BindingModule) extends Controller with
         Ok
       }
     )
+  }
+
+  def upgrade = StackAction { implicit request =>
+    HeSoLuongs.copyFormOldTable
+    Ok("ok")
   }
 
 }
