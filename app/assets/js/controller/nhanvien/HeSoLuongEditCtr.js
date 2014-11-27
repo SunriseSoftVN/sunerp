@@ -11,6 +11,9 @@ Ext.define('sunerp.controller.nhanvien.HeSoLuongEditCtr', {
     control: {
         nhanVienPicker: {
             selector: 'nhanvienpicker'
+        },
+        monthCb: {
+            selector: 'monthcb'
         }
     },
     init: function () {

@@ -49,7 +49,7 @@ object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)
       query = query.where(table => {
         val (heSoLuong, nhanVien, phongBan) = table
         filter.property match {
-          case "nhanVien.lastName" => nhanVien.lastName.toLowerCase like filter.asLikeValue
+          case "nameOrMaNv" => nhanVien.firstName.toLowerCase.like(filter.asLikeValue) || nhanVien.maNv.toLowerCase.like(filter.asLikeValue)
           case "year" => heSoLuong.year === filter.asInt
           case "phongBanId" => phongBan.id === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
@@ -61,7 +61,7 @@ object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)
       query = query.sortBy(table => {
         val (heSoLuong, nhanVien, phongBan) = table
         sort.property match {
-          case "nhanVien.lastName" => orderColumn(sort.direction, nhanVien.lastName)
+          case "nhanVien.fullName" => orderColumn(sort.direction, nhanVien.lastName)
           case "month" => orderColumn(sort.direction, heSoLuong.month)
           case "value" => orderColumn(sort.direction, heSoLuong.value)
           case "year" => orderColumn(sort.direction, heSoLuong.year)

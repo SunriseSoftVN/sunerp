@@ -1,5 +1,6 @@
 package models.sunerp
 
+import dtos.{TrangThaiNhanVienDto, ExtGirdDto, PagingDto}
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.data.Form
 import play.api.data.Forms._
@@ -35,6 +36,52 @@ class TrangThaiNhanViens(tag: Tag) extends AbstractTable[TrangThaiNhanVien](tag,
 }
 
 object TrangThaiNhanViens extends AbstractQuery[TrangThaiNhanVien, TrangThaiNhanViens](new TrangThaiNhanViens(_)) {
+
+  def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[TrangThaiNhanVienDto] = {
+    var query = for {
+      trangThai <- this
+      nhanVien <- trangThai.nhanVien
+      phongBan <- nhanVien.phongBan
+    } yield (trangThai, nhanVien, phongBan)
+
+    pagingDto.getFilters.foreach(filter => {
+      query = query.where(table => {
+        val (trangThai, nhanVien, phongBan) = table
+        filter.property match {
+          case "nameOrMaNv" => nhanVien.firstName.toLowerCase.like(filter.asLikeValue) || nhanVien.maNv.toLowerCase.like(filter.asLikeValue)
+          case "year" => trangThai.year === filter.asInt
+          case "phongBanId" => phongBan.id === filter.asLong
+          case _ => throw new Exception("Invalid filtering key: " + filter.property)
+        }
+      })
+    })
+
+    pagingDto.sorts.foreach(sort => {
+      query = query.sortBy(table => {
+        val (trangThai, nhanVien, phongBan) = table
+        sort.property match {
+          case "nhanVien.fullName" => orderColumn(sort.direction, nhanVien.lastName)
+          case "month" => orderColumn(sort.direction, trangThai.month)
+          case "nghiViec" => orderColumn(sort.direction, trangThai.nghiViec)
+          case "year" => orderColumn(sort.direction, trangThai.year)
+          case _ => throw new Exception("Invalid sorting key: " + sort.property)
+        }
+      })
+    })
+
+    val totalRow = Query(query.length).first()
+
+    val rows = query
+      .drop(pagingDto.start)
+      .take(pagingDto.limit)
+      .list
+      .map(TrangThaiNhanVienDto.apply)
+
+    ExtGirdDto[TrangThaiNhanVienDto](
+      total = totalRow,
+      data = rows
+    )
+  }
 
   def editForm = Form(
     mapping(

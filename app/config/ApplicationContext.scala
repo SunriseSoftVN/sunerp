@@ -49,6 +49,8 @@ object ApplicationContext extends Injectable {
   val congThucLuongCtr = inject[CongThucLuongCtr]
   val congThucLuongCtrClass = classOf[CongThucLuongCtr]
   val heSoLuongCtrClass = classOf[HeSoLuongCtr]
+  val trangThaiNhanVienCtrClass = classOf[TrangThaiNhanVienCtr]
+  val trangThaiNhanVienCtr = inject[TrangThaiNhanVienCtr]
 
   def getControllerInstance[A](controllerClass: Class[A]): A = {
     controllerClass match {
@@ -69,6 +71,7 @@ object ApplicationContext extends Injectable {
       case `xepLoaiCtrClass` => xepLoaiCtr.asInstanceOf[A]
       case `diemHeSoCtrClass` => diemHeSoCtr.asInstanceOf[A]
       case `heSoLuongCtrClass` => heSoLuongCtr.asInstanceOf[A]
+      case `trangThaiNhanVienCtrClass` => trangThaiNhanVienCtr.asInstanceOf[A]
       case `congThucLuongCtrClass` => congThucLuongCtr.asInstanceOf[A]
       case _ => throw new PlayException("Binding error", s"Controller class ${controllerClass.getName} is not bind yet")
     }

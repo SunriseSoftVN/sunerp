@@ -49,6 +49,11 @@ POST          /hesoluong                                                   @cont
 PUT           /hesoluong/:id                                               @controllers.HeSoLuongCtr.update(id: Long)
 DELETE        /hesoluong/:id                                               @controllers.HeSoLuongCtr.delete(id: Long)
 
+GET           /trangthainhanvien                                           @controllers.TrangThaiNhanVienCtr.index
+POST          /trangthainhanvien                                           @controllers.TrangThaiNhanVienCtr.save
+PUT           /trangthainhanvien/:id                                       @controllers.TrangThaiNhanVienCtr.update(id: Long)
+DELETE        /trangthainhanvien/:id                                       @controllers.TrangThaiNhanVienCtr.delete(id: Long)
+
 GET           /phongban                                                    @controllers.PhongBanCtr.index
 POST          /phongban                                                    @controllers.PhongBanCtr.save
 PUT           /phongban/:id                                                @controllers.PhongBanCtr.update(id: Long)
