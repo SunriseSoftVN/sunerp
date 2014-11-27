@@ -5,6 +5,11 @@ Ext.define('sunerp.model.TrangThaiNhanVien', {
         'nhanVienId',
         'nghiViec',
         'month',
-        'year'
+        'year',
+        'phongBan',
+        'nhanVien',
+        {name: 'nhanVien.maNv', mapping: 'nhanVien.maNv'},
+        {name: 'nhanVien.fullName', mapping: 'nhanVien.fullName'},
+        {name: 'phongBan.name', mapping: 'phongBan.name'}
     ]
 });

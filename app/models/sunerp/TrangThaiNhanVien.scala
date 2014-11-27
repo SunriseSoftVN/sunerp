@@ -2,6 +2,7 @@ package models.sunerp
 
 import dtos.{TrangThaiNhanVienDto, ExtGirdDto, PagingDto}
 import models.core.{AbstractQuery, AbstractTable, WithId}
+import models.sunerp.HeSoLuongs._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.db.slick.Config.driver.simple._
@@ -60,6 +61,8 @@ object TrangThaiNhanViens extends AbstractQuery[TrangThaiNhanVien, TrangThaiNhan
       query = query.sortBy(table => {
         val (trangThai, nhanVien, phongBan) = table
         sort.property match {
+          case "nhanVien.maNv" => orderColumn(sort.direction, nhanVien.maNv)
+          case "phongBan.name" => orderColumn(sort.direction, phongBan.name)
           case "nhanVien.fullName" => orderColumn(sort.direction, nhanVien.lastName)
           case "month" => orderColumn(sort.direction, trangThai.month)
           case "nghiViec" => orderColumn(sort.direction, trangThai.nghiViec)
