@@ -43,7 +43,11 @@ Ext.define('sunerp.component.DonViCb', {
         var donViId = me.getUserService().getCurrentUser().donViId;
         me.select(donViId);
         if (gioiHan == "donvi" || gioiHan == "phongban") {
-            me.hide();
+            if(me.up().self.getName() == "sunerp.component.filter.ComboboxFilter") {
+                me.up().hide();
+            } else {
+                me.hide();
+            }
         }
         me.callParent(arguments);
     }

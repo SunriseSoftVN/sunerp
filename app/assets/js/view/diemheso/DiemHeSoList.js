@@ -71,6 +71,15 @@ Ext.define('sunerp.view.diemheso.DiemHeSoList', {
             store: me.store
         });
 
+        var gioHan = me.getUserService().checkGioiHan("diemheso");
+        var donViId = me.getUserService().getCurrentUser().donViId;
+        if (gioHan == "donvi") {
+            me.store.addFilter({
+                property: 'donViId',
+                value: sunerp.Utils.toString(donViId)
+            }, false);
+        }
+
         me.tbar.insert(1, [donViCbFilter, phongBanCbFilter, yearCbFilter])
     }
 });
