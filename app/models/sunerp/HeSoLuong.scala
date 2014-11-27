@@ -39,6 +39,17 @@ class HeSoLuongs(tag: Tag) extends AbstractTable[HeSoLuong](tag, "hesoluong") {
 
 object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)) {
 
+  def getHeSoLuong(nhanVienId: Long, month: Int, year: Int)(implicit session: Session) = {
+    val query = for {
+      heSoLuong <- this
+      if heSoLuong.month <= month && heSoLuong.year <= year && heSoLuong.nhanVienId === nhanVienId
+    } yield heSoLuong
+
+    query
+      .sortBy(r => (r.year.desc, r.month.desc))
+      .firstOption.map(_.value).getOrElse(0d)
+  }
+
   def copyFormOldTable(implicit session: Session): Unit = {
     if (countAll == 0) {
       val nhanViens = NhanViens.all

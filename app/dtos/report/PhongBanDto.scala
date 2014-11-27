@@ -6,7 +6,7 @@ import scala.collection.JavaConverters._
 import org.joda.time.LocalDate
 import utils.DateTimeUtils
 import play.api.db.slick._
-import models.sunerp.{DiemHeSos, XepLoais}
+import models.sunerp.{HeSoLuongs, DiemHeSos, XepLoais}
 
 /**
  * The Class PhongBanDto.
@@ -53,7 +53,7 @@ case class PhongBanDto(
       row.stt = stt
       row.tenNV = nhanVien.name
       row.nvId = nhanVien.id
-      row.hsl = nhanVien.heSoLuong.asJava
+      row.hsl = HeSoLuongs.getHeSoLuong(nhanVien.id, month, year).asJava
       row.xepLoai = XepLoais.findByNhanVienId(nhanVien.id, month, year).fold("")(_.xepLoai)
       row.diemHeSo = DiemHeSos.findByNhanVienId(nhanVien.id, year).fold(Double.NaN)(_.heSo)
 
