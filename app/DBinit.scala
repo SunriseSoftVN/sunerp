@@ -51,7 +51,6 @@ object DBinit {
           password = "123456",
           firstName = "quantri",
           lastName = "quantri",
-          heSoLuong = 0,
           chucVuId = chucVuId,
           phongBanId = phongBanId
         )

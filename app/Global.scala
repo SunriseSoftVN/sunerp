@@ -25,7 +25,6 @@ object Global extends WithFilters(HTMLCompressorFilter(), ProfilingFilter) {
 
   override def onStart(app: Application) {
     Logger.info("Starting...")
-    DBinit.init()
   }
 
   override def onLoadConfig(config: Configuration, path: File, classLoader: ClassLoader, mode: Mode.Mode) = if (mode == Mode.Prod) {

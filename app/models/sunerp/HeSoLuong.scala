@@ -50,23 +50,6 @@ object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)
       .firstOption.map(_.value).getOrElse(0d)
   }
 
-  def copyFormOldTable(implicit session: Session): Unit = {
-    if (countAll == 0) {
-      val nhanViens = NhanViens.all
-      val year = DateTimeUtils.currentYear
-      val month = DateTimeUtils.currentMonth
-      nhanViens.foreach(nhanVien => {
-        val heSoLuong = HeSoLuong(
-          nhanVienId = nhanVien.getId,
-          value = nhanVien.heSoLuong,
-          month = month,
-          year = year
-        )
-        save(heSoLuong)
-      })
-    }
-  }
-
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[HeSoLuongDto] = {
     var query = for {
       heSoLuong <- this

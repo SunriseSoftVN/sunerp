@@ -15,7 +15,6 @@ Ext.define('sunerp.model.NhanVien', {
         'firstName',
         'lastName',
         {name: 'fullName', convert: fullName},
-        'heSoLuong',
         'chucVuId',
         'chucVu',
         'nhanVien',

@@ -23,7 +23,6 @@ case class NhanVien(
                      password: String,
                      firstName: String,
                      lastName: String,
-                     heSoLuong: Double, //TODO: remove
                      chucVuId: Long,
                      phongBanId: Long
                      ) extends WithId[Long] {
@@ -71,8 +70,6 @@ class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
   def lastName = column[String]("lastName", O.NotNull)
 
-  def heSoLuong = column[Double]("heSoLuong", O.NotNull)
-
   def chucVuId = column[Long]("chucVuId", O.NotNull)
 
   def chucVu = foreignKey("chuc_vu_nhan_vien_fk", chucVuId, ChucVus)(_.id)
@@ -83,7 +80,7 @@ class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
 
   def idx = index("nhanvien_index", maNv, unique = true)
 
-  def * = (id.?, maNv, password, firstName, lastName, heSoLuong, chucVuId, phongBanId) <>(NhanVien.tupled, NhanVien.unapply)
+  def * = (id.?, maNv, password, firstName, lastName, chucVuId, phongBanId) <>(NhanVien.tupled, NhanVien.unapply)
 }
 
 object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
@@ -97,7 +94,6 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       "password" -> text(minLength = 4),
       "firstName" -> nonEmptyText,
       "lastName" -> nonEmptyText,
-      "heSoLuong" -> default(of[Double], 0d),
       "chucVuId" -> longNumber,
       "phongBanId" -> longNumber
     )(NhanVien.apply)(NhanVien.unapply)
@@ -109,7 +105,6 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       "maNv" -> nhanVien.maNv,
       "firstName" -> nhanVien.firstName,
       "lastName" -> nhanVien.lastName,
-      "heSoLuong" -> nhanVien.heSoLuong,
       "chucVuId" -> nhanVien.chucVuId,
       "phongBanId" -> nhanVien.phongBanId,
       "fullName" -> (nhanVien.lastName + " " + nhanVien.firstName)
@@ -123,7 +118,6 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
       "maNv" -> nhanVien.maNv,
       "firstName" -> nhanVien.firstName,
       "lastName" -> nhanVien.lastName,
-      "heSoLuong" -> nhanVien.heSoLuong,
       "chucVuId" -> nhanVien.chucVuId,
       "phongBanId" -> nhanVien.phongBanId,
       "donViId" -> nhanVien.phongBan.donViId,
@@ -203,7 +197,6 @@ object NhanViens extends AbstractQuery[NhanVien, NhanViens](new NhanViens(_)) {
           case "maNv" => orderColumn(sort.direction, nhanVien.maNv)
           case "firstName" => orderColumn(sort.direction, nhanVien.firstName)
           case "lastName" => orderColumn(sort.direction, nhanVien.lastName)
-          case "heSoLuong" => orderColumn(sort.direction, nhanVien.heSoLuong)
           case "chucVu.name" => orderColumn(sort.direction, chucVu.name)
           case "phongBan.name" => orderColumn(sort.direction, phongBan.name)
           case _ => throw new Exception("Invalid sorting key: " + sort.property)

@@ -78,7 +78,7 @@ class ChungTuLuong(
   //khong tinh tro cap nuoc uong cho nhan vien thai san & nghi viec
   val bangChamCongKhongCoNhanVienNghiViec = bangChamCongs
     .filterNot(r => nhanVienNghiViecs.exists(_.nhanVienId == r.nvId))
-    .filterNot(_.thaiSan > 0)
+    .filterNot(r => r.thaiSan != null && r.thaiSan > 0)
 
   val klLuongSanPhamTi = bangChamCongs.map(r => double2Double(r.tongGioCong)).sum
   val klLuongGianTiep = bangChamCongs.map(r => double2Double(r.hop)).sum
