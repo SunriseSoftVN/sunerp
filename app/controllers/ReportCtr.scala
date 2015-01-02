@@ -148,6 +148,21 @@ with AuthElement with AuthConfigImpl with TransactionElement with Injectable {
     promise.future
   })
 
+  def doBcThKhoiLuongQuyReport(fileType: String) = AsyncStack(AuthorityKey -> bcThucHienKhoiLuong)(implicit request => {
+    val promise = Promise[SimpleResult]()
+    val req = KhoiLuongReportRequest(request)
+    if (req.donVi.isDefined && req.phongBan.isDefined) {
+      val f = khoiLuongReportService.doBcThKhoiLuongQuy(fileType, req)
+      f.onComplete {
+        case Success(fileName) => promise.success(Ok(fileName))
+        case Failure(t) => promise.failure(t)
+      }
+    } else {
+      promise.success(BadRequest)
+    }
+    promise.future
+  })
+
   def doBcChungTuLuongReport(fileType: String) = AsyncStack(AuthorityKey -> chungTuThanhToanLuong)(implicit request => {
     val promise = Promise[SimpleResult]()
     val req = KhoiLuongReportRequest(request)

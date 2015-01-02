@@ -51,6 +51,8 @@ trait KhoiLuongReportService {
 
   def doBcThKhoiLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
+  def doBcThKhoiLuongQuy(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
+
   def doBcChungTuLuong(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
 
   def doThKhoiLuongQuy(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String]
@@ -209,6 +211,52 @@ class KhoiLuongReportServiceImpl(implicit val bindingModule: BindingModule) exte
       val phongBanDto = buildPhongBanData(req.month, req._quarter, req.year, req.getPhongBan, tasks, taskExternal)
       //build layout
       val report = KhoiLuongReportColumnBuilder.buildBcThKhoiLuong(req, phongBanDto.tyLeHoanThanhCongViec)
+      val ds = new JRBeanCollectionDataSource(phongBanDto.javaKLRows())
+      report.setDataSource(ds)
+
+      exportReport(fileType, fileName, report)
+    }
+
+    promise.completeWith {
+      for {
+        tasks <- getTasks
+        taskExternal <- callWebService
+        fileName <- buildReport(tasks, taskExternal)
+      } yield fileName
+    }
+
+    promise.future
+  }
+
+  override def doBcThKhoiLuongQuy(fileType: String, req: KhoiLuongReportRequest)(implicit session: Session): Future[String] = {
+    val promise = Promise[String]()
+
+    val station = Stations.findByName(req.donViName)
+    val branch = Branchs.findByName(req.phongBanName)
+
+    def callWebService = if (station.isDefined && branch.isDefined) {
+      WS.url(s"$qlkhUrl/rest/reportBranch")
+        .withQueryString(
+          "stationId" -> station.get.getId.toString,
+          "branchId" -> branch.get.getId.toString,
+          "quarter" -> req.quarter.toString,
+          "year" -> req.year.toString
+        ).get().map {
+        response =>
+          if (response.status == 200) {
+            response.json.as[List[TaskReportBean]]
+          } else Nil
+      }
+    } else {
+      Future.successful(List.empty[TaskReportBean])
+    }
+
+    def buildReport(tasks: List[TaskDto], taskExternal: List[TaskReportBean]) = Future {
+      val fileName = s"bcthkhoiluong-${req.donViNameStrip}-${req.phongBanNameStrip}-quy${req.quarter}-nam${req.year}"
+      //build data
+      val phongBanDto = buildPhongBanData(req.month, req._quarter, req.year, req.getPhongBan, tasks, taskExternal)
+      //build layout
+      val report = KhoiLuongReportColumnBuilder.buildBcThKhoiLuongQuy(req, phongBanDto.tyLeHoanThanhCongViec)
       val ds = new JRBeanCollectionDataSource(phongBanDto.javaKLRows())
       report.setDataSource(ds)
 

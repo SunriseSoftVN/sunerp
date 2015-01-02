@@ -95,6 +95,7 @@ GET           /report/doDonViReport                                        @cont
 GET           /report/doThKhoiLuongQuyReport                               @controllers.ReportCtr.doThKhoiLuongQuyReport(fileType: String ?= "pdf")
 GET           /report/doPhongBanReport                                     @controllers.ReportCtr.doPhongBanReport(fileType: String ?= "pdf")
 GET           /report/doBcThKhoiLuongReport                                @controllers.ReportCtr.doBcThKhoiLuongReport(fileType: String ?= "pdf")
+GET           /report/doBcThKhoiLuongQuyReport                             @controllers.ReportCtr.doBcThKhoiLuongQuyReport(fileType: String ?= "pdf")
 GET           /report/inSoPhanCong                                         @controllers.ReportCtr.inSoPhanCong(fileType: String ?= "pdf")
 GET           /report/inSoPhanCongCaNhan                                   @controllers.ReportCtr.inSoPhanCongCaNhan(fileType: String ?= "pdf")
 GET           /report/inBangChamCong                                       @controllers.ReportCtr.inBangChamCong(fileType: String ?= "pdf")

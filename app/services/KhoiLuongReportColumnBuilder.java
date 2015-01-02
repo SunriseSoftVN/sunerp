@@ -266,7 +266,40 @@ public final class KhoiLuongReportColumnBuilder {
         khQuy.add(quyGio);
 
         ColumnTitleGroupBuilder thucHien = grid.titleGroup();
-        thucHien.setTitle("T.hiện tháng, quý");
+        thucHien.setTitle("T.hiện tháng");
+        thucHien.add(totalKL);
+        thucHien.add(totalGio);
+
+        builder.columnGrid(maCv, taskName, taskUnit, dinhMuc, soLan, khQuy, thucHien);
+        return builder;
+    }
+
+    public static JasperReportBuilder buildBcThKhoiLuongQuy(KhoiLuongReportRequest request, Double hoanThanh) throws DRException {
+        InputStream is = Play.application().resourceAsStream("report/baocaothkhoiluongquy.jrxml");
+        int quarter = request.quarter();
+        JasperReportBuilder builder = report()
+                .setTemplateDesign(is)
+                .setColumnTitleStyle(COLUMN_TITLE_STYLE)
+                .setColumnStyle(COLUMN_STYLE)
+                .setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL)
+                .setLocale(new Locale("vi", "VN"));
+
+        builder.setParameter("year", request.year());
+        builder.setParameter("quarter", quarter);
+        builder.setParameter("phongBang", request.phongBanName());
+        builder.setParameter("donVi", request.donViName());
+        DecimalFormat formater = new DecimalFormat("0.#");
+        builder.setParameter("hoanThanh", formater.format(hoanThanh) + "%");
+
+        builder.columns(maCv, taskName, taskUnit, dinhMuc, soLan, quyKL, quyGio, totalKL.setTitle("KL"), totalGio);
+
+        ColumnTitleGroupBuilder khQuy = grid.titleGroup();
+        khQuy.setTitle("K.hoạch quý");
+        khQuy.add(quyKL);
+        khQuy.add(quyGio);
+
+        ColumnTitleGroupBuilder thucHien = grid.titleGroup();
+        thucHien.setTitle("T.hiện quý");
         thucHien.add(totalKL);
         thucHien.add(totalGio);
 
