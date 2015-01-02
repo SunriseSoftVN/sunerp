@@ -65,7 +65,6 @@ object XepLoais extends AbstractQuery[XepLoai, XepLoais](new XepLoais(_)) {
     var query = for {
       xepLoai <- this
       nhanVien <- xepLoai.nhanVien
-      if xepLoai.year === DateTimeUtils.currentYear
     } yield (xepLoai, nhanVien)
 
     pagingDto.getFilters.foreach(filter => {
@@ -74,6 +73,7 @@ object XepLoais extends AbstractQuery[XepLoai, XepLoais](new XepLoais(_)) {
         filter.property match {
           case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
           case "month" => xepLoai.month === filter.asInt
+          case "year" => xepLoai.year === filter.asInt
           case "phongBanId" => nhanVien.phongBanId === filter.asLong
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }

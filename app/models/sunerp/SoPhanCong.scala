@@ -148,6 +148,12 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
   def load(pagingDto: PagingDto)(implicit session: Session) = {
     var query = soPhanCongQuery
 
+    val yearFilter = pagingDto.findFilters("year")
+    val monthFilter = pagingDto.findFilters("month")
+
+    val year = yearFilter.map(_.asInt).getOrElse(LocalDate.now.getYear)
+    val month = monthFilter.map(_.asInt).getOrElse(LocalDate.now.getMonthOfYear)
+
     pagingDto.getFilters.foreach(filter => {
       query = query.where(tuple => {
         val (soPhanCong, soPhanCongExt, nhanVien, phongBan) = tuple
@@ -156,13 +162,17 @@ object SoPhanCongs extends AbstractQuery[SoPhanCong, SoPhanCongs](new SoPhanCong
           case "nhanVien.firstName" => nhanVien.firstName.toLowerCase like filter.asLikeValue
           case "phongBanId" => soPhanCong.phongBanId === filter.asLong
           case "month" =>
-            val date = new LocalDate().withYear(LocalDate.now.getYear).withMonth(filter.asInt)
+            val date = new LocalDate().withYear(year).withMonth(filter.asInt)
             val firstDayOfMonth = date.dayOfMonth().withMinimumValue()
             val lastDayOfMonth = date.dayOfMonth().withMaximumValue()
             soPhanCong.ngayPhanCong >= firstDayOfMonth && soPhanCong.ngayPhanCong <= lastDayOfMonth
           case "day" =>
-            val month = pagingDto.findFilters("month").map(_.asInt).getOrElse(LocalDate.now.getMonthOfYear)
-            soPhanCong.ngayPhanCong === DateTimeUtils.createLocalDate(month, filter.asInt)
+            soPhanCong.ngayPhanCong === new LocalDate().withYear(year)
+              .withMonthOfYear(month).withDayOfMonth(filter.asInt)
+          case "year" =>
+            val firstDayOfYear = new LocalDate().withYear(filter.asInt).withMonth(1).withDayOfMonth(1)
+            val lastDayOfYear = new LocalDate().withYear(filter.asInt).withMonth(12).withDayOfMonth(31)
+            soPhanCong.ngayPhanCong >= firstDayOfYear && soPhanCong.ngayPhanCong <= lastDayOfYear
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })

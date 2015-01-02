@@ -5,7 +5,8 @@ Ext.define('sunerp.view.xeploai.XepLoaiList', {
     extend: 'sunerp.view.core.BaseListView',
     alias: 'widget.xepLoaiList',
     requires: [
-        'sunerp.component.MonthCb'
+        'sunerp.component.MonthCb',
+        'sunerp.component.YearCb'
     ],
     controller: 'sunerp.controller.xeploai.XepLoaiListCtr',
     inject: ['xepLoaiStore', 'userService'],
@@ -47,6 +48,15 @@ Ext.define('sunerp.view.xeploai.XepLoaiList', {
             store: me.store
         });
 
+        var yearCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.YearCb', {
+                name: 'Năm',
+                width: 70
+            }),
+            fieldName: 'year',
+            store: me.store
+        });
+
         var gioiHan = me.getUserService().checkGioiHan('xeploai');
         var phongBanId = me.getUserService().getCurrentUser().phongBanId;
         var donViId = me.getUserService().getCurrentUser().donViId;
@@ -58,6 +68,6 @@ Ext.define('sunerp.view.xeploai.XepLoaiList', {
             me.store.addFilter(phongBangFilter, false);
         }
 
-        me.tbar.insert(1, [momthCbFilter])
+        me.tbar.insert(1, [momthCbFilter, yearCbFilter])
     }
 });

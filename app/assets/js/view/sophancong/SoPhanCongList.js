@@ -5,6 +5,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         'sunerp.component.NhanVienCb',
         'sunerp.component.NhanVienPicker',
         'sunerp.component.MonthCb',
+        'sunerp.component.YearCb',
         'sunerp.component.DayCb'
     ],
     alias: 'widget.soPhanCongList',
@@ -170,7 +171,7 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         var momthCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
             comp: Ext.create('sunerp.component.MonthCb', {
                 name: 'Tháng',
-                width: 100
+                width: 90
             }),
             fieldName: 'month',
             store: me.store
@@ -179,12 +180,22 @@ Ext.define('sunerp.view.sophancong.SoPhanCongList', {
         var dayCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
             comp: Ext.create('sunerp.component.DayCb', {
                 name: 'Ngày',
-                width: 100
+                width: 80
             }),
             fieldName: 'day',
             store: me.store
         });
-        me.tbar.insert(1, [momthCbFilter, dayCbFilter]);
+
+        var yearCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.YearCb', {
+                name: 'Năm',
+                width: 70
+            }),
+            fieldName: 'year',
+            store: me.store
+        });
+
+        me.tbar.insert(1, [dayCbFilter, momthCbFilter, yearCbFilter]);
 
         me.tbar.add({
             xtype: 'button',

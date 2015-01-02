@@ -11,6 +11,9 @@ Ext.define('sunerp.controller.xeploai.XepLoaiListCtr', {
     control: {
         monthCb: {
             selector: 'monthcb'
+        },
+        yearCb: {
+            selector: 'yearcb'
         }
     },
     editView: 'sunerp.view.xeploai.XepLoaiEdit',
@@ -20,8 +23,10 @@ Ext.define('sunerp.controller.xeploai.XepLoaiListCtr', {
     },
     showAddPanel: function () {
         var month = this.getMonthCb().getValue();
+        var year = this.getYearCb().getValue();
         var view = Ext.create(this.editView, {
-            month: month
+            month: month,
+            year: year
         });
     }
 });

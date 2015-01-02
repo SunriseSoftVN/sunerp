@@ -29,6 +29,9 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
                 select: 'onDayCbSelect'
             }
         },
+        yearCb: {
+            selector: 'yearcb'
+        },
         iniBtn: {
             selector: 'button[action=init]',
             listeners: {
@@ -93,7 +96,7 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
         if (lastModel != null) {
             rec.set('ngayPhanCong', lastModel.get('ngayPhanCong'));
         } else {
-            var year = new Date().getFullYear();
+            var year = this.getYearCb().getValue();
             var month = this.getMonthCb().getValue() - 1;
             var day = new Date().getDate();
             if (this.getDayCb().getValue()) {
