@@ -30,7 +30,7 @@ class KhoaSoPhanCongCtr(implicit val bindingModule: BindingModule) extends BaseC
     implicit val jsonWrite = KhoaSoPhanCongDto.jsonWrite
     var result = KhoaSoPhanCongs.load(paging)
     val month = paging.findFilters("month").get.asInt
-    val year = DateTimeUtils.currentYear
+    val year = paging.findFilters("year").get.asInt
     val query = for {
       khoaSoPhanCong <- KhoaSoPhanCongs
       if khoaSoPhanCong.month === month && khoaSoPhanCong.year === year

@@ -1,5 +1,6 @@
 package models.sunerp
 
+import com.github.nscala_time.time.StaticForwarderImports._
 import dtos.{ExtGirdDto, KhoaSoPhanCongDto, PagingDto}
 import models.core.{AbstractQuery, AbstractTable, WithId}
 import play.api.data.Form
@@ -53,10 +54,10 @@ object KhoaSoPhanCongs extends AbstractQuery[KhoaSoPhanCong, KhoaSoPhanCongs](ne
   )
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[KhoaSoPhanCongDto] = {
+
     var query = for {
       khoaSoPhanCong <- this
       donVi <- khoaSoPhanCong.donVi
-      if khoaSoPhanCong.year === DateTimeUtils.currentYear
     } yield (khoaSoPhanCong, donVi)
 
     pagingDto.getFilters.foreach(filter => {
@@ -65,6 +66,7 @@ object KhoaSoPhanCongs extends AbstractQuery[KhoaSoPhanCong, KhoaSoPhanCongs](ne
         filter.property match {
           case "donVi.name" => donVi.name.toLowerCase like filter.asLikeValue
           case "month" => khoaSoPhanCong.month === filter.asInt
+          case "year" => khoaSoPhanCong.year === filter.asInt
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
