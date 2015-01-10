@@ -1,6 +1,5 @@
 package controllers
 
-import _root_.utils.DateTimeUtils
 import com.escalatesoft.subcut.inject.BindingModule
 import controllers.element.{BaseCtr, MainTemplate}
 import dtos.{KhoaSoPhanCongDto, PagingDto}
