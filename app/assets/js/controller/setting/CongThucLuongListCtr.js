@@ -18,6 +18,9 @@ Ext.define('sunerp.controller.setting.CongThucLuongListCtr', {
         monthCb: {
             selector: 'monthcb'
         },
+        yearCb: {
+            selector: 'yearcb'
+        },
         copyFromLastMonthBtn: {
             selector: 'button[action=copyFromLastMonth]',
             listeners: {
@@ -37,7 +40,7 @@ Ext.define('sunerp.controller.setting.CongThucLuongListCtr', {
     onCopyFromLastMonthBtnClick: function() {
         var me = this;
         Ext.Ajax.request({
-            url: '/congthucluong/copyFromLastMonth/' + me.getMonthCb().getValue() + "/" + me.getPhongBanCb().getValue(),
+            url: '/congthucluong/copyFromLastMonth/' + me.getMonthCb().getValue() + "/" + me.getYearCb().getValue() + "/" + me.getPhongBanCb().getValue(),
             success: function (rep) {
                 me.mainStore.reload();
             }

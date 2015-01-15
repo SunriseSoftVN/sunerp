@@ -28,8 +28,8 @@ class CongThucLuongCtr(implicit val bindingModule: BindingModule) extends BaseCt
     Json.toJson(result)
   }
 
-  def copyFromLastMonth(month: Int, phongBangId: Long) = StackAction(AuthorityKey -> domainName)(implicit request => {
-    CongThucLuongs.copyDataFromLastMonth(month, phongBangId)
+  def copyFromLastMonth(month: Int, year: Int, phongBangId: Long) = StackAction(AuthorityKey -> domainName)(implicit request => {
+    CongThucLuongs.copyDataFromLastMonth(month, year, phongBangId)
     Ok
   })
 }

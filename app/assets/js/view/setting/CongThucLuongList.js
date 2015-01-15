@@ -10,7 +10,8 @@ Ext.define('sunerp.view.setting.CongThucLuongList', {
     requires: [
         'sunerp.component.DonViCb',
         'sunerp.component.PhongBanCb',
-        'sunerp.component.MonthCb'
+        'sunerp.component.MonthCb',
+        'sunerp.component.YearCb'
     ],
     config: {
         congThucLuongStore: null
@@ -55,10 +56,20 @@ Ext.define('sunerp.view.setting.CongThucLuongList', {
             store: me.store
         });
 
+        var yearCbFilter = Ext.create('sunerp.component.filter.ComboboxFilter', {
+            comp: Ext.create('sunerp.component.YearCb', {
+                name: 'Năm',
+                width: 70
+            }),
+            fieldName: 'year',
+            store: me.store
+        });
+
         me.tbar.insert(1, [
             {xtype: 'donvicb', addShowAll: false},
             phongBanCbFilter,
-            momthCbFilter
+            momthCbFilter,
+            yearCbFilter
         ]);
 
         me.tbar.add({

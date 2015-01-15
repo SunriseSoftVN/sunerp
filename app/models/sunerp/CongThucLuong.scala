@@ -109,19 +109,18 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
 
   def findByKey(key: String)(implicit session: Session) = where(_.key === key).firstOption
 
-  def copyDataFromLastMonth(month: Int, phongBangId: Long)(implicit session: Session) {
-    val last = LocalDate.now.withMonthOfYear(month).minusMonths(1)
+  def copyDataFromLastMonth(month: Int, year: Int, phongBangId: Long)(implicit session: Session) {
+    val last = LocalDate.now.withMonthOfYear(month).withYear(year).minusMonths(1)
     val lastMonth = last.getMonthOfYear
-    val year = last.getYear
 
     val lastMonthQuery = for {
       row <- this
-      if row.month === lastMonth && row.year === year && row.phongBanId === phongBangId
+      if row.month === lastMonth && row.year === last.getYear && row.phongBanId === phongBangId
     } yield row
 
     val query = for {
       row <- this
-      if row.month === month && row.year === LocalDate.now.getYear && row.phongBanId === phongBangId
+      if row.month === month && row.year === year && row.phongBanId === phongBangId
     } yield row
 
     val data = lastMonthQuery.list()
@@ -129,12 +128,14 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
     if (data.length > 0) {
       query.delete
       for (row <- data) {
-        save(row.copy(id = None, month = month, year = LocalDate.now.getYear))
+        save(row.copy(id = None, month = month, year = year))
       }
     }
   }
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[CongThucLuong] = {
+    val yearFilter = pagingDto.findFilters("year")
+    val year = yearFilter.map(_.asInt).getOrElse(LocalDate.now.getYear)
 
     var query = for (row <- this) yield row
 
@@ -144,7 +145,8 @@ object CongThucLuongs extends AbstractQuery[CongThucLuong, CongThucLuongs](new C
           case "name" => table.name.toLowerCase like filter.asLikeValue
           case "phongBanId" => table.phongBanId === filter.asLong
           case "month" =>
-            table.month === filter.asInt && table.year === LocalDate.now.getYear
+            table.month === filter.asInt && table.year === year
+          case "year" => table.year === year
           case _ => throw new Exception("Invalid filtering key: " + filter.property)
         }
       })
