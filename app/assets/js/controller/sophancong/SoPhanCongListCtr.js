@@ -117,19 +117,27 @@ Ext.define('sunerp.controller.sophancong.SoPhanCongListCtr', {
     },
     onBtnDayMonthCopyClick: function () {
         var me = this;
-        Ext.Ajax.request({
-            url: '/sophancong/dayCopyData/' + me.getMonthCb().getValue() + "/" + me.getDayCb().getValue() + "/" + this.getPhongBanId(),
-            success: function (rep) {
-                me.mainStore.reload();
+        Ext.MessageBox.confirm('Copy dữ liệu', 'Dữ liệu cũ xẽ bị xóa đi thay thế bởi dữ liệu mới?', function (btn) {
+            if (btn == 'yes') {
+                Ext.Ajax.request({
+                    url: '/sophancong/dayCopyData/' + me.getMonthCb().getValue() + "/" + me.getDayCb().getValue() + "/" + me.getPhongBanId(),
+                    success: function (rep) {
+                        me.mainStore.reload();
+                    }
+                });
             }
         });
     },
     onBtnYesterdayCopyClick: function () {
         var me = this;
-        Ext.Ajax.request({
-            url: '/sophancong/yesterdayCopyData/' + me.getMonthCb().getValue() + "/" + me.getDayCb().getValue() + "/" + this.getPhongBanId(),
-            success: function (rep) {
-                me.mainStore.reload();
+        Ext.MessageBox.confirm('Copy dữ liệu', 'Dữ liệu cũ xẽ bị xóa đi thay thế bởi dữ liệu mới?', function (btn) {
+            if (btn == 'yes') {
+                Ext.Ajax.request({
+                    url: '/sophancong/yesterdayCopyData/' + me.getMonthCb().getValue() + "/" + me.getDayCb().getValue() + "/" + me.getPhongBanId(),
+                    success: function (rep) {
+                        me.mainStore.reload();
+                    }
+                });
             }
         });
     },

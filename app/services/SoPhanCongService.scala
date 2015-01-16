@@ -52,18 +52,18 @@ class SoPhanCongServiceImpl(implicit val bindingModule: BindingModule) extends S
       if soPhanCong.phongBanId === phongBanId && soPhanCong.ngayPhanCong === date
     } yield soPhanCong
 
-    if (checkQuery.list().isEmpty) {
-      val query = for {
-        soPhanCong <- SoPhanCongs
-        soPhanCongExt <- soPhanCong.soPhanCongExt
-        if soPhanCong.phongBanId === phongBanId && soPhanCong.ngayPhanCong === targetDate && soPhanCong.taskId.isNotNull
-      } yield (soPhanCong, soPhanCongExt)
+    checkQuery.delete
 
-      for (tuple <- query.list()) {
-        val (soPhanCong, soPhanCongExt) = tuple
-        val extId = SoPhanCongExts.save(soPhanCongExt.copy(id = None))
-        SoPhanCongs.save(soPhanCong.copy(id = None, ngayPhanCong = date, soPhanCongExtId = extId))
-      }
+    val query = for {
+      soPhanCong <- SoPhanCongs
+      soPhanCongExt <- soPhanCong.soPhanCongExt
+      if soPhanCong.phongBanId === phongBanId && soPhanCong.ngayPhanCong === targetDate && soPhanCong.taskId.isNotNull
+    } yield (soPhanCong, soPhanCongExt)
+
+    for (tuple <- query.list()) {
+      val (soPhanCong, soPhanCongExt) = tuple
+      val extId = SoPhanCongExts.save(soPhanCongExt.copy(id = None))
+      SoPhanCongs.save(soPhanCong.copy(id = None, ngayPhanCong = date, soPhanCongExtId = extId))
     }
   }
 
