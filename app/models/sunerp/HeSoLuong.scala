@@ -42,12 +42,26 @@ object HeSoLuongs extends AbstractQuery[HeSoLuong, HeSoLuongs](new HeSoLuongs(_)
   def getHeSoLuong(nhanVienId: Long, month: Int, year: Int)(implicit session: Session) = {
     val query = for {
       heSoLuong <- this
-      if heSoLuong.month <= month && heSoLuong.year <= year && heSoLuong.nhanVienId === nhanVienId
+      if heSoLuong.year <= year && heSoLuong.nhanVienId === nhanVienId
     } yield heSoLuong
 
-    query
-      .sortBy(r => (r.year.desc, r.month.desc))
-      .firstOption.map(_.value).getOrElse(0d)
+    val heSoLuongs = query
+      .sortBy(r => (r.year, r.month))
+      .list()
+
+    var value = 0d
+
+    for(heSoLuong <- heSoLuongs) {
+      if(heSoLuong.year == year) {
+        if(heSoLuong.month <= month) {
+          value = heSoLuong.value
+        }
+      } else {
+        value = heSoLuong.value
+      }
+    }
+
+    value
   }
 
   def load(pagingDto: PagingDto)(implicit session: Session): ExtGirdDto[HeSoLuongDto] = {
