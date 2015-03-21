@@ -40,6 +40,7 @@ Ext.define('sunerp.controller.core.BaseReportCtr', {
             url: url,
             params: params,
             method: 'GET',
+            timeout: 90000,
             success: success
         });
     },
