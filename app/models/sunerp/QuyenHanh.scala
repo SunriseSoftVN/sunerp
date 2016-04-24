@@ -26,7 +26,7 @@ case class QuyenHanh(
                       ) extends WithId[Long]
 
 
-class QuyenHanhs(tag: Tag) extends AbstractTable[QuyenHanh](tag, "quyenHanh") {
+class QuyenHanhs(tag: Tag) extends AbstractTable[QuyenHanh](tag, "quyenhanh") {
   def domain = column[String]("domain", O.NotNull)
 
   def read = column[Boolean]("read", O.NotNull)

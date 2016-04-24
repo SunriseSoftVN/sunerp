@@ -26,7 +26,7 @@ case class KhoaSoPhanCong(
                            year: Int
                            ) extends WithId[Long]
 
-class KhoaSoPhanCongs(tag: Tag) extends AbstractTable[KhoaSoPhanCong](tag, "khoaSoPhanCong") {
+class KhoaSoPhanCongs(tag: Tag) extends AbstractTable[KhoaSoPhanCong](tag, "khoasophancong") {
   def month = column[Int]("month", O.NotNull)
 
   def donViId = column[Long]("donViId", O.NotNull)

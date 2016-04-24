@@ -34,7 +34,7 @@ case class SoPhanCongExt(
                           ) extends WithId[Long]
 
 
-class SoPhanCongExts(tag: Tag) extends AbstractTable[SoPhanCongExt](tag, "soPhanCongExt") {
+class SoPhanCongExts(tag: Tag) extends AbstractTable[SoPhanCongExt](tag, "sophancongext") {
 
   def lamDem = column[Boolean]("lamDem", O.NotNull, O.Default(false))
 

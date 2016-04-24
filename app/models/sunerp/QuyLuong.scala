@@ -17,7 +17,7 @@ case class QuyLuong(
                      soTien: Long
                      ) extends WithId[Long]
 
-class QuyLuongs(tag: Tag) extends AbstractTable[QuyLuong](tag, "quyLuong") {
+class QuyLuongs(tag: Tag) extends AbstractTable[QuyLuong](tag, "quyluong") {
 
   def soTien = column[Long]("soTien", O.NotNull)
 

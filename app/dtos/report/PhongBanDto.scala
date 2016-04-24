@@ -35,7 +35,10 @@ case class PhongBanDto(
     || (kl.quyGio != null && kl.quyGio > 0))
     .filterNot(_.task.hidden)
 
-  def tyLeHoanThanhCongViec = khoiLuongRows.headOption.fold(0d)(kl => kl.totalGio / kl.quyGio * 100)
+  def tyLeHoanThanhCongViec = khoiLuongRows.headOption
+    .filter(kl => kl.totalGio != null && kl.quyGio != null && kl.quyGio > 0)
+    .map(kl => kl.totalGio / kl.quyGio * 100)
+    .getOrElse(0d)
 
   implicit class ReportDouble(d: Double) {
     def asJava: java.lang.Double = if (d > 0) d else null

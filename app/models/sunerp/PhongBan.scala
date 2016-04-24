@@ -32,7 +32,7 @@ case class PhongBan(
   }
 }
 
-class PhongBans(tag: Tag) extends AbstractTable[PhongBan](tag, "phongBan") {
+class PhongBans(tag: Tag) extends AbstractTable[PhongBan](tag, "phongban") {
 
   def donViId = column[Long]("donViId", O.NotNull)
 

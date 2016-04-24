@@ -23,7 +23,7 @@ case class DonVi(
   def getShortName = shortName.getOrElse(name)
 }
 
-class DonVis(tag: Tag) extends AbstractTable[DonVi](tag, "donVi") {
+class DonVis(tag: Tag) extends AbstractTable[DonVi](tag, "donvi") {
   def name = column[String]("name", O.NotNull)
 
   def shortName = column[String]("shortName")

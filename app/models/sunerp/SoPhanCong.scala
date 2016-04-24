@@ -57,7 +57,7 @@ case class SoPhanCong(
   }
 }
 
-class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "soPhanCong") {
+class SoPhanCongs(tag: Tag) extends AbstractTable[SoPhanCong](tag, "sophancong") {
 
   def nhanVienId = column[Long]("nhanVienId", O.NotNull)
 

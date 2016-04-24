@@ -60,7 +60,7 @@ case class NhanVien(
 
 }
 
-class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanVien") {
+class NhanViens(tag: Tag) extends AbstractTable[NhanVien](tag, "nhanvien") {
 
   def maNv = column[String]("maNv", O.NotNull)
 
