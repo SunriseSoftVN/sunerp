@@ -54,6 +54,7 @@ case class PhongBanDto(
       stt += 1
       val row = new BangChamCongRow
       row.stt = stt
+      row.maNV = nhanVien.maNv
       row.tenNV = nhanVien.name
       row.nvId = nhanVien.id
       row.hsl = HeSoLuongs.getHeSoLuong(nhanVien.id, month, year).asJava

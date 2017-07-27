@@ -9,12 +9,13 @@ import models.sunerp.NhanVien
  * @since 4/15/14 2:57 PM
  *
  */
-case class NhanVienDto(id: Long, name: String)
+case class NhanVienDto(id: Long, maNv: String, name: String)
 
 object NhanVienDto {
 
   def apply(nhanVien: NhanVien) = new NhanVienDto(
     id = nhanVien.id.get,
+    maNv = nhanVien.maNv,
     name = nhanVien.lastName + " " + nhanVien.firstName
   )
 

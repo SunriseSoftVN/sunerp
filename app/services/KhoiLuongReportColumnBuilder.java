@@ -49,9 +49,10 @@ public final class KhoiLuongReportColumnBuilder {
     public static final TextColumnBuilder<Double> conLaiGio = col.column("Giờ", "conLaiGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setWidth(70);
     public static final TextColumnBuilder<Double> xnKL = col.column("KL", "xnKL", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(30);
     public static final TextColumnBuilder<Double> xnGio = col.column("Giờ", "xnGio", type.doubleType()).setStyle(COLUMN_NUMBER_STYLE).setFixedWidth(30);
-    public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType()).setFixedWidth(120);
+    public static final TextColumnBuilder<String> maNV = col.column("Mã NV", "maNV", type.stringType()).setFixedWidth(35);
+    public static final TextColumnBuilder<String> tenNV = col.column("Tên người làm", "tenNV", type.stringType()).setFixedWidth(110);
     public static final TextColumnBuilder<String> ngay = col.column("Ngày", "ngay", type.stringType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
-    public static final TextColumnBuilder<Integer> stt = col.column("TT", "stt", type.integerType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(30);
+    public static final TextColumnBuilder<Integer> stt = col.column("TT", "stt", type.integerType()).setStyle(COLUMN_CENTER_STYLE).setFixedWidth(25);
     public static final TextColumnBuilder<Double> hsl = col.column("HSL", "hsl", type.doubleType())
             .setPattern("0.##")
             .setStyle(COLUMN_NUMBER_CENTER_STYLE).setFixedWidth(30);
@@ -134,7 +135,7 @@ public final class KhoiLuongReportColumnBuilder {
         builder.setParameter("year", request.year());
 
         builder.columns(
-                stt, tenNV, hsl, congSanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet, tongCacKhoanCong,
+                stt, maNV, tenNV, hsl, congSanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet, tongCacKhoanCong,
                 omDau, thaiSan, conOm, taiNanLaoDong, tongCacKhoanTru,
                 phuCapLamDem, trucBHLD, phuCapDocHai, giuaCa, tongGioCong, diemHeSo, xepLoai, ghiChu
         );
@@ -167,11 +168,12 @@ public final class KhoiLuongReportColumnBuilder {
         tg2.add(tg3, tongCacKhoanCong, tg4, tongCacKhoanTru, phuCapLamDem, trucBHLD, phuCapDocHai, giuaCa);
         tg2.setTitleHeight(20);
 
-        builder.columnGrid(stt, tenNV, hsl, tg1, tg2, tongGioCong, diemHeSo, xepLoai, ghiChu);
+        builder.columnGrid(stt, maNV, tenNV, hsl, tg1, tg2, tongGioCong, diemHeSo, xepLoai, ghiChu);
 
 
         builder.subtotalsAtSummary(
                 sbt.text("", stt),
+                sbt.text("", maNV),
                 sbt.text("Tổng cộng", tenNV),
                 sbt.text("", hsl),
                 sbt.sum(congSanPham).setStyle(COLUMN_NUMBER_CENTER_STYLE),
