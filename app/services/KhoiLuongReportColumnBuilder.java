@@ -135,7 +135,7 @@ public final class KhoiLuongReportColumnBuilder {
         builder.setParameter("year", request.year());
 
         builder.columns(
-                stt, maNV, tenNV, hsl, congSanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet, tongCacKhoanCong,
+                maNV, stt, tenNV, hsl, congSanPham, hop, hocNH, hocDH, gianTiep, nghiPhep, leTet, tongCacKhoanCong,
                 omDau, thaiSan, conOm, taiNanLaoDong, tongCacKhoanTru,
                 phuCapLamDem, trucBHLD, phuCapDocHai, giuaCa, tongGioCong, diemHeSo, xepLoai, ghiChu
         );
@@ -168,12 +168,12 @@ public final class KhoiLuongReportColumnBuilder {
         tg2.add(tg3, tongCacKhoanCong, tg4, tongCacKhoanTru, phuCapLamDem, trucBHLD, phuCapDocHai, giuaCa);
         tg2.setTitleHeight(20);
 
-        builder.columnGrid(stt, maNV, tenNV, hsl, tg1, tg2, tongGioCong, diemHeSo, xepLoai, ghiChu);
+        builder.columnGrid(maNV, stt, tenNV, hsl, tg1, tg2, tongGioCong, diemHeSo, xepLoai, ghiChu);
 
 
         builder.subtotalsAtSummary(
-                sbt.text("", stt),
                 sbt.text("", maNV),
+                sbt.text("", stt),
                 sbt.text("Tổng cộng", tenNV),
                 sbt.text("", hsl),
                 sbt.sum(congSanPham).setStyle(COLUMN_NUMBER_CENTER_STYLE),
